@@ -14,94 +14,87 @@
    <string>Simulator</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="Simulator.qrc">
+   <iconset resource="../uiresource/Simulator.qrc">
     <normaloff>:/ico/simulator.ico</normaloff>:/ico/simulator.ico</iconset>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout_2">
     <property name="leftMargin">
-     <number>0</number>
+     <number>2</number>
     </property>
     <property name="topMargin">
      <number>0</number>
     </property>
     <property name="rightMargin">
-     <number>0</number>
+     <number>2</number>
     </property>
     <property name="bottomMargin">
      <number>0</number>
     </property>
     <item row="0" column="0">
-     <layout class="QGridLayout" name="gridLayout">
+     <layout class="QGridLayout" name="gridLayout_7">
       <item row="0" column="0">
-       <widget class="QTabWidget" name="tabWidget">
-        <property name="currentIndex">
-         <number>0</number>
+       <widget class="QGroupBox" name="groupBox">
+        <property name="title">
+         <string>Data Information</string>
         </property>
-        <widget class="QWidget" name="tab_subscribe">
-         <attribute name="title">
-          <string>Subscribe</string>
-         </attribute>
-         <layout class="QGridLayout" name="gridLayout_8">
-          <item row="0" column="0">
-           <layout class="QGridLayout" name="gridLayout_7">
-            <item row="0" column="0">
-             <widget class="QListWidget" name="listWidgetSubscribe">
-              <property name="editTriggers">
-               <set>QAbstractItemView::NoEditTriggers</set>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </item>
-         </layout>
-        </widget>
-        <widget class="QWidget" name="tab_public">
-         <attribute name="title">
-          <string>Publish</string>
-         </attribute>
-         <layout class="QGridLayout" name="gridLayout_10">
-          <item row="0" column="0">
-           <layout class="QGridLayout" name="gridLayout_9">
-            <item row="2" column="1" alignment="Qt::AlignHCenter">
-             <widget class="QPushButton" name="pushButtonPublish">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="text">
-               <string>Publish</string>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="1">
-             <widget class="QListView" name="listViewPublish">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="1">
-             <widget class="QGroupBox" name="groupBoxPublish">
-              <property name="title">
-               <string>Value</string>
-              </property>
-              <layout class="QGridLayout" name="gridLayout_11">
-               <item row="0" column="0">
-                <widget class="QTextEdit" name="textEditPublishValue"/>
-               </item>
-              </layout>
-             </widget>
-            </item>
-           </layout>
-          </item>
-         </layout>
-        </widget>
+        <layout class="QGridLayout" name="gridLayout_10">
+         <item row="0" column="0">
+          <layout class="QGridLayout" name="gridLayout_8">
+           <item row="0" column="0">
+            <widget class="QListView" name="listViewDataInfo"/>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QGroupBox" name="groupBox_2">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>83</height>
+         </size>
+        </property>
+        <property name="title">
+         <string>Publish Data</string>
+        </property>
+        <layout class="QGridLayout" name="gridLayout_9">
+         <item row="0" column="0">
+          <layout class="QHBoxLayout" name="horizontalLayout">
+           <item>
+            <widget class="QLabel" name="label">
+             <property name="text">
+              <string>Value:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QTextEdit" name="textEditValue"/>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pushButtonPublish">
+             <property name="text">
+              <string>Publish</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
        </widget>
       </item>
      </layout>
@@ -121,13 +114,15 @@
     <property name="title">
      <string>&amp;File</string>
     </property>
+    <addaction name="action_Load_CSV"/>
+    <addaction name="action_Exit"/>
    </widget>
    <addaction name="menu_File"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <widget class="QDockWidget" name="dockWidget">
    <property name="windowTitle">
-    <string>Topic tree</string>
+    <string>Data Dictionary</string>
    </property>
    <attribute name="dockWidgetArea">
     <number>1</number>
@@ -149,17 +144,7 @@
      <item row="0" column="0">
       <layout class="QGridLayout" name="gridLayout_5">
        <item row="0" column="0">
-        <widget class="QTreeView" name="treeViewTopic">
-         <property name="contextMenuPolicy">
-          <enum>Qt::CustomContextMenu</enum>
-         </property>
-         <property name="alternatingRowColors">
-          <bool>true</bool>
-         </property>
-         <attribute name="headerShowSortIndicator" stdset="0">
-          <bool>false</bool>
-         </attribute>
-        </widget>
+        <widget class="QListView" name="listViewDataDictionary"/>
        </item>
       </layout>
      </item>
@@ -190,14 +175,7 @@
      <item row="0" column="0">
       <layout class="QGridLayout" name="gridLayout_3">
        <item row="0" column="0">
-        <widget class="QTextEdit" name="textEditLog">
-         <property name="enabled">
-          <bool>true</bool>
-         </property>
-         <property name="readOnly">
-          <bool>true</bool>
-         </property>
-        </widget>
+        <widget class="QListView" name="listViewLog"/>
        </item>
       </layout>
      </item>
@@ -226,7 +204,7 @@
     <bool>true</bool>
    </property>
    <property name="icon">
-    <iconset resource="Simulator.qrc">
+    <iconset resource="../uiresource/Simulator.qrc">
      <normaloff>:/ico/connect.ico</normaloff>:/ico/connect.ico</iconset>
    </property>
    <property name="text">
@@ -235,23 +213,26 @@
   </action>
   <action name="actionSetting">
    <property name="icon">
-    <iconset resource="Simulator.qrc">
+    <iconset resource="../uiresource/Simulator.qrc">
      <normaloff>:/ico/set.ico</normaloff>:/ico/set.ico</iconset>
    </property>
    <property name="text">
     <string>Setting</string>
    </property>
   </action>
+  <action name="action_Load_CSV">
+   <property name="text">
+    <string>&amp;Load CSV</string>
+   </property>
+  </action>
+  <action name="action_Exit">
+   <property name="text">
+    <string>&amp;Exit</string>
+   </property>
+  </action>
  </widget>
- <tabstops>
-  <tabstop>textEditLog</tabstop>
-  <tabstop>tabWidget</tabstop>
-  <tabstop>treeViewTopic</tabstop>
-  <tabstop>listWidgetSubscribe</tabstop>
-  <tabstop>listViewPublish</tabstop>
- </tabstops>
  <resources>
-  <include location="Simulator.qrc"/>
+  <include location="../uiresource/Simulator.qrc"/>
  </resources>
  <connections/>
 </ui>

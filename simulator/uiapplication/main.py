@@ -1,5 +1,5 @@
 from PyQt5.QtWidgets import QApplication, QMainWindow
-from SimulatorUI import Ui_SimulatorUI
+from simulator.uiform.SimulatorUI import Ui_SimulatorUI
 
 
 class MainApp(QMainWindow):
