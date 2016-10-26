@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>636</width>
-    <height>712</height>
+    <width>1024</width>
+    <height>768</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -42,7 +42,129 @@
          <item row="0" column="0">
           <layout class="QGridLayout" name="gridLayout_8">
            <item row="0" column="0">
-            <widget class="QListView" name="listViewDataInfo"/>
+            <widget class="QTreeWidget" name="treeWidgetDataInfo">
+             <property name="editTriggers">
+              <set>QAbstractItemView::NoEditTriggers</set>
+             </property>
+             <property name="alternatingRowColors">
+              <bool>true</bool>
+             </property>
+             <property name="columnCount">
+              <number>2</number>
+             </property>
+             <column>
+              <property name="text">
+               <string>Name</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Value</string>
+              </property>
+             </column>
+             <item>
+              <property name="text">
+               <string>SubSystem</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>DataPath</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Name</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Description</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Type</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Format</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>MaxSize</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Default</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Min</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Max</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>ChoiceList</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>ScaleUnit</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Precision</string>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>IsAlarm</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>IsEvtLog</string>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Producer</string>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Consumer</string>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>HashID</string>
+              </property>
+             </item>
+            </widget>
            </item>
           </layout>
          </item>
@@ -106,7 +228,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>636</width>
+     <width>1024</width>
      <height>21</height>
     </rect>
    </property>
@@ -121,6 +243,9 @@
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <widget class="QDockWidget" name="dockWidget">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
    <property name="windowTitle">
     <string>Data Dictionary</string>
    </property>
@@ -143,8 +268,15 @@
      </property>
      <item row="0" column="0">
       <layout class="QGridLayout" name="gridLayout_5">
-       <item row="0" column="0">
-        <widget class="QListView" name="listViewDataDictionary"/>
+       <item row="0" column="1">
+        <widget class="QTreeView" name="treeViewDataDictionary">
+         <property name="editTriggers">
+          <set>QAbstractItemView::NoEditTriggers</set>
+         </property>
+         <property name="alternatingRowColors">
+          <bool>true</bool>
+         </property>
+        </widget>
        </item>
       </layout>
      </item>

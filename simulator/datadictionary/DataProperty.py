@@ -1,3 +1,5 @@
+import re
+import json
 
 class DataProperty:
     def __init__(self, data=[], index={}):
@@ -19,6 +21,8 @@ class DataProperty:
         self._producer = data[index["Producer"]:index["Consumer"]]
         self._consumer = data[index["Consumer"]:index["HashID"]]
         self._hash_id = data[index["HashID"]]
+        self.__producer_name_list = index["PropertyNameList"][1][index["Producer"]:index["Consumer"]]
+        self.__consumer_name_list = index["PropertyNameList"][1][index["Consumer"]:index["HashID"]]
         pass
 
     @property
@@ -100,9 +104,9 @@ class DataProperty:
     @property
     def is_alarm(self):
         tmp_str = self._is_alarm.upper()
-        if tmp_str == "FALSE":
+        if tmp_str == "NO":
             return False
-        elif tmp_str == "TRUE":
+        elif tmp_str == "YES":
             return True
         else:
             return None
@@ -111,9 +115,9 @@ class DataProperty:
     @property
     def is_evt_log(self):
         tmp_str = self._is_evt_log.upper()
-        if tmp_str == "FALSE":
+        if tmp_str == "NO":
             return False
-        elif tmp_str == "TRUE":
+        elif tmp_str == "YES":
             return True
         else:
             return None
@@ -121,22 +125,43 @@ class DataProperty:
 
     @property
     def producer(self):
+        producer_list = []
+        for index in range(len(self._producer)):
+            tmp = self._producer[index].upper()
+            if tmp == "YES":
+                producer_list.append(self.__producer_name_list[index])
+        return producer_list
         pass
 
     @property
     def consumer(self):
+        consumer_list = []
+        for index in range(len(self._consumer)):
+            tmp = self._consumer[index].upper()
+            if tmp == "YES":
+                consumer_list.append(self.__consumer_name_list[index])
+        return consumer_list
         pass
 
     @property
     def hash_id(self):
-        if self._hash_id.isdigit():
-            return eval(self._hash_id)
-        else:
-            return None
+        tmp = '' + self._hash_id.upper()
+        tmp_id = None
+        if tmp.startswith('0X'):
+            if re.match(r'[0-9A-F]+', tmp[2:]):
+                tmp_id = eval(tmp)
+        return tmp_id
         pass
 
-    def __parser_choice_list(self, list_string=""):
+    @staticmethod
+    def __parser_choice_list(list_string=""):
         choice_list = {}
+        try:
+            choice_list = json.loads(list_string)
+        except:
+            pass
+        print(choice_list)
+        '''
         list_string = list_string.expandtabs(0)
         list_string = list_string.replace(' ', '')
         list_string = list_string.replace('{', '')
@@ -145,7 +170,9 @@ class DataProperty:
 
         for cell in item:
             tmp = cell.split(';')
-            choice_list[tmp[0]] = tmp[1]
+            if len(tmp) >= 2:
+                choice_list[tmp[0]] = tmp[1]
+        '''
         return choice_list
 
 
