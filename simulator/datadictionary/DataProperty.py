@@ -158,21 +158,8 @@ class DataProperty:
         choice_list = {}
         try:
             choice_list = json.loads(list_string)
-        except:
+        except json.JSONDecodeError:
             pass
-        print(choice_list)
-        '''
-        list_string = list_string.expandtabs(0)
-        list_string = list_string.replace(' ', '')
-        list_string = list_string.replace('{', '')
-        list_string = list_string.rstrip('}')
-        item = list_string.split('}')
-
-        for cell in item:
-            tmp = cell.split(';')
-            if len(tmp) >= 2:
-                choice_list[tmp[0]] = tmp[1]
-        '''
         return choice_list
 
 

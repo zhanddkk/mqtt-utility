@@ -52,17 +52,6 @@ class Datagram:
             index = -1
         return self._topic[index]
 
-    def data(self, column):
-        if column == 0:
-            return self._topic[]
-        elif column == 1:
-            return str(self.data_property.default)
-        elif column == 2:
-            return self.data_property.hash_id
-        else:
-            return None
-        pass
-
     @staticmethod
     def __parser_topic(path='', name='', system=''):
         topic = []
@@ -91,7 +80,7 @@ class Datagram:
                 front = path[:start]
                 behind = path[end + 1:]
                 for i in range(device_number):
-                    tmp = system + front + str(i) + behind + name
+                    tmp = system + front + str(i + 1) + behind + name
                     topic.append(tmp)
             else:
                 topic.append(system + path + name)
