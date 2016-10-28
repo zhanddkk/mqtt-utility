@@ -1,6 +1,8 @@
 import csv
 import sys
 from simulator.datadictionary.Datagram import Datagram
+import paho.mqtt.publish as publish
+from PyQt5.QtCore import pyqtSignal, QObject
 
 
 class DatagramManager:
@@ -9,6 +11,8 @@ class DatagramManager:
         self.property_name = []
         self.datagram_dict = {}
         self.index_list = []
+        self.data_broker = ""
+        self.client_name = ""
         pass
 
     def import_datagram(self, file_name=''):
@@ -41,4 +45,45 @@ class DatagramManager:
         return self.datagram_dict[hash_id]
         pass
 
+    def send_value(self, hash_id, dev_index, value):
+        dg = self.datagram_dict[hash_id]
+        publish.single(dg.get_topic(dev_index), value, hostname=self.data_broker)
+        pass
 
+    def get_row(self, hash_id, dev_index):
+        is_find = False
+        index = 0
+        for i in range(len(self.datagram_dict)):
+            if (self.index_list[i][0] == hash_id) and (self.index_list[i][1] == dev_index):
+                index += i
+                is_find = True
+                break
+        if is_find:
+            return index
+        else:
+            return None
+        pass
+
+
+class DatagramTreeItem(object):
+    def __init__(self, dg, parent=None):
+        self.parent_item = parent
+        self.item_dg = dg
+        self.instance = 0
+        self.child_items = []
+        pass
+
+    def child(self, row):
+        return self.child_items[row]
+
+    def child_count(self):
+        return len(self.child_items)
+
+    def child_number(self):
+        if self.parent_item:
+            return self.parent_item.child_item.index(self)
+        return 0
+
+    def column_count(self):
+        pass
+    pass

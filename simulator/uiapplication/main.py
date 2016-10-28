@@ -1,9 +1,11 @@
-from PyQt5.QtCore import pyqtSlot
-from PyQt5.QtCore import QAbstractItemModel, Qt, QModelIndex, QCoreApplication
+from PyQt5.QtCore import pyqtSlot, pyqtSignal, QThread
+from PyQt5.QtCore import QAbstractItemModel, Qt, QModelIndex
 from PyQt5.QtWidgets import QApplication, QMainWindow
 from simulator.uiform.SimulatorUI import Ui_SimulatorUI
 from simulator.datadictionary.DatagramManager import DatagramManager
-from simulator.datadictionary.Datagram import Datagram
+import paho.mqtt.client as data_client
+import datetime
+import cbor
 
 
 class TreeItem(object):
@@ -52,13 +54,12 @@ class TreeModel(QAbstractItemModel):
     def __init__(self, data, parent=None):
         super(TreeModel, self).__init__(parent)
         self.rootItem = TreeItem()
-        # self.dat = DatagramManager()
         self.import_data(data)
 
     def import_data(self, data):
         pass
 
-    def columnCount(self, parent):
+    def columnCount(self, parent=QModelIndex()):
         if parent.isValid():
             return parent.internalPointer().columnCount()
         else:
@@ -87,7 +88,7 @@ class TreeModel(QAbstractItemModel):
 
         return None
 
-    def index(self, row, column, parent):
+    def index(self, row, column, parent=QModelIndex()):
         if not self.hasIndex(row, column, parent):
             return QModelIndex()
 
@@ -114,7 +115,7 @@ class TreeModel(QAbstractItemModel):
 
         return self.createIndex(parentItem.row(), 0, parentItem)
 
-    def rowCount(self, parent):
+    def rowCount(self, parent=QModelIndex()):
         if parent.column() > 0:
             return 0
 
@@ -145,34 +146,170 @@ class TreeModel(QAbstractItemModel):
 
         return result
 
+
+class DatagramManagerThread(QThread):
+    signal_connect = pyqtSignal(list)
+    signal_publish = pyqtSignal(list)
+    signal_subscribe = pyqtSignal(list)
+    signal_log = pyqtSignal(list)
+    signal_message = pyqtSignal(list)
+
+    is_connected = False
+
+    def __init__(self, datagram_manager, parent=None):
+        super(DatagramManagerThread, self).__init__(parent)
+        self.dgm = datagram_manager
+        self.client = None
+        pass
+
+    def create_client(self):
+        self.client = data_client.Client(self.dgm.client_name, userdata=self)
+        self.client.on_message = self.on_message
+        self.client.on_connect = self.on_connect
+        self.client.on_publish = self.on_publish
+        self.client.on_subscribe = self.on_subscribe
+        self.client.on_log = self.on_log
+        self.connect()
+
+    def connect(self):
+        try:
+            self.client.connect(self.dgm.data_broker, 1883, 60)
+            self.is_connected = True
+        except:
+            print("Can't connect", self.dgm.data_broker)
+            self.is_connected = False
+
+    @staticmethod
+    def on_connect(client, obj, flag, rc):
+        print("OnConnect, rc: " + str(flag) + " " + str(rc))
+        f_send_signal = obj.send_update_signal
+        f_send_signal(obj.signal_connect, [flag, rc])
+
+    @staticmethod
+    def on_publish(client, obj, mid):
+        print("OnPublish, mid: " + str(mid))
+        f_send_signal = obj.send_update_signal
+        f_send_signal(obj.signal_publish, [mid])
+
+    @staticmethod
+    def on_subscribe(client, obj, mid, granted_qos):
+        print("Subscribed: " + str(mid) + " " + str(granted_qos))
+        f_send_signal = obj.send_update_signal
+        f_send_signal(obj.signal_subscribe, [mid, granted_qos])
+
+    @staticmethod
+    def on_log(client, obj, level, string):
+        print("Log:" + string)
+        f_send_signal = obj.send_update_signal
+        f_send_signal(obj.signal_log, [level, string])
+
+    @staticmethod
+    def on_message(client, obj, msg):
+        current_time = datetime.datetime.now()
+        str_current_time = current_time.strftime("%Y-%m-%d %H:%M:%S")
+        print(str_current_time + ": " + msg.topic + " " + str(msg.qos) + "{" + str(msg.payload) + "}")
+        f_send_signal = obj.send_update_signal
+        f_send_signal(obj.signal_message, [msg.topic, msg.qos, msg.payload])
+
+    def run(self):
+        self.client.loop_forever()
+        print("Exit the " + self.dgm.client_name + " thread")
+        pass
+
+    def stop(self):
+        self.client.disconnect()
+
+    def send_update_signal(self, signal, dat):
+        self.dgm
+        signal.emit(dat)
+        pass
+
+'''
+E_PAYLOAD_TYPE = 0
+E_PAYLOAD_VERSION = 1
+E_HASH_ID = 2
+E_PRODUCER_MASK = 3
+E_ACTION = 4
+E_TIMESTAMP_SECOND = 5
+E_TIMESTAMP_MS = 6
+E_DEVICE_INSTANCE_INDEX = 7
+E_DATA_OBJECT_REFERENCE_TYPE = 8
+E_DATA_OBJECT_REFERENCE_VALUE = 9
+E_VALUE = 10
+'''
+
+
 class MainApp(QMainWindow):
+    E_PAYLOAD_TYPE = 0
+    E_PAYLOAD_VERSION = 1
+    E_HASH_ID = 2
+    E_PRODUCER_MASK = 3
+    E_ACTION = 4
+    E_TIMESTAMP_SECOND = 5
+    E_TIMESTAMP_MS = 6
+    E_DEVICE_INSTANCE_INDEX = 7
+    E_DATA_OBJECT_REFERENCE_TYPE = 8
+    E_DATA_OBJECT_REFERENCE_VALUE = 9
+    E_VALUE = 10
+
     def __init__(self, parent=None):
         super(MainApp, self).__init__(parent)
         self.ui = Ui_SimulatorUI()
         self.ui.setupUi(self)
 
         self.datagram = DatagramManager()
-        self.load_csv('../datadictionarysource/default_data_dictionary.csv')
+        self.datagram.client_name = "DatagramClient"
+        self.datagram.data_broker = "localhost"
 
+        self.datagram_thread = DatagramManagerThread(self.datagram)
+        self.datagram_thread.create_client()
+        self.datagram_thread.start()
+
+        self.load_csv('../datadictionarysource/default_data_dictionary.csv')
         self.data_dictionary = TreeModel(None)
-        self.import_datagram(self.data_dictionary, self.datagram)
+        self.import_datagram(self.data_dictionary, self.datagram, ("Topic Node", "Value", "Hash ID"))
 
         self.ui.treeViewDataDictionary.setModel(self.data_dictionary)
         self.ui.treeViewDataDictionary.selectionModel().selectionChanged.connect(
-            self.on_treeViewDataDictionary_selectionModel_selectionChanged)
+            self.update_datagram_property_display)
+
+        self.datagram_thread.signal_message.connect(self.update_value)
+
+    def update_value(self, message_list):
+        msg = cbor.loads(message_list[-1])
+        dg = self.datagram.datagram_dict[msg[self.E_HASH_ID]]
+        dev_index = msg[self.E_DEVICE_INSTANCE_INDEX] - 1
+        dg.set_value(msg[self.E_VALUE], dev_index)
+        row = self.datagram.get_row(msg[self.E_HASH_ID], dev_index)
+        model = self.ui.treeViewDataDictionary.model()
+        index = model.index(row, 0)
+        # index = self.ui.treeViewDataDictionary.selectionModel().currentIndex()
+        child = model.index(row, 1, model.parent(index))
+        model.setData(child, str(msg[self.E_VALUE]), Qt.EditRole)
+        self.ui.treeViewDataDictionary.closePersistentEditor(index)
+
+        # index = self.ui.treeViewDataDictionary.selectionModel().currentIndex()
+        # model = self.ui.treeViewDataDictionary.model()
+        # a = model.parent(index)
+        # child = model.index(index.row(), 1, a)
+        # model.setData(child, self.ui.textEditValue.toPlainText(), Qt.EditRole)
+        # self.ui.treeViewDataDictionary.closePersistentEditor(index)
+        pass
 
     def load_csv(self, filename=""):
         self.datagram.import_datagram(filename)
         pass
 
-    @staticmethod
-    def import_datagram(tree_model=TreeModel(None), dg_m=DatagramManager(), header=()):
-        tree_model.rootItem = TreeItem(("Topic Node", "Value", "Hash ID"))
+    # @staticmethod
+    def import_datagram(self, tree_model=TreeModel(None), dg_m=DatagramManager(), header=()):
+        tree_model.rootItem = TreeItem(header)
         parent = [tree_model.rootItem]
 
         for this_index in dg_m.index_list:
             dg = dg_m.get_datagram(this_index[0])
-            item = TreeItem([dg.get_topic(this_index[1]), dg.data_property.default, this_index[0]], parent[-1])
+            item = TreeItem([dg.get_topic(this_index[1]), dg.data_property.default, this_index[0], this_index[1]],
+                            parent[-1])
+            self.datagram_thread.client.subscribe(dg.get_topic(this_index[1]), 0)
             parent[-1].appendChild(item)
         pass
 
@@ -180,14 +317,44 @@ class MainApp(QMainWindow):
     def on_pushButtonPublish_clicked(self):
         sender = self.sender()
         index = self.ui.treeViewDataDictionary.selectionModel().currentIndex()
-        model = self.ui.treeViewDataDictionary.model()
-        a = model.parent(index)
-        child = model.index(index.row(), 1, a)
-        model.setData(child, self.ui.textEditValue.toPlainText(), Qt.EditRole)
-        self.ui.treeViewDataDictionary.closePersistentEditor(index)
-        self.statusBar().showMessage(sender.text() + ' was pressed')
+        row = index.row()
+        if row >= 0:
+            # topic = index.sibling(row, 0).data()
+            # hash_id = index.sibling(row, 2).data()
+            model = self.ui.treeViewDataDictionary.model()
+            item = model.getItem(index)
+            topic = item.itemData[0]
+            hash_id = item.itemData[2]
+            dev_index = item.itemData[3]
+            try:
+                payload = {
+                    self.E_PAYLOAD_TYPE: 0,
+                    self.E_PAYLOAD_VERSION: 0,
+                    self.E_HASH_ID: hash_id,
+                    self.E_PRODUCER_MASK: 0,
+                    self.E_ACTION: 0,
+                    self.E_TIMESTAMP_MS: 0,
+                    self.E_TIMESTAMP_SECOND: 0,
+                    self.E_DEVICE_INSTANCE_INDEX: dev_index + 1,
+                    self.E_VALUE: "I am zhan lei"
+                }
+                payload = cbor.dumps(payload)
+                self.datagram_thread.client.publish(topic, payload)
+                result = "Publish OK"
+            except ValueError:
+                result = "Publish Failed"
+        else:
+            result = "No Topic"
 
-    def on_treeViewDataDictionary_selectionModel_selectionChanged(self):
+        # index = self.ui.treeViewDataDictionary.selectionModel().currentIndex()
+        # model = self.ui.treeViewDataDictionary.model()
+        # a = model.parent(index)
+        # child = model.index(index.row(), 1, a)
+        # model.setData(child, self.ui.textEditValue.toPlainText(), Qt.EditRole)
+        # self.ui.treeViewDataDictionary.closePersistentEditor(index)
+        self.statusBar().showMessage(sender.text() + ' was pressed: ' + result)
+
+    def update_datagram_property_display(self):
         current_index = self.ui.treeViewDataDictionary.selectionModel().currentIndex()
         row = current_index.row()
         topic = current_index.sibling(row, 0).data()
