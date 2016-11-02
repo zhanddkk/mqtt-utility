@@ -53,7 +53,7 @@ class DatagramManager:
     def get_row(self, hash_id, dev_index):
         is_find = False
         index = 0
-        for i in range(len(self.datagram_dict)):
+        for i in range(len(self.index_list)):
             if (self.index_list[i][0] == hash_id) and (self.index_list[i][1] == dev_index):
                 index += i
                 is_find = True

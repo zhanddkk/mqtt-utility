@@ -32,149 +32,145 @@
      <number>0</number>
     </property>
     <item row="0" column="0">
-     <layout class="QGridLayout" name="gridLayout_7">
-      <item row="0" column="0">
+     <layout class="QGridLayout" name="gridLayout">
+      <item row="0" column="1">
        <widget class="QGroupBox" name="groupBox">
         <property name="title">
          <string>Data Information</string>
         </property>
         <layout class="QGridLayout" name="gridLayout_10">
          <item row="0" column="0">
-          <layout class="QGridLayout" name="gridLayout_8">
-           <item row="0" column="0">
-            <widget class="QTreeWidget" name="treeWidgetDataInfo">
-             <property name="editTriggers">
-              <set>QAbstractItemView::NoEditTriggers</set>
-             </property>
-             <property name="alternatingRowColors">
-              <bool>true</bool>
-             </property>
-             <property name="columnCount">
-              <number>2</number>
-             </property>
-             <column>
-              <property name="text">
-               <string>Name</string>
-              </property>
-             </column>
-             <column>
-              <property name="text">
-               <string>Value</string>
-              </property>
-             </column>
-             <item>
-              <property name="text">
-               <string>SubSystem</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>DataPath</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>Name</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>Description</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>Type</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>Format</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>MaxSize</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>Default</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>Min</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>Max</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>ChoiceList</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>ScaleUnit</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>Precision</string>
-              </property>
-              <property name="text">
-               <string/>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>IsAlarm</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>IsEvtLog</string>
-              </property>
-              <property name="text">
-               <string/>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>Producer</string>
-              </property>
-              <property name="text">
-               <string/>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>Consumer</string>
-              </property>
-              <property name="text">
-               <string/>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>HashID</string>
-              </property>
-             </item>
-            </widget>
+          <widget class="QTreeWidget" name="treeWidgetDataInfo">
+           <property name="editTriggers">
+            <set>QAbstractItemView::NoEditTriggers</set>
+           </property>
+           <property name="alternatingRowColors">
+            <bool>true</bool>
+           </property>
+           <property name="columnCount">
+            <number>2</number>
+           </property>
+           <column>
+            <property name="text">
+             <string>Name</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>Value</string>
+            </property>
+           </column>
+           <item>
+            <property name="text">
+             <string>SubSystem</string>
+            </property>
            </item>
-          </layout>
+           <item>
+            <property name="text">
+             <string>DataPath</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Name</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Description</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Type</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Format</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>MaxSize</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Default</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Min</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Max</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>ChoiceList</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>ScaleUnit</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Precision</string>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>IsAlarm</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>IsEvtLog</string>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Producer</string>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Consumer</string>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>HashID</string>
+            </property>
+           </item>
+          </widget>
          </item>
         </layout>
        </widget>
       </item>
-      <item row="1" column="0">
+      <item row="0" column="2">
        <widget class="QGroupBox" name="groupBox_2">
         <property name="sizePolicy">
-         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
@@ -188,33 +184,28 @@
         <property name="maximumSize">
          <size>
           <width>16777215</width>
-          <height>83</height>
+          <height>16777215</height>
          </size>
         </property>
         <property name="title">
          <string>Publish Data</string>
         </property>
         <layout class="QGridLayout" name="gridLayout_9">
-         <item row="0" column="0">
-          <layout class="QHBoxLayout" name="horizontalLayout">
-           <item>
-            <widget class="QLabel" name="label">
-             <property name="text">
-              <string>Value:</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QTextEdit" name="textEditValue"/>
-           </item>
-           <item>
-            <widget class="QPushButton" name="pushButtonPublish">
-             <property name="text">
-              <string>Publish</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
+         <item row="0" column="2">
+          <widget class="QTextEdit" name="textEditValue">
+           <property name="font">
+            <font>
+             <family>Consolas</family>
+            </font>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="2">
+          <widget class="QPushButton" name="pushButtonPublish">
+           <property name="text">
+            <string>Publish</string>
+           </property>
+          </widget>
          </item>
         </layout>
        </widget>
@@ -268,7 +259,7 @@
      </property>
      <item row="0" column="0">
       <layout class="QGridLayout" name="gridLayout_5">
-       <item row="0" column="1">
+       <item row="1" column="1">
         <widget class="QTreeView" name="treeViewDataDictionary">
          <property name="editTriggers">
           <set>QAbstractItemView::NoEditTriggers</set>
