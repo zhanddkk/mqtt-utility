@@ -60,25 +60,29 @@ class DatagramManager:
 
     def import_csv(self, file_name=''):
         datagram_property = namedtuple('DatagramRecord', self.datagram_property_names)
-        with open(file_name, newline='') as csv_file:
-            try:
-                next(csv_file)
-                next(csv_file)
-                reader = csv.reader(csv_file, dialect='excel')
-                for record in map(datagram_property._make, reader):
-                    property_data = DatagramProperty(record)
-                    hash_id = property_data.hash_id
-                    datagram = Datagram(property_data)
-                    try:
-                        self.__data_dict[hash_id] = datagram
-                        for index, topic in enumerate(datagram.topics):
-                            self.__indexes.append([hash_id, index, topic])
-                    except KeyError:
-                        pass
-                return True
-            except csv.Error:
-                print('Read csv error')
-                return False
+        try:
+            with open(file_name, newline='') as csv_file:
+                try:
+                    next(csv_file)
+                    next(csv_file)
+                    reader = csv.reader(csv_file, dialect='excel')
+                    for record in map(datagram_property._make, reader):
+                        property_data = DatagramProperty(record)
+                        hash_id = property_data.hash_id
+                        datagram = Datagram(property_data)
+                        try:
+                            self.__data_dict[hash_id] = datagram
+                            for index, topic in enumerate(datagram.topics):
+                                self.__indexes.append([hash_id, index, topic])
+                        except KeyError:
+                            pass
+                    return True
+                except csv.Error:
+                    print('Read csv error')
+                    return False
+        except FileNotFoundError as e:
+            print(e)
+            return False
         pass
 
     def get_datagram_by_id(self, hash_id=0):
@@ -100,6 +104,9 @@ class DatagramManager:
             self.client.loop_start()
             self.is_connect = True
         except ConnectionRefusedError as e:
+            print(e)
+            self.is_connect = False
+        except TimeoutError as e:
             print(e)
             self.is_connect = False
             pass
@@ -147,9 +154,6 @@ class DatagramManager:
     def on_log(client, obj, level, string):
         print("Log: level = " + str(level) + ' ' + string)
 
-    # def set_callback(self, callback):
-    #    self._callback = callback
-
     @staticmethod
     def on_message(client, obj, msg):
         print("Message: topic = [" + msg.topic + "] qos = " + str(msg.qos) + " message = [" + str(msg.payload) + "]")
@@ -166,7 +170,6 @@ class DatagramManager:
             pass
 
         if obj.update_data_callback:
-            # obj.update_data_callback(obj.user_data)
             obj.update_data_callback(obj.user_data, package)
 
     @staticmethod

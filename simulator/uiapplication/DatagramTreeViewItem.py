@@ -45,7 +45,13 @@ class DatagramTreeViewItem(object):
                 return self.datagram.get_value(self.id)
                 pass
             elif column == 2:
-                return self.datagram.id
+                try:
+                    hash_str = '0x' + hex(self.datagram.id)[2:].upper()
+                    return hash_str
+                except IndexError:
+                    return None
+                except TypeError:
+                    return None
                 pass
             else:
                 return None
