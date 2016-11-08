@@ -261,6 +261,11 @@
       <layout class="QGridLayout" name="gridLayout_5">
        <item row="1" column="1">
         <widget class="QTreeView" name="treeViewDataDictionary">
+         <property name="font">
+          <font>
+           <family>Consolas</family>
+          </font>
+         </property>
          <property name="editTriggers">
           <set>QAbstractItemView::NoEditTriggers</set>
          </property>

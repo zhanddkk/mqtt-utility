@@ -23,21 +23,22 @@ class DatagramManager:
                               'Precision,'      \
                               'IsAlarm,'        \
                               'IsEvtLog,'       \
-                              'Producer_UC,'	   \
-                              'Producer_SLC_UPS,' \
-                              'Producer_SLC_NMC,' \
-                              'Producer_HMI,'	 \
-                              'Producer_Tuner,'	 \
-                              'Consumer_UC,'	     \
-                              'Consumer_SLC_UPS,' \
-                              'Consumer_SLC_NMC,' \
-                              'Consumer_HMI,'	 \
-                              'Consumer_Tuner,'	\
+                              'Producer_UC,'        \
+                              'Producer_SLC_UPS,'   \
+                              'Producer_SLC_NMC,'   \
+                              'Producer_HMI,'       \
+                              'Producer_Tuner,'     \
+                              'Consumer_UC,'        \
+                              'Consumer_SLC_UPS,'   \
+                              'Consumer_SLC_NMC,'   \
+                              'Consumer_HMI,'       \
+                              'Consumer_Tuner,'     \
                               'HashID'
 
     def __init__(self):
         self.name = 'DatagramManager'   # DatagramManager name
         self.broker = 'localhost'       # MQTT broker
+        self.port = 1883                # MQTT broker port
         self.client = None
         self.is_connect = False
         self.update_data_callback = None
@@ -58,6 +59,10 @@ class DatagramManager:
     def len(self):
         return len(self.__indexes)
 
+    def clear_all_data(self):
+        self.__data_dict.clear()
+        self.__indexes.clear()
+
     def import_csv(self, file_name=''):
         datagram_property = namedtuple('DatagramRecord', self.datagram_property_names)
         try:
@@ -77,8 +82,8 @@ class DatagramManager:
                         except KeyError:
                             pass
                     return True
-                except csv.Error:
-                    print('Read csv error')
+                except csv.Error as e:
+                    print(e)
                     return False
         except FileNotFoundError as e:
             print(e)
@@ -90,6 +95,8 @@ class DatagramManager:
             return self.__data_dict[hash_id]
         except KeyError:
             return None
+    ####################################################################################################################
+    # Mosquitto operation
 
     def connect_data_server(self):
         self.client = DataClient.Client(self.name, userdata=self)
@@ -100,9 +107,8 @@ class DatagramManager:
         self.client.on_disconnect = self.on_disconnect
         self.client.on_log = self.on_log
         try:
-            self.client.connect(self.broker, 1883, 60)
+            self.client.connect(self.broker, self.port, 60)
             self.client.loop_start()
-            self.is_connect = True
         except ConnectionRefusedError as e:
             print(e)
             self.is_connect = False
@@ -116,14 +122,17 @@ class DatagramManager:
     def disconnect_data_server(self):
         self.client.disconnect()
         self.client.loop_stop(force=False)
+        self.client = None
         self.is_connect = False
         pass
 
     def send_data_to_server(self, topic, data):
         if self.is_connect:
-            self.client.publish(topic, data)
+            print('test:', self.client.publish(topic, data))
+            return True
         else:
             print('The datagram manager has not connect to the server')
+            return False
         pass
 
     def subscribe_all_topic_to_server(self):
@@ -134,13 +143,32 @@ class DatagramManager:
                 except IndexError:
                     return
                 self.client.subscribe(topic, 0)
+            return True
         else:
             print('The datagram manager has not connect to the server')
+            return False
         pass
+
+    def un_subscribe_all_topic_to_server(self):
+        if self.is_connect:
+            for ids in self.index_list:
+                try:
+                    topic = ids[2]
+                except IndexError:
+                    return
+                self.client.unsubscribe(topic)
+            return True
+        else:
+            print('The datagram manager has not connect to the server')
+            return False
+        pass
+    ####################################################################################################################
+    # Mosquitto callback function
 
     @staticmethod
     def on_connect(client, obj, flag, rc):
         print("OnConnect, flag = " + str(flag) + " rc = " + str(rc))
+        obj.is_connect = True
 
     @staticmethod
     def on_publish(client, obj, mid):
@@ -175,6 +203,8 @@ class DatagramManager:
     @staticmethod
     def on_disconnect(client, obj, rc):
         print("Disconnect: rc = " + str(rc))
+        obj.client = None
+        obj.is_connect = False
         pass
 
 if __name__ == "__main__":

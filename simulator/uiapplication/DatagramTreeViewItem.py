@@ -9,6 +9,10 @@ class DatagramTreeViewItem(object):
         self.child_items = []
         pass
 
+    def clear_children(self):
+        self.child_items.clear()
+        pass
+
     def append_child(self, item):
         self.child_items.append(item)
         pass
@@ -46,7 +50,7 @@ class DatagramTreeViewItem(object):
                 pass
             elif column == 2:
                 try:
-                    hash_str = '0x' + hex(self.datagram.id)[2:].upper()
+                    hash_str = '0x' + '{:0>8}'.format(hex(self.datagram.id)[2:].upper())
                     return hash_str
                 except IndexError:
                     return None
