@@ -4,7 +4,10 @@ from PyQt5.QtWidgets import QApplication, QMainWindow, QTreeWidgetItem, QFileDia
 # import cbor
 # import json
 import sys
-sys.path.append('..\\..\\')
+import os
+(file_path_base, filename) = os.path.split(os.path.realpath(__file__))
+file_path = os.path.join(file_path_base, '..\\..\\')
+sys.path.append(file_path)
 ########################################################################################################################
 # Main windows class
 
@@ -150,20 +153,24 @@ class MainWin(QMainWindow):
         from simulator.uiapplication.DictionaryValueEditTreeModel import DictionaryValueEditTreeModel
         from simulator.uiapplication.ListValueDspTreeModel import ListValueDspTreeModel
         from simulator.uiapplication.ListValueEditTreeModel import ListValueEditTreeModel
+        from simulator.uiapplication.DictionaryTreeViewDelegate import DictionaryTreeViewDelegate
 
         from PyQt5.QtWidgets import QStyledItemDelegate
 
         if dg.property.type == 'STATUS':
             value_dsp_model = DictionaryValueDspTreeModel(dg, dev_index)
             value_edit_model = DictionaryValueEditTreeModel(dg, dev_index)
+            value_edit_delegate = DictionaryTreeViewDelegate(dg)
         elif dg.property.type == 'MEASURE':
             value_dsp_model = ListValueDspTreeModel(dg, dev_index)
             value_edit_model = ListValueEditTreeModel(dg, dev_index)
+            value_edit_delegate = QStyledItemDelegate()
         else:
-            self.ui.treeViewValueEdit.setItemDelegate(QStyledItemDelegate())
             value_dsp_model = GeneralValueDspTreeViewModel(dg, dev_index)
             value_edit_model = GeneralValueEditTreeViewModel(dg, dev_index)
+            value_edit_delegate = QStyledItemDelegate()
 
+        self.ui.treeViewValueEdit.setItemDelegate(value_edit_delegate)
         self.ui.treeViewValueDisplay.setModel(value_dsp_model)
         self.ui.treeViewValueEdit.setModel(value_edit_model)
         self.statusBar().showMessage("Clicked: " + topic + " @ " + hash_str)
