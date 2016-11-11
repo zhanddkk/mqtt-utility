@@ -1,0 +1,19 @@
+How to get the code:
+	1) git clone ssh://SESA429027@teamforge.schneider-electric.com:29418/secure_power_agilis_mqtt_simulator
+	2) cd secure_power_agilis_mqtt_simulator
+	3) git checkout Dev
+How to install the dependency:
+	1) Install python 		3.5+
+	2) Install PyQT5: 		5.7+
+	3) Install cbor:		1.0.0+
+	4) Install paho-mqtt:	1.2+
+	5) Install sip:			4.18.1
+How to run the appliction:
+	1) cd simulator
+	2) python uiapplication\main.py
+	3) from file, load csv (the default csv is located at secure_power_agilis_mqtt_simulator\simulator\datadictionarysource)
+
+	
+Known issue (2016/11/11)
+	You have to update to latest version (commit: 5386caa0df57a58650b3af70acf74e605fa43573) to make it work.
+	This version only support publish value for status datagram.

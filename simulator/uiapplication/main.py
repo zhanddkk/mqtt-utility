@@ -1,4 +1,4 @@
-from PyQt5 import QtWidgets
+# from PyQt5 import QtWidgets
 from PyQt5.QtCore import pyqtSlot, pyqtSignal
 from PyQt5.QtWidgets import QApplication, QMainWindow, QTreeWidgetItem, QFileDialog
 # import cbor
@@ -64,7 +64,8 @@ class MainWin(QMainWindow):
 
     def load_csv(self):
         fdg = QFileDialog()
-        fdg.setDirectory('../datadictionarysource/')
+        csv_file_path = os.path.join(file_path_base, '../datadictionarysource/')
+        fdg.setDirectory(csv_file_path)
         fdg.setNameFilter("CSV Files (*.csv);;Text Files (*.txt);;All Files (*)")
         if fdg.exec():
             self.ui.treeViewDataDictionary.setModel(None)
@@ -155,8 +156,6 @@ class MainWin(QMainWindow):
         from simulator.uiapplication.ListValueEditTreeModel import ListValueEditTreeModel
         from simulator.uiapplication.DictionaryTreeViewDelegate import DictionaryTreeViewDelegate
         from simulator.uiapplication.ListTreeViewDelegate import ListTreeViewDelegate
-
-        # from PyQt5.QtWidgets import QStyledItemDelegate
 
         if dg.property.type == 'STATUS':
             value_dsp_model = DictionaryValueDspTreeModel(dg, dev_index)
