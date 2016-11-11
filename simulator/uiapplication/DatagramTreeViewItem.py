@@ -46,7 +46,7 @@ class DatagramTreeViewItem(object):
                 return self.datagram.get_topic(self.id)
                 pass
             elif column == 1:
-                return self.datagram.get_value(self.id)
+                return str(self.datagram.get_value(self.id))
                 pass
             elif column == 2:
                 try:

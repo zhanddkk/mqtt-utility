@@ -17,6 +17,7 @@ class GeneralValueEditTreeViewModel(ValueViewModel):
 
     def get_value(self):
         item = self.root_item.child(0)
+        print(type(item.data(0)))
         return item.data(0)
         pass
 

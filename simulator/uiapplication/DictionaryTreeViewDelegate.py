@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QStyledItemDelegate, QSpinBox, QComboBox    # , QDoubleSpinBox
+from PyQt5.QtWidgets import QStyledItemDelegate, QSpinBox, QComboBox, QLineEdit    # , QDoubleSpinBox
 
 
 class DictionaryTreeViewDelegate(QStyledItemDelegate):
@@ -8,7 +8,7 @@ class DictionaryTreeViewDelegate(QStyledItemDelegate):
         pass
 
     def createEditor(self, parent, option, index):
-        editor = parent
+        editor = QLineEdit(parent)
         if index.column() == 0:
             editor = QComboBox(parent)
             data = index.data()

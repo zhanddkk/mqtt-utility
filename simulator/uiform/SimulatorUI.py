@@ -133,6 +133,7 @@ class Ui_SimulatorUI(object):
         self.label_2.setObjectName("label_2")
         self.gridLayout_9.addWidget(self.label_2, 8, 0, 1, 1)
         self.treeViewValueEdit = QtWidgets.QTreeView(self.groupBox_2)
+        self.treeViewValueEdit.setEditTriggers(QtWidgets.QAbstractItemView.CurrentChanged|QtWidgets.QAbstractItemView.DoubleClicked|QtWidgets.QAbstractItemView.EditKeyPressed|QtWidgets.QAbstractItemView.SelectedClicked)
         self.treeViewValueEdit.setAlternatingRowColors(True)
         self.treeViewValueEdit.setObjectName("treeViewValueEdit")
         self.gridLayout_9.addWidget(self.treeViewValueEdit, 4, 0, 1, 4)

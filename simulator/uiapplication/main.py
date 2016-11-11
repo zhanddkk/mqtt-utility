@@ -154,8 +154,9 @@ class MainWin(QMainWindow):
         from simulator.uiapplication.ListValueDspTreeModel import ListValueDspTreeModel
         from simulator.uiapplication.ListValueEditTreeModel import ListValueEditTreeModel
         from simulator.uiapplication.DictionaryTreeViewDelegate import DictionaryTreeViewDelegate
+        from simulator.uiapplication.ListTreeViewDelegate import ListTreeViewDelegate
 
-        from PyQt5.QtWidgets import QStyledItemDelegate
+        # from PyQt5.QtWidgets import QStyledItemDelegate
 
         if dg.property.type == 'STATUS':
             value_dsp_model = DictionaryValueDspTreeModel(dg, dev_index)
@@ -164,11 +165,11 @@ class MainWin(QMainWindow):
         elif dg.property.type == 'MEASURE':
             value_dsp_model = ListValueDspTreeModel(dg, dev_index)
             value_edit_model = ListValueEditTreeModel(dg, dev_index)
-            value_edit_delegate = QStyledItemDelegate()
+            value_edit_delegate = ListTreeViewDelegate(dg)
         else:
             value_dsp_model = GeneralValueDspTreeViewModel(dg, dev_index)
             value_edit_model = GeneralValueEditTreeViewModel(dg, dev_index)
-            value_edit_delegate = QStyledItemDelegate()
+            value_edit_delegate = ListTreeViewDelegate(dg)
 
         self.ui.treeViewValueEdit.setItemDelegate(value_edit_delegate)
         self.ui.treeViewValueDisplay.setModel(value_dsp_model)

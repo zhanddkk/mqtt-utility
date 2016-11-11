@@ -1,9 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d639cb57-f970-46ec-8a89-2f9997dd3944" name="Default" comment="Add current path to system path for running this application in co">
+    <list default="true" id="d639cb57-f970-46ec-8a89-2f9997dd3944" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/simulator/uiapplication/ListTreeViewDelegate.py" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/simulator/uiapplication/ComboBoxDelegate.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/simulator/uiapplication/DoubleSpinBoxDelegate.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/simulator/uiapplication/SpinBoxDelegate.py" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/simulator/uiform/SimulatorUI.ui" afterPath="$PROJECT_DIR$/simulator/uiform/SimulatorUI.ui" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/simulator/uiapplication/DatagramTreeViewItem.py" afterPath="$PROJECT_DIR$/simulator/uiapplication/DatagramTreeViewItem.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/simulator/uiapplication/DictionaryTreeViewDelegate.py" afterPath="$PROJECT_DIR$/simulator/uiapplication/DictionaryTreeViewDelegate.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/simulator/uiapplication/GeneralValueEditTreeViewModel.py" afterPath="$PROJECT_DIR$/simulator/uiapplication/GeneralValueEditTreeViewModel.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/simulator/uiapplication/main.py" afterPath="$PROJECT_DIR$/simulator/uiapplication/main.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/simulator/uiform/SimulatorUI.py" afterPath="$PROJECT_DIR$/simulator/uiform/SimulatorUI.py" />
     </list>
     <ignored path="secure_power_agilis_mqtt_simulator.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -23,12 +32,14 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="SpinBoxDelegate.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/simulator/uiapplication/SpinBoxDelegate.py">
+      <file leaf-file-name="main.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/simulator/uiapplication/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="38">
-              <caret line="2" column="0" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
-              <folding />
+            <state relative-caret-position="212">
+              <caret line="159" column="0" selection-start-line="159" selection-start-column="0" selection-end-line="159" selection-end-column="0" />
+              <folding>
+                <element signature="e#0#27#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -36,8 +47,8 @@
       <file leaf-file-name="DatagramTreeViewItem.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/simulator/uiapplication/DatagramTreeViewItem.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="611">
-              <caret line="59" column="17" selection-start-line="59" selection-start-column="17" selection-end-line="59" selection-end-column="17" />
+            <state relative-caret-position="-187">
+              <caret line="37" column="27" selection-start-line="37" selection-start-column="27" selection-end-line="37" selection-end-column="27" />
               <folding />
             </state>
           </provider>
@@ -46,8 +57,8 @@
       <file leaf-file-name="DatagramTreeViewModel.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/simulator/uiapplication/DatagramTreeViewModel.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="17" />
+            <state relative-caret-position="-434">
+              <caret line="18" column="23" selection-start-line="18" selection-start-column="23" selection-end-line="18" selection-end-column="23" />
               <folding>
                 <element signature="e#0#60#0" expanded="true" />
               </folding>
@@ -55,24 +66,12 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ComboBoxDelegate.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/simulator/uiapplication/ComboBoxDelegate.py">
+      <file leaf-file-name="ListTreeViewDelegate.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/simulator/uiapplication/ListTreeViewDelegate.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="247">
-              <caret line="13" column="8" selection-start-line="13" selection-start-column="8" selection-end-line="16" selection-end-column="37" />
+            <state relative-caret-position="0">
+              <caret line="0" column="84" selection-start-line="0" selection-start-column="84" selection-end-line="0" selection-end-column="84" />
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="main.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/simulator/uiapplication/main.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="171">
-              <caret line="9" column="26" selection-start-line="9" selection-start-column="26" selection-end-line="9" selection-end-column="26" />
-              <folding>
-                <element signature="e#0#27#0" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -90,8 +89,8 @@
       <file leaf-file-name="DictionaryTreeViewDelegate.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/simulator/uiapplication/DictionaryTreeViewDelegate.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="152">
-              <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+            <state relative-caret-position="-19">
+              <caret line="5" column="64" selection-start-line="5" selection-start-column="64" selection-end-line="5" selection-end-column="64" />
               <folding />
             </state>
           </provider>
@@ -100,21 +99,11 @@
       <file leaf-file-name="ValueTreeViewModel.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/simulator/uiapplication/ValueTreeViewModel.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="219">
-              <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+            <state relative-caret-position="216">
+              <caret line="73" column="0" selection-start-line="73" selection-start-column="0" selection-end-line="73" selection-end-column="0" />
               <folding>
                 <element signature="e#0#60#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="DoubleSpinBoxDelegate.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/simulator/uiapplication/DoubleSpinBoxDelegate.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="95">
-              <caret line="5" column="59" selection-start-line="5" selection-start-column="8" selection-end-line="5" selection-end-column="59" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -145,14 +134,12 @@
         <option value="$PROJECT_DIR$/simulator/core/MqttMessagePackage.py" />
         <option value="$PROJECT_DIR$/simulator/core/MqttClient.py" />
         <option value="$PROJECT_DIR$/simulator/uiapplication/QtMqttThread.py" />
-        <option value="$PROJECT_DIR$/simulator/uiapplication/DatagramTreeViewItem.py" />
         <option value="$PROJECT_DIR$/simulator/uiapplication/DatagramTreeViewModel.py" />
         <option value="$PROJECT_DIR$/simulator/uiapplication/DatagramTreeViewManager.py" />
         <option value="$PROJECT_DIR$/simulator/core/Datagram.py" />
         <option value="$PROJECT_DIR$/simulator/uiapplication/StatusValueDspTreeViewItem.py" />
         <option value="$PROJECT_DIR$/simulator/uiapplication/ComboBoxDelegate.py" />
         <option value="$PROJECT_DIR$/simulator/uiapplication/StatusValueEditorTreeViewItem.py" />
-        <option value="$PROJECT_DIR$/simulator/uiform/SimulatorUI.py" />
         <option value="$PROJECT_DIR$/simulator/uiapplication/StatusValueDspTreeViewModel.py" />
         <option value="$PROJECT_DIR$/simulator/uiapplication/StringValueDspTreeViewItem.py" />
         <option value="$PROJECT_DIR$/simulator/uiapplication/StringValueDspTreeViewModel.py" />
@@ -164,7 +151,6 @@
         <option value="$PROJECT_DIR$/simulator/uiapplication/ValueTreeViewItem.py" />
         <option value="$PROJECT_DIR$/simulator/uiapplication/ValueTreeViewModel.py" />
         <option value="$PROJECT_DIR$/simulator/uiapplication/GeneralValueDspTreeViewItem.py" />
-        <option value="$PROJECT_DIR$/simulator/uiapplication/GeneralValueEditTreeViewModel.py" />
         <option value="$PROJECT_DIR$/simulator/uiapplication/GeneralValueDspTreeViewModel.py" />
         <option value="$PROJECT_DIR$/simulator/uiapplication/DictionaryValueDspTreeModel.py" />
         <option value="$PROJECT_DIR$/simulator/core/DatagramManager.py" />
@@ -173,8 +159,12 @@
         <option value="$PROJECT_DIR$/simulator/uiapplication/DictionaryValueEditTreeModel.py" />
         <option value="$PROJECT_DIR$/simulator/uiapplication/DoubleSpinBoxDelegate.py" />
         <option value="$PROJECT_DIR$/simulator/uiapplication/SpinBoxDelegate.py" />
-        <option value="$PROJECT_DIR$/simulator/uiapplication/DictionaryTreeViewDelegate.py" />
+        <option value="$PROJECT_DIR$/simulator/uiapplication/DatagramTreeViewItem.py" />
         <option value="$PROJECT_DIR$/simulator/uiapplication/main.py" />
+        <option value="$PROJECT_DIR$/simulator/uiapplication/DictionaryTreeViewDelegate.py" />
+        <option value="$PROJECT_DIR$/simulator/uiapplication/GeneralValueEditTreeViewModel.py" />
+        <option value="$PROJECT_DIR$/simulator/uiform/SimulatorUI.py" />
+        <option value="$PROJECT_DIR$/simulator/uiapplication/ListTreeViewDelegate.py" />
       </list>
     </option>
   </component>
@@ -616,7 +606,14 @@
       <option name="project" value="LOCAL" />
       <updated>1478835298091</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Add current path to system path for running this application in command windows">
+      <created>1478840945429</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1478840945429</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -700,7 +697,8 @@
     <MESSAGE value="Display hash id as hexadecimal format" />
     <MESSAGE value="Able to import data dictionary in menu" />
     <MESSAGE value="Support new format csv import;&#10;Support string value send and receive;&#10;Support history value display;" />
-    <option name="LAST_COMMIT_MESSAGE" value="Support new format csv import;&#10;Support string value send and receive;&#10;Support history value display;" />
+    <MESSAGE value="Add current path to system path for running this application in command windows" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add current path to system path for running this application in command windows" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -716,7 +714,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/simulator/core/DataProperty.py" />
     <entry file="file://$PROJECT_DIR$/simulator/datadictionary/DataProperty.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="190">
@@ -843,14 +840,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="539">
           <caret line="295" column="20" selection-start-line="295" selection-start-column="4" selection-end-line="295" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/simulator/uiform/SimulatorUI.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="326">
-          <caret line="278" column="76" selection-start-line="278" selection-start-column="76" selection-end-line="278" selection-end-column="76" />
           <folding />
         </state>
       </provider>
@@ -1007,16 +996,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/simulator/uiapplication/GeneralValueEditTreeViewModel.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="361">
-          <caret line="19" column="27" selection-start-line="0" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#27#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/simulator/uiapplication/ListValueEditTreeModel.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="269">
@@ -1037,62 +1016,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/simulator/uiapplication/DatagramTreeViewItem.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="611">
-          <caret line="59" column="17" selection-start-line="59" selection-start-column="17" selection-end-line="59" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/simulator/uiapplication/DoubleSpinBoxDelegate.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="95">
-          <caret line="5" column="59" selection-start-line="5" selection-start-column="8" selection-end-line="5" selection-end-column="59" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/simulator/uiapplication/DatagramTreeViewModel.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="17" />
-          <folding>
-            <element signature="e#0#60#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/.PyCharm2016.2/system/python_stubs/1912260903/PyQt5/QtWidgets/QStyledItemDelegate.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="361">
-          <caret line="23" column="22" selection-start-line="23" selection-start-column="15" selection-end-line="23" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/simulator/uiapplication/ComboBoxDelegate.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="247">
           <caret line="13" column="8" selection-start-line="13" selection-start-column="8" selection-end-line="16" selection-end-column="37" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/simulator/uiapplication/ValueTreeViewModel.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="219">
-          <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#60#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/simulator/uiapplication/DictionaryTreeViewDelegate.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="152">
-          <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -1105,10 +1032,86 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/simulator/uiapplication/DoubleSpinBoxDelegate.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="209">
+          <caret line="11" column="50" selection-start-line="11" selection-start-column="50" selection-end-line="11" selection-end-column="50" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/simulator/uiapplication/ValueTreeViewModel.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="216">
+          <caret line="73" column="0" selection-start-line="73" selection-start-column="0" selection-end-line="73" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#60#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/simulator/uiform/SimulatorUI.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="268" column="107" selection-start-line="268" selection-start-column="107" selection-end-line="268" selection-end-column="107" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/simulator/uiapplication/GeneralValueEditTreeViewModel.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="209">
+          <caret line="13" column="21" selection-start-line="13" selection-start-column="21" selection-end-line="13" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/simulator/uiapplication/DictionaryTreeViewDelegate.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-19">
+          <caret line="5" column="64" selection-start-line="5" selection-start-column="64" selection-end-line="5" selection-end-column="64" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/.PyCharm2016.2/system/python_stubs/1912260903/PyQt5/QtWidgets/QStyledItemDelegate.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="361">
+          <caret line="23" column="22" selection-start-line="23" selection-start-column="15" selection-end-line="23" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/simulator/uiapplication/ListTreeViewDelegate.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="84" selection-start-line="0" selection-start-column="84" selection-end-line="0" selection-end-column="84" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/simulator/uiapplication/DatagramTreeViewModel.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-434">
+          <caret line="18" column="23" selection-start-line="18" selection-start-column="23" selection-end-line="18" selection-end-column="23" />
+          <folding>
+            <element signature="e#0#60#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/simulator/uiapplication/DatagramTreeViewItem.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-187">
+          <caret line="37" column="27" selection-start-line="37" selection-start-column="27" selection-end-line="37" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/simulator/uiapplication/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="171">
-          <caret line="9" column="26" selection-start-line="9" selection-start-column="26" selection-end-line="9" selection-end-column="26" />
+        <state relative-caret-position="212">
+          <caret line="159" column="0" selection-start-line="159" selection-start-column="0" selection-end-line="159" selection-end-column="0" />
           <folding>
             <element signature="e#0#27#0" expanded="true" />
           </folding>
