@@ -1,7 +1,8 @@
+from PyQt5 import QtWidgets
 from PyQt5.QtCore import pyqtSlot, pyqtSignal
 from PyQt5.QtWidgets import QApplication, QMainWindow, QTreeWidgetItem, QFileDialog
-import cbor
-import json
+# import cbor
+# import json
 import sys
 sys.path.append('..\\..\\')
 ########################################################################################################################
@@ -37,6 +38,8 @@ class MainWin(QMainWindow):
 
         self.ui.action_Exit.triggered.connect(QApplication.instance().quit)
         self.ui.action_Load_CSV.triggered.connect(self.load_csv)
+        self.ui.treeWidgetDataInfo.resizeColumnToContents(0)
+        self.ui.treeWidgetPackageInfo.resizeColumnToContents(0)
 
     def update_value_display(self, value_package):
         hash_id = value_package.hash_id
@@ -49,6 +52,11 @@ class MainWin(QMainWindow):
         model = self.ui.treeViewDataDictionary.model()
         index = model.index(row, 1)
         model.dataChanged.emit(index, index)
+
+        model = self.ui.treeViewValueDisplay.model()
+        if model:
+            model.update()
+            self.ui.treeViewValueDisplay.reset()
         pass
 
     def load_csv(self):
@@ -120,49 +128,82 @@ class MainWin(QMainWindow):
         hash_str = '0x' + '{:0>8}'.format(hex(hash_id)[2:].upper())
 
         self.ui.treeWidgetDataInfo.topLevelItem(17).setText(1, hash_str)
+
         self.data_package.device_instance_index = dev_index + 1
         self.data_package.hash_id = hash_id
         self.data_package.value = dg.get_value(dev_index)
         self.ui.treeWidgetDataInfo.resizeColumnToContents(0)
 
-        self.ui.textEditValue.setText(self.data_package.to_json_str)
+        self.ui.treeWidgetPackageInfo.topLevelItem(0).setText(1, str(self.data_package.payload_type))
+        self.ui.treeWidgetPackageInfo.topLevelItem(1).setText(1, str(self.data_package.payload_version))
+        self.ui.treeWidgetPackageInfo.topLevelItem(2).setText(1, hash_str)
+        # self.ui.treeWidgetPackageInfo.topLevelItem(3).setData(1, 0, self.data_package.producer_mask)
+        self.ui.treeWidgetPackageInfo.topLevelItem(3).setText(1, str(self.data_package.producer_mask))
+        self.ui.treeWidgetPackageInfo.topLevelItem(4).setText(1, str(self.data_package.action))
+        self.ui.treeWidgetPackageInfo.topLevelItem(5).setText(1, str(self.data_package.time_stamp_ms))
+        self.ui.treeWidgetPackageInfo.topLevelItem(6).setText(1, str(self.data_package.time_stamp_second))
+        self.ui.treeWidgetPackageInfo.topLevelItem(7).setText(1, str(self.data_package.device_instance_index))
+
+        from simulator.uiapplication.GeneralValueDspTreeViewModel import GeneralValueDspTreeViewModel
+        from simulator.uiapplication.GeneralValueEditTreeViewModel import GeneralValueEditTreeViewModel
+        from simulator.uiapplication.DictionaryValueDspTreeModel import DictionaryValueDspTreeModel
+        from simulator.uiapplication.DictionaryValueEditTreeModel import DictionaryValueEditTreeModel
+        from simulator.uiapplication.ListValueDspTreeModel import ListValueDspTreeModel
+        from simulator.uiapplication.ListValueEditTreeModel import ListValueEditTreeModel
+
+        from PyQt5.QtWidgets import QStyledItemDelegate
+
+        if dg.property.type == 'STATUS':
+            value_dsp_model = DictionaryValueDspTreeModel(dg, dev_index)
+            value_edit_model = DictionaryValueEditTreeModel(dg, dev_index)
+        elif dg.property.type == 'MEASURE':
+            value_dsp_model = ListValueDspTreeModel(dg, dev_index)
+            value_edit_model = ListValueEditTreeModel(dg, dev_index)
+        else:
+            self.ui.treeViewValueEdit.setItemDelegate(QStyledItemDelegate())
+            value_dsp_model = GeneralValueDspTreeViewModel(dg, dev_index)
+            value_edit_model = GeneralValueEditTreeViewModel(dg, dev_index)
+
+        self.ui.treeViewValueDisplay.setModel(value_dsp_model)
+        self.ui.treeViewValueEdit.setModel(value_edit_model)
         self.statusBar().showMessage("Clicked: " + topic + " @ " + hash_str)
 
     @pyqtSlot()
     def on_pushButtonPublish_clicked(self):
         sender = self.sender()
-        index = self.ui.treeViewDataDictionary.selectionModel().currentIndex()
+        try:
+            index = self.ui.treeViewDataDictionary.selectionModel().currentIndex()
+        except AttributeError:
+            self.statusBar().showMessage(sender.text() + ' was pressed: No Topic')
+            return
+            pass
         model = self.ui.treeViewDataDictionary.model()
         item = model.get_item(index)
         if not item.parent_item:
+            self.statusBar().showMessage(sender.text() + ' was pressed: No Topic')
             return
-        topic = item.data(0)
         hash_id = item.datagram.id
         dev_index = item.id
 
+        model = self.ui.treeViewValueEdit.model()
+        if not model:
+            self.statusBar().showMessage(sender.text() + ' was pressed: Invalid Value Type')
+            return
+
+        self.data_package.value = model.get_value()
         try:
-            tmp = json.loads(self.ui.textEditValue.toPlainText())
-            try:
-                self.data_package.payload_type = tmp['E_PAYLOAD_TYPE']
-                self.data_package.payload_version = tmp['E_PAYLOAD_VERSION']
-                self.data_package.hash_id = hash_id
-                self.data_package.producer_mask = tmp['E_PRODUCER_MASK']
-                self.data_package.action = tmp['E_ACTION']
-                self.data_package.time_stamp_ms = tmp['E_TIMESTAMP_MS']
-                self.data_package.time_stamp_second = tmp['E_TIMESTAMP_SECOND']
-                self.data_package.device_instance_index = dev_index + 1
-                self.data_package.value = tmp['E_VALUE']
-                payload = cbor.dumps(self.data_package.value_package)
-                if self.datagram_manager.send_data_to_server(topic, payload):
-                    result = 'Send OK'
-                else:
-                    result = 'Send Failed'
-            except KeyError as e:
-                print('Data package error -> ' + '{}'.format(e))
-                result = 'Package error'
-        except json.decoder.JSONDecodeError:
-            print('The input text and the json format mismatch')
-            result = 'Package error'
+            self.data_package.payload_type = int(self.ui.treeWidgetPackageInfo.topLevelItem(0).text(1))
+            self.data_package.payload_version = int(self.ui.treeWidgetPackageInfo.topLevelItem(1).text(1))
+            self.data_package.action = int(self.ui.treeWidgetPackageInfo.topLevelItem(4).text(1))
+            self.data_package.time_stamp_ms = int(self.ui.treeWidgetPackageInfo.topLevelItem(5).text(1))
+            self.data_package.time_stamp_second = int(self.ui.treeWidgetPackageInfo.topLevelItem(6).text(1))
+            pass
+        except TypeError:
+            pass
+        if self.datagram_manager.send_data_to_server(hash_id, dev_index, self.data_package):
+            result = 'Send OK'
+        else:
+            result = 'Send Failed'
         self.statusBar().showMessage(sender.text() + ' was pressed: ' + result)
     pass
 ########################################################################################################################

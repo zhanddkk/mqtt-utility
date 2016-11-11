@@ -2,11 +2,23 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d639cb57-f970-46ec-8a89-2f9997dd3944" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/simulator/uiapplication/ComboBoxDelegate.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/simulator/uiapplication/DictionaryTreeViewDelegate.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/simulator/uiapplication/DictionaryValueDspTreeModel.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/simulator/uiapplication/DictionaryValueEditTreeModel.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/simulator/uiapplication/DoubleSpinBoxDelegate.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/simulator/uiapplication/GeneralValueDspTreeViewModel.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/simulator/uiapplication/GeneralValueEditTreeViewModel.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/simulator/uiapplication/ListValueDspTreeModel.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/simulator/uiapplication/ListValueEditTreeModel.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/simulator/uiapplication/SpinBoxDelegate.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/simulator/uiapplication/ValueTreeViewItem.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/simulator/uiapplication/ValueTreeViewModel.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/simulator/uiform/SimulatorUI.ui" afterPath="$PROJECT_DIR$/simulator/uiform/SimulatorUI.ui" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/simulator/core/Datagram.py" afterPath="$PROJECT_DIR$/simulator/core/Datagram.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/simulator/core/DatagramManager.py" afterPath="$PROJECT_DIR$/simulator/core/DatagramManager.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/simulator/uiapplication/DatagramTreeViewItem.py" afterPath="$PROJECT_DIR$/simulator/uiapplication/DatagramTreeViewItem.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/simulator/uiapplication/DatagramTreeViewManager.py" afterPath="$PROJECT_DIR$/simulator/uiapplication/DatagramTreeViewManager.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/simulator/datadictionarysource/default_data_dictionary.csv" afterPath="$PROJECT_DIR$/simulator/datadictionarysource/default_data_dictionary.csv" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/simulator/uiapplication/main.py" afterPath="$PROJECT_DIR$/simulator/uiapplication/main.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/simulator/uiform/SimulatorUI.py" afterPath="$PROJECT_DIR$/simulator/uiform/SimulatorUI.py" />
     </list>
@@ -28,14 +40,12 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="main.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/simulator/uiapplication/main.py">
+      <file leaf-file-name="SpinBoxDelegate.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/simulator/uiapplication/SpinBoxDelegate.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="285">
-              <caret line="27" column="56" selection-start-line="27" selection-start-column="56" selection-end-line="27" selection-end-column="56" />
-              <folding>
-                <element signature="e#0#45#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="209">
+              <caret line="11" column="50" selection-start-line="11" selection-start-column="50" selection-end-line="11" selection-end-column="50" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -43,23 +53,9 @@
       <file leaf-file-name="DatagramTreeViewItem.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/simulator/uiapplication/DatagramTreeViewItem.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-721">
-              <caret line="12" column="32" selection-start-line="12" selection-start-column="32" selection-end-line="12" selection-end-column="32" />
+            <state relative-caret-position="611">
+              <caret line="59" column="17" selection-start-line="59" selection-start-column="17" selection-end-line="59" selection-end-column="17" />
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="DatagramTreeViewManager.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/simulator/uiapplication/DatagramTreeViewManager.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="152">
-              <caret line="8" column="20" selection-start-line="8" selection-start-column="20" selection-end-line="8" selection-end-column="20" />
-              <folding>
-                <marker date="1478584362002" expanded="true" signature="110:1830" ph="..." />
-                <marker date="1478584362002" expanded="true" signature="274:428" ph="..." />
-                <marker date="1478584362002" expanded="true" signature="473:593" ph="..." />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -67,8 +63,8 @@
       <file leaf-file-name="DatagramTreeViewModel.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/simulator/uiapplication/DatagramTreeViewModel.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1006">
-              <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+            <state relative-caret-position="0">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="17" />
               <folding>
                 <element signature="e#0#60#0" expanded="true" />
               </folding>
@@ -76,23 +72,65 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DatagramManager.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/simulator/core/DatagramManager.py">
+      <file leaf-file-name="ComboBoxDelegate.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/simulator/uiapplication/ComboBoxDelegate.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="437">
-              <caret line="122" column="32" selection-start-line="122" selection-start-column="32" selection-end-line="122" selection-end-column="32" />
+            <state relative-caret-position="247">
+              <caret line="13" column="8" selection-start-line="13" selection-start-column="8" selection-end-line="16" selection-end-column="37" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="main.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/simulator/uiapplication/main.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="238">
+              <caret line="111" column="27" selection-start-line="106" selection-start-column="8" selection-end-line="111" selection-end-column="27" />
               <folding>
-                <element signature="e#0#44#0" expanded="true" />
+                <element signature="e#0#27#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DatagramProperty.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/simulator/core/DatagramProperty.py">
+      <file leaf-file-name="QStyledItemDelegate.py" pinned="false" current-in-tab="false">
+        <entry file="file://$USER_HOME$/.PyCharm2016.2/system/python_stubs/1912260903/PyQt5/QtWidgets/QStyledItemDelegate.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="800">
-              <caret line="117" column="50" selection-start-line="117" selection-start-column="50" selection-end-line="117" selection-end-column="50" />
+            <state relative-caret-position="361">
+              <caret line="23" column="22" selection-start-line="23" selection-start-column="15" selection-end-line="23" selection-end-column="22" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DictionaryTreeViewDelegate.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/simulator/uiapplication/DictionaryTreeViewDelegate.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="475">
+              <caret line="25" column="17" selection-start-line="25" selection-start-column="17" selection-end-line="25" selection-end-column="17" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ValueTreeViewModel.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/simulator/uiapplication/ValueTreeViewModel.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="219">
+              <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+              <folding>
+                <element signature="e#0#60#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DoubleSpinBoxDelegate.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/simulator/uiapplication/DoubleSpinBoxDelegate.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="95">
+              <caret line="5" column="59" selection-start-line="5" selection-start-column="8" selection-end-line="5" selection-end-column="59" />
               <folding />
             </state>
           </provider>
@@ -122,15 +160,38 @@
         <option value="$PROJECT_DIR$/simulator/core/DataProperty.py" />
         <option value="$PROJECT_DIR$/simulator/core/DatagramProperty.py" />
         <option value="$PROJECT_DIR$/simulator/core/MqttMessagePackage.py" />
-        <option value="$PROJECT_DIR$/simulator/core/Datagram.py" />
         <option value="$PROJECT_DIR$/simulator/core/MqttClient.py" />
         <option value="$PROJECT_DIR$/simulator/uiapplication/QtMqttThread.py" />
-        <option value="$PROJECT_DIR$/simulator/uiform/SimulatorUI.py" />
         <option value="$PROJECT_DIR$/simulator/uiapplication/DatagramTreeViewItem.py" />
         <option value="$PROJECT_DIR$/simulator/uiapplication/DatagramTreeViewModel.py" />
-        <option value="$PROJECT_DIR$/simulator/core/DatagramManager.py" />
         <option value="$PROJECT_DIR$/simulator/uiapplication/DatagramTreeViewManager.py" />
+        <option value="$PROJECT_DIR$/simulator/core/Datagram.py" />
+        <option value="$PROJECT_DIR$/simulator/uiapplication/StatusValueDspTreeViewItem.py" />
+        <option value="$PROJECT_DIR$/simulator/uiapplication/ComboBoxDelegate.py" />
+        <option value="$PROJECT_DIR$/simulator/uiapplication/StatusValueEditorTreeViewItem.py" />
+        <option value="$PROJECT_DIR$/simulator/uiform/SimulatorUI.py" />
+        <option value="$PROJECT_DIR$/simulator/uiapplication/StatusValueDspTreeViewModel.py" />
+        <option value="$PROJECT_DIR$/simulator/uiapplication/StringValueDspTreeViewItem.py" />
+        <option value="$PROJECT_DIR$/simulator/uiapplication/StringValueDspTreeViewModel.py" />
+        <option value="$PROJECT_DIR$/simulator/uiapplication/StringValueEditorTreeViewItem.py" />
+        <option value="$PROJECT_DIR$/simulator/uiapplication/StringValueEditorTreeViewModel.py" />
+        <option value="$PROJECT_DIR$/simulator/uiapplication/StatusValueEditorTreeViewModel.py" />
+        <option value="$PROJECT_DIR$/simulator/uiapplication/CommonValueDspTreeViewItem.py" />
+        <option value="$PROJECT_DIR$/simulator/uiapplication/CommonValueEditTreeViewModel.py" />
+        <option value="$PROJECT_DIR$/simulator/uiapplication/ValueTreeViewItem.py" />
+        <option value="$PROJECT_DIR$/simulator/uiapplication/ValueTreeViewModel.py" />
+        <option value="$PROJECT_DIR$/simulator/uiapplication/GeneralValueDspTreeViewItem.py" />
+        <option value="$PROJECT_DIR$/simulator/uiapplication/GeneralValueEditTreeViewModel.py" />
+        <option value="$PROJECT_DIR$/simulator/uiapplication/GeneralValueDspTreeViewModel.py" />
+        <option value="$PROJECT_DIR$/simulator/uiapplication/DictionaryValueDspTreeModel.py" />
+        <option value="$PROJECT_DIR$/simulator/core/DatagramManager.py" />
+        <option value="$PROJECT_DIR$/simulator/uiapplication/ListValueDspTreeModel.py" />
+        <option value="$PROJECT_DIR$/simulator/uiapplication/ListValueEditTreeModel.py" />
+        <option value="$PROJECT_DIR$/simulator/uiapplication/DictionaryValueEditTreeModel.py" />
+        <option value="$PROJECT_DIR$/simulator/uiapplication/DoubleSpinBoxDelegate.py" />
         <option value="$PROJECT_DIR$/simulator/uiapplication/main.py" />
+        <option value="$PROJECT_DIR$/simulator/uiapplication/SpinBoxDelegate.py" />
+        <option value="$PROJECT_DIR$/simulator/uiapplication/DictionaryTreeViewDelegate.py" />
       </list>
     </option>
   </component>
@@ -279,23 +340,6 @@
       <option name="SHOW_COMMAND_LINE" value="false" />
       <method />
     </configuration>
-    <configuration default="false" name="DataProperty" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/simulator/core" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="secure_power_agilis_mqtt_simulator" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/simulator/core/DataProperty.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <method />
-    </configuration>
     <configuration default="false" name="DatagramManager (1)" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -343,6 +387,23 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="secure_power_agilis_mqtt_simulator" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/simulator/core/MqttMessagePackage.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <method />
+    </configuration>
+    <configuration default="false" name="Datagram" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/simulator/core" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="secure_power_agilis_mqtt_simulator" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/simulator/core/Datagram.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <method />
@@ -483,18 +544,18 @@
     </configuration>
     <list size="5">
       <item index="0" class="java.lang.String" itemvalue="Python.main" />
-      <item index="1" class="java.lang.String" itemvalue="Python.DataProperty" />
-      <item index="2" class="java.lang.String" itemvalue="Python.DatagramManager (1)" />
-      <item index="3" class="java.lang.String" itemvalue="Python.DatagramTreeViewModel" />
-      <item index="4" class="java.lang.String" itemvalue="Python.MqttMessagePackage" />
+      <item index="1" class="java.lang.String" itemvalue="Python.DatagramManager (1)" />
+      <item index="2" class="java.lang.String" itemvalue="Python.DatagramTreeViewModel" />
+      <item index="3" class="java.lang.String" itemvalue="Python.MqttMessagePackage" />
+      <item index="4" class="java.lang.String" itemvalue="Python.Datagram" />
     </list>
     <recent_temporary>
       <list size="5">
         <item index="0" class="java.lang.String" itemvalue="Python.main" />
-        <item index="1" class="java.lang.String" itemvalue="Python.DatagramManager (1)" />
-        <item index="2" class="java.lang.String" itemvalue="Python.MqttMessagePackage" />
-        <item index="3" class="java.lang.String" itemvalue="Python.DatagramTreeViewModel" />
-        <item index="4" class="java.lang.String" itemvalue="Python.DataProperty" />
+        <item index="1" class="java.lang.String" itemvalue="Python.Datagram" />
+        <item index="2" class="java.lang.String" itemvalue="Python.DatagramManager (1)" />
+        <item index="3" class="java.lang.String" itemvalue="Python.MqttMessagePackage" />
+        <item index="4" class="java.lang.String" itemvalue="Python.DatagramTreeViewModel" />
       </list>
     </recent_temporary>
   </component>
@@ -558,14 +619,21 @@
       <option name="project" value="LOCAL" />
       <updated>1478483403868</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Able to import data dictionary in menu">
+      <created>1478587965832</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1478587965832</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1564805" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19652265" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24204545" sideWeight="0.5042553" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32962137" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -574,7 +642,7 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33636364" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.26837417" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.23719376" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -640,7 +708,8 @@
     <MESSAGE value="Finished the MQQT message receiving and publishing function, and update the message info to the GUI" />
     <MESSAGE value="Finished the code refactoring," />
     <MESSAGE value="Display hash id as hexadecimal format" />
-    <option name="LAST_COMMIT_MESSAGE" value="Display hash id as hexadecimal format" />
+    <MESSAGE value="Able to import data dictionary in menu" />
+    <option name="LAST_COMMIT_MESSAGE" value="Able to import data dictionary in menu" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -651,189 +720,19 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="247" />
+      <option name="time" value="273" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/simulator/uiapplication/main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#45#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/DatagramManager/Readme.txt" />
-    <entry file="file://$USER_HOME$/.PyCharm2016.2/system/python_stubs/1912260903/PyQt5/QtQuick/QQuickItem.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="397">
-          <caret line="21" column="0" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/uiresource/Simulator_rc.py" />
-    <entry file="file://$PROJECT_DIR$/src/uiform/SimulatorUI.py" />
-    <entry file="file://$PROJECT_DIR$/src/uiapplication/main.py" />
-    <entry file="file://$PROJECT_DIR$/simulator/datadictionary/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python35/Lib/csv.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="322">
-          <caret line="89" column="0" selection-start-line="89" selection-start-column="0" selection-end-line="89" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/.PyCharm2016.2/system/python_stubs/1912260903/_csv.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="191">
-          <caret line="99" column="4" selection-start-line="99" selection-start-column="4" selection-end-line="99" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../secure_power_agilis_slc_dd/Tools/Python/GenerateNodeInterfaceDefine.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python35/Lib/site-packages/PyQt5/uic/Compiler/qtproxies.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="447" column="12" selection-start-line="447" selection-start-column="12" selection-end-line="447" selection-end-column="12" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/.PyCharm2016.2/system/python_stubs/1912260903/PyQt5/QtWidgets/QTreeWidget.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="228">
-          <caret line="490" column="8" selection-start-line="490" selection-start-column="8" selection-end-line="490" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/.PyCharm2016.2/system/python_stubs/1912260903/PyQt5/QtCore/QCoreApplication.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="437">
-          <caret line="225" column="83" selection-start-line="225" selection-start-column="83" selection-end-line="225" selection-end-column="83" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/.PyCharm2016.2/system/python_stubs/1912260903/PyQt5/QtCore/QItemSelectionModel.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="874">
-          <caret line="49" column="26" selection-start-line="49" selection-start-column="15" selection-end-line="49" selection-end-column="26" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://E:/Python3/PyQt5_gpl-5.7/examples/itemviews/basicsortfiltermodel.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2356">
-          <caret line="61" column="35" selection-start-line="61" selection-start-column="35" selection-end-line="61" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/.PyCharm2016.2/system/python_stubs/1912260903/PyQt5/QtCore/QModelIndex.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1444">
-          <caret line="76" column="8" selection-start-line="76" selection-start-column="8" selection-end-line="76" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/.PyCharm2016.2/system/python_stubs/1912260903/PyQt5/QtWidgets/QTextEdit.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="171">
-          <caret line="552" column="35" selection-start-line="552" selection-start-column="35" selection-end-line="552" selection-end-column="35" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/pydevd.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="1581" column="29" selection-start-line="1581" selection-start-column="29" selection-end-line="1581" selection-end-column="29" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/_pydev_imps/_pydev_execfile.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/.PyCharm2016.2/system/python_stubs/1912260903/PyQt5/QtCore/QAbstractItemModel.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="218">
-          <caret line="65" column="19" selection-start-line="65" selection-start-column="8" selection-end-line="65" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/.PyCharm2016.2/system/python_stubs/1912260903/builtins.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="222">
-          <caret line="4589" column="6" selection-start-line="4589" selection-start-column="6" selection-end-line="4589" selection-end-column="6" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/.PyCharm2016.2/system/python_stubs/1912260903/PyQt5/QtWidgets/QTreeView.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="486">
-          <caret line="33" column="12" selection-start-line="33" selection-start-column="12" selection-end-line="33" selection-end-column="12" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python35/Lib/site-packages/cbor/cbor.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="246">
-          <caret line="262" column="0" selection-start-line="262" selection-start-column="0" selection-end-line="262" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/simulator/datadictionary/DatagramManager.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1001">
-          <caret line="88" column="8" selection-start-line="88" selection-start-column="8" selection-end-line="88" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/simulator/datadictionary/Datagram.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="209">
-          <caret line="11" column="44" selection-start-line="11" selection-start-column="44" selection-end-line="11" selection-end-column="44" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/.PyCharm2016.2/system/python_stubs/1912260903/_decimal.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1787">
-          <caret line="1087" column="18" selection-start-line="1087" selection-start-column="6" selection-end-line="1087" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/simulator/core/DataProperty.py" />
     <entry file="file://$PROJECT_DIR$/simulator/datadictionary/DataProperty.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="190">
           <caret line="10" column="44" selection-start-line="10" selection-start-column="44" selection-end-line="10" selection-end-column="44" />
+          <folding>
+            <element signature="e#0#9#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -848,6 +747,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="246">
           <caret line="311" column="22" selection-start-line="311" selection-start-column="22" selection-end-line="311" selection-end-column="22" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -862,6 +762,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="162">
           <caret line="162" column="0" selection-start-line="162" selection-start-column="0" selection-end-line="162" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -873,25 +774,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python35/Lib/codecs.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="313">
-          <caret line="317" column="41" selection-start-line="317" selection-start-column="41" selection-end-line="317" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/.PyCharm2016.2/system/python_stubs/1912260903/PyQt5/QtCore/pyqtSignal.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="291">
           <caret line="38" column="8" selection-start-line="38" selection-start-column="8" selection-end-line="38" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/.PyCharm2016.2/system/python_stubs/1912260903/PyQt5/QtCore/Qt.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="318">
-          <caret line="167" column="4" selection-start-line="167" selection-start-column="4" selection-end-line="167" selection-end-column="4" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -914,22 +800,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/simulator/core/Datagram.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="418">
-          <caret line="22" column="0" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/simulator/core/MqttMessagePackage.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2261">
-          <caret line="119" column="62" selection-start-line="119" selection-start-column="62" selection-end-line="119" selection-end-column="62" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/.PyCharm2016.2/system/python_stubs/1912260903/PyQt5/QtWidgets/QFileDialog.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1717">
@@ -938,69 +808,319 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/simulator/uiapplication/DatagramTreeViewManager.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="171">
+          <caret line="9" column="26" selection-start-line="9" selection-start-column="21" selection-end-line="9" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python35/Lib/codecs.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="295">
+          <caret line="323" column="0" selection-start-line="323" selection-start-column="0" selection-end-line="323" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/simulator/core/MqttMessagePackage.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1441">
+          <caret line="36" column="26" selection-start-line="36" selection-start-column="26" selection-end-line="36" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/.PyCharm2016.2/system/python_stubs/1912260903/PyQt5/QtWidgets/QTreeWidgetItem.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="216">
+          <caret line="139" column="8" selection-start-line="139" selection-start-column="8" selection-end-line="139" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/.PyCharm2016.2/system/python_stubs/1912260903/PyQt5/QtCore/QAbstractItemModel.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-6305">
+          <caret line="12" column="6" selection-start-line="12" selection-start-column="6" selection-end-line="12" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/.PyCharm2016.2/system/python_stubs/1912260903/PyQt5/QtCore/Qt.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="539">
+          <caret line="295" column="20" selection-start-line="295" selection-start-column="4" selection-end-line="295" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/simulator/uiform/SimulatorUI.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="990">
-          <caret line="188" column="40" selection-start-line="188" selection-start-column="40" selection-end-line="188" selection-end-column="40" />
+        <state relative-caret-position="326">
+          <caret line="278" column="76" selection-start-line="278" selection-start-column="76" selection-end-line="278" selection-end-column="76" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/simulator/uiapplication/StringValueDspTreeViewItem.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="119" selection-start-line="0" selection-start-column="93" selection-end-line="0" selection-end-column="119" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/simulator/uiapplication/StringValueDspTreeViewModel.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="76">
+          <caret line="4" column="33" selection-start-line="4" selection-start-column="6" selection-end-line="4" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/simulator/uiapplication/StringValueEditorTreeViewItem.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="128" selection-start-line="0" selection-start-column="99" selection-end-line="0" selection-end-column="128" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/simulator/uiapplication/StringValueEditorTreeViewModel.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="437">
+          <caret line="23" column="0" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/simulator/uiapplication/StatusValueEditorTreeViewItem.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="152">
+          <caret line="8" column="4" selection-start-line="8" selection-start-column="4" selection-end-line="13" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/simulator/uiapplication/CommonValueEditTreeViewModel.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/simulator/uiapplication/CommonValueDspTreeViewItem.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/simulator/uiapplication/GeneralValueDspTreeViewItem.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="19">
+          <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/simulator/uiapplication/StatusValueDspTreeViewItem.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="17" column="12" selection-start-line="17" selection-start-column="12" selection-end-line="17" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/simulator/uiapplication/StatusValueDspTreeViewModel.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1289">
+          <caret line="9" column="104" selection-start-line="9" selection-start-column="52" selection-end-line="9" selection-end-column="104" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/simulator/uiapplication/DictionaryValueDspTreeModel.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="57">
+          <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#71#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/simulator/uiapplication/StatusValueEditorTreeViewModel.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="326">
+          <caret line="43" column="8" selection-start-line="43" selection-start-column="8" selection-end-line="46" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/simulator/core/Datagram.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="95">
+          <caret line="104" column="30" selection-start-line="104" selection-start-column="30" selection-end-line="104" selection-end-column="30" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/simulator/core/DatagramProperty.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="800">
-          <caret line="117" column="50" selection-start-line="117" selection-start-column="50" selection-end-line="117" selection-end-column="50" />
+        <state relative-caret-position="212">
+          <caret line="40" column="16" selection-start-line="40" selection-start-column="8" selection-end-line="40" selection-end-column="16" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/simulator/uiapplication/DatagramTreeViewModel.py">
+    <entry file="file://$PROJECT_DIR$/simulator/uiapplication/ValueTreeViewItem.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1006">
-          <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#60#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/simulator/uiapplication/DatagramTreeViewItem.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-721">
-          <caret line="12" column="32" selection-start-line="12" selection-start-column="32" selection-end-line="12" selection-end-column="32" />
+        <state relative-caret-position="133">
+          <caret line="11" column="37" selection-start-line="11" selection-start-column="37" selection-end-line="11" selection-end-column="37" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/simulator/uiapplication/main.py">
+    <entry file="file://$PROJECT_DIR$/simulator/uiapplication/DictionaryValueEditTreeModel.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="27" column="56" selection-start-line="27" selection-start-column="56" selection-end-line="27" selection-end-column="56" />
+        <state relative-caret-position="478">
+          <caret line="26" column="0" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
           <folding>
-            <element signature="e#0#45#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/simulator/uiapplication/DatagramTreeViewManager.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="152">
-          <caret line="8" column="20" selection-start-line="8" selection-start-column="20" selection-end-line="8" selection-end-column="20" />
-          <folding>
-            <marker date="1478584362002" expanded="true" signature="110:1830" ph="..." />
-            <marker date="1478584362002" expanded="true" signature="274:428" ph="..." />
-            <marker date="1478584362002" expanded="true" signature="473:593" ph="..." />
+            <element signature="e#0#27#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/simulator/core/DatagramManager.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="437">
-          <caret line="122" column="32" selection-start-line="122" selection-start-column="32" selection-end-line="122" selection-end-column="32" />
+        <state relative-caret-position="4218">
+          <caret line="228" column="0" selection-start-line="228" selection-start-column="0" selection-end-line="228" selection-end-column="0" />
           <folding>
             <element signature="e#0#44#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/simulator/uiapplication/GeneralValueDspTreeViewModel.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="266">
+          <caret line="14" column="58" selection-start-line="0" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#71#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/simulator/uiapplication/GeneralValueEditTreeViewModel.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="361">
+          <caret line="19" column="27" selection-start-line="0" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#27#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/simulator/uiapplication/ListValueEditTreeModel.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="269">
+          <caret line="32" column="38" selection-start-line="32" selection-start-column="38" selection-end-line="32" selection-end-column="38" />
+          <folding>
+            <element signature="e#0#27#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/simulator/uiapplication/ListValueDspTreeModel.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="589">
+          <caret line="31" column="21" selection-start-line="31" selection-start-column="21" selection-end-line="31" selection-end-column="21" />
+          <folding>
+            <element signature="e#0#71#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/simulator/uiapplication/DatagramTreeViewItem.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="611">
+          <caret line="59" column="17" selection-start-line="59" selection-start-column="17" selection-end-line="59" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/simulator/uiapplication/DoubleSpinBoxDelegate.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="95">
+          <caret line="5" column="59" selection-start-line="5" selection-start-column="8" selection-end-line="5" selection-end-column="59" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/simulator/uiapplication/DatagramTreeViewModel.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="17" />
+          <folding>
+            <element signature="e#0#60#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/simulator/uiapplication/SpinBoxDelegate.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="209">
+          <caret line="11" column="50" selection-start-line="11" selection-start-column="50" selection-end-line="11" selection-end-column="50" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/simulator/uiapplication/main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="111" column="27" selection-start-line="106" selection-start-column="8" selection-end-line="111" selection-end-column="27" />
+          <folding>
+            <element signature="e#0#27#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/.PyCharm2016.2/system/python_stubs/1912260903/PyQt5/QtWidgets/QStyledItemDelegate.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="361">
+          <caret line="23" column="22" selection-start-line="23" selection-start-column="15" selection-end-line="23" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/simulator/uiapplication/ComboBoxDelegate.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="247">
+          <caret line="13" column="8" selection-start-line="13" selection-start-column="8" selection-end-line="16" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/simulator/uiapplication/ValueTreeViewModel.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="219">
+          <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#60#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/simulator/uiapplication/DictionaryTreeViewDelegate.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="475">
+          <caret line="25" column="17" selection-start-line="25" selection-start-column="17" selection-end-line="25" selection-end-column="17" />
+          <folding />
         </state>
       </provider>
     </entry>

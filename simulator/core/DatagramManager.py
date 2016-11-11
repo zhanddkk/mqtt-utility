@@ -4,7 +4,7 @@ import csv
 import cbor
 from collections import namedtuple
 import paho.mqtt.client as DataClient
-from simulator.core.MqttMessagePackage import MqttMessagePackage as data_package
+from simulator.core.MqttMessagePackage import MqttMessagePackage
 
 
 class DatagramManager:
@@ -23,6 +23,7 @@ class DatagramManager:
                               'Precision,'      \
                               'IsAlarm,'        \
                               'IsEvtLog,'       \
+                              'CmdTimeOut,'     \
                               'Producer_UC,'        \
                               'Producer_SLC_UPS,'   \
                               'Producer_SLC_NMC,'   \
@@ -45,7 +46,8 @@ class DatagramManager:
         self.user_data = None
 
         self.__data_dict = {}     # Data dictionary {id: datagram}
-        self.__indexes = []       # [id, device_index, topic]
+        self.__indexes = []       # item = [id, device_index, topic]
+        self.this_operation_index = None
 
     @property
     def index_list(self):
@@ -126,9 +128,15 @@ class DatagramManager:
         self.is_connect = False
         pass
 
-    def send_data_to_server(self, topic, data):
+    def send_data_to_server(self, hash_id, dev_index, data_package):
         if self.is_connect:
-            print('test:', self.client.publish(topic, data))
+            payload = cbor.dumps(data_package.value_package)
+            dg = self.get_datagram_by_id(hash_id)
+            topic = dg.get_topic(dev_index)
+            self.client.publish(topic, payload)
+            dg.set_buf(data_package.value, dev_index)
+            self.this_operation_index = [hash_id, dev_index]
+            # dg.save_history(dev_index, 1)
             return True
         else:
             print('The datagram manager has not connect to the server')
@@ -173,6 +181,17 @@ class DatagramManager:
     @staticmethod
     def on_publish(client, obj, mid):
         print("OnPublish, mid = " + str(mid))
+        index = obj.this_operation_index
+        if index:
+            try:
+                # hash_id = index[0]
+                # dev_index = index[1]
+                dg = obj.get_datagram_by_id(index[0])
+                dg.save_history(index[1], 1)
+            except IndexError:
+                print('Index error')
+                pass
+            pass
 
     @staticmethod
     def on_subscribe(client, obj, mid, granted_qos):
@@ -187,11 +206,12 @@ class DatagramManager:
         print("Message: topic = [" + msg.topic + "] qos = " + str(msg.qos) + " message = [" + str(msg.payload) + "]")
         try:
             payload = cbor.loads(msg.payload)
-            package = data_package(payload)
+            package = MqttMessagePackage(payload)
             hash_id = package.hash_id
             device_index = package.device_instance_index - 1
             dg = obj.get_datagram_by_id(hash_id)
             dg.set_value(package.value, device_index)
+            dg.save_history(device_index, 0)
         except TypeError:
             print('Message format error')
             return

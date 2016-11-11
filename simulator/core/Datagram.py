@@ -1,16 +1,24 @@
+import datetime
 
 
 class Datagram:
     def __init__(self, property_data):
         self.__value = []
+        self.__history_value = []       # [operation, date_time, value] operation : 0(receive), 1(send)
+        self.__buf = []
+        self.__max_history_len = 10
         self.__property = property_data
         self.__id = property_data.hash_id
         self.__topic = self.__parser_topic(property_data.data_path,
                                            property_data.name,
                                            property_data.sub_system)
         self.__device_number = len(self.__topic)
+
         for i in range(self.__device_number):
             self.__value.append(None)
+            self.__history_value.append([])
+            self.__buf.append([None])
+
     pass
 
     @property
@@ -29,6 +37,10 @@ class Datagram:
     @property
     def device_number(self):
         return self.__device_number
+
+    @property
+    def history(self):
+        return self.__history_value
 
     @property
     def property(self):
@@ -54,6 +66,25 @@ class Datagram:
         except IndexError:
             print('Index error')
             return None
+
+    def set_buf(self, val, index=0):
+        try:
+            self.__buf[index][0] = val
+        except IndexError:
+            print('Index error')
+        pass
+
+    def save_history(self, index, operation):
+        try:
+            if len(self.__history_value[index]) > self.__max_history_len:
+                self.__history_value[index].remove(self.__history_value[index][0])
+            if operation == 0:
+                self.__history_value[index].append([operation, datetime.datetime.now(), self.__value[index]])
+            else:
+                self.__history_value[index].append([operation, datetime.datetime.now(), self.__buf[index][0]])
+        except IndexError:
+            print('Index error')
+            pass
 
     @staticmethod
     def __parser_topic(path='', name='', system=''):
@@ -89,4 +120,11 @@ class Datagram:
                 topic.append(system + path + name)
         return topic
         pass
+    pass
+
+if __name__ == "__main__":
+    a = ['123', 'test']
+    print(a)
+    a.remove(a[0])
+    print(a)
     pass
