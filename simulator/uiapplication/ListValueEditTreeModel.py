@@ -27,8 +27,8 @@ class ListValueEditTreeModel(ValueViewModel):
 
     def get_value(self):
         value = []
-        column = self.root_item.child_count()
-        for i in range(0, column):
+        row = self.root_item.child_count()
+        for i in range(0, row):
             item = self.root_item.child(i)
             value.append(item.data(1))
         if len(value) == 0:

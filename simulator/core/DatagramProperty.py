@@ -136,11 +136,10 @@ class DatagramProperty:
             hash_id = 0xFFFFFFF
         return hash_id
 
-    @staticmethod
-    def __parser_choice_list(list_string=""):
+    def __parser_choice_list(self, list_string=""):
         choice_list = {}
         try:
-            choice_list = json.loads(list_string)
+            choice_list = json.loads(list_string, object_pairs_hook=self.json_object_pairs_hook)
         except json.JSONDecodeError:
             pass
         return choice_list
@@ -163,6 +162,12 @@ class DatagramProperty:
                 except ValueError:
                     pass
         return num
+        pass
+
+    @staticmethod
+    def json_object_pairs_hook(list_data):
+        import collections
+        return collections.OrderedDict(list_data)
         pass
 
 

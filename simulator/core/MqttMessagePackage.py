@@ -44,8 +44,8 @@ class MqttMessagePackage:
         E_HASH_ID: 0,
         E_PRODUCER_MASK: 0,
         E_ACTION: 0,
-        E_TIMESTAMP_MS: 0,
-        E_TIMESTAMP_SECOND: 0,
+        E_TIMESTAMP_MS: 0xffff,
+        E_TIMESTAMP_SECOND: 0xffffffff,
         E_DEVICE_INSTANCE_INDEX: 1,
         E_VALUE: None
     }
@@ -149,7 +149,24 @@ class MqttMessagePackage:
         return value_str
         pass
 
+
+def json_object_pairs_hook(list_data):
+    import collections
+    # print(list_data)
+    return collections.OrderedDict(list_data)
+    pass
+
 if __name__ == "__main__":
-    pkg = MqttMessagePackage()
-    print(pkg.to_json_str)
+    # pkg = MqttMessagePackage()
+    # print(pkg.to_json_str)
+    import json
+    json_str = '{"a":12, "b":13, "f":25, "c":44}'
+    data = json.loads(json_str, object_pairs_hook=json_object_pairs_hook)
+    print(data['b'])
+    print(data)
+
+    a = '4294967295'
+    b = int(a)
+    print(type(b))
+    print(b)
     pass

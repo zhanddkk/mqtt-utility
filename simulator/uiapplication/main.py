@@ -57,7 +57,9 @@ class MainWin(QMainWindow):
         model.dataChanged.emit(index, index)
 
         model = self.ui.treeViewValueDisplay.model()
-        if model:
+        if model is not None:
+            if (model.datagram.id != hash_id) or ((model.datagram.id == hash_id) and (model.dev_index != dev_index)):
+                return
             model.update()
             self.ui.treeViewValueDisplay.reset()
         pass
@@ -105,17 +107,13 @@ class MainWin(QMainWindow):
         self.ui.treeWidgetDataInfo.topLevelItem(7).setText(1, dg.property.default)
         self.ui.treeWidgetDataInfo.topLevelItem(8).setText(1, str(dg.property.min))
         self.ui.treeWidgetDataInfo.topLevelItem(9).setText(1, str(dg.property.max))
-        str_list = []
         choice_list_item = self.ui.treeWidgetDataInfo.topLevelItem(10)
         choice_list_item.takeChildren()
         choice_list = dg.property.choice_list
         if choice_list != {}:
             choice_list_item.setText(1, '...')
             for (k, d) in choice_list.items():
-                str_list.append(k)
-            str_list.sort()
-            for s in str_list:
-                sub_item = QTreeWidgetItem([s, str(choice_list[s])])
+                sub_item = QTreeWidgetItem([k, str(d)])
                 choice_list_item.addChild(sub_item)
             self.ui.treeWidgetDataInfo.expandItem(choice_list_item)
         else:
@@ -156,6 +154,9 @@ class MainWin(QMainWindow):
         from simulator.uiapplication.ListValueEditTreeModel import ListValueEditTreeModel
         from simulator.uiapplication.DictionaryTreeViewDelegate import DictionaryTreeViewDelegate
         from simulator.uiapplication.ListTreeViewDelegate import ListTreeViewDelegate
+        from simulator.uiapplication.StructValueDspModel import StructValueDspModel
+        from simulator.uiapplication.StructValueEditModel import StructValueEditModel
+        from simulator.uiapplication.StructTreeViewDelegate import StructTreeViewDelegate
 
         if dg.property.type == 'STATUS':
             value_dsp_model = DictionaryValueDspTreeModel(dg, dev_index)
@@ -166,9 +167,15 @@ class MainWin(QMainWindow):
             value_edit_model = ListValueEditTreeModel(dg, dev_index)
             value_edit_delegate = ListTreeViewDelegate(dg)
         else:
-            value_dsp_model = GeneralValueDspTreeViewModel(dg, dev_index)
-            value_edit_model = GeneralValueEditTreeViewModel(dg, dev_index)
-            value_edit_delegate = ListTreeViewDelegate(dg)
+            if dg.property.format == 'BINARY_BLOC':
+                value_dsp_model = StructValueDspModel(dg, dev_index)
+                value_edit_model = StructValueEditModel(dg, dev_index)
+                value_edit_delegate = StructTreeViewDelegate(dg)
+                pass
+            else:
+                value_dsp_model = GeneralValueDspTreeViewModel(dg, dev_index)
+                value_edit_model = GeneralValueEditTreeViewModel(dg, dev_index)
+                value_edit_delegate = ListTreeViewDelegate(dg)
 
         self.ui.treeViewValueEdit.setItemDelegate(value_edit_delegate)
         self.ui.treeViewValueDisplay.setModel(value_dsp_model)
