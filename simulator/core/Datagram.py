@@ -92,21 +92,21 @@ class Datagram:
 
         system = system.strip(' ')
         if system != '':
-            system = 'UPS_System\\' + system
+            system = 'UPS_System/' + system
         else:
             system = 'UPS_System'
         path = path.strip(' ')
         if path != '':
-            path = '\\' + path
+            path = '/' + path
         name = name.strip(' ')
         if name != '':
-            name = '\\' + name
+            name = '/' + name
 
         start = path.find('[')
         end = path.find(']')
 
         if (start == -1) or (end == -1) or (start >= end) or (start < 1) or (end < 1):
-            topic.append(system + path + name)
+            topic.append((system + path + name).replace('\\', '/'))
         else:
             num = path[start + 1:end]
             if num.isdigit():
@@ -115,9 +115,9 @@ class Datagram:
                 behind = path[end + 1:]
                 for i in range(device_number):
                     tmp = system + front + str(i + 1) + behind + name
-                    topic.append(tmp)
+                    topic.append(tmp.replace('\\', '/'))
             else:
-                topic.append(system + path + name)
+                topic.append((system + path + name).replace('\\', '/'))
         return topic
         pass
     pass

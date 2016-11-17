@@ -5,6 +5,7 @@ import cbor
 from collections import namedtuple
 import paho.mqtt.client as DataClient
 from simulator.core.MqttMessagePackage import MqttMessagePackage
+import threading
 
 
 class DatagramManager:
@@ -101,7 +102,8 @@ class DatagramManager:
     # Mosquitto operation
 
     def connect_data_server(self):
-        self.client = DataClient.Client(self.name, userdata=self)
+        import os
+        self.client = DataClient.Client(self.name + str(os.getppid()) + str(threading.get_ident()), userdata=self)
         self.client.on_message = self.on_message
         self.client.on_connect = self.on_connect
         self.client.on_publish = self.on_publish
