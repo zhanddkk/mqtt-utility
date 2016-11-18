@@ -15,6 +15,7 @@ sys.path.append(file_path)
 class MainWin(QMainWindow):
     from simulator.core.MqttMessagePackage import MqttMessagePackage as DataPackage
     update_value_signal = pyqtSignal(DataPackage, name='UpdateValueSignal')
+    on_mqtt_message_signal = pyqtSignal(str, name='OnMqttMessageSignal')
 
     def __init__(self, parent=None):
         from simulator.core.MqttMessagePackage import MqttMessagePackage as DataPackage
@@ -33,16 +34,26 @@ class MainWin(QMainWindow):
         self.datagram_manager.connect_data_server()
         self.datagram_manager.user_data = self
         self.datagram_manager.update_data_callback = self.update_value_display_callback
+        self.datagram_manager.process_message_log_callback = self.on_mqtt_message_callback
 
         self.datagram_tree_view_model = DatagramTreeViewModel(self.datagram_manager)
         self.datagram_tree_view_manager = DatagramTreeViewManager(self.datagram_manager)
 
         self.update_value_signal.connect(self.update_value_display)
+        self.on_mqtt_message_signal.connect(self.on_mqtt_message)
 
         self.ui.action_Exit.triggered.connect(QApplication.instance().quit)
         self.ui.action_Load_CSV.triggered.connect(self.load_csv)
         self.ui.treeWidgetDataInfo.resizeColumnToContents(0)
         self.ui.treeWidgetPackageInfo.resizeColumnToContents(0)
+
+    def on_mqtt_message(self, msg_str):
+        import datetime
+        self.ui.plainTextEditLog.appendPlainText('--------' +
+                                                 datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") +
+                                                 '--------')
+        self.ui.plainTextEditLog.appendPlainText(msg_str)
+        pass
 
     def update_value_display(self, value_package):
         hash_id = value_package.hash_id
@@ -85,6 +96,10 @@ class MainWin(QMainWindow):
     def update_value_display_callback(obj, value_package):
         obj.update_value_signal.emit(value_package)
         pass
+
+    @staticmethod
+    def on_mqtt_message_callback(obj, msg_str):
+        obj.on_mqtt_message_signal.emit(msg_str)
 
     def update_datagram_property_display(self):
         index = self.ui.treeViewDataDictionary.selectionModel().currentIndex()
@@ -139,12 +154,13 @@ class MainWin(QMainWindow):
         self.ui.treeWidgetPackageInfo.topLevelItem(0).setText(1, str(self.data_package.payload_type))
         self.ui.treeWidgetPackageInfo.topLevelItem(1).setText(1, str(self.data_package.payload_version))
         self.ui.treeWidgetPackageInfo.topLevelItem(2).setText(1, hash_str)
-        # self.ui.treeWidgetPackageInfo.topLevelItem(3).setData(1, 0, self.data_package.producer_mask)
         self.ui.treeWidgetPackageInfo.topLevelItem(3).setText(1, str(self.data_package.producer_mask))
         self.ui.treeWidgetPackageInfo.topLevelItem(4).setText(1, str(self.data_package.action))
         self.ui.treeWidgetPackageInfo.topLevelItem(5).setText(1, str(self.data_package.time_stamp_ms))
         self.ui.treeWidgetPackageInfo.topLevelItem(6).setText(1, str(self.data_package.time_stamp_second))
         self.ui.treeWidgetPackageInfo.topLevelItem(7).setText(1, str(self.data_package.device_instance_index))
+        self.ui.treeWidgetPackageInfo.topLevelItem(8).setText(1, str(self.data_package.object_reference_type))
+        self.ui.treeWidgetPackageInfo.topLevelItem(9).setText(1, str(self.data_package.object_reference_value))
 
         from simulator.uiapplication.GeneralValueDspTreeViewModel import GeneralValueDspTreeViewModel
         from simulator.uiapplication.GeneralValueEditTreeViewModel import GeneralValueEditTreeViewModel

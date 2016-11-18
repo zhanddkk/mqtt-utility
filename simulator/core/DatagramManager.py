@@ -44,6 +44,7 @@ class DatagramManager:
         self.client = None
         self.is_connect = False
         self.update_data_callback = None
+        self.process_message_log_callback = None
         self.user_data = None
 
         self.__data_dict = {}     # Data dictionary {id: datagram}
@@ -112,6 +113,7 @@ class DatagramManager:
         self.client.on_log = self.on_log
         try:
             self.client.connect(self.broker, self.port, 60)
+            self.client.subscribe('#', 0)
             self.client.loop_start()
         except ConnectionRefusedError as e:
             print(e)
@@ -206,21 +208,29 @@ class DatagramManager:
     @staticmethod
     def on_message(client, obj, msg):
         print("Message: topic = [" + msg.topic + "] qos = " + str(msg.qos) + " message = [" + str(msg.payload) + "]")
-        try:
-            payload = cbor.loads(msg.payload)
-            package = MqttMessagePackage(payload)
+        payload = cbor.loads(msg.payload)
+        msg_is_valid = True
+        print('Message format error')
+
+        if (obj.process_message_log_callback is not None) and (not msg.topic.startswith('$sys')):
+            msg_str = 'topic: ' + msg.topic
+            msg_str += '\nqos: ' + str(msg.qos)
+            msg_str += '\nretain: ' + str(msg.retain)
+            msg_str += '\npayload: ' + str(payload)     # str(payload).replace(',', ',\n\t')
+            obj.process_message_log_callback(obj.user_data, msg_str)
+            pass
+
+        package = MqttMessagePackage(payload)
+        if package.is_valid:
             hash_id = package.hash_id
             device_index = package.device_instance_index - 1
             dg = obj.get_datagram_by_id(hash_id)
             dg.set_value(package.value, device_index)
             dg.save_history(device_index, 0)
-        except TypeError:
-            print('Message format error')
-            return
-            pass
 
-        if obj.update_data_callback:
-            obj.update_data_callback(obj.user_data, package)
+            if obj.update_data_callback:
+                obj.update_data_callback(obj.user_data, package)
+            pass
 
     @staticmethod
     def on_disconnect(client, obj, rc):

@@ -329,6 +329,16 @@
              <string/>
             </property>
            </item>
+           <item>
+            <property name="text">
+             <string>Object Reference type</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Object Reference value</string>
+            </property>
+           </item>
           </widget>
          </item>
          <item row="8" column="2">
@@ -494,7 +504,11 @@
      <item row="0" column="0">
       <layout class="QGridLayout" name="gridLayout_3">
        <item row="0" column="0">
-        <widget class="QListView" name="listViewLog"/>
+        <widget class="QPlainTextEdit" name="plainTextEditLog">
+         <property name="textInteractionFlags">
+          <set>Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
+         </property>
+        </widget>
        </item>
       </layout>
      </item>

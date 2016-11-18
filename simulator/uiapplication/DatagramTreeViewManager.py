@@ -33,7 +33,7 @@ class DatagramTreeViewManager:
                 pass
             child_item = DatagramTreeViewItem(dg, dev_index, root_item)
             root_item.append_child(child_item)
-        self.datagram_manager.subscribe_all_topic_to_server()
+        # self.datagram_manager.subscribe_all_topic_to_server()
         pass
 
     def get_list_view_row(self, hash_id, device_index):

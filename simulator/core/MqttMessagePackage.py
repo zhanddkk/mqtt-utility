@@ -22,6 +22,8 @@ class MqttMessagePackage:
         "E_TIMESTAMP_MS",
         "E_TIMESTAMP_SECOND",
         "E_DEVICE_INSTANCE_INDEX",
+        "E_DATA_OBJECT_REFERENCE_TYPE",
+        "E_DATA_OBJECT_REFERENCE_VALUE",
         "E_VALUE"
     ]
 
@@ -34,6 +36,8 @@ class MqttMessagePackage:
         "E_TIMESTAMP_MS": E_TIMESTAMP_MS,
         "E_TIMESTAMP_SECOND": E_TIMESTAMP_SECOND,
         "E_DEVICE_INSTANCE_INDEX": E_DEVICE_INSTANCE_INDEX,
+        "E_DATA_OBJECT_REFERENCE_TYPE": E_DATA_OBJECT_REFERENCE_TYPE,
+        "E_DATA_OBJECT_REFERENCE_VALUE": E_DATA_OBJECT_REFERENCE_VALUE,
         "E_VALUE": E_VALUE
     }
 
@@ -47,13 +51,29 @@ class MqttMessagePackage:
         E_TIMESTAMP_MS: 0xffff,
         E_TIMESTAMP_SECOND: 0xffffffff,
         E_DEVICE_INSTANCE_INDEX: 1,
+        E_DATA_OBJECT_REFERENCE_TYPE: 0,
+        E_DATA_OBJECT_REFERENCE_VALUE: 0,
         E_VALUE: None
     }
 
     def __init__(self, value_package=None):
-        if value_package:
-            self.value_package = value_package
-        pass
+        self.is_valid = True
+        try:
+            self.value_package[self.E_PAYLOAD_TYPE] = value_package[self.E_PAYLOAD_TYPE]
+            self.value_package[self.E_PAYLOAD_VERSION] = value_package[self.E_PAYLOAD_VERSION]
+            self.value_package[self.E_HASH_ID] = value_package[self.E_HASH_ID]
+            self.value_package[self.E_PRODUCER_MASK] = value_package[self.E_PRODUCER_MASK]
+            self.value_package[self.E_ACTION] = value_package[self.E_ACTION]
+            self.value_package[self.E_TIMESTAMP_MS] = value_package[self.E_TIMESTAMP_MS]
+            self.value_package[self.E_TIMESTAMP_SECOND] = value_package[self.E_TIMESTAMP_SECOND]
+            self.value_package[self.E_DEVICE_INSTANCE_INDEX] = value_package[self.E_DEVICE_INSTANCE_INDEX]
+            self.value_package[self.E_DATA_OBJECT_REFERENCE_TYPE] = value_package[self.E_DATA_OBJECT_REFERENCE_TYPE]
+            self.value_package[self.E_DATA_OBJECT_REFERENCE_VALUE] = value_package[self.E_DATA_OBJECT_REFERENCE_VALUE]
+            self.value_package[self.E_VALUE] = value_package[self.E_VALUE]
+            pass
+        except Exception as exception:
+            print('ERROR:', 'the format of value package is invalid', exception)
+            self.is_valid = False
 
     @property
     def payload_type(self):
@@ -118,6 +138,22 @@ class MqttMessagePackage:
     @device_instance_index.setter
     def device_instance_index(self, val):
         self.value_package[self.E_DEVICE_INSTANCE_INDEX] = val
+
+    @property
+    def object_reference_type(self):
+        return self.value_package[self.E_DATA_OBJECT_REFERENCE_TYPE]
+
+    @object_reference_type.setter
+    def object_reference_type(self, val):
+        self.value_package[self.E_DATA_OBJECT_REFERENCE_TYPE] = val
+
+    @property
+    def object_reference_value(self):
+        return self.value_package[self.E_DATA_OBJECT_REFERENCE_VALUE]
+
+    @object_reference_value.setter
+    def object_reference_value(self, val):
+        self.value_package[self.E_DATA_OBJECT_REFERENCE_VALUE] = val
 
     @property
     def value(self):
