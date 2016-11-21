@@ -1,0 +1,7 @@
+<RCC>
+  <qresource prefix="ico">
+    <file>ico/MainWindowIcon.ico</file>
+    <file>ico/Connection.ico</file>
+    <file>ico/Setting.ico</file>
+  </qresource>
+</RCC>

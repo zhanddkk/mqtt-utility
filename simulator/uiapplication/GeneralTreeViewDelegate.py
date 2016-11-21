@@ -1,31 +1,18 @@
 from PyQt5.QtWidgets import QStyledItemDelegate, QSpinBox, QDoubleSpinBox, QLineEdit, QItemEditorFactory
 from PyQt5.QtCore import Qt, QVariant
 from simulator.uiapplication.QUint32SpinBox import QUint32SpinBox
-
-integer_data_type_info = {
-    "BOOL": [0, 1],
-    "8BS": [-128, 127],
-    "8BUS": [0, 0xff],
-    "16BS": [-32768, 32767],
-    "16BUS": [0, 0xffff],
-    "32BS": [-2147483648, 2147483647],
-    "32BUS": [0, 0xffffffff],
-}
-#    "32BFL": "initPresetValueFloat32",
-#    "32BMASK": "initPresetValueUint32",
-#    "BINARY_BLOC": "initPresetValueString",
-#    "STRING": "initPresetValueString"};
+from simulator.core.DatagramAttribute import integer_data_type_info
 
 
-class ListTreeViewDelegate(QStyledItemDelegate):
+class GeneralTreeViewDelegate(QStyledItemDelegate):
     def __init__(self, datagram, parent=None):
-        super(ListTreeViewDelegate, self).__init__(parent)
+        super(GeneralTreeViewDelegate, self).__init__(parent)
         self.datagram = datagram
         pass
 
     def createEditor(self, parent, option, index):
         editor = QLineEdit(parent)
-        value_type = self.datagram.property.format
+        value_type = self.datagram.attribute.format
         try:
             info = integer_data_type_info[value_type]
             if info[1] > 2147483647:
@@ -38,6 +25,7 @@ class ListTreeViewDelegate(QStyledItemDelegate):
         except KeyError:
             if value_type == '32BFL':
                 editor = QDoubleSpinBox(parent)
+                editor.setRange(-3.40E+38, 3.40E+38)
                 pass
             pass
         return editor

@@ -1,5 +1,6 @@
 head_name_list = ('SubSystem,'
-                  'DataPath,Name,'
+                  'DataPath,'
+                  'Name,'
                   'Description,'
                   'Type,'
                   'Format,'
@@ -91,17 +92,37 @@ class DatagramAttribute:
     @property
     def default(self):
         if self._text_attribute.Format in integer_data_type_info:
-            def_val = self.convert_str_num(self._text_attribute.Default)
-            if def_val is None:
-                def_val = 0
+            if self.max_size > 1:
+                def_val = []
+                for i in range(self.max_size):
+                    def_val_tmp = self.convert_str_num(self._text_attribute.Default)
+                    if def_val_tmp is None:
+                        def_val.append(0)
+                    else:
+                        def_val.append(def_val_tmp)
+                pass
+            else:
+                def_val = self.convert_str_num(self._text_attribute.Default)
+                if def_val is None:
+                    def_val = 0
             return def_val
         else:
             if self._text_attribute.Format == '32BFL':
-                try:
-                    def_val = float(self._text_attribute.Default)
-                except ValueError:
-                    def_val = 0.0
+                if self.max_size > 1:
+                    def_val = []
+                    for i in range(self.max_size):
+                        try:
+                            def_val_tmp = float(self._text_attribute.Default)
+                        except ValueError:
+                            def_val_tmp = 0.0
+                        def_val.append(def_val_tmp)
                     pass
+                else:
+                    try:
+                        def_val = float(self._text_attribute.Default)
+                    except ValueError:
+                        def_val = 0.0
+                        pass
                 return def_val
             elif self._text_attribute.Format == 'BINARY_BLOC':
                 import json
@@ -176,6 +197,10 @@ class DatagramAttribute:
         else:
             return None
         pass
+
+    @property
+    def cmd_time_out(self):
+        return self.convert_str_num(self._text_attribute.CmdTimeOut)
 
     @property
     def producer(self):

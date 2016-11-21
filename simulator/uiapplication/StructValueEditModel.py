@@ -1,9 +1,9 @@
 from PyQt5.QtCore import Qt
 from simulator.uiapplication.ValueTreeViewItem import ValueTreeViewItem
-from simulator.uiapplication.ValueTreeViewModel import ValueViewModel
+from simulator.uiapplication.ValueTreeViewModel import ValueTreeViewModel
 
 
-class StructValueEditModel(ValueViewModel):
+class StructValueEditModel(ValueTreeViewModel):
     def __init__(self, datagram, dev_index, parent=None):
         self.datagram = datagram
         self.dev_index = dev_index
@@ -12,9 +12,11 @@ class StructValueEditModel(ValueViewModel):
     pass
 
     def update(self):
-        value = self.datagram.get_value(self.dev_index)
-        for (k, d) in self.datagram.property.choice_list.items():
-            self.root_item.append_child(ValueTreeViewItem([k, d, value], self.root_item))
+        value = self.datagram.data_list[self.dev_index].value
+        i = 0
+        for (k, d) in self.datagram.attribute.choice_list.items():
+            self.root_item.append_child(ValueTreeViewItem([k, d, value[i]], self.root_item))
+            i += 1
 
     def get_value(self):
         value = []

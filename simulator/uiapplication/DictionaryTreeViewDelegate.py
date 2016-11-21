@@ -1,4 +1,6 @@
-from PyQt5.QtWidgets import QStyledItemDelegate, QSpinBox, QComboBox, QLineEdit    # , QDoubleSpinBox
+from PyQt5.QtWidgets import QStyledItemDelegate, QSpinBox, QComboBox, QLineEdit
+from simulator.core.DatagramAttribute import integer_data_type_info
+from simulator.uiapplication.QUint32SpinBox import QUint32SpinBox
 
 
 class DictionaryTreeViewDelegate(QStyledItemDelegate):
@@ -12,7 +14,7 @@ class DictionaryTreeViewDelegate(QStyledItemDelegate):
         if index.column() == 0:
             editor = QComboBox(parent)
             data = index.data()
-            choice_list = self.datagram.property.choice_list
+            choice_list = self.datagram.attribute.choice_list
             str_list = []
             if choice_list != {}:
                 str_list = []
@@ -26,12 +28,16 @@ class DictionaryTreeViewDelegate(QStyledItemDelegate):
             else:
                 editor.setCurrentIndex(0)
         elif index.column() == 1:
-            if self.datagram.property.format == '16BUS':
-                editor = QSpinBox(parent)
-                editor.setMinimum(0)
-                editor.setMaximum(0xffff)
+            try:
+                info = integer_data_type_info[self.datagram.attribute.format]
+                if info[1] > 2147483647:
+                    editor = QUint32SpinBox(parent)
+                    pass
+                else:
+                    editor = QSpinBox(parent)
+                editor.setRange(info[0], info[1])
                 pass
-            else:
+            except KeyError:
                 pass
         return editor
 

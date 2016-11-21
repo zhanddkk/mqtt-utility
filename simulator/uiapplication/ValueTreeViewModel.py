@@ -2,9 +2,9 @@ from PyQt5.QtCore import QAbstractItemModel, QModelIndex, Qt
 from simulator.uiapplication.ValueTreeViewItem import ValueTreeViewItem
 
 
-class ValueViewModel(QAbstractItemModel):
+class ValueTreeViewModel(QAbstractItemModel):
     def __init__(self, header, parent=None):
-        super(ValueViewModel, self).__init__(parent)
+        super(ValueTreeViewModel, self).__init__(parent)
         self.root_item = ValueTreeViewItem(header, None)
         self.update()
 
@@ -14,13 +14,13 @@ class ValueViewModel(QAbstractItemModel):
     def get_value(self):
         pass
 
-    def columnCount(self, parent=QModelIndex()):
+    def columnCount(self, parent=None, *args, **kwargs):
         if parent.isValid():
             return parent.internalPointer().column_count()
         else:
             return self.root_item.column_count()
 
-    def data(self, index, role):
+    def data(self, index, role=None):
         if not index.isValid():
             return None
 
@@ -37,13 +37,13 @@ class ValueViewModel(QAbstractItemModel):
 
         return Qt.ItemIsEnabled | Qt.ItemIsSelectable
 
-    def headerData(self, section, orientation, role):
+    def headerData(self, section, orientation, role=None):
         if orientation == Qt.Horizontal and role == Qt.DisplayRole:
             return self.root_item.data(section)
 
         return None
 
-    def index(self, row, column, parent=QModelIndex()):
+    def index(self, row, column, parent=None, *args, **kwargs):
         if not self.hasIndex(row, column, parent):
             return QModelIndex()
 
@@ -58,7 +58,7 @@ class ValueViewModel(QAbstractItemModel):
         else:
             return QModelIndex()
 
-    def parent(self, index):
+    def parent(self, index=None):
         if not index.isValid():
             return QModelIndex()
 
@@ -70,7 +70,7 @@ class ValueViewModel(QAbstractItemModel):
 
         return self.createIndex(parent_item.row(), 0, parent_item)
 
-    def rowCount(self, parent=QModelIndex()):
+    def rowCount(self, parent=None, *args, **kwargs):
         if parent.column() > 0:
             return 0
 

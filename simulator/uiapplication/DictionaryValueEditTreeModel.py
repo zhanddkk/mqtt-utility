@@ -1,20 +1,20 @@
 from PyQt5.QtCore import Qt
 from simulator.uiapplication.ValueTreeViewItem import ValueTreeViewItem
-from simulator.uiapplication.ValueTreeViewModel import ValueViewModel
+from simulator.uiapplication.ValueTreeViewModel import ValueTreeViewModel
 
 
-class DictionaryValueEditTreeModel(ValueViewModel):
+class DictionaryValueEditTreeModel(ValueTreeViewModel):
     def __init__(self, datagram, dev_index, parent=None):
         self.datagram = datagram
         self.dev_index = dev_index
-        header = ('Name', self.datagram.property.format)
+        header = ('Name', self.datagram.attribute.format)
         super(DictionaryValueEditTreeModel, self).__init__(header, parent)
     pass
 
     def update(self):
-        value = self.datagram.get_value(self.dev_index)
+        value = self.datagram.data_list[self.dev_index].value
         name = 'USER DEFINE'
-        for (k, d) in self.datagram.property.choice_list.items():
+        for (k, d) in self.datagram.attribute.choice_list.items():
             if d == value:
                 name = k
                 break
@@ -46,7 +46,7 @@ class DictionaryValueEditTreeModel(ValueViewModel):
                 result_value = item.set_data(1, None)
             else:
                 try:
-                    result_value = item.set_data(1, self.datagram.property.choice_list[value])
+                    result_value = item.set_data(1, self.datagram.attribute.choice_list[value])
                 except KeyError:
                     result_value = item.set_data(1, None)
             index_value = self.index(index.row(), 1, self.parent(index))

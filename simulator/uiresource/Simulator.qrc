@@ -1,7 +1,0 @@
-<!DOCTYPE RCC><RCC version="1.0">
-	<qresource>
-		<file>ico/connect.ico</file>
-		<file>ico/set.ico</file>
-		<file>ico/simulator.ico</file>
-	</qresource>
-</RCC>

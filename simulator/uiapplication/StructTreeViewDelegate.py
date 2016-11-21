@@ -2,16 +2,7 @@ from PyQt5.QtWidgets import (QStyledItemDelegate, QSpinBox, QDoubleSpinBox,
                              QLineEdit, QItemEditorFactory)
 from PyQt5.QtCore import Qt, QVariant
 from simulator.uiapplication.QUint32SpinBox import QUint32SpinBox
-
-integer_data_type_info = {
-    'int8_t': [-128, 127],
-    'int16_t': [-32768, 32767],
-    'int32_t': [-2147483648, 2147483647],
-    'bool': [0, 1],
-    'uint8_t': [0, 0xff],
-    'uint16_t': [0, 0xffff],
-    'uint32_t': [0, 0xffffffff],
-}
+from simulator.core.DatagramAttribute import integer_data_type_info
 
 
 class StructTreeViewDelegate(QStyledItemDelegate):
@@ -50,6 +41,7 @@ class StructTreeViewDelegate(QStyledItemDelegate):
         except KeyError:
             if value_type == 'float':
                 editor = QDoubleSpinBox(parent)
+                editor.setRange(-3.40E+38, 3.40E+38)
                 pass
             pass
         return editor

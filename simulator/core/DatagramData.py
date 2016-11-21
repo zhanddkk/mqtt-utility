@@ -8,13 +8,13 @@ class DatagramData:
     instance = 0
     _topic = ''
     _history_max_size = 10
-    history = []
 
     def __init__(self, instance, topic, default_value=None):
         self.instance = instance
         self._topic = topic
         self._value = default_value
         self.repeater_info = RepeaterParameter()
+        self.history = []
         pass
 
     @property

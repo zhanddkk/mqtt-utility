@@ -1,19 +1,20 @@
 from PyQt5.QtCore import Qt
 from simulator.uiapplication.ValueTreeViewItem import ValueTreeViewItem
-from simulator.uiapplication.ValueTreeViewModel import ValueViewModel
+from simulator.uiapplication.ValueTreeViewModel import ValueTreeViewModel
 
 
-class ListValueEditTreeModel(ValueViewModel):
+class ListValueEditTreeModel(ValueTreeViewModel):
     def __init__(self, datagram, dev_index, parent=None):
         self.datagram = datagram
         self.dev_index = dev_index
-        self.value_size = datagram.property.max_size
-        header = ('Index', self.datagram.property.format,)
+        self.value_size = datagram.attribute.max_size
+        header = ('Index', self.datagram.attribute.format,)
         super(ListValueEditTreeModel, self).__init__(header, parent)
     pass
 
     def update(self):
-        value = self.datagram.get_value(self.dev_index)
+        self.beginResetModel()
+        value = self.datagram.data_list[self.dev_index].value
         if self.value_size is not None and self.value_size > 1:
             for i in range(0, self.value_size):
                 try:
@@ -24,6 +25,7 @@ class ListValueEditTreeModel(ValueViewModel):
                     self.root_item.append_child(ValueTreeViewItem([i, None], self.root_item))
         else:
             self.root_item.append_child(ValueTreeViewItem([0, value], self.root_item))
+        self.endResetModel()
 
     def get_value(self):
         value = []

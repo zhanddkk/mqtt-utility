@@ -1,253 +1,298 @@
-# from PyQt5 import QtWidgets
-from PyQt5.QtCore import pyqtSlot, pyqtSignal
-from PyQt5.QtWidgets import QApplication, QMainWindow, QTreeWidgetItem, QFileDialog
-# import cbor
-# import json
-import sys
-import os
-(file_path_base, filename) = os.path.split(os.path.realpath(__file__))
-file_path = os.path.join(file_path_base, '..\\..\\')
-sys.path.append(file_path)
 ########################################################################################################################
-# Main windows class
+# Simulation main application
+########################################################################################################################
+import os as _os
+import sys
+import datetime
+from PyQt5.Qt import Qt
+from PyQt5.QtCore import QDir
+from PyQt5.QtWidgets import QApplication, QMainWindow, QFileDialog, QTreeWidgetItem
+from PyQt5.QtCore import pyqtSignal, pyqtSlot
+from PyQt5.QtGui import QFontMetrics
+
+_path = _os.path.dirname(__file__)
+_path = _os.path.join(_path, '../../')
+sys.path.append(_path)
 
 
 class MainWin(QMainWindow):
-    from simulator.core.MqttMessagePackage import MqttMessagePackage as DataPackage
-    update_value_signal = pyqtSignal(DataPackage, name='UpdateValueSignal')
-    on_mqtt_message_signal = pyqtSignal(str, name='OnMqttMessageSignal')
+    from simulator.core.PayloadPackage import PayloadPackage
+    update_datagram_info_display_signal = pyqtSignal(list, name='UpdateDatagramInfoDisplaySignal')
+    update_datagram_value_display_signal = pyqtSignal(PayloadPackage, name='UpdateDatagramValueDisplaySignal')
+    record_datagram_server_message_signal = pyqtSignal(str, name='RecordDatagramServerMessageSignal')
 
     def __init__(self, parent=None):
-        from simulator.core.MqttMessagePackage import MqttMessagePackage as DataPackage
-        from simulator.uiform.SimulatorUI import Ui_SimulatorUI
-        from simulator.core.DatagramManager import DatagramManager
-        from simulator.uiapplication.DatagramTreeViewModel import DatagramTreeViewModel
-        from simulator.uiapplication.DatagramTreeViewManager import DatagramTreeViewManager
-        super(MainWin, self).__init__(parent)
-        self.ui = Ui_SimulatorUI()
+        from simulator.uiapplication.WinMainUi import Ui_MainWindow
+        from simulator.uiapplication.DataMonitorTableViewModel import DataMonitorTableViewModel
+        from simulator.uiapplication.DataDictionaryTreeViewModel import DataDictionaryTreeViewModel
+
+        super(MainWin, self).__init__(parent, flags=Qt.Window)
+        self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
 
-        self.data_package = DataPackage()
+        self.ui.actionExit.triggered.connect(QApplication.instance().quit)
+        self.ui.actionImport.triggered.connect(self.import_csv)
+
+        from simulator.core.DatagramManager import DatagramManager
+        from simulator.core.PayloadPackage import PayloadPackage
+        from simulator.core.DatagramServer import DatagramServer
 
         self.datagram_manager = DatagramManager()
-        # self.datagram_manager.broker = '192.168.1.102'
-        self.datagram_manager.connect_data_server()
-        self.datagram_manager.user_data = self
-        self.datagram_manager.update_data_callback = self.update_value_display_callback
-        self.datagram_manager.process_message_log_callback = self.on_mqtt_message_callback
+        self.datagram_manager.value_update_user_data = self
+        self.datagram_manager.value_update_callback = self.update_datagram_value_display_callback
 
-        self.datagram_tree_view_model = DatagramTreeViewModel(self.datagram_manager)
-        self.datagram_tree_view_manager = DatagramTreeViewManager(self.datagram_manager)
+        self.payload_package = PayloadPackage()
 
-        self.update_value_signal.connect(self.update_value_display)
-        self.on_mqtt_message_signal.connect(self.on_mqtt_message)
+        self.datagram_server = DatagramServer(self.datagram_manager)
+        self.datagram_server.record_message_user_data = self
+        self.datagram_server.record_message_callback = self.record_datagram_server_message_callback
 
-        self.ui.action_Exit.triggered.connect(QApplication.instance().quit)
-        self.ui.action_Load_CSV.triggered.connect(self.load_csv)
-        self.ui.treeWidgetDataInfo.resizeColumnToContents(0)
-        self.ui.treeWidgetPackageInfo.resizeColumnToContents(0)
+        # Can be controlled
+        self.datagram_server.run()
 
-    def on_mqtt_message(self, msg_str):
-        import datetime
-        self.ui.plainTextEditLog.appendPlainText('--------' +
-                                                 datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") +
-                                                 '--------')
-        self.ui.plainTextEditLog.appendPlainText(msg_str)
-        pass
+        self.datagram_manager_tree_view_model = DataDictionaryTreeViewModel(self.datagram_manager)
+        self.data_monitor_table_view_model = DataMonitorTableViewModel(self.datagram_manager)
 
-    def update_value_display(self, value_package):
-        hash_id = value_package.hash_id
-        dev_index = value_package.device_instance_index - 1
+        self.ui.data_dictionary_tree_view.setModel(self.datagram_manager_tree_view_model)
+        self.ui.data_monitor_table_view.setModel(self.data_monitor_table_view_model)
 
-        row = self.datagram_tree_view_manager.get_list_view_row(hash_id, dev_index)
-        if row is None:
-            print('Can\'t find the row')
-            return
-        model = self.ui.treeViewDataDictionary.model()
-        index = model.index(row, 1)
-        model.dataChanged.emit(index, index)
+        self.ui.data_dictionary_tree_view.selectionModel().selectionChanged.connect(
+            self.data_dictionary_tree_view_item_selected)
+        self.ui.data_monitor_table_view.selectionModel().selectionChanged.connect(
+            self.data_monitor_table_view_item_selected)
+        self.update_datagram_info_display_signal.connect(self.update_datagram_info_display)
+        self.update_datagram_value_display_signal.connect(self.update_datagram_value_display)
+        self.record_datagram_server_message_signal.connect(self.record_datagram_server_message)
 
-        model = self.ui.treeViewValueDisplay.model()
-        if model is not None:
-            if (model.datagram.id != hash_id) or ((model.datagram.id == hash_id) and (model.dev_index != dev_index)):
-                return
-            model.update()
-            self.ui.treeViewValueDisplay.reset()
-        pass
+        from simulator.uiapplication.PackageTreeWidgetDelegate import PackageTreeWidgetDelegate
+        self.ui.package_tree_widget.setItemDelegateForColumn(1, PackageTreeWidgetDelegate())
+        self.ui.package_tree_widget.resizeColumnToContents(0)
 
-    def load_csv(self):
+    def import_csv(self):
         fdg = QFileDialog()
-        csv_file_path = os.path.join(file_path_base, '../datadictionarysource/')
-        fdg.setDirectory(csv_file_path)
+        q_dir = QDir('../datadictionarysource/')
+        csv_path = q_dir.absolutePath()
+        fdg.setDirectory(csv_path)
         fdg.setNameFilter("CSV Files (*.csv);;Text Files (*.txt);;All Files (*)")
         if fdg.exec():
-            self.ui.treeViewDataDictionary.setModel(None)
-            self.datagram_tree_view_manager.clear()
-            self.datagram_tree_view_manager.load_data_from_csv(fdg.selectedFiles()[0])
-            self.datagram_tree_view_manager.build_list_view(self.datagram_tree_view_model.root_item)
-            self.ui.treeViewDataDictionary.setModel(self.datagram_tree_view_model)
-            self.ui.treeViewDataDictionary.selectionModel().selectionChanged.connect(
-                self.update_datagram_property_display)
-            self.ui.treeViewDataDictionary.resizeColumnToContents(0)
+
+            self.data_monitor_table_view_model.beginResetModel()
+            self.datagram_manager.clear()
+            self.datagram_manager.import_csv(fdg.selectedFiles()[0])
+            self.datagram_manager_tree_view_model.update()
+            self.data_monitor_table_view_model.endResetModel()
+
+            self.ui.data_monitor_table_view.resizeColumnsToContents()
+
+            font = self.ui.data_monitor_table_view.font()
+            font_metrics = QFontMetrics(font)
+            font_height = font_metrics.height() + 4
+            for i in range(self.data_monitor_table_view_model.rowCount()):
+                self.ui.data_monitor_table_view.setRowHeight(i, font_height)
+
+            self.statusBar().showMessage(fdg.selectedFiles()[0])
             pass
         pass
 
-    @staticmethod
-    def update_value_display_callback(obj, value_package):
-        obj.update_value_signal.emit(value_package)
+    def data_dictionary_tree_view_item_selected(self):
+        item_index = self.ui.data_dictionary_tree_view.selectionModel().currentIndex()
+        model = self.ui.data_dictionary_tree_view.model()
+        item = model.get_item(item_index)
+        if item.hide_data is None:
+            return
+        else:
+            model = self.ui.data_monitor_table_view.model()
+            row = model.datagram_index.index(item.hide_data)
+            row_index = model.index(row, 0)
+            self.ui.data_monitor_table_view.setCurrentIndex(row_index)
+            self.ui.data_monitor_table_view.scrollTo(row_index)
         pass
 
-    @staticmethod
-    def on_mqtt_message_callback(obj, msg_str):
-        obj.on_mqtt_message_signal.emit(msg_str)
+    def data_monitor_table_view_item_selected(self):
+        model = self.ui.data_monitor_table_view.model()
+        item_index = self.ui.data_monitor_table_view.selectionModel().currentIndex()
+        row = item_index.row()
+        self.update_datagram_info_display_signal.emit(model.datagram_index[row])
+        pass
 
-    def update_datagram_property_display(self):
-        index = self.ui.treeViewDataDictionary.selectionModel().currentIndex()
-        model = self.ui.treeViewDataDictionary.model()
-        item = model.get_item(index)
-        if not item.parent_item:
-            return
-        topic = item.data(0)
-        hash_id = item.datagram.id
-        dev_index = item.id
-
-        dg = item.datagram
-        self.ui.treeWidgetDataInfo.topLevelItem(0).setText(1, dg.property.sub_system)
-        self.ui.treeWidgetDataInfo.topLevelItem(1).setText(1, dg.property.data_path)
-        self.ui.treeWidgetDataInfo.topLevelItem(2).setText(1, dg.property.name)
-        self.ui.treeWidgetDataInfo.topLevelItem(3).setText(1, dg.property.description)
-        self.ui.treeWidgetDataInfo.topLevelItem(4).setText(1, dg.property.type)
-        self.ui.treeWidgetDataInfo.topLevelItem(5).setText(1, dg.property.format)
-        self.ui.treeWidgetDataInfo.topLevelItem(6).setText(1, str(dg.property.max_size))
-        self.ui.treeWidgetDataInfo.topLevelItem(7).setText(1, dg.property.default)
-        self.ui.treeWidgetDataInfo.topLevelItem(8).setText(1, str(dg.property.min))
-        self.ui.treeWidgetDataInfo.topLevelItem(9).setText(1, str(dg.property.max))
-        choice_list_item = self.ui.treeWidgetDataInfo.topLevelItem(10)
+    def update_datagram_info_display(self, index):
+        dg = self.datagram_manager.datagram_dict[index[0]]
+        self.ui.data_attribute_tree_widget.topLevelItem(0).setText(1, dg.attribute.sub_system)
+        self.ui.data_attribute_tree_widget.topLevelItem(1).setText(1, dg.attribute.data_path)
+        self.ui.data_attribute_tree_widget.topLevelItem(2).setText(1, dg.attribute.name)
+        self.ui.data_attribute_tree_widget.topLevelItem(3).setText(1, dg.attribute.description)
+        self.ui.data_attribute_tree_widget.topLevelItem(4).setText(1, dg.attribute.type)
+        self.ui.data_attribute_tree_widget.topLevelItem(5).setText(1, dg.attribute.format)
+        self.ui.data_attribute_tree_widget.topLevelItem(6).setText(1, str(dg.attribute.max_size))
+        self.ui.data_attribute_tree_widget.topLevelItem(7).setText(1, str(dg.attribute.default))
+        self.ui.data_attribute_tree_widget.topLevelItem(8).setText(1, str(dg.attribute.min))
+        self.ui.data_attribute_tree_widget.topLevelItem(9).setText(1, str(dg.attribute.max))
+        choice_list_item = self.ui.data_attribute_tree_widget.topLevelItem(10)
         choice_list_item.takeChildren()
-        choice_list = dg.property.choice_list
+        choice_list = dg.attribute.choice_list
         if choice_list != {}:
             choice_list_item.setText(1, '...')
             for (k, d) in choice_list.items():
                 sub_item = QTreeWidgetItem([k, str(d)])
                 choice_list_item.addChild(sub_item)
-            self.ui.treeWidgetDataInfo.expandItem(choice_list_item)
+            self.ui.data_attribute_tree_widget.expandItem(choice_list_item)
         else:
             choice_list_item.setText(1, '')
+        self.ui.data_attribute_tree_widget.topLevelItem(11).setText(1, dg.attribute.scale_unit)
+        self.ui.data_attribute_tree_widget.topLevelItem(12).setText(1, str(dg.attribute.precision))
+        self.ui.data_attribute_tree_widget.topLevelItem(13).setText(1, str(dg.attribute.is_alarm))
+        self.ui.data_attribute_tree_widget.topLevelItem(14).setText(1, str(dg.attribute.is_evt_log))
+        self.ui.data_attribute_tree_widget.topLevelItem(15).setText(1, str(dg.attribute.cmd_time_out))
+        self.ui.data_attribute_tree_widget.topLevelItem(16).setText(1, str(dg.attribute.producer))
+        self.ui.data_attribute_tree_widget.topLevelItem(17).setText(1, str(dg.attribute.consumer))
+        hash_str = '0x' + '{0:0>8}'.format(hex(index[0])[2:].upper())
+        self.ui.data_attribute_tree_widget.topLevelItem(18).setText(1, hash_str)
+        self.ui.data_attribute_tree_widget.resizeColumnToContents(0)
 
-        self.ui.treeWidgetDataInfo.topLevelItem(11).setText(1, dg.property.scale_unit)
-        self.ui.treeWidgetDataInfo.topLevelItem(12).setText(1, str(dg.property.precision))
-        self.ui.treeWidgetDataInfo.topLevelItem(13).setText(1, str(dg.property.is_alarm))
-        self.ui.treeWidgetDataInfo.topLevelItem(14).setText(1, str(dg.property.is_evt_log))
+        self.payload_package.hash_id = index[0]
+        self.payload_package.device_instance_index = index[1] + 1
 
-        self.ui.treeWidgetDataInfo.topLevelItem(15).setText(1, str(dg.property.producer))
-        self.ui.treeWidgetDataInfo.topLevelItem(16).setText(1, str(dg.property.consumer))
+        self.ui.package_tree_widget.topLevelItem(0).setText(1, str(self.payload_package.payload_type))
+        self.ui.package_tree_widget.topLevelItem(1).setText(1, str(self.payload_package.payload_version))
+        self.ui.package_tree_widget.topLevelItem(2).setText(1, hash_str)
+        self.ui.package_tree_widget.topLevelItem(3).setText(1, str(self.payload_package.producer_mask))
+        self.ui.package_tree_widget.topLevelItem(4).setText(1, str(self.payload_package.action))
+        self.ui.package_tree_widget.topLevelItem(5).setText(1, str(self.payload_package.time_stamp_ms))
+        self.ui.package_tree_widget.topLevelItem(6).setText(1, str(self.payload_package.time_stamp_second))
+        self.ui.package_tree_widget.topLevelItem(7).setText(1, str(self.payload_package.device_instance_index))
+        self.ui.package_tree_widget.topLevelItem(8).setText(1, str(self.payload_package.data_object_reference_type))
+        self.ui.package_tree_widget.topLevelItem(9).setText(1, str(self.payload_package.data_object_reference_value))
 
-        hash_str = '0x' + '{:0>8}'.format(hex(hash_id)[2:].upper())
-
-        self.ui.treeWidgetDataInfo.topLevelItem(17).setText(1, hash_str)
-
-        self.data_package.device_instance_index = dev_index + 1
-        self.data_package.hash_id = hash_id
-        self.data_package.value = dg.get_value(dev_index)
-        self.ui.treeWidgetDataInfo.resizeColumnToContents(0)
-
-        self.ui.treeWidgetPackageInfo.topLevelItem(0).setText(1, str(self.data_package.payload_type))
-        self.ui.treeWidgetPackageInfo.topLevelItem(1).setText(1, str(self.data_package.payload_version))
-        self.ui.treeWidgetPackageInfo.topLevelItem(2).setText(1, hash_str)
-        self.ui.treeWidgetPackageInfo.topLevelItem(3).setText(1, str(self.data_package.producer_mask))
-        self.ui.treeWidgetPackageInfo.topLevelItem(4).setText(1, str(self.data_package.action))
-        self.ui.treeWidgetPackageInfo.topLevelItem(5).setText(1, str(self.data_package.time_stamp_ms))
-        self.ui.treeWidgetPackageInfo.topLevelItem(6).setText(1, str(self.data_package.time_stamp_second))
-        self.ui.treeWidgetPackageInfo.topLevelItem(7).setText(1, str(self.data_package.device_instance_index))
-        self.ui.treeWidgetPackageInfo.topLevelItem(8).setText(1, str(self.data_package.object_reference_type))
-        self.ui.treeWidgetPackageInfo.topLevelItem(9).setText(1, str(self.data_package.object_reference_value))
+        self.statusBar().showMessage('Hash Id : ' + hash_str + ' | Device index : ' + str(index[1] + 1))
 
         from simulator.uiapplication.GeneralValueDspTreeViewModel import GeneralValueDspTreeViewModel
         from simulator.uiapplication.GeneralValueEditTreeViewModel import GeneralValueEditTreeViewModel
+        from simulator.uiapplication.GeneralTreeViewDelegate import GeneralTreeViewDelegate
+
         from simulator.uiapplication.DictionaryValueDspTreeModel import DictionaryValueDspTreeModel
         from simulator.uiapplication.DictionaryValueEditTreeModel import DictionaryValueEditTreeModel
+        from simulator.uiapplication.DictionaryTreeViewDelegate import DictionaryTreeViewDelegate
+
         from simulator.uiapplication.ListValueDspTreeModel import ListValueDspTreeModel
         from simulator.uiapplication.ListValueEditTreeModel import ListValueEditTreeModel
-        from simulator.uiapplication.DictionaryTreeViewDelegate import DictionaryTreeViewDelegate
-        from simulator.uiapplication.ListTreeViewDelegate import ListTreeViewDelegate
+
         from simulator.uiapplication.StructValueDspModel import StructValueDspModel
         from simulator.uiapplication.StructValueEditModel import StructValueEditModel
         from simulator.uiapplication.StructTreeViewDelegate import StructTreeViewDelegate
 
-        if dg.property.type == 'STATUS':
-            value_dsp_model = DictionaryValueDspTreeModel(dg, dev_index)
-            value_edit_model = DictionaryValueEditTreeModel(dg, dev_index)
+        if dg.attribute.type == 'STATUS':
+            value_dsp_model = DictionaryValueDspTreeModel(dg, index[1])
+            value_edit_model = DictionaryValueEditTreeModel(dg, index[1])
             value_edit_delegate = DictionaryTreeViewDelegate(dg)
-        elif dg.property.type == 'MEASURE':
-            value_dsp_model = ListValueDspTreeModel(dg, dev_index)
-            value_edit_model = ListValueEditTreeModel(dg, dev_index)
-            value_edit_delegate = ListTreeViewDelegate(dg)
+        elif dg.attribute.type == 'MEASURE':
+            value_dsp_model = ListValueDspTreeModel(dg, index[1])
+            value_edit_model = ListValueEditTreeModel(dg, index[1])
+            value_edit_delegate = GeneralTreeViewDelegate(dg)
         else:
-            if dg.property.format == 'BINARY_BLOC':
-                value_dsp_model = StructValueDspModel(dg, dev_index)
-                value_edit_model = StructValueEditModel(dg, dev_index)
+            if dg.attribute.format == 'BINARY_BLOC':
+                value_dsp_model = StructValueDspModel(dg, index[1])
+                value_edit_model = StructValueEditModel(dg, index[1])
                 value_edit_delegate = StructTreeViewDelegate(dg)
                 pass
             else:
-                value_dsp_model = GeneralValueDspTreeViewModel(dg, dev_index)
-                value_edit_model = GeneralValueEditTreeViewModel(dg, dev_index)
-                value_edit_delegate = ListTreeViewDelegate(dg)
+                value_dsp_model = GeneralValueDspTreeViewModel(dg, index[1])
+                value_edit_model = GeneralValueEditTreeViewModel(dg, index[1])
+                value_edit_delegate = GeneralTreeViewDelegate(dg)
 
-        self.ui.treeViewValueEdit.setItemDelegate(value_edit_delegate)
-        self.ui.treeViewValueDisplay.setModel(value_dsp_model)
-        self.ui.treeViewValueEdit.setModel(value_edit_model)
-        self.statusBar().showMessage("Clicked: " + topic + " @ " + hash_str)
+        self.ui.data_history_tree_view.setModel(value_dsp_model)
+        self.ui.value_edit_tree_view.setModel(value_edit_model)
+        self.ui.value_edit_tree_view.setItemDelegate(value_edit_delegate)
+
+    def update_datagram_value_display(self, payload_package):
+        hash_id = payload_package.hash_id
+        dev_index = payload_package.device_instance_index - 1
+        model = self.ui.data_monitor_table_view.model()
+        if model is None:
+            return
+        try:
+            row = model.datagram_index.index([hash_id, dev_index])
+        except IndexError:
+            return
+        model_index = model.index(row, 2)
+        model.dataChanged.emit(model_index, model_index)
+
+        model = self.ui.data_history_tree_view.model()
+        if model is not None:
+            if (model.datagram.attribute.hash_id != hash_id) or\
+                    ((model.datagram.attribute.hash_id == hash_id) and (model.dev_index != dev_index)):
+                return
+            model.update()
+        pass
+
+    def record_datagram_server_message(self, msg_str):
+        self.ui.log_plain_text_edit.appendPlainText('--------' + datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") +
+                                                    '--------\n' + msg_str)
+        pass
 
     @pyqtSlot()
-    def on_pushButtonPublish_clicked(self):
-        sender = self.sender()
+    def on_publish_push_button_clicked(self):
         try:
-            index = self.ui.treeViewDataDictionary.selectionModel().currentIndex()
-        except AttributeError:
-            self.statusBar().showMessage(sender.text() + ' was pressed: No Topic')
-            return
-            pass
-        model = self.ui.treeViewDataDictionary.model()
-        item = model.get_item(index)
-        if not item.parent_item:
-            self.statusBar().showMessage(sender.text() + ' was pressed: No Topic')
-            return
-        hash_id = item.datagram.id
-        dev_index = item.id
+            item_index = self.ui.data_monitor_table_view.selectionModel().currentIndex()
+            model = self.ui.data_monitor_table_view.model()
+            row = item_index.row()
+            index = model.datagram_index[row]
+            model = self.ui.value_edit_tree_view.model()
+            if model is None:
+                self.statusBar().showMessage('Invalid Value Type')
+            self.payload_package.value = model.get_value()
+            from PyQt5.QtCore import Qt
 
-        model = self.ui.treeViewValueEdit.model()
-        if not model:
-            self.statusBar().showMessage(sender.text() + ' was pressed: Invalid Value Type')
+            self.payload_package.payload_type = self.ui.package_tree_widget.topLevelItem(0).data(1, Qt.DisplayRole)
+            self.payload_package.payload_version = self.ui.package_tree_widget.topLevelItem(1).data(1, Qt.DisplayRole)
+            self.payload_package.hash_id = index[0]
+            self.payload_package.producer_mask = self.ui.package_tree_widget.topLevelItem(3).data(1, Qt.DisplayRole)
+            self.payload_package.action = self.ui.package_tree_widget.topLevelItem(4).data(1, Qt.DisplayRole)
+            self.payload_package.time_stamp_ms = self.ui.package_tree_widget.topLevelItem(5).data(1, Qt.DisplayRole)
+            self.payload_package.time_stamp_second = self.ui.package_tree_widget.topLevelItem(6).data(1, Qt.DisplayRole)
+            self.payload_package.device_instance_index = index[1] + 1
+            self.payload_package.data_object_reference_type = self.ui.package_tree_widget.\
+                topLevelItem(8).data(1, Qt.DisplayRole)
+            self.payload_package.data_object_reference_value = self.ui.package_tree_widget.\
+                topLevelItem(9).data(1, Qt.DisplayRole)
+
+            if self.datagram_server.publish(self.payload_package):
+                result = 'Publish OK'
+            else:
+                result = 'Publish Failed'
+
+            self.statusBar().showMessage(result)
+
+        except Exception as exception:
+            print('ERROR:', exception)
+            self.statusBar().showMessage('Publish Failed')
             return
 
-        self.data_package.value = model.get_value()
-        try:
-            self.data_package.payload_type = int(self.ui.treeWidgetPackageInfo.topLevelItem(0).text(1))
-            self.data_package.payload_version = int(self.ui.treeWidgetPackageInfo.topLevelItem(1).text(1))
-            self.data_package.action = int(self.ui.treeWidgetPackageInfo.topLevelItem(4).text(1))
-            self.data_package.time_stamp_ms = int(self.ui.treeWidgetPackageInfo.topLevelItem(5).text(1))
-            self.data_package.time_stamp_second = int(self.ui.treeWidgetPackageInfo.topLevelItem(6).text(1))
-            pass
-        except TypeError:
-            pass
-        if self.datagram_manager.send_data_to_server(hash_id, dev_index, self.data_package):
-            result = 'Send OK'
-        else:
-            result = 'Send Failed'
-        self.statusBar().showMessage(sender.text() + ' was pressed: ' + result)
+    @staticmethod
+    def update_datagram_value_display_callback(obj, payload_package):
+        obj.update_datagram_value_display_signal.emit(payload_package)
+        pass
+
+    @staticmethod
+    def record_datagram_server_message_callback(obj, msg_str):
+        obj.record_datagram_server_message_signal.emit(msg_str)
+        pass
+
     pass
+
 ########################################################################################################################
-sys.except_hook = sys.excepthook
+except_hook = sys.excepthook
 
 
 def exception_hook(exc_type, value, traceback):
-    sys.except_hook(exc_type, value, traceback)
+    except_hook(exc_type, value, traceback)
     sys.exit(1)
 
 sys.excepthook = exception_hook
-
-if __name__ == "__main__":
+########################################################################################################################
+if __name__ == '__main__':
     app = QApplication(sys.argv)
     window = MainWin()
     window.show()
-    sys.exit(app.exec_())
+    ret = app.exec_()
+    sys.exit(ret)
+    pass

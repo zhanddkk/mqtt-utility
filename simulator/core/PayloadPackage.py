@@ -19,7 +19,7 @@ class PayloadPackage:
     action = 0
     time_stamp_second = 0xffffffff
     time_stamp_ms = 0xffff
-    device_instance_index = 1
+    device_instance_index = 1       # Start from 1, not 0
     data_object_reference_type = 0
     data_object_reference_value = 0
     value = None
@@ -65,7 +65,7 @@ class PayloadPackage:
         return \
             "E_PAYLOAD_TYPE                :" + str(self.payload_type) + '\n' + \
             "E_PAYLOAD_VERSION             :" + str(self.payload_version) + '\n' + \
-            "E_HASH_ID                     :" + '0x' + '{:0>8}'.format(hex(self.hash_id)[2:]) + '\n' + \
+            "E_HASH_ID                     :" + '0x' + '{:0>8}'.format(hex(self.hash_id)[2:].upper()) + '\n' + \
             "E_PRODUCER_MASK               :" + str(self.producer_mask) + '\n' + \
             "E_ACTION                      :" + str(self.action) + '\n' + \
             "E_TIMESTAMP_MS                :" + str(self.time_stamp_second) + '\n' + \

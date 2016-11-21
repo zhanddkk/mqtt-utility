@@ -1,29 +1,29 @@
 from simulator.uiapplication.ValueTreeViewItem import ValueTreeViewItem
-from simulator.uiapplication.ValueTreeViewModel import ValueViewModel
+from simulator.uiapplication.ValueTreeViewModel import ValueTreeViewModel
 
 
-class DictionaryValueDspTreeModel(ValueViewModel):
+class DictionaryValueDspTreeModel(ValueTreeViewModel):
     def __init__(self, datagram, dev_index, parent=None):
         self.datagram = datagram
         self.dev_index = dev_index
-        header = ('Operation', 'Time', 'Name', self.datagram.property.format)
+        header = ('Operation', 'Time', 'Name', self.datagram.attribute.format)
         super(DictionaryValueDspTreeModel, self).__init__(header, parent)
 
     def update(self):
+        self.beginResetModel()
         self.root_item.clear_children()
         try:
-            history_values = self.datagram.history[self.dev_index]
-            for history in reversed(history_values):
-                opt = 'Receive' if history[0] == 0 else 'Send'
-                time = history[1].strftime("%Y-%m-%d %H:%M:%S")
+            d = self.datagram.data_list[self.dev_index]
+            for history in reversed(d.history):
                 name = 'NO DEFINE'
-                value = history[2]
-                for (k, d) in self.datagram.property.choice_list.items():
+                value = history.value
+                for (k, d) in self.datagram.attribute.choice_list.items():
                     if d == value:
                         name = k
                         break
-                self.root_item.append_child(ValueTreeViewItem((opt, time, name, value), self.root_item))
+                self.root_item.append_child(ValueTreeViewItem((history.opt_str, history.time_str, name, value),
+                                                              self.root_item))
         except IndexError:
-            print('Index error')
-            return
+            print('ERROR:', 'Index error')
+        self.endResetModel()
         pass

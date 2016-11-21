@@ -1,7 +1,8 @@
 class ValueTreeViewItem(object):
-    def __init__(self, data, parent=None):
+    def __init__(self, item_data, parent=None, hide_data=None):
         self.parent_item = parent
-        self.user_data = data
+        self.item_data = item_data
+        self.hide_data = hide_data
         self.child_items = []
         pass
 
@@ -24,11 +25,11 @@ class ValueTreeViewItem(object):
         pass
 
     def column_count(self):
-        return len(self.user_data)
+        return len(self.item_data)
 
     def data(self, column):
         try:
-            return self.user_data[column]
+            return self.item_data[column]
         except IndexError:
             return None
         pass
@@ -46,7 +47,7 @@ class ValueTreeViewItem(object):
 
     def set_data(self, column, value):
         try:
-            self.user_data[column] = value
+            self.item_data[column] = value
             return True
         except IndexError:
             return False

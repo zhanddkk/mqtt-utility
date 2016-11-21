@@ -1,5 +1,5 @@
 def_user_function_str = '''
-def user_function(value, times)
+def user_function(value, times):
     value += 1
     return value
 '''
