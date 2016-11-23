@@ -13,6 +13,8 @@ class Repeater(threading.Thread):
         self.finished = threading.Event()
         self._def_package = def_package
         self.user_function = None
+        self.finish_repeat_callback = None
+        self.finish_repeat_data = None
         pass
 
     def append_data(self, item, def_package=None):

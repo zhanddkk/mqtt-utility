@@ -15,7 +15,7 @@ class PayloadPackage:
     payload_type = 0
     payload_version = 0
     hash_id = 0
-    producer_mask = 0
+    producer_mask = 0xffffffff
     action = 0
     time_stamp_second = 0xffffffff
     time_stamp_ms = 0xffff
@@ -68,8 +68,8 @@ class PayloadPackage:
             "E_HASH_ID                     :" + '0x' + '{:0>8}'.format(hex(self.hash_id)[2:].upper()) + '\n' + \
             "E_PRODUCER_MASK               :" + str(self.producer_mask) + '\n' + \
             "E_ACTION                      :" + str(self.action) + '\n' + \
-            "E_TIMESTAMP_MS                :" + str(self.time_stamp_second) + '\n' + \
-            "E_TIMESTAMP_SECOND            :" + str(self.time_stamp_ms) + '\n' + \
+            "E_TIMESTAMP_SECOND            :" + str(self.time_stamp_second) + '\n' + \
+            "E_TIMESTAMP_MS                :" + str(self.time_stamp_ms) + '\n' + \
             "E_DEVICE_INSTANCE_INDEX       :" + str(self.device_instance_index) + '\n' + \
             "E_DATA_OBJECT_REFERENCE_TYPE  :" + str(self.data_object_reference_type) + '\n' + \
             "E_DATA_OBJECT_REFERENCE_VALUE :" + str(self.data_object_reference_value) + '\n' + \

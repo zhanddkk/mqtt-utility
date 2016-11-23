@@ -1,5 +1,4 @@
-def_user_function_str = '''
-def user_function(value, times):
+def_user_function_str = '''def user_function(value, times):
     value += 1
     return value
 '''
@@ -7,10 +6,10 @@ def user_function(value, times):
 
 class RepeaterParameter:
     is_running = False
-    counter = 0
-    tagger_count = 1
-    repeat_times = 0
-    exit_times = 0
+    counter = 0         # interval times counter
+    tagger_count = 0    # 0: repeater is invalid
+    repeat_times = 0    # repeater times counter
+    exit_times = 0      # 0: will not stop
     user_function_str = def_user_function_str
     pass
 
