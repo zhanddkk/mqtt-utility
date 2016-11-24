@@ -6,7 +6,7 @@ import sys
 import datetime
 from PyQt5.Qt import Qt
 from PyQt5.QtCore import QDir
-from PyQt5.QtWidgets import QApplication, QMainWindow, QFileDialog, QTreeWidgetItem, QHeaderView, QToolBar
+from PyQt5.QtWidgets import QApplication, QMainWindow, QFileDialog, QTreeWidgetItem, QHeaderView, QMessageBox
 from PyQt5.QtCore import pyqtSignal, pyqtSlot
 from PyQt5.QtGui import QFontMetrics
 
@@ -32,6 +32,7 @@ class MainWin(QMainWindow):
 
         self.ui.actionExit.triggered.connect(QApplication.instance().quit)
         self.ui.actionImport.triggered.connect(self.import_csv)
+        self.ui.actionAbout.triggered.connect(self.about)
 
         self.tabifyDockWidget(self.ui.package_dock_widget, self.ui.repeater_dock_widget)
         self.ui.package_dock_widget.raise_()
@@ -89,6 +90,23 @@ class MainWin(QMainWindow):
         self.ui.menuView.addAction(self.ui.data_history_dock_widget.toggleViewAction())
         self.ui.menuView.addSeparator()
         self.ui.menuView.addAction(self.ui.log_dock_widget.toggleViewAction())
+        pass
+
+    def about(self):
+        QMessageBox.about(self, "About Application",
+                          '''
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;-qt-block-indent:0; text-indent:0px;">
+    This <span style=" font-weight:600;">Application</span> is a simulator.
+</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">
+    <span style=" font-weight:600;">Version</span>: 0.5
+</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">
+    <span style=" font-weight:600;">Copyright</span>:
+    <span style=" font-style:italic; text-decoration: underline; color:#3bb300;"> Schneider Electric (China) Co., Ltd.
+    </span>
+</p>
+                          ''')
         pass
 
     def quit(self):
@@ -183,16 +201,19 @@ class MainWin(QMainWindow):
         self.payload_package.hash_id = index[0]
         self.payload_package.device_instance_index = index[1] + 1
 
-        self.ui.package_tree_widget.topLevelItem(0).setText(1, str(self.payload_package.payload_type))
-        self.ui.package_tree_widget.topLevelItem(1).setText(1, str(self.payload_package.payload_version))
+        self.ui.package_tree_widget.topLevelItem(0).setData(1, Qt.DisplayRole, self.payload_package.payload_type)
+        self.ui.package_tree_widget.topLevelItem(1).setData(1, Qt.DisplayRole, self.payload_package.payload_version)
         self.ui.package_tree_widget.topLevelItem(2).setText(1, hash_str)
-        self.ui.package_tree_widget.topLevelItem(3).setText(1, str(self.payload_package.producer_mask))
-        self.ui.package_tree_widget.topLevelItem(4).setText(1, str(self.payload_package.action))
-        self.ui.package_tree_widget.topLevelItem(5).setText(1, str(self.payload_package.time_stamp_second))
-        self.ui.package_tree_widget.topLevelItem(6).setText(1, str(self.payload_package.time_stamp_ms))
-        self.ui.package_tree_widget.topLevelItem(7).setText(1, str(self.payload_package.device_instance_index))
-        self.ui.package_tree_widget.topLevelItem(8).setText(1, str(self.payload_package.data_object_reference_type))
-        self.ui.package_tree_widget.topLevelItem(9).setText(1, str(self.payload_package.data_object_reference_value))
+        self.ui.package_tree_widget.topLevelItem(3).setData(1, Qt.DisplayRole, self.payload_package.producer_mask)
+        self.ui.package_tree_widget.topLevelItem(4).setData(1, Qt.DisplayRole, self.payload_package.action)
+        self.ui.package_tree_widget.topLevelItem(5).setData(1, Qt.DisplayRole, self.payload_package.time_stamp_second)
+        self.ui.package_tree_widget.topLevelItem(6).setData(1, Qt.DisplayRole, self.payload_package.time_stamp_ms)
+        self.ui.package_tree_widget.topLevelItem(7).setData(1, Qt.DisplayRole,
+                                                            self.payload_package.device_instance_index)
+        self.ui.package_tree_widget.topLevelItem(8).setData(1, Qt.DisplayRole,
+                                                            self.payload_package.data_object_reference_type)
+        self.ui.package_tree_widget.topLevelItem(9).setData(1, Qt.DisplayRole,
+                                                            self.payload_package.data_object_reference_value)
 
         self.ui.interval_spin_box.setValue(d.repeater_info.tagger_count)
         self.ui.repeate_times_spin_box.setValue(d.repeater_info.exit_times)
