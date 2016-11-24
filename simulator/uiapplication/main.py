@@ -6,6 +6,7 @@ import sys
 import datetime
 from PyQt5.Qt import Qt
 from PyQt5.QtCore import QDir
+from PyQt5 import QtCore
 from PyQt5.QtWidgets import QApplication, QMainWindow, QFileDialog, QTreeWidgetItem, QHeaderView, QMessageBox
 from PyQt5.QtCore import pyqtSignal, pyqtSlot
 from PyQt5.QtGui import QFontMetrics
@@ -37,6 +38,8 @@ class MainWin(QMainWindow):
         self.tabifyDockWidget(self.ui.package_dock_widget, self.ui.repeater_dock_widget)
         self.ui.package_dock_widget.raise_()
         self.ui.data_monitor_table_view.verticalHeader().setSectionResizeMode(QHeaderView.Fixed)
+        self.ui.package_tree_widget.header().setSectionResizeMode(QHeaderView.ResizeToContents)
+        self.ui.value_edit_tree_view.header().setSectionResizeMode(QHeaderView.ResizeToContents)
         self.__add_view_menu_items()
 
         from simulator.core.DatagramManager import DatagramManager
@@ -62,7 +65,6 @@ class MainWin(QMainWindow):
 
         self.datagram_manager_tree_view_model = DataDictionaryTreeViewModel(self.datagram_manager)
         self.data_monitor_table_view_model = DataMonitorTableViewModel(self.datagram_manager)
-        # self.data_monitor_table_view_model
 
         self.ui.data_dictionary_tree_view.setModel(self.datagram_manager_tree_view_model)
         self.ui.data_monitor_table_view.setModel(self.data_monitor_table_view_model)
@@ -211,9 +213,27 @@ class MainWin(QMainWindow):
         self.ui.package_tree_widget.topLevelItem(7).setData(1, Qt.DisplayRole,
                                                             self.payload_package.device_instance_index)
         self.ui.package_tree_widget.topLevelItem(8).setData(1, Qt.DisplayRole,
-                                                            self.payload_package.data_object_reference_type)
-        self.ui.package_tree_widget.topLevelItem(9).setData(1, Qt.DisplayRole,
-                                                            self.payload_package.data_object_reference_value)
+                                                            self.payload_package.is_object_reference_package)
+        choice_list_item = self.ui.package_tree_widget.topLevelItem(8)
+        choice_list_item.takeChildren()
+        if self.payload_package.is_object_reference_package:
+            sub_item = QTreeWidgetItem(['Data Obj Ref Type'])
+            sub_item.setData(1, Qt.DisplayRole, self.payload_package.data_object_reference_type)
+            sub_item.setFlags(QtCore.Qt.ItemIsSelectable |
+                              QtCore.Qt.ItemIsEditable |
+                              QtCore.Qt.ItemIsDragEnabled |
+                              QtCore.Qt.ItemIsUserCheckable |
+                              QtCore.Qt.ItemIsEnabled)
+            choice_list_item.addChild(sub_item)
+            sub_item = QTreeWidgetItem(['Data Obj Ref Value'])
+            sub_item.setData(1, Qt.DisplayRole, self.payload_package.data_object_reference_value)
+            sub_item.setFlags(QtCore.Qt.ItemIsSelectable |
+                              QtCore.Qt.ItemIsEditable |
+                              QtCore.Qt.ItemIsDragEnabled |
+                              QtCore.Qt.ItemIsUserCheckable |
+                              QtCore.Qt.ItemIsEnabled)
+            choice_list_item.addChild(sub_item)
+            pass
 
         self.ui.interval_spin_box.setValue(d.repeater_info.tagger_count)
         self.ui.repeate_times_spin_box.setValue(d.repeater_info.exit_times)
@@ -354,10 +374,15 @@ class MainWin(QMainWindow):
             self.payload_package.time_stamp_ms = self.ui.package_tree_widget.topLevelItem(5).data(1, Qt.DisplayRole)
             self.payload_package.time_stamp_second = self.ui.package_tree_widget.topLevelItem(6).data(1, Qt.DisplayRole)
             self.payload_package.device_instance_index = index[1] + 1
-            self.payload_package.data_object_reference_type = self.ui.package_tree_widget.\
+            self.payload_package.is_object_reference_package = self.ui.package_tree_widget.\
                 topLevelItem(8).data(1, Qt.DisplayRole)
-            self.payload_package.data_object_reference_value = self.ui.package_tree_widget.\
-                topLevelItem(9).data(1, Qt.DisplayRole)
+
+            if self.payload_package.is_object_reference_package is True:
+                sub_item = self.ui.package_tree_widget.topLevelItem(8).child(0)
+                self.payload_package.data_object_reference_type = sub_item.data(1, Qt.DisplayRole)
+                sub_item = self.ui.package_tree_widget.topLevelItem(8).child(1)
+                self.payload_package.data_object_reference_value = sub_item.data(1, Qt.DisplayRole)
+                pass
 
             if self.datagram_server.publish(self.payload_package):
                 result = 'Publish OK'

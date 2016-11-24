@@ -12,6 +12,7 @@ E_VALUE = 10
 
 
 class PayloadPackage:
+    is_object_reference_package = False
     payload_type = 0
     payload_version = 0
     hash_id = 0
@@ -34,8 +35,12 @@ class PayloadPackage:
             self.time_stamp_second = package[E_TIMESTAMP_SECOND]
             self.time_stamp_ms = package[E_TIMESTAMP_MS]
             self.device_instance_index = package[E_DEVICE_INSTANCE_INDEX]
-            self.data_object_reference_type = package[E_DATA_OBJECT_REFERENCE_TYPE]
-            self.data_object_reference_value = package[E_DATA_OBJECT_REFERENCE_VALUE]
+            if (E_DATA_OBJECT_REFERENCE_TYPE in package) or (E_DATA_OBJECT_REFERENCE_VALUE in package):
+                self.data_object_reference_type = package[E_DATA_OBJECT_REFERENCE_TYPE]
+                self.data_object_reference_value = package[E_DATA_OBJECT_REFERENCE_VALUE]
+                self.is_object_reference_package = True
+            else:
+                self.is_object_reference_package = False
             self.value = package[E_VALUE]
             return True
             pass
@@ -46,35 +51,61 @@ class PayloadPackage:
         pass
 
     def dumps(self):
-        return {
-            E_PAYLOAD_TYPE: self.payload_type,
-            E_PAYLOAD_VERSION: self.payload_version,
-            E_HASH_ID: self.hash_id,
-            E_PRODUCER_MASK: self.producer_mask,
-            E_ACTION: self.action,
-            E_TIMESTAMP_SECOND: self.time_stamp_second,
-            E_TIMESTAMP_MS: self.time_stamp_ms,
-            E_DEVICE_INSTANCE_INDEX: self.device_instance_index,
-            E_DATA_OBJECT_REFERENCE_TYPE: self.data_object_reference_type,
-            E_DATA_OBJECT_REFERENCE_VALUE: self.data_object_reference_value,
-            E_VALUE: self.value
-        }
+        if self.is_object_reference_package:
+            return {
+                E_PAYLOAD_TYPE: self.payload_type,
+                E_PAYLOAD_VERSION: self.payload_version,
+                E_HASH_ID: self.hash_id,
+                E_PRODUCER_MASK: self.producer_mask,
+                E_ACTION: self.action,
+                E_TIMESTAMP_SECOND: self.time_stamp_second,
+                E_TIMESTAMP_MS: self.time_stamp_ms,
+                E_DEVICE_INSTANCE_INDEX: self.device_instance_index,
+                E_DATA_OBJECT_REFERENCE_TYPE: self.data_object_reference_type,
+                E_DATA_OBJECT_REFERENCE_VALUE: self.data_object_reference_value,
+                E_VALUE: self.value
+            }
+        else:
+            return {
+                E_PAYLOAD_TYPE: self.payload_type,
+                E_PAYLOAD_VERSION: self.payload_version,
+                E_HASH_ID: self.hash_id,
+                E_PRODUCER_MASK: self.producer_mask,
+                E_ACTION: self.action,
+                E_TIMESTAMP_SECOND: self.time_stamp_second,
+                E_TIMESTAMP_MS: self.time_stamp_ms,
+                E_DEVICE_INSTANCE_INDEX: self.device_instance_index,
+                E_VALUE: self.value
+            }
         pass
 
     def to_string(self):
-        return \
-            "E_PAYLOAD_TYPE                :" + str(self.payload_type) + '\n' + \
-            "E_PAYLOAD_VERSION             :" + str(self.payload_version) + '\n' + \
-            "E_HASH_ID                     :" + '0x' + '{:0>8}'.format(hex(self.hash_id)[2:].upper()) + '\n' + \
-            "E_PRODUCER_MASK               :" + str(self.producer_mask) + '\n' + \
-            "E_ACTION                      :" + str(self.action) + '\n' + \
-            "E_TIMESTAMP_SECOND            :" + str(self.time_stamp_second) + '\n' + \
-            "E_TIMESTAMP_MS                :" + str(self.time_stamp_ms) + '\n' + \
-            "E_DEVICE_INSTANCE_INDEX       :" + str(self.device_instance_index) + '\n' + \
-            "E_DATA_OBJECT_REFERENCE_TYPE  :" + str(self.data_object_reference_type) + '\n' + \
-            "E_DATA_OBJECT_REFERENCE_VALUE :" + str(self.data_object_reference_value) + '\n' + \
-            "E_VALUE                       :" + str(self.value)
-        pass
+        if self.is_object_reference_package:
+            return \
+                "E_PAYLOAD_TYPE                :" + str(self.payload_type) + '\n' + \
+                "E_PAYLOAD_VERSION             :" + str(self.payload_version) + '\n' + \
+                "E_HASH_ID                     :" + '0x' + '{:0>8}'.format(hex(self.hash_id)[2:].upper()) + '\n' + \
+                "E_PRODUCER_MASK               :" + str(self.producer_mask) + '\n' + \
+                "E_ACTION                      :" + str(self.action) + '\n' + \
+                "E_TIMESTAMP_SECOND            :" + str(self.time_stamp_second) + '\n' + \
+                "E_TIMESTAMP_MS                :" + str(self.time_stamp_ms) + '\n' + \
+                "E_DEVICE_INSTANCE_INDEX       :" + str(self.device_instance_index) + '\n' + \
+                "E_DATA_OBJECT_REFERENCE_TYPE  :" + str(self.data_object_reference_type) + '\n' + \
+                "E_DATA_OBJECT_REFERENCE_VALUE :" + str(self.data_object_reference_value) + '\n' + \
+                "E_VALUE                       :" + str(self.value)
+            pass
+        else:
+            return \
+                "E_PAYLOAD_TYPE                :" + str(self.payload_type) + '\n' + \
+                "E_PAYLOAD_VERSION             :" + str(self.payload_version) + '\n' + \
+                "E_HASH_ID                     :" + '0x' + '{:0>8}'.format(hex(self.hash_id)[2:].upper()) + '\n' + \
+                "E_PRODUCER_MASK               :" + str(self.producer_mask) + '\n' + \
+                "E_ACTION                      :" + str(self.action) + '\n' + \
+                "E_TIMESTAMP_SECOND            :" + str(self.time_stamp_second) + '\n' + \
+                "E_TIMESTAMP_MS                :" + str(self.time_stamp_ms) + '\n' + \
+                "E_DEVICE_INSTANCE_INDEX       :" + str(self.device_instance_index) + '\n' + \
+                "E_VALUE                       :" + str(self.value)
+            pass
 
     pass
 

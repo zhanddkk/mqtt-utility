@@ -12,6 +12,7 @@ package_type_list = [
     'uint32_t',
     'uint16_t',
     'uint16_t',
+    'bool',
     'uint16_t',
     'uint16_t'
 ]

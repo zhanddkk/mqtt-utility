@@ -653,15 +653,10 @@ gridline-color: rgb(85, 170, 127);</string>
         </item>
         <item>
          <property name="text">
-          <string>Data Obj Ref Type</string>
+          <string>Enable Obj Ref</string>
          </property>
-         <property name="flags">
-          <set>ItemIsSelectable|ItemIsEditable|ItemIsDragEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
-         </property>
-        </item>
-        <item>
          <property name="text">
-          <string>Data Obj Ref Value</string>
+          <string/>
          </property>
          <property name="flags">
           <set>ItemIsSelectable|ItemIsEditable|ItemIsDragEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
@@ -712,9 +707,6 @@ gridline-color: rgb(85, 170, 127);</string>
           <widget class="QTreeView" name="value_edit_tree_view"/>
          </item>
         </layout>
-        <zorder>label_4</zorder>
-        <zorder>publish_push_button</zorder>
-        <zorder>value_edit_tree_view</zorder>
        </widget>
       </widget>
      </item>
