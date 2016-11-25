@@ -330,9 +330,9 @@ class MainWin(QMainWindow):
 
             if d.repeater_info.is_running is True:
                 self.datagram_repeater.remove_data(index)
+                self.statusBar().showMessage(sender.text() + ' OK')
                 self.ui.repeater_push_button.setText('Start')
                 self.ui.publish_push_button.setEnabled(True)
-                self.statusBar().showMessage(sender.text() + ' OK')
                 pass
             else:
                 d.repeater_info.tagger_count = self.ui.interval_spin_box.value()
@@ -340,9 +340,9 @@ class MainWin(QMainWindow):
                     d.repeater_info.exit_times = self.ui.repeate_times_spin_box.value()
                     d.repeater_info.user_function_str = self.ui.user_function_plain_text_edit.toPlainText()
                     self.datagram_repeater.append_data(index, self.payload_package)
+                    self.statusBar().showMessage(sender.text() + ' OK')
                     self.ui.repeater_push_button.setText('Stop')
                     self.ui.publish_push_button.setEnabled(False)
-                    self.statusBar().showMessage(sender.text() + ' OK')
                 else:
                     self.statusBar().showMessage(sender.text() + ' Failed')
                 pass
