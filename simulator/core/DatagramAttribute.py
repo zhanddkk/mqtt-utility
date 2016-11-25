@@ -129,7 +129,7 @@ class DatagramAttribute:
                 structure_format = self.choice_list
                 try:
                     def_val_dic = json.loads(self._text_attribute.Default)
-                except json.JSONDecodeError:
+                except ValueError:
                     return None
 
                 def_val = []
@@ -252,7 +252,7 @@ class DatagramAttribute:
         choice_list = {}
         try:
             choice_list = json.loads(list_string, object_pairs_hook=self.json_object_pairs_hook)
-        except json.JSONDecodeError:
+        except ValueError:
             pass
         return choice_list
 
