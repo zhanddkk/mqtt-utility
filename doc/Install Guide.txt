@@ -17,3 +17,13 @@ How to run the appliction:
 Known issue (2016/11/11)
 	You have to update to latest version (commit: 5386caa0df57a58650b3af70acf74e605fa43573) to make it work.
 	This version only support publish value for status datagram.
+
+In ubuntu14.04:
+	Add the PPA to the system
+	deb http://ppa.launchpad.net/mosquitto-dev/mosquitto-ppa/ubuntu trusty main
+	deb-src http://ppa.launchpad.net/mosquitto-dev/mosquitto-ppa/ubuntu trusty main
+	Signing key:
+	1024R/262C4500 (What is this?)
+	Fingerprint:
+	77B7346A59027B33C10CAFE35E64E954262C4500
+	sudo apt-get install mosquitto mosquitto-client
