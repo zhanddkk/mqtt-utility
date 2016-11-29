@@ -370,4 +370,4 @@ class Ui_MainWindow(object):
         self.actionSettings.setText(_translate("MainWindow", "Settings..."))
         self.actionMQTT_Connect.setText(_translate("MainWindow", "MQTT Connect"))
 
-import UiResource_rc
+import simulator.uiapplication.UiResource_rc

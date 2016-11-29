@@ -134,4 +134,4 @@ class Ui_SettingDialog(object):
         self.label.setText(_translate("SettingDialog", "Broker Address:"))
         self.ok_push_button.setText(_translate("SettingDialog", "OK"))
 
-import UiResource_rc
+import simulator.uiapplication.UiResource_rc
