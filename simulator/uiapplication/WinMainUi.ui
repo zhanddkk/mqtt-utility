@@ -734,6 +734,9 @@ gridline-color: rgb(85, 170, 127);</string>
    </property>
   </action>
   <action name="actionMQTT_Connect">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
    <property name="text">
     <string>MQTT Connect</string>
    </property>

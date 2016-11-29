@@ -289,6 +289,7 @@ class Ui_MainWindow(object):
         self.actionSettings = QtWidgets.QAction(MainWindow)
         self.actionSettings.setObjectName("actionSettings")
         self.actionMQTT_Connect = QtWidgets.QAction(MainWindow)
+        self.actionMQTT_Connect.setCheckable(True)
         self.actionMQTT_Connect.setObjectName("actionMQTT_Connect")
         self.menuFile.addAction(self.actionImport)
         self.menuFile.addSeparator()
@@ -369,4 +370,4 @@ class Ui_MainWindow(object):
         self.actionSettings.setText(_translate("MainWindow", "Settings..."))
         self.actionMQTT_Connect.setText(_translate("MainWindow", "MQTT Connect"))
 
-import simulator.uiapplication.UiResource_rc
+import UiResource_rc

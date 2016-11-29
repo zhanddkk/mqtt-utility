@@ -1,7 +1,8 @@
 <RCC>
   <qresource prefix="ico">
+    <file>ico/MqttConnectConfig.ico</file>
     <file>ico/MainWindowIcon.ico</file>
-    <file>ico/Connection.ico</file>
     <file>ico/Setting.ico</file>
+    <file>ico/MqttBrokerConfig.ico</file>
   </qresource>
 </RCC>

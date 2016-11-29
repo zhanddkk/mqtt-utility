@@ -30,14 +30,17 @@ class DatagramServer:
     def run(self):
         try:
             self.instance.connect(self.broker, self.port, 60)
-            self.instance.subscribe('UPS_System/#', 0)
+            self.instance.reconnect()
             self.instance.loop_start()
+            return True
         except ConnectionRefusedError as e:
             print('ERROR:', e)
             self.is_running = False
+            return False
         except TimeoutError as e:
             print('ERROR:', e)
             self.is_running = False
+            return False
             pass
 
     def stop(self):
@@ -95,6 +98,7 @@ class DatagramServer:
     def mqtt_on_connect(self, mqttc, obj, flags, rc):
         print("connect rc: " + str(rc))
         self.is_running = True
+        self.instance.subscribe('UPS_System/#', 0)
 
     def mqtt_on_message(self, mqttc, obj, msg):
         print(msg.topic + " " + str(msg.qos) + " " + str(msg.payload))

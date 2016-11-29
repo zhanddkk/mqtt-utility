@@ -16,7 +16,7 @@ class PayloadPackage:
     payload_type = 0
     payload_version = 0
     hash_id = 0
-    producer_mask = 0xffffffff
+    producer_mask = 0
     action = 0
     time_stamp_second = 0xffffffff
     time_stamp_ms = 0xffff

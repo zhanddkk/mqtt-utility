@@ -34,6 +34,8 @@ class MainWin(QMainWindow):
         self.ui.actionExit.triggered.connect(QApplication.instance().quit)
         self.ui.actionImport.triggered.connect(self.import_csv)
         self.ui.actionAbout.triggered.connect(self.about)
+        self.ui.actionSettings.triggered.connect(self.setting)
+        self.ui.actionMQTT_Connect.triggered.connect(self.connect_mqtt)
 
         self.tabifyDockWidget(self.ui.package_dock_widget, self.ui.repeater_dock_widget)
         self.ui.package_dock_widget.raise_()
@@ -41,6 +43,11 @@ class MainWin(QMainWindow):
         self.ui.package_tree_widget.header().setSectionResizeMode(QHeaderView.ResizeToContents)
         self.ui.value_edit_tree_view.header().setSectionResizeMode(QHeaderView.ResizeToContents)
         self.__add_view_menu_items()
+
+        from simulator.uiapplication.Configuration import Configuration
+
+        self.configuration = Configuration()
+        self.configuration.read_config()
 
         from simulator.core.DatagramManager import DatagramManager
         from simulator.core.PayloadPackage import PayloadPackage
@@ -57,8 +64,6 @@ class MainWin(QMainWindow):
         self.datagram_server = DatagramServer(self.datagram_manager)
         self.datagram_server.record_message_user_data = self
         self.datagram_server.record_message_callback = self.record_datagram_server_message_callback
-        # Can be controlled
-        self.datagram_server.run()
 
         self.datagram_repeater = Repeater(self.datagram_server, 0.1)
         self.datagram_repeater.start()
@@ -95,8 +100,8 @@ class MainWin(QMainWindow):
         pass
 
     def about(self):
-        QMessageBox.about(self, "About Application",
-                          '''
+        msg_dlg = QMessageBox()
+        msg_dlg.about(self, "About Application", '''
 <p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;-qt-block-indent:0; text-indent:0px;">
     This <span style=" font-weight:600;">Application</span> is a simulator.
 </p>
@@ -107,8 +112,7 @@ class MainWin(QMainWindow):
     <span style=" font-weight:600;">Copyright</span>:
     <span style=" font-style:italic; text-decoration: underline; color:#3bb300;"> Schneider Electric (China) Co., Ltd.
     </span>
-</p>
-                          ''')
+</p>''')
         pass
 
     def quit(self):
@@ -141,6 +145,32 @@ class MainWin(QMainWindow):
 
             self.statusBar().showMessage(fdg.selectedFiles()[0])
             pass
+        pass
+
+    def setting(self):
+        from simulator.uiapplication.SettingDlg import SettingDlg
+        set_dlg = SettingDlg(self.configuration)
+        set_dlg.exec()
+
+    def connect_mqtt(self):
+        if self.ui.actionMQTT_Connect.isChecked():
+            if self.datagram_server.is_running:
+                pass
+            else:
+                self.datagram_server.broker = self.configuration.mqtt_connect_addr
+                self.datagram_server.port = self.configuration.mqtt_connect_port
+                ret_val = self.datagram_server.run()
+                self.ui.actionMQTT_Connect.setChecked(ret_val)
+                if ret_val is False:
+                    msg_dlg = QMessageBox()
+                    msg_dlg.critical(self, 'Connect Error',
+                                     'Can\'t connect to the broker'
+                                     '<p><b>Address:</b> ' + self.datagram_server.broker + '</p>'
+                                     '<p><b>Port:</b> ' + str(self.datagram_server.port) + '</p>',
+                                     QMessageBox.Ok)
+        else:
+            if self.datagram_server.is_running:
+                self.datagram_server.stop()
         pass
 
     def data_dictionary_tree_view_item_selected(self):

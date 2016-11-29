@@ -24,9 +24,9 @@ class Datagram:
 
         system = system.strip(' ')
         if system != '':
-            system = 'UPS_System/' + system
+            system = 'UPSSystem/' + system
         else:
-            system = 'UPS_System'
+            system = 'UPSSystem'
         path = path.strip(' ')
         if path != '':
             path = '/' + path
