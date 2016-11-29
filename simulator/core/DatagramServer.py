@@ -98,7 +98,7 @@ class DatagramServer:
     def mqtt_on_connect(self, mqttc, obj, flags, rc):
         print("connect rc: " + str(rc))
         self.is_running = True
-        self.instance.subscribe('UPS_System/#', 0)
+        self.instance.subscribe('#', 0)
 
     def mqtt_on_message(self, mqttc, obj, msg):
         print(msg.topic + " " + str(msg.qos) + " " + str(msg.payload))
