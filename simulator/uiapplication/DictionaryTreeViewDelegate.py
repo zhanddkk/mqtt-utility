@@ -1,6 +1,6 @@
-from PyQt5.QtWidgets import QStyledItemDelegate, QSpinBox, QComboBox, QLineEdit
-from simulator.core.DatagramAttribute import integer_data_type_info
-from simulator.uiapplication.QUint32SpinBox import QUint32SpinBox
+from PyQt5.QtWidgets import QComboBox, QLineEdit, QStyledItemDelegate, QItemEditorFactory
+from PyQt5.QtCore import Qt, QVariant
+from simulator.uiapplication.InputBox import InputBox
 
 
 class DictionaryTreeViewDelegate(QStyledItemDelegate):
@@ -10,7 +10,6 @@ class DictionaryTreeViewDelegate(QStyledItemDelegate):
         pass
 
     def createEditor(self, parent, option, index):
-        editor = QLineEdit(parent)
         if index.column() == 0:
             editor = QComboBox(parent)
             data = index.data()
@@ -28,18 +27,25 @@ class DictionaryTreeViewDelegate(QStyledItemDelegate):
             else:
                 editor.setCurrentIndex(0)
         elif index.column() == 1:
-            try:
-                info = integer_data_type_info[self.datagram.attribute.format]
-                if info[1] > 2147483647:
-                    editor = QUint32SpinBox(parent)
-                    pass
-                else:
-                    editor = QSpinBox(parent)
-                editor.setRange(info[0], info[1])
-                pass
-            except KeyError:
-                pass
+            editor = InputBox(parent, default_return_val=index.data())
+            editor.value_type = 'integral'
+        else:
+            editor = QLineEdit(parent)
         return editor
+
+    def setModelData(self, editor, model, index):
+        n = editor.metaObject().userProperty().name()
+        if n is None:
+            item_editor_factory = self.itemEditorFactory()
+            if item_editor_factory is None:
+                item_editor_factory = QItemEditorFactory.defaultFactory()
+            user_type = QVariant(model.data(index, Qt.EditRole)).userType()
+            n = item_editor_factory.valuePropertyName(user_type)
+            pass
+        if n is not None:
+            model.setData(index, editor.property(n), Qt.EditRole)
+            pass
+        pass
 
     def updateEditorGeometry(self, editor, option, index):
         editor.setGeometry(option.rect)

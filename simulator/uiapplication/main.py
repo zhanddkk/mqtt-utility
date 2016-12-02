@@ -41,7 +41,7 @@ class MainWin(QMainWindow):
         self.ui.package_dock_widget.raise_()
         self.ui.data_monitor_table_view.verticalHeader().setSectionResizeMode(QHeaderView.Fixed)
         self.ui.package_tree_widget.header().setSectionResizeMode(QHeaderView.ResizeToContents)
-        self.ui.value_edit_tree_view.header().setSectionResizeMode(QHeaderView.ResizeToContents)
+        # self.ui.value_edit_tree_view.header().setSectionResizeMode(QHeaderView.ResizeToContents)
         self.__add_view_menu_items()
 
         from simulator.uiapplication.Configuration import Configuration
@@ -101,18 +101,27 @@ class MainWin(QMainWindow):
 
     def about(self):
         msg_dlg = QMessageBox()
-        msg_dlg.about(self, "About Application", '''
+        data_dictionary_info_text = '<p>----------Data Dictionary Info----------</p>'
+        for (key, data) in self.datagram_manager.data_dictionary.info.items():
+            data_dictionary_info_text += '<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; ' \
+                                         'margin-right:0px; -qt-block-indent:0; text-indent:0px;\">' \
+                                         '<span style=\" font-weight:600;\">' + key + '</span> : ' +\
+                                         data.replace('_', '.') + \
+                                         '</p>'
+            pass
+
+        msg_dlg.about(self, "About Application", '''<p>----------Application Info----------</p>
 <p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;-qt-block-indent:0; text-indent:0px;">
     This <span style=" font-weight:600;">Application</span> is a simulator.
 </p>
 <p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">
-    <span style=" font-weight:600;">Version</span>: 0.5.0
+    <span style=" font-weight:600;">Version</span> : 0.5.1
 </p>
 <p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">
-    <span style=" font-weight:600;">Copyright</span>:
+    <span style=" font-weight:600;">Copyright</span> :
     <span style=" font-style:italic; text-decoration: underline; color:#3bb300;"> Schneider Electric (China) Co., Ltd.
     </span>
-</p>''')
+</p>''' + data_dictionary_info_text)
         pass
 
     def quit(self):
@@ -211,10 +220,10 @@ class MainWin(QMainWindow):
         choice_list_item = self.ui.data_attribute_tree_widget.topLevelItem(10)
         choice_list_item.takeChildren()
         choice_list = dg.attribute.choice_list
-        if choice_list != {}:
+        if choice_list is not None:
             choice_list_item.setText(1, '...')
             for (key, choice_item_data) in choice_list.items():
-                sub_item = QTreeWidgetItem([key, str(choice_item_data)])
+                sub_item = QTreeWidgetItem([key, str(choice_item_data[0])])
                 choice_list_item.addChild(sub_item)
             self.ui.data_attribute_tree_widget.expandItem(choice_list_item)
         else:
@@ -294,24 +303,27 @@ class MainWin(QMainWindow):
         from simulator.uiapplication.StructValueEditModel import StructValueEditModel
         from simulator.uiapplication.StructTreeViewDelegate import StructTreeViewDelegate
 
-        if dg.attribute.type == 'STATUS':
+        if dg.attribute.format == 'Enum':
             value_dsp_model = DictionaryValueDspTreeModel(dg, index[1])
             value_edit_model = DictionaryValueEditTreeModel(dg, index[1])
             value_edit_delegate = DictionaryTreeViewDelegate(dg)
-        elif dg.attribute.type == 'MEASURE':
-            value_dsp_model = ListValueDspTreeModel(dg, index[1])
-            value_edit_model = ListValueEditTreeModel(dg, index[1])
-            value_edit_delegate = GeneralTreeViewDelegate(dg)
+        elif dg.attribute.format == 'Structure':
+            value_dsp_model = StructValueDspModel(dg, index[1])
+            value_edit_model = StructValueEditModel(dg, index[1])
+            value_edit_delegate = StructTreeViewDelegate(dg)
+            pass
         else:
-            if dg.attribute.format == 'BINARY_BLOC':
-                value_dsp_model = StructValueDspModel(dg, index[1])
-                value_edit_model = StructValueEditModel(dg, index[1])
-                value_edit_delegate = StructTreeViewDelegate(dg)
+            if dg.attribute.length > 1:
+                value_dsp_model = ListValueDspTreeModel(dg, index[1])
+                value_edit_model = ListValueEditTreeModel(dg, index[1])
+                value_edit_delegate = GeneralTreeViewDelegate(dg)
                 pass
             else:
                 value_dsp_model = GeneralValueDspTreeViewModel(dg, index[1])
                 value_edit_model = GeneralValueEditTreeViewModel(dg, index[1])
                 value_edit_delegate = GeneralTreeViewDelegate(dg)
+                pass
+            pass
 
         self.ui.data_history_tree_view.setModel(value_dsp_model)
         self.ui.value_edit_tree_view.setModel(value_edit_model)

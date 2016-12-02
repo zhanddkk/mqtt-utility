@@ -1,20 +1,20 @@
-from PyQt5.QtWidgets import QStyledItemDelegate, QItemEditorFactory, QSpinBox, QLineEdit
+from PyQt5.QtWidgets import QStyledItemDelegate, QItemEditorFactory
 from PyQt5.QtCore import Qt, QVariant
-from simulator.uiapplication.QUint32SpinBox import QUint32SpinBox
-from simulator.core.DatagramAttribute import integer_data_type_info
+from simulator.core.DatagramAttribute import general_data_type, integer_data_type_name
+from simulator.uiapplication.InputBox import InputBox
 
 package_type_list = [
-    'uint16_t',
-    'uint16_t',
-    'uint32_t',
-    'uint32_t',
-    'uint16_t',
-    'uint32_t',
-    'uint16_t',
-    'uint16_t',
-    'bool',
-    'uint16_t',
-    'uint16_t'
+    'UInt16',
+    'UInt16',
+    'UInt32',
+    'UInt32',
+    'UInt16',
+    'UInt32',
+    'UInt16',
+    'UInt16',
+    'Bool',
+    'UInt16',
+    'UInt16'
 ]
 
 
@@ -24,23 +24,20 @@ class PackageTreeWidgetDelegate(QStyledItemDelegate):
         pass
 
     def createEditor(self, parent, option, index):
-        editor = QLineEdit(parent)
-        try:
-            row = index.row()
-            value_type = package_type_list[row]
-            info = integer_data_type_info[value_type]
-            if info[1] > 2147483647:
-                editor = QUint32SpinBox(parent)
+        editor = InputBox(parent, default_return_val=index.data())
+        value_type = package_type_list[index.row()]
+        if value_type in general_data_type:
+            if value_type in integer_data_type_name:
+                if value_type == 'Bool':
+                    editor.value_type = 'bool'
+                else:
+                    editor.value_type = 'integral'
                 pass
             else:
-                editor = QSpinBox(parent)
-            editor.setRange(info[0], info[1])
-            if row == 3:
-                editor.setDisplayIntegerBase(16)
+                editor.value_type = 'decimals'
+                pass
             pass
-        except IndexError:
-            pass
-        except KeyError:
+        else:
             pass
         return editor
 

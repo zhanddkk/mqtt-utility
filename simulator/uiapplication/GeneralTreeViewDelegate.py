@@ -1,7 +1,7 @@
-from PyQt5.QtWidgets import QStyledItemDelegate, QSpinBox, QDoubleSpinBox, QLineEdit, QItemEditorFactory
+from PyQt5.QtWidgets import QStyledItemDelegate, QItemEditorFactory
 from PyQt5.QtCore import Qt, QVariant
-from simulator.uiapplication.QUint32SpinBox import QUint32SpinBox
-from simulator.core.DatagramAttribute import integer_data_type_info
+from simulator.core.DatagramAttribute import general_data_type, integer_data_type_name
+from simulator.uiapplication.InputBox import InputBox
 
 
 class GeneralTreeViewDelegate(QStyledItemDelegate):
@@ -11,22 +11,17 @@ class GeneralTreeViewDelegate(QStyledItemDelegate):
         pass
 
     def createEditor(self, parent, option, index):
-        editor = QLineEdit(parent)
+        editor = InputBox(parent, default_return_val=index.data())
         value_type = self.datagram.attribute.format
-        try:
-            info = integer_data_type_info[value_type]
-            if info[1] > 2147483647:
-                editor = QUint32SpinBox(parent)
+        if value_type in general_data_type:
+            if value_type in integer_data_type_name:
+                editor.value_type = 'integral'
                 pass
             else:
-                editor = QSpinBox(parent)
-            editor.setRange(info[0], info[1])
-            pass
-        except KeyError:
-            if value_type == '32BFL':
-                editor = QDoubleSpinBox(parent)
-                editor.setRange(-3.40E+38, 3.40E+38)
+                editor.value_type = 'decimals'
                 pass
+            pass
+        else:
             pass
         return editor
 

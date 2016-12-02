@@ -18,7 +18,7 @@ class DictionaryValueDspTreeModel(ValueTreeViewModel):
                 name = 'NO DEFINE'
                 value = history.value
                 for (k, d) in self.datagram.attribute.choice_list.items():
-                    if d == value:
+                    if d[0] == value:
                         name = k
                         break
                 self.root_item.append_child(ValueTreeViewItem((history.opt_str, history.time_str, name, value),

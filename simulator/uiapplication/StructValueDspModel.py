@@ -8,7 +8,7 @@ class StructValueDspModel(ValueTreeViewModel):
         self.dev_index = dev_index
         header = ['Operation', 'Time']
         for (k, d) in self.datagram.attribute.choice_list.items():
-            header.append(k + '\n' + d)
+            header.append(k + '\n' + d[0])
             pass
         super(StructValueDspModel, self).__init__(header, parent)
 

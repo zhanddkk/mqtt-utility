@@ -1,9 +1,7 @@
 import csv
-from collections import namedtuple
-
 # local file
 from simulator.core.Datagram import Datagram
-from simulator.core.DatagramAttribute import DatagramAttribute, head_name_list
+from simulator.core.DataDictionaryInfo import data_dictionary, DataDictionaryInfo
 
 
 class DatagramManager:
@@ -12,6 +10,7 @@ class DatagramManager:
         self.__indexes = []  # item = [hash_id, instance]
         self.value_update_user_data = None
         self.value_update_callback = None
+        self.data_dictionary = DataDictionaryInfo()
         pass
 
     @property
@@ -29,6 +28,7 @@ class DatagramManager:
     def clear(self):
         self.__data_dict.clear()
         self.__indexes.clear()
+        self.data_dictionary = DataDictionaryInfo()
 
     def on_message(self, topic, package_msg):
         hash_id = package_msg.hash_id
@@ -52,28 +52,39 @@ class DatagramManager:
         pass
 
     def import_csv(self, file_name):
-        datagram_property = namedtuple('DatagramRecord', head_name_list)
         try:
             with open(file_name, newline='') as csv_file:
+                reader = csv.reader(csv_file, dialect='excel')
                 try:
-                    next(csv_file)
-                    next(csv_file)
-                    reader = csv.reader(csv_file, dialect='excel')
-                    for record in map(datagram_property._make, reader):
-                        attribute_data = DatagramAttribute(record)
-                        hash_id = attribute_data.hash_id
-                        datagram = Datagram(attribute_data)
-                        self.__data_dict[hash_id] = datagram
-                        for data in datagram.data_list:
-                            self.__indexes.append([hash_id, data.instance])
+                    self.data_dictionary.get_version_info(reader)
+                    self.data_dictionary.get_header_info(reader)
+                    if self.data_dictionary.ver in data_dictionary:
+                        data_dictionary_class = data_dictionary[self.data_dictionary.ver]['data_dictionary_info_class']
+                        data_attribute_class = data_dictionary[self.data_dictionary.ver]['datagram_attribute_class']
+                        tmp_data_dictionary = data_dictionary_class()
+                        tmp_data_dictionary.header = self.data_dictionary.header
+                        tmp_data_dictionary.info = self.data_dictionary.info
+                        self.data_dictionary = tmp_data_dictionary
+                        for record in map(self.data_dictionary.make, reader):
+                            attribute = data_attribute_class(record)
+                            hash_id = attribute.hash_id
+                            datagram = Datagram(attribute)
+                            self.__data_dict[hash_id] = datagram
+                            for data in datagram.data_list:
+                                self.__indexes.append([hash_id, data.instance])
                             pass
-                    return True
-                except csv.Error as e:
-                    print('ERROR:', e)
+                        return True
+                    else:
+                        print('ERROR:', 'this simulator not support the dictionary that the version is',
+                              self.data_dictionary.ver)
+                        return False
+                except csv.Error as exception:
+                    print('ERROR:', 'in line', reader.line_num, exception)
                     return False
-        except FileNotFoundError as e:
-            print('ERROR:', e)
+        except FileNotFoundError as exception:
+            print('ERROR:', exception)
             return False
+        pass
         pass
 
     def get_datagram(self, hash_id):
@@ -86,6 +97,6 @@ class DatagramManager:
 
 if __name__ == "__main__":
     dgm = DatagramManager()
-    dgm.import_csv('../datadictionarysource/default_data_dictionary.CSV')
+    dgm.import_csv('..\\datadictionarysource\\Full_Interface.CSV')
     print('ok')
     pass

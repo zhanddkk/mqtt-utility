@@ -15,7 +15,7 @@ class StructValueEditModel(ValueTreeViewModel):
         value = self.datagram.data_list[self.dev_index].value
         i = 0
         for (k, d) in self.datagram.attribute.choice_list.items():
-            self.root_item.append_child(ValueTreeViewItem([k, d, value[i]], self.root_item))
+            self.root_item.append_child(ValueTreeViewItem([k, d[0], value[i]], self.root_item))
             i += 1
 
     def get_value(self):
@@ -23,7 +23,7 @@ class StructValueEditModel(ValueTreeViewModel):
         row = self.root_item.child_count()
         for i in range(0, row):
             item = self.root_item.child(i)
-            print(type(item.data(2)))
+            # print(type(item.data(2)))
             value.append(item.data(2))
         return value
         pass
