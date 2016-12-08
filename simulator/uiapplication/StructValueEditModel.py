@@ -7,15 +7,19 @@ class StructValueEditModel(ValueTreeViewModel):
     def __init__(self, datagram, dev_index, parent=None):
         self.datagram = datagram
         self.dev_index = dev_index
+        self.action = 0
         header = ('Name', 'Type', 'Value')
         super(StructValueEditModel, self).__init__(header, parent)
     pass
 
     def update(self):
-        value = self.datagram.data_list[self.dev_index].value
+        value = self.datagram.data_list[self.dev_index].get_value(self.action)
         i = 0
         for (k, d) in self.datagram.attribute.choice_list.items():
-            self.root_item.append_child(ValueTreeViewItem([k, d[0], value[i]], self.root_item))
+            if value is not None:
+                self.root_item.append_child(ValueTreeViewItem([k, d[0], value[i]], self.root_item))
+            else:
+                self.root_item.append_child(ValueTreeViewItem([k, d[0], None], self.root_item))
             i += 1
 
     def get_value(self):

@@ -89,7 +89,8 @@ class Repeater(threading.Thread):
                         try:
                             exec(repeater_info.user_function_str + '\nself.user_function = user_function')
 
-                            self._def_package.value = self.user_function(d.value, repeater_info.repeat_times)
+                            self._def_package.value = self.user_function(d.get_value(item[2]),
+                                                                         repeater_info.repeat_times)
                         except Exception as exception:
                             print('ERROR:',
                                   'when parse user function of item',

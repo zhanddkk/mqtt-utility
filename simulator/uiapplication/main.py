@@ -27,6 +27,25 @@ class MainWin(QMainWindow):
         from simulator.uiapplication.DataMonitorTableViewModel import DataMonitorTableViewModel
         from simulator.uiapplication.DataDictionaryTreeViewModel import DataDictionaryTreeViewModel
 
+        from simulator.core.NameClass import NameClass
+        cmd_bit_format_class = NameClass('CmdBitFormatClass', 'Producer, Sequence, AckCmdCode').new_class
+        setting_response_bit_format_class = NameClass('SettingRespBitFormatClass', 'Producer, ErrorCode').new_class
+
+        self.cmd_bit_format = cmd_bit_format_class(Producer=[8, {0: 'UC', 1: 'SLC_UPS', 2: 'SLC_NMC',
+                                                                 3: 'HMI', 4: 'TUNER'}],
+                                                   Sequence=[16, None],
+                                                   AckCmdCode=[8, {0: 'Rest', 1: 'Set', 0x10: 'Idle',
+                                                               0x11: 'Receive',
+                                                               0x12: 'Completed',
+                                                               0x13: 'Locked',
+                                                               0x14: 'Refused'}])
+        self.setting_response_bit_format = setting_response_bit_format_class(Producer=[16, {0: 'UC',
+                                                                                       1: 'SLC_UPS',
+                                                                                       2: 'SLC_NMC',
+                                                                                       3: 'HMI',
+                                                                                       4: 'TUNER'}],
+                                                                             ErrorCode=[16, {0: 'OK'}])
+
         super(MainWin, self).__init__(parent, flags=Qt.Window)
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
@@ -40,8 +59,6 @@ class MainWin(QMainWindow):
         self.tabifyDockWidget(self.ui.package_dock_widget, self.ui.repeater_dock_widget)
         self.ui.package_dock_widget.raise_()
         self.ui.data_monitor_table_view.verticalHeader().setSectionResizeMode(QHeaderView.Fixed)
-        self.ui.package_tree_widget.header().setSectionResizeMode(QHeaderView.ResizeToContents)
-        # self.ui.value_edit_tree_view.header().setSectionResizeMode(QHeaderView.ResizeToContents)
         self.__add_view_menu_items()
 
         from simulator.uiapplication.Configuration import Configuration
@@ -81,10 +98,6 @@ class MainWin(QMainWindow):
         self.update_datagram_info_display_signal.connect(self.update_datagram_info_display)
         self.update_datagram_value_display_signal.connect(self.update_datagram_value_display)
         self.record_datagram_server_message_signal.connect(self.record_datagram_server_message)
-
-        from simulator.uiapplication.PackageTreeWidgetDelegate import PackageTreeWidgetDelegate
-        self.ui.package_tree_widget.setItemDelegateForColumn(1, PackageTreeWidgetDelegate())
-        self.ui.package_tree_widget.resizeColumnToContents(0)
 
     def __add_view_menu_items(self):
         self.ui.menuView.addAction(self.ui.data_dictionary_dock_widget.toggleViewAction())
@@ -242,37 +255,51 @@ class MainWin(QMainWindow):
         self.payload_package.hash_id = index[0]
         self.payload_package.device_instance_index = index[1] + 1
 
-        self.ui.package_tree_widget.topLevelItem(0).setData(1, Qt.DisplayRole, self.payload_package.payload_type)
-        self.ui.package_tree_widget.topLevelItem(1).setData(1, Qt.DisplayRole, self.payload_package.payload_version)
-        self.ui.package_tree_widget.topLevelItem(2).setText(1, hash_str)
-        self.ui.package_tree_widget.topLevelItem(3).setData(1, Qt.DisplayRole, self.payload_package.producer_mask)
-        self.ui.package_tree_widget.topLevelItem(4).setData(1, Qt.DisplayRole, self.payload_package.action)
-        self.ui.package_tree_widget.topLevelItem(5).setData(1, Qt.DisplayRole, self.payload_package.time_stamp_second)
-        self.ui.package_tree_widget.topLevelItem(6).setData(1, Qt.DisplayRole, self.payload_package.time_stamp_ms)
-        self.ui.package_tree_widget.topLevelItem(7).setData(1, Qt.DisplayRole,
-                                                            self.payload_package.device_instance_index)
-        self.ui.package_tree_widget.topLevelItem(8).setData(1, Qt.DisplayRole,
-                                                            self.payload_package.is_object_reference_package)
-        choice_list_item = self.ui.package_tree_widget.topLevelItem(8)
-        choice_list_item.takeChildren()
-        if self.payload_package.is_object_reference_package:
-            sub_item = QTreeWidgetItem(['Data Obj Ref Type'])
-            sub_item.setData(1, Qt.DisplayRole, self.payload_package.data_object_reference_type)
-            sub_item.setFlags(QtCore.Qt.ItemIsSelectable |
-                              QtCore.Qt.ItemIsEditable |
-                              QtCore.Qt.ItemIsDragEnabled |
-                              QtCore.Qt.ItemIsUserCheckable |
-                              QtCore.Qt.ItemIsEnabled)
-            choice_list_item.addChild(sub_item)
-            sub_item = QTreeWidgetItem(['Data Obj Ref Value'])
-            sub_item.setData(1, Qt.DisplayRole, self.payload_package.data_object_reference_value)
-            sub_item.setFlags(QtCore.Qt.ItemIsSelectable |
-                              QtCore.Qt.ItemIsEditable |
-                              QtCore.Qt.ItemIsDragEnabled |
-                              QtCore.Qt.ItemIsUserCheckable |
-                              QtCore.Qt.ItemIsEnabled)
-            choice_list_item.addChild(sub_item)
-            pass
+        from simulator.core import PayloadPackage
+
+        self.ui.topic_line_edit.setText(d.get_topic(index[2]))
+
+        select_list = PayloadPackage.payload_package_item_info[PayloadPackage.E_PAYLOAD_TYPE][1]
+        if self.payload_package.payload_type in select_list:
+            select_index = self.ui.payload_type_combo_box.findText(str(self.payload_package.payload_type) + ' | ' +
+                                                                   select_list[self.payload_package.payload_type])
+            if select_index != -1:
+                self.ui.payload_type_combo_box.setCurrentIndex(select_index)
+            else:
+                self.ui.payload_type_combo_box.setCurrentText(str(self.payload_package.payload_type))
+        else:
+            self.ui.payload_type_combo_box.setCurrentText(str(self.payload_package.payload_type))
+
+        self.ui.payoad_version_line_edit.setText(str(self.payload_package.payload_version))
+        self.ui.hash_id_line_edit.setText(hash_str)
+
+        select_list = PayloadPackage.payload_package_item_info[PayloadPackage.E_PRODUCER_MASK][1]
+        if self.payload_package.producer_mask in select_list:
+            select_index = self.ui.producer_mask_combo_box.findText(str(self.payload_package.producer_mask) + ' | ' +
+                                                                    select_list[self.payload_package.producer_mask])
+            if select_index != -1:
+                self.ui.producer_mask_combo_box.setCurrentIndex(select_index)
+            else:
+                self.ui.producer_mask_combo_box.setCurrentText(str(self.payload_package.producer_mask))
+        else:
+            self.ui.producer_mask_combo_box.setCurrentText(str(self.payload_package.producer_mask))
+
+        select_list = PayloadPackage.payload_package_item_info[PayloadPackage.E_ACTION][1]
+        self.payload_package.action = index[2]
+        if self.payload_package.action in select_list:
+            select_index = self.ui.action_combo_box.findText(str(self.payload_package.action) + ' | ' +
+                                                             select_list[self.payload_package.action])
+            if select_index != -1:
+                self.ui.action_combo_box.setCurrentIndex(select_index)
+            else:
+                self.ui.action_combo_box.setCurrentText(str(self.payload_package.action))
+        else:
+            self.ui.action_combo_box.setCurrentText(str(self.payload_package.action))
+        self.ui.time_stamp_s_line_edit.setText(str(self.payload_package.time_stamp_second))
+        self.ui.time_stamp_ms_line_edit.setText(str(self.payload_package.time_stamp_ms))
+        self.ui.device_index_line_edit.setText(str(self.payload_package.device_instance_index))
+        self.ui.reference_type_line_edit.setText(str(self.payload_package.data_object_reference_type))
+        self.ui.reference_value_line_edit.setText(str(self.payload_package.data_object_reference_value))
 
         self.ui.interval_spin_box.setValue(d.repeater_info.tagger_count)
         self.ui.repeate_times_spin_box.setValue(d.repeater_info.exit_times)
@@ -303,31 +330,98 @@ class MainWin(QMainWindow):
         from simulator.uiapplication.StructValueEditModel import StructValueEditModel
         from simulator.uiapplication.StructTreeViewDelegate import StructTreeViewDelegate
 
-        if dg.attribute.format == 'Enum':
-            value_dsp_model = DictionaryValueDspTreeModel(dg, index[1])
-            value_edit_model = DictionaryValueEditTreeModel(dg, index[1])
-            value_edit_delegate = DictionaryTreeViewDelegate(dg)
-        elif dg.attribute.format == 'Structure':
-            value_dsp_model = StructValueDspModel(dg, index[1])
-            value_edit_model = StructValueEditModel(dg, index[1])
-            value_edit_delegate = StructTreeViewDelegate(dg)
+        from simulator.uiapplication.BitMapValueDspModel import BitMapValueDspModel
+        from simulator.uiapplication.BitMapValueEditModel import BitMapValueEditModel
+        from simulator.uiapplication.BitMapDelegate import BitMapDelegate
+
+        if dg.attribute.type == 'COMMAND':
+            if index[2] == PayloadPackage.E_DATAGRAM_ACTION_PUBLISH:
+                value = d.get_value(index[2])
+                value &= 0xff0000ff
+                value |= 0x00ffff00 & (self.datagram_manager.seq_num << 8)
+                value_dsp_model = BitMapValueDspModel(dg, index, self.cmd_bit_format)
+                value_edit_model = BitMapValueEditModel(dg, index, self.cmd_bit_format, value)
+                value_edit_delegate = BitMapDelegate(dg, self.cmd_bit_format)
+                pass
+            elif index[2] == PayloadPackage.E_DATAGRAM_ACTION_RESPONSE:
+                value_dsp_model = BitMapValueDspModel(dg, index, self.cmd_bit_format)
+                value_edit_model = BitMapValueEditModel(dg, index, self.cmd_bit_format)
+                value_edit_delegate = BitMapDelegate(dg, self.cmd_bit_format)
+                pass
+            else:
+                value_dsp_model = GeneralValueDspTreeViewModel(dg, index[1], index[2])
+                value_edit_model = GeneralValueEditTreeViewModel(dg, index[1], index[2])
+                value_edit_delegate = GeneralTreeViewDelegate(dg)
             pass
-        else:
-            if dg.attribute.length > 1:
-                value_dsp_model = ListValueDspTreeModel(dg, index[1])
-                value_edit_model = ListValueEditTreeModel(dg, index[1])
+        elif dg.attribute.type == 'SETTING':
+            if index[2] == PayloadPackage.E_DATAGRAM_ACTION_RESPONSE:
+                value_dsp_model = BitMapValueDspModel(dg, index, self.setting_response_bit_format)
+                value_edit_model = BitMapValueEditModel(dg, index, self.setting_response_bit_format)
+                value_edit_delegate = BitMapDelegate(dg, self.setting_response_bit_format)
+                pass
+            elif index[2] == PayloadPackage.E_DATAGRAM_ACTION_ALLOW:
+                value_dsp_model = GeneralValueDspTreeViewModel(dg, index[1], index[2])
+                value_edit_model = GeneralValueEditTreeViewModel(dg, index[1], index[2])
                 value_edit_delegate = GeneralTreeViewDelegate(dg)
                 pass
             else:
-                value_dsp_model = GeneralValueDspTreeViewModel(dg, index[1])
-                value_edit_model = GeneralValueEditTreeViewModel(dg, index[1])
-                value_edit_delegate = GeneralTreeViewDelegate(dg)
+                if dg.attribute.format == 'Enum':
+                    value_dsp_model = DictionaryValueDspTreeModel(dg, index[1])
+                    value_edit_model = DictionaryValueEditTreeModel(dg, index[1])
+                    value_edit_delegate = DictionaryTreeViewDelegate(dg)
+                elif dg.attribute.format == 'Structure':
+                    value_dsp_model = StructValueDspModel(dg, index[1])
+                    value_edit_model = StructValueEditModel(dg, index[1])
+                    value_edit_delegate = StructTreeViewDelegate(dg)
+                    pass
+                else:
+                    if dg.attribute.length > 1:
+                        value_dsp_model = ListValueDspTreeModel(dg, index[1])
+                        value_edit_model = ListValueEditTreeModel(dg, index[1])
+                        value_edit_delegate = GeneralTreeViewDelegate(dg)
+                        pass
+                    else:
+                        value_dsp_model = GeneralValueDspTreeViewModel(dg, index[1])
+                        value_edit_model = GeneralValueEditTreeViewModel(dg, index[1])
+                        value_edit_delegate = GeneralTreeViewDelegate(dg)
+                        pass
+                    pass
+                value_dsp_model.action = index[2]
+                value_edit_model.action = index[2]
                 pass
             pass
+        elif dg.attribute.type == 'STATUS':
+            value_dsp_model = DictionaryValueDspTreeModel(dg, index[1])
+            value_edit_model = DictionaryValueEditTreeModel(dg, index[1])
+            value_edit_delegate = DictionaryTreeViewDelegate(dg)
+            pass
+        else:
+            if dg.attribute.format == 'Enum':
+                value_dsp_model = DictionaryValueDspTreeModel(dg, index[1])
+                value_edit_model = DictionaryValueEditTreeModel(dg, index[1])
+                value_edit_delegate = DictionaryTreeViewDelegate(dg)
+            elif dg.attribute.format == 'Structure':
+                value_dsp_model = StructValueDspModel(dg, index[1])
+                value_edit_model = StructValueEditModel(dg, index[1])
+                value_edit_delegate = StructTreeViewDelegate(dg)
+                pass
+            else:
+                if dg.attribute.length > 1:
+                    value_dsp_model = ListValueDspTreeModel(dg, index[1])
+                    value_edit_model = ListValueEditTreeModel(dg, index[1])
+                    value_edit_delegate = GeneralTreeViewDelegate(dg)
+                    pass
+                else:
+                    value_dsp_model = GeneralValueDspTreeViewModel(dg, index[1])
+                    value_edit_model = GeneralValueEditTreeViewModel(dg, index[1])
+                    value_edit_delegate = GeneralTreeViewDelegate(dg)
+                    pass
+                pass
 
         self.ui.data_history_tree_view.setModel(value_dsp_model)
         self.ui.value_edit_tree_view.setModel(value_edit_model)
         self.ui.value_edit_tree_view.setItemDelegate(value_edit_delegate)
+        self.ui.value_edit_tree_view.resizeColumnToContents(0)
 
     def update_datagram_value_display(self, payload_package):
         hash_id = payload_package.hash_id
@@ -336,8 +430,8 @@ class MainWin(QMainWindow):
         if model is None:
             return
         try:
-            row = model.datagram_index.index([hash_id, dev_index])
-        except IndexError:
+            row = model.datagram_index.index([hash_id, dev_index, payload_package.action])
+        except ValueError:
             return
         model_index = model.index(row, 2)
         model.dataChanged.emit(model_index, model_index)
@@ -354,10 +448,6 @@ class MainWin(QMainWindow):
         self.ui.log_plain_text_edit.appendPlainText('--------' + datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") +
                                                     '--------\n' + msg_str)
         pass
-
-    # def closeEvent(self, *args, **kwargs):
-    #     self.quit()
-    #    pass
 
     @pyqtSlot()
     def on_repeater_push_button_clicked(self):
@@ -395,38 +485,51 @@ class MainWin(QMainWindow):
             return
         pass
 
+    @staticmethod
+    def get_package_val_from_text(text=''):
+        text = text.split('|')[0].strip(' ').upper()
+        if text.startswith('0X'):
+            return int(text, base=16)
+        return int(text)
+
     @pyqtSlot()
     def on_publish_push_button_clicked(self):
         try:
-            item_index = self.ui.data_monitor_table_view.selectionModel().currentIndex()
-            model = self.ui.data_monitor_table_view.model()
-            row = item_index.row()
-            index = model.datagram_index[row]
             model = self.ui.value_edit_tree_view.model()
             if model is None:
                 self.statusBar().showMessage('Invalid Value Type')
+                return
             self.payload_package.value = model.get_value()
             from PyQt5.QtCore import Qt
+            self.payload_package.payload_type =\
+                self.get_package_val_from_text(self.ui.payload_type_combo_box.currentText())
+            self.payload_package.payload_version =\
+                self.get_package_val_from_text(self.ui.payoad_version_line_edit.text())
+            self.payload_package.hash_id = self.get_package_val_from_text(self.ui.hash_id_line_edit.text())
+            self.payload_package.producer_mask =\
+                self.get_package_val_from_text(self.ui.producer_mask_combo_box.currentText())
+            self.payload_package.action = self.get_package_val_from_text(self.ui.action_combo_box.currentText())
+            self.payload_package.time_stamp_second =\
+                self.get_package_val_from_text(self.ui.time_stamp_s_line_edit.text())
+            self.payload_package.time_stamp_ms = self.get_package_val_from_text(self.ui.time_stamp_ms_line_edit.text())
+            self.payload_package.device_instance_index =\
+                self.get_package_val_from_text(self.ui.device_index_line_edit.text())
+            self.payload_package.data_object_reference_type =\
+                self.get_package_val_from_text(self.ui.reference_type_line_edit.text())
+            self.payload_package.data_object_reference_value =\
+                self.get_package_val_from_text(self.ui.reference_value_line_edit.text())
 
-            self.payload_package.payload_type = self.ui.package_tree_widget.topLevelItem(0).data(1, Qt.DisplayRole)
-            self.payload_package.payload_version = self.ui.package_tree_widget.topLevelItem(1).data(1, Qt.DisplayRole)
-            self.payload_package.hash_id = index[0]
-            self.payload_package.producer_mask = self.ui.package_tree_widget.topLevelItem(3).data(1, Qt.DisplayRole)
-            self.payload_package.action = self.ui.package_tree_widget.topLevelItem(4).data(1, Qt.DisplayRole)
-            self.payload_package.time_stamp_ms = self.ui.package_tree_widget.topLevelItem(5).data(1, Qt.DisplayRole)
-            self.payload_package.time_stamp_second = self.ui.package_tree_widget.topLevelItem(6).data(1, Qt.DisplayRole)
-            self.payload_package.device_instance_index = index[1] + 1
-            self.payload_package.is_object_reference_package = self.ui.package_tree_widget.\
-                topLevelItem(8).data(1, Qt.DisplayRole)
-
-            if self.payload_package.is_object_reference_package is True:
-                sub_item = self.ui.package_tree_widget.topLevelItem(8).child(0)
-                self.payload_package.data_object_reference_type = sub_item.data(1, Qt.DisplayRole)
-                sub_item = self.ui.package_tree_widget.topLevelItem(8).child(1)
-                self.payload_package.data_object_reference_value = sub_item.data(1, Qt.DisplayRole)
-                pass
-
-            if self.datagram_server.publish(self.payload_package):
+            if self.datagram_server.publish(self.payload_package, self.ui.topic_line_edit.text()):
+                dg = self.datagram_manager.datagram_dict[self.payload_package.hash_id]
+                if (dg.attribute.type == 'COMMAND') and (self.payload_package.action == 0):
+                    value = self.payload_package.value & 0xff0000ff
+                    value |= 0x00ffff00 & (self.datagram_manager.seq_num << 8)
+                    try:
+                        model.value = value
+                        model.update()
+                    except AttributeError as exception:
+                        print('ERROR:', exception)
+                        pass
                 result = 'Publish OK'
             else:
                 result = 'Publish Failed'

@@ -85,7 +85,9 @@ class DataDictionaryInfo:
                 for (key, data) in self.header.items():
                     if data[0] + 1 < data[1]:
                         tmp_sub_row = row[data[0]:data[1]]
-                        self.header[key] = self.get_range_dict(tmp_sub_row, data[0])
+                        sub_dict = self.get_range_dict(tmp_sub_row, data[0])
+                        if sub_dict:
+                            self.header[key] = sub_dict
                 break
         pass
     pass

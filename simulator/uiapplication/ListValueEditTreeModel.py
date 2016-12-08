@@ -7,6 +7,7 @@ class ListValueEditTreeModel(ValueTreeViewModel):
     def __init__(self, datagram, dev_index, parent=None):
         self.datagram = datagram
         self.dev_index = dev_index
+        self.action = 0
         self.value_size = datagram.attribute.max_size
         header = ('Index', self.datagram.attribute.format,)
         super(ListValueEditTreeModel, self).__init__(header, parent)
@@ -14,7 +15,7 @@ class ListValueEditTreeModel(ValueTreeViewModel):
 
     def update(self):
         self.beginResetModel()
-        value = self.datagram.data_list[self.dev_index].value
+        value = self.datagram.data_list[self.dev_index].get_value(self.action)
         if self.value_size is not None and self.value_size > 1:
             for i in range(0, self.value_size):
                 try:

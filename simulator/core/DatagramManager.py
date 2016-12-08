@@ -2,12 +2,14 @@ import csv
 # local file
 from simulator.core.Datagram import Datagram
 from simulator.core.DataDictionaryInfo import data_dictionary, DataDictionaryInfo
+from simulator.core import PayloadPackage
 
 
 class DatagramManager:
     def __init__(self):
         self.__data_dict = {}  # Datagram dictionary {hash_id: datagram}
-        self.__indexes = []  # item = [hash_id, instance]
+        self.__indexes = []  # item = [hash_id, instance, action]
+        self.seq_num = 0
         self.value_update_user_data = None
         self.value_update_callback = None
         self.data_dictionary = DataDictionaryInfo()
@@ -28,6 +30,7 @@ class DatagramManager:
     def clear(self):
         self.__data_dict.clear()
         self.__indexes.clear()
+        self.seq_num = 0
         self.data_dictionary = DataDictionaryInfo()
 
     def on_message(self, topic, package_msg):
@@ -43,7 +46,7 @@ class DatagramManager:
         except IndexError:
             print('ERROR:', 'Can\'t find the data which the device instance is', instance, 'at the datagram')
             return
-        d.value = package_msg.value
+        d.set_value(package_msg.value, package_msg.action)
         if self.value_update_callback is not None:
             self.value_update_callback(self.value_update_user_data, package_msg)
         pass
@@ -71,7 +74,28 @@ class DatagramManager:
                             datagram = Datagram(attribute)
                             self.__data_dict[hash_id] = datagram
                             for data in datagram.data_list:
-                                self.__indexes.append([hash_id, data.instance])
+                                self.__indexes.append([hash_id,
+                                                       data.instance,
+                                                       PayloadPackage.E_DATAGRAM_ACTION_PUBLISH])
+                                if attribute.type == 'COMMAND':
+                                    self.__indexes.append([hash_id,
+                                                           data.instance,
+                                                           PayloadPackage.E_DATAGRAM_ACTION_RESPONSE])
+                                    self.__indexes.append([hash_id,
+                                                           data.instance,
+                                                           PayloadPackage.E_DATAGRAM_ACTION_ALLOW])
+                                    pass
+                                elif attribute.type == 'SETTING':
+                                    self.__indexes.append([hash_id,
+                                                           data.instance,
+                                                           PayloadPackage.E_DATAGRAM_ACTION_REQUEST])
+                                    self.__indexes.append([hash_id,
+                                                           data.instance,
+                                                           PayloadPackage.E_DATAGRAM_ACTION_RESPONSE])
+                                    self.__indexes.append([hash_id,
+                                                           data.instance,
+                                                           PayloadPackage.E_DATAGRAM_ACTION_ALLOW])
+                                    pass
                             pass
                         return True
                     else:

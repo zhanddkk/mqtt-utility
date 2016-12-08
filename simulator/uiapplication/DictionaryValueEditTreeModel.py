@@ -7,16 +7,17 @@ class DictionaryValueEditTreeModel(ValueTreeViewModel):
     def __init__(self, datagram, dev_index, parent=None):
         self.datagram = datagram
         self.dev_index = dev_index
+        self.action = 0
         header = ('Name', self.datagram.attribute.format)
         super(DictionaryValueEditTreeModel, self).__init__(header, parent)
     pass
 
     def update(self):
-        value = self.datagram.data_list[self.dev_index].value
+        value = self.datagram.data_list[self.dev_index].get_value(self.action)
         name = 'USER DEFINE'
         for (k, d) in self.datagram.attribute.choice_list.items():
             if d[0] == value:
-                name = k
+                name = str(d[0]) + ' | ' + k
                 break
         self.root_item.append_child(ValueTreeViewItem([name, value], self.root_item))
 
@@ -43,10 +44,10 @@ class DictionaryValueEditTreeModel(ValueTreeViewModel):
         result = item.set_data(column, value)
         if column == 0:
             if value == 'USER DEFINE':
-                # result_value = item.set_data(1, None)
                 result_value = False
             else:
                 try:
+                    value = value.split('|')[1].strip(' ')
                     result_value = item.set_data(1, self.datagram.attribute.choice_list[value][0])
                 except KeyError:
                     result_value = item.set_data(1, None)

@@ -15,7 +15,10 @@ class GeneralTreeViewDelegate(QStyledItemDelegate):
         value_type = self.datagram.attribute.format
         if value_type in general_data_type:
             if value_type in integer_data_type_name:
-                editor.value_type = 'integral'
+                if value_type == 'Bool':
+                    editor.value_type = 'bool'
+                else:
+                    editor.value_type = 'integral'
                 pass
             else:
                 editor.value_type = 'decimals'

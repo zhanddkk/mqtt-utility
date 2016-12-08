@@ -14,7 +14,7 @@ class DataDictionaryTreeViewModel(ValueTreeViewModel):
         for index in self.datagram_manager.index_list:
             datagram = self.datagram_manager.datagram_dict[index[0]]
             data = datagram.data_list[index[1]]
-            item_name_list = data.topic.split('/')
+            item_name_list = data.get_topic(index[2]).split('/')
             item = self.root_item
             for i, item_name in enumerate(item_name_list):
                 is_find = False

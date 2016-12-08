@@ -1,3 +1,40 @@
+# ----Payload Type----
+# 0: Datagram dynamic value(default)
+# 1: Datagram property value
+
+# ----Payload Version----
+# It is a 16 bits number indicate the version of the specified payload type
+
+# ----Hash ID----
+# The unique 32bit hash ID is generated from the unique name string
+
+# ----Producer Mask----
+# This field is an unsigned 32bit value
+D_NODE_MASK_UC = 1          # (1<<0)
+D_NODE_MASK_SLC_UPS = 2     # (1<<1)
+D_NODE_MASK_SLC_NMC = 4     # (1<<2)
+D_NODE_MASK_HMI = 8         # (1<<3)
+D_NODE_MASK_TUNER = 16      # (1<<4)
+
+# ----Action----
+E_DATAGRAM_ACTION_PUBLISH = 0
+E_DATAGRAM_ACTION_REQUEST = 1
+E_DATAGRAM_ACTION_RESPONSE = 2
+E_DATAGRAM_ACTION_ALLOW = 3
+# ----Time Stamp----
+# The timestamp is used to indicate the accurate time of the datagram value update
+# typedef struct
+# {
+#     uint32_t ui32Secounds;
+#    uint16_t ui16MilliSeconds;
+# } TDatagramTimeStamp;
+# The timestamp is optional, if the producer node doesn’t supply it,
+# it need to set it to an invalid format (ui32Secounds = 0xFFFFFFFF, and ui16MilliSeconds = 0xFFFF).
+
+# ----Device Instance Index----
+# The unsigned 16bit index
+
+# ----Package Index----
 E_PAYLOAD_TYPE = 0
 E_PAYLOAD_VERSION = 1
 E_HASH_ID = 2
@@ -9,6 +46,23 @@ E_DEVICE_INSTANCE_INDEX = 7
 E_DATA_OBJECT_REFERENCE_TYPE = 8
 E_DATA_OBJECT_REFERENCE_VALUE = 9
 E_VALUE = 10
+# ----Package Item Info----
+payload_package_item_info = {
+    E_PAYLOAD_TYPE: ['UInt16', {0: 'Dynamic', 1: 'Property'}],
+    E_PAYLOAD_VERSION: ['UInt16', None],
+    E_HASH_ID: ['UInt32', None],
+    E_PRODUCER_MASK: ['UInt32', {D_NODE_MASK_UC: 'UC',
+                                 D_NODE_MASK_SLC_UPS: 'SLC_UPS',
+                                 D_NODE_MASK_SLC_NMC: 'SLC_NMC',
+                                 D_NODE_MASK_HMI: 'HMI',
+                                 D_NODE_MASK_TUNER: 'TUNER'}],
+    E_ACTION: ['UInt16', {0: 'Publish', 1: 'Request', 2: 'Response', 3: 'Allow'}],
+    E_TIMESTAMP_SECOND: ['UInt32', None],
+    E_TIMESTAMP_MS: ['UInt16', None],
+    E_DEVICE_INSTANCE_INDEX: ['UInt16', None],
+    E_DATA_OBJECT_REFERENCE_TYPE: ['UInt16', None],
+    E_DATA_OBJECT_REFERENCE_VALUE: ['UInt16', None],
+}
 
 
 class PayloadPackage:
@@ -16,7 +70,7 @@ class PayloadPackage:
     payload_type = 0
     payload_version = 0
     hash_id = 0
-    producer_mask = 0
+    producer_mask = 1
     action = 0
     time_stamp_second = 0xffffffff
     time_stamp_ms = 0xffff

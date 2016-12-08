@@ -50,12 +50,12 @@ class DataMonitorTableViewModel(QAbstractTableModel):
             elif column == 2:
                 dg = self.datagram_manager.datagram_dict[hash_id]
                 d = dg.data_list[dev_index]
-                return str(d.value)
+                return str(d.get_value(self.datagram_index[row][2]))
                 pass
             elif column == 3:
                 dg = self.datagram_manager.datagram_dict[hash_id]
                 d = dg.data_list[dev_index]
-                return str(d.topic)
+                return str(d.get_topic(self.datagram_index[row][2]))
                 pass
             else:
                 return None

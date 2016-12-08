@@ -6,6 +6,7 @@ class ListValueDspTreeModel(ValueTreeViewModel):
     def __init__(self, datagram, dev_index, parent=None):
         self.datagram = datagram
         self.dev_index = dev_index
+        self.action = 0
         self.value_size = datagram.attribute.max_size
         header = ['Operation', 'Time', self.datagram.attribute.format]
         if self.value_size and self.value_size > 1:
@@ -17,7 +18,7 @@ class ListValueDspTreeModel(ValueTreeViewModel):
         self.beginResetModel()
         self.root_item.clear_children()
         try:
-            history_values = self.datagram.data_list[self.dev_index].history
+            history_values = self.datagram.data_list[self.dev_index].get_history(self.action)
             for history in reversed(history_values):
                 if self.value_size is not None and self.value_size > 1:
                     item_data = [history.opt_str, history.time_str]

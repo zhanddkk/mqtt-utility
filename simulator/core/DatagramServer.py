@@ -1,6 +1,7 @@
 import paho.mqtt.client as mqtt
 import cbor
 from simulator.core.PayloadPackage import PayloadPackage
+from simulator.core import PayloadPackage as PayloadPackageModule
 
 
 class DatagramServer:
@@ -8,6 +9,7 @@ class DatagramServer:
         import os
         import threading
         self.__id = str(os.getppid()) + str(threading.get_ident())
+        self.__seq_num = 0
 
         self.instance = mqtt.Client(self.__id, userdata=self)
         self.instance.on_message = self.mqtt_on_message
@@ -49,7 +51,7 @@ class DatagramServer:
         self.is_running = False
         pass
 
-    def publish(self, package_msg):
+    def publish(self, package_msg, topic=None, qos=0, retain=False):
         if self.is_running is False:
             print('WARNING:', 'The server is not running')
             return False
@@ -76,9 +78,18 @@ class DatagramServer:
             self.publish_lock.release()
             return False
             pass
-        rc = self.instance.publish(d.topic, payload)
+        if topic is None:
+            rc = self.instance.publish(d.topic, payload, qos, retain)
+        else:
+            rc = self.instance.publish(topic, payload, qos, retain)
         if rc[0] == mqtt.MQTT_ERR_SUCCESS:
-            d.send_value(package_msg.value)
+            d.send_value(package_msg.value, package_msg.action)
+            if (dg.attribute.type == 'COMMAND') and\
+                    (package_msg.action == PayloadPackageModule.E_DATAGRAM_ACTION_PUBLISH):
+                self.datagram_manager.seq_num += 1
+                if self.datagram_manager.seq_num > 65535:
+                    self.datagram_manager.seq_num = 0
+                pass
             ret = True
             pass
         else:
@@ -97,6 +108,7 @@ class DatagramServer:
 
     def mqtt_on_connect(self, mqttc, obj, flags, rc):
         print("connect rc: " + str(rc))
+        self.__seq_num = 0
         self.is_running = True
         self.instance.subscribe('#', 0)
 

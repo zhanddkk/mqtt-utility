@@ -7,10 +7,12 @@ class DictionaryTreeViewDelegate(QStyledItemDelegate):
     def __init__(self, datagram, parent=None):
         super(DictionaryTreeViewDelegate, self).__init__(parent)
         self.datagram = datagram
+        self.max_len_choice_item = 'USER DEFINE'
         pass
 
     def createEditor(self, parent, option, index):
         if index.column() == 0:
+            text_max_num = 11
             editor = QComboBox(parent)
             data = index.data()
             choice_list = self.datagram.attribute.choice_list
@@ -18,14 +20,22 @@ class DictionaryTreeViewDelegate(QStyledItemDelegate):
             if choice_list != {}:
                 str_list = []
                 for (k, d) in choice_list.items():
-                    str_list.append(k)
-                str_list.sort()
+                    text = str(d[0]) + ' | ' + k
+                    text_len = len(text)
+                    if text_max_num < text_len:
+                        text_max_num = len(text)
+                        self.max_len_choice_item = text
+                    str_list.append(text)
+                # str_list.sort()
             str_list.append('USER DEFINE')
             editor.addItems(str_list)
             if data:
                 editor.setCurrentText(data)
             else:
                 editor.setCurrentIndex(0)
+            fm = editor.fontMetrics()
+            width = fm.width(self.max_len_choice_item)
+            option.widget.setColumnWidth(0, width + 45)
         elif index.column() == 1:
             editor = InputBox(parent, default_return_val=index.data())
             editor.value_type = 'integral'

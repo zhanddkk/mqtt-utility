@@ -1,4 +1,4 @@
-from simulator.core.DatagramData import DatagramData
+from simulator.core.DatagramData import DatagramData, CmdDatagramData, SettingDatagramData
 
 
 class Datagram:
@@ -37,8 +37,15 @@ class Datagram:
         start = path.find('[')
         end = path.find(']')
 
+        if self.attribute.type == 'COMMAND':
+            datagram_data_class = CmdDatagramData
+        elif self.attribute.type == 'SETTING':
+            datagram_data_class = SettingDatagramData
+        else:
+            datagram_data_class = DatagramData
+
         if (start == -1) or (end == -1) or (start >= end) or (start < 1) or (end < 1):
-            self._data_list.append(DatagramData(0, (system + path + name).replace('\\', '/'), default))
+            self._data_list.append(datagram_data_class(0, (system + path + name).replace('\\', '/'), default))
         else:
             num = path[start + 1:end]
 
@@ -48,9 +55,9 @@ class Datagram:
                 behind = path[end + 1:]
                 for i in range(device_number):
                     tmp = system + front + str(i + 1) + behind + name
-                    self._data_list.append(DatagramData(i, tmp.replace('\\', '/'), default))
+                    self._data_list.append(datagram_data_class(i, tmp.replace('\\', '/'), default))
             else:
-                self._data_list.append(DatagramData(0, (system + path + name).replace('\\', '/'), default))
+                self._data_list.append(datagram_data_class(0, (system + path + name).replace('\\', '/'), default))
         pass
 
     pass

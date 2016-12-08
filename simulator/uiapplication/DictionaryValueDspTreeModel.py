@@ -6,6 +6,7 @@ class DictionaryValueDspTreeModel(ValueTreeViewModel):
     def __init__(self, datagram, dev_index, parent=None):
         self.datagram = datagram
         self.dev_index = dev_index
+        self.action = 0
         header = ('Operation', 'Time', 'Name', self.datagram.attribute.format)
         super(DictionaryValueDspTreeModel, self).__init__(header, parent)
 
@@ -13,8 +14,8 @@ class DictionaryValueDspTreeModel(ValueTreeViewModel):
         self.beginResetModel()
         self.root_item.clear_children()
         try:
-            d = self.datagram.data_list[self.dev_index]
-            for history in reversed(d.history):
+            history_value = self.datagram.data_list[self.dev_index].get_history(self.action)
+            for history in reversed(history_value):
                 name = 'NO DEFINE'
                 value = history.value
                 for (k, d) in self.datagram.attribute.choice_list.items():
