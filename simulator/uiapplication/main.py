@@ -54,7 +54,7 @@ class MainWin(QMainWindow):
         self.ui.actionImport.triggered.connect(self.import_csv)
         self.ui.actionAbout.triggered.connect(self.about)
         self.ui.actionSettings.triggered.connect(self.setting)
-        self.ui.actionMQTT_Connect.triggered.connect(self.connect_mqtt)
+        self.ui.actionConnect_Broker.triggered.connect(self.connect_mqtt)
 
         self.tabifyDockWidget(self.ui.package_dock_widget, self.ui.repeater_dock_widget)
         self.ui.package_dock_widget.raise_()
@@ -175,14 +175,16 @@ class MainWin(QMainWindow):
         set_dlg.exec()
 
     def connect_mqtt(self):
-        if self.ui.actionMQTT_Connect.isChecked():
+        if self.ui.actionConnect_Broker.isChecked():
             if self.datagram_server.is_running:
+                self.statusBar().showMessage('Is Connected')
                 pass
             else:
                 self.datagram_server.broker = self.configuration.mqtt_connect_addr
                 self.datagram_server.port = self.configuration.mqtt_connect_port
+                self.statusBar().showMessage('Connecting...')
                 ret_val = self.datagram_server.run()
-                self.ui.actionMQTT_Connect.setChecked(ret_val)
+                self.ui.actionConnect_Broker.setChecked(ret_val)
                 if ret_val is False:
                     msg_dlg = QMessageBox()
                     msg_dlg.critical(self, 'Connect Error',
@@ -190,9 +192,15 @@ class MainWin(QMainWindow):
                                      '<p><b>Address:</b> ' + self.datagram_server.broker + '</p>'
                                      '<p><b>Port:</b> ' + str(self.datagram_server.port) + '</p>',
                                      QMessageBox.Ok)
+                    self.statusBar().showMessage('Connect Failed')
+                else:
+                    self.statusBar().showMessage('Connected@' + self.datagram_server.broker + ':' +
+                                                 str(self.datagram_server.port))
+                    pass
         else:
             if self.datagram_server.is_running:
                 self.datagram_server.stop()
+                self.statusBar().showMessage('Disconnected')
         pass
 
     def data_dictionary_tree_view_item_selected(self):

@@ -85,6 +85,8 @@ gridline-color: rgb(85, 170, 127);</string>
     <addaction name="separator"/>
     <addaction name="actionSettings"/>
     <addaction name="separator"/>
+    <addaction name="actionConnect_Broker"/>
+    <addaction name="separator"/>
     <addaction name="actionExit"/>
    </widget>
    <widget class="QMenu" name="menuView">
@@ -102,7 +104,6 @@ gridline-color: rgb(85, 170, 127);</string>
     <property name="title">
      <string>Tools</string>
     </property>
-    <addaction name="actionMQTT_Connect"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuView"/>
@@ -883,12 +884,12 @@ gridline-color: rgb(85, 170, 127);</string>
     <string>Settings...</string>
    </property>
   </action>
-  <action name="actionMQTT_Connect">
+  <action name="actionConnect_Broker">
    <property name="checkable">
     <bool>true</bool>
    </property>
    <property name="text">
-    <string>MQTT Connect</string>
+    <string>Connect Broker</string>
    </property>
   </action>
  </widget>

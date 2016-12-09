@@ -116,15 +116,20 @@ class DatagramServer:
         print(msg.topic + " " + str(msg.qos) + " " + str(msg.payload))
         package_msg_cbor = cbor.loads(msg.payload)
         package_msg = PayloadPackage()
+        is_valid_package = package_msg.loads(package_msg_cbor)
         if (self.record_message_callback is not None) and (not msg.topic.startswith('$sys')):
             msg_str = 'topic   : ' + msg.topic
             msg_str += '\nqos     : ' + str(msg.qos)
             msg_str += '\nretain  : ' + str(msg.retain)
-            msg_str += '\npayload : ' + str(package_msg_cbor)
+            if is_valid_package:
+                msg_str += '\npayload :\n->' + package_msg.to_string().replace('\n', '\n->')
+                pass
+            else:
+                msg_str += '\npayload : ' + str(package_msg_cbor)
             self.record_message_callback(self.record_message_user_data, msg_str)
             pass
 
-        if package_msg.loads(package_msg_cbor) is True:
+        if is_valid_package is True:
             self.datagram_manager.on_message(msg.topic, package_msg)
             pass
 
