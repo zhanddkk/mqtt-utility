@@ -128,7 +128,7 @@ class MainWin(QMainWindow):
     This <span style=" font-weight:600;">Application</span> is a simulator.
 </p>
 <p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">
-    <span style=" font-weight:600;">Version</span> : 0.5.1
+    <span style=" font-weight:600;">Version</span> : 0.5.2 Beta
 </p>
 <p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">
     <span style=" font-weight:600;">Copyright</span> :

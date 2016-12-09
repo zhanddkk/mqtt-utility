@@ -99,7 +99,7 @@ class DatagramManager:
                             pass
                         return True
                     else:
-                        print('ERROR:', 'this simulator not support the dictionary that the version is',
+                        print('ERROR:', 'this simulator not supports the dictionary that the version is',
                               self.data_dictionary.ver)
                         return False
                 except csv.Error as exception:

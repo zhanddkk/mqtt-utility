@@ -2,11 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d639cb57-f970-46ec-8a89-2f9997dd3944" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/simulator/uiapplication/WinMainUi.ui" afterPath="$PROJECT_DIR$/simulator/uiapplication/WinMainUi.ui" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/simulator/core/DatagramServer.py" afterPath="$PROJECT_DIR$/simulator/core/DatagramServer.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/simulator/core/PayloadPackage.py" afterPath="$PROJECT_DIR$/simulator/core/PayloadPackage.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/simulator/uiapplication/WinMainUi.py" afterPath="$PROJECT_DIR$/simulator/uiapplication/WinMainUi.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/simulator/core/DatagramManager.py" afterPath="$PROJECT_DIR$/simulator/core/DatagramManager.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/simulator/datadictionarysource/default_data_dictionary.csv" afterPath="$PROJECT_DIR$/simulator/datadictionarysource/default_data_dictionary.csv" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/simulator/uiapplication/main.py" afterPath="$PROJECT_DIR$/simulator/uiapplication/main.py" />
     </list>
     <ignored path="secure_power_agilis_mqtt_simulator.iws" />
@@ -27,11 +25,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="main.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="main.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/simulator/uiapplication/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="473">
-              <caret line="195" column="0" selection-start-line="195" selection-start-column="0" selection-end-line="196" selection-end-column="0" />
+            <state relative-caret-position="302">
+              <caret line="126" column="34" selection-start-line="126" selection-start-column="34" selection-end-line="126" selection-end-column="34" />
               <folding />
             </state>
           </provider>
@@ -47,11 +45,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PayloadPackage.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="DatagramManager.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/simulator/core/DatagramManager.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="114">
+              <caret line="88" column="67" selection-start-line="88" selection-start-column="67" selection-end-line="88" selection-end-column="67" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PayloadPackage.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/simulator/core/PayloadPackage.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2774">
-              <caret line="146" column="94" selection-start-line="146" selection-start-column="94" selection-end-line="146" selection-end-column="94" />
+            <state relative-caret-position="513">
+              <caret line="27" column="28" selection-start-line="27" selection-start-column="28" selection-end-line="27" selection-end-column="28" />
               <folding />
             </state>
           </provider>
@@ -117,12 +125,12 @@
         <option value="$PROJECT_DIR$/simulator/core/Repeater.py" />
         <option value="$PROJECT_DIR$/simulator/core/DatagramData.py" />
         <option value="$PROJECT_DIR$/simulator/uiapplication/BitMapDelegate.py" />
-        <option value="$PROJECT_DIR$/simulator/core/DatagramManager.py" />
         <option value="$PROJECT_DIR$/simulator/uiapplication/BitMapValueEditModel.py" />
         <option value="$PROJECT_DIR$/simulator/uiapplication/WinMainUi.py" />
-        <option value="$PROJECT_DIR$/simulator/uiapplication/main.py" />
         <option value="$PROJECT_DIR$/simulator/core/DatagramServer.py" />
         <option value="$PROJECT_DIR$/simulator/core/PayloadPackage.py" />
+        <option value="$PROJECT_DIR$/simulator/core/DatagramManager.py" />
+        <option value="$PROJECT_DIR$/simulator/uiapplication/main.py" />
       </list>
     </option>
   </component>
@@ -157,8 +165,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -205,12 +211,28 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="core" />
+              <option name="myItemId" value="uiapplication" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="secure_power_agilis_mqtt_simulator" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="secure_power_agilis_mqtt_simulator" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="doc" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scratches" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -632,7 +654,14 @@
       <option name="project" value="LOCAL" />
       <updated>1481166478710</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="Move the connect broker action in to file menu item&#10;Add the connection result information display&#10;">
+      <created>1481266323654</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1481266323654</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -752,7 +781,8 @@
     <MESSAGE value="Support new format data dictionary" />
     <MESSAGE value="Delete config.ini&#10;NameClass can be init as list or string" />
     <MESSAGE value="Support command and setting datagram" />
-    <option name="LAST_COMMIT_MESSAGE" value="Support command and setting datagram" />
+    <MESSAGE value="Move the connect broker action in to file menu item&#10;Add the connection result information display&#10;" />
+    <option name="LAST_COMMIT_MESSAGE" value="Move the connect broker action in to file menu item&#10;Add the connection result information display&#10;" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1062,10 +1092,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/simulator/core/DatagramManager.py">
+    <entry file="file://$PROJECT_DIR$/simulator/core/PayloadPackage.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-380">
-          <caret line="32" column="24" selection-start-line="32" selection-start-column="24" selection-end-line="32" selection-end-column="24" />
+        <state relative-caret-position="513">
+          <caret line="27" column="28" selection-start-line="27" selection-start-column="28" selection-end-line="27" selection-end-column="28" />
           <folding />
         </state>
       </provider>
@@ -1078,18 +1108,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/simulator/uiapplication/main.py">
+    <entry file="file://$PROJECT_DIR$/simulator/core/DatagramManager.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="473">
-          <caret line="195" column="0" selection-start-line="195" selection-start-column="0" selection-end-line="196" selection-end-column="0" />
+        <state relative-caret-position="114">
+          <caret line="88" column="67" selection-start-line="88" selection-start-column="67" selection-end-line="88" selection-end-column="67" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/simulator/core/PayloadPackage.py">
+    <entry file="file://$PROJECT_DIR$/simulator/uiapplication/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2774">
-          <caret line="146" column="94" selection-start-line="146" selection-start-column="94" selection-end-line="146" selection-end-column="94" />
+        <state relative-caret-position="302">
+          <caret line="126" column="34" selection-start-line="126" selection-start-column="34" selection-end-line="126" selection-end-column="34" />
           <folding />
         </state>
       </provider>
