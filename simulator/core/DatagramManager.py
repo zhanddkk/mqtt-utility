@@ -61,9 +61,9 @@ class DatagramManager:
                 try:
                     self.data_dictionary.get_version_info(reader)
                     self.data_dictionary.get_header_info(reader)
-                    if self.data_dictionary.ver in data_dictionary:
-                        data_dictionary_class = data_dictionary[self.data_dictionary.ver]['data_dictionary_info_class']
-                        data_attribute_class = data_dictionary[self.data_dictionary.ver]['datagram_attribute_class']
+                    if self.data_dictionary.ver_index in data_dictionary:
+                        data_dictionary_class = data_dictionary[self.data_dictionary.ver_index]['data_dictionary_info_class']
+                        data_attribute_class = data_dictionary[self.data_dictionary.ver_index]['datagram_attribute_class']
                         tmp_data_dictionary = data_dictionary_class()
                         tmp_data_dictionary.header = self.data_dictionary.header
                         tmp_data_dictionary.info = self.data_dictionary.info

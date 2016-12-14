@@ -1,6 +1,6 @@
 from collections import OrderedDict
 from simulator.core.NameClass import NameClass
-from simulator.core.DatagramAttribute import DatagramAttributeVer0601
+from simulator.core.DatagramAttribute import DatagramAttributeVer08
 
 
 def set_sub_attr_value(obj, range, row, item=None):
@@ -43,6 +43,10 @@ class DataDictionaryInfo:
             pass
         return ver_text.replace('_', '')
         pass
+
+    @property
+    def ver_index(self):
+        return self.info['Master Template Version'].replace('_', '')
 
     def get_version_info(self, reader):
         for row in reader:
@@ -93,7 +97,7 @@ class DataDictionaryInfo:
     pass
 
 
-class DataDictionaryInfoVer0601(DataDictionaryInfo):
+class DataDictionaryInfoVer08(DataDictionaryInfo):
     __attribute_name_list = [
         'SubSystem',
         'DataPath',
@@ -136,9 +140,9 @@ class DataDictionaryInfoVer0601(DataDictionaryInfo):
     pass
 
 data_dictionary = {
-    '0601': {
-        'data_dictionary_info_class': DataDictionaryInfoVer0601,
-        'datagram_attribute_class': DatagramAttributeVer0601,
+    '08': {
+        'data_dictionary_info_class': DataDictionaryInfoVer08,
+        'datagram_attribute_class': DatagramAttributeVer08,
     }
 }
 

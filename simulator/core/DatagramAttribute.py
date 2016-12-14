@@ -181,8 +181,8 @@ class DatagramAttribute:
         return ret_dict
 
     def convert_choice_list(self, choice_list):
-        if 'UniversalDefine' in choice_list:
-            choice_list = choice_list[choice_list['UniversalDefine']]
+        if 'UniversalChoiceList' in choice_list:
+            choice_list = choice_list[choice_list['UniversalChoiceList']]
         if (self.__format in general_data_type) and (self.__format != 'Float') and (self.__format != 'Bool'):
             return self.parser_enum(choice_list)
             pass
@@ -445,7 +445,7 @@ class DatagramAttribute:
     pass
 
 
-class DatagramAttributeVer0601(DatagramAttribute):
+class DatagramAttributeVer08(DatagramAttribute):
     pass
 
 

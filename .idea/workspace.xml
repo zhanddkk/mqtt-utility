@@ -3,9 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="d639cb57-f970-46ec-8a89-2f9997dd3944" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/simulator/core/DataDictionaryInfo.py" afterPath="$PROJECT_DIR$/simulator/core/DataDictionaryInfo.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/simulator/core/DatagramAttribute.py" afterPath="$PROJECT_DIR$/simulator/core/DatagramAttribute.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/simulator/core/DatagramManager.py" afterPath="$PROJECT_DIR$/simulator/core/DatagramManager.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/simulator/datadictionarysource/default_data_dictionary.csv" afterPath="$PROJECT_DIR$/simulator/datadictionarysource/default_data_dictionary.csv" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/simulator/uiapplication/main.py" afterPath="$PROJECT_DIR$/simulator/uiapplication/main.py" />
     </list>
     <ignored path="secure_power_agilis_mqtt_simulator.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -25,11 +25,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="main.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="main.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/simulator/uiapplication/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="302">
-              <caret line="126" column="34" selection-start-line="126" selection-start-column="34" selection-end-line="126" selection-end-column="34" />
+            <state relative-caret-position="872">
+              <caret line="119" column="56" selection-start-line="119" selection-start-column="56" selection-end-line="119" selection-end-column="56" />
               <folding />
             </state>
           </provider>
@@ -38,19 +38,31 @@
       <file leaf-file-name="DatagramServer.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/simulator/core/DatagramServer.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="361">
-              <caret line="124" column="43" selection-start-line="124" selection-start-column="43" selection-end-line="124" selection-end-column="43" />
+            <state relative-caret-position="399">
+              <caret line="114" column="47" selection-start-line="114" selection-start-column="47" selection-end-line="114" selection-end-column="47" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DatagramManager.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="DatagramManager.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/simulator/core/DatagramManager.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="114">
-              <caret line="88" column="67" selection-start-line="88" selection-start-column="67" selection-end-line="88" selection-end-column="67" />
+            <state relative-caret-position="169">
+              <caret line="63" column="73" selection-start-line="63" selection-start-column="73" selection-end-line="63" selection-end-column="73" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DataDictionaryInfo.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/simulator/core/DataDictionaryInfo.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="340">
+              <caret line="47" column="17" selection-start-line="47" selection-start-column="8" selection-end-line="47" selection-end-column="17" />
+              <folding>
+                <element signature="e#0#35#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -60,6 +72,26 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="513">
               <caret line="27" column="28" selection-start-line="27" selection-start-column="28" selection-end-line="27" selection-end-column="28" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Repeater.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/simulator/core/Repeater.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="264">
+              <caret line="98" column="44" selection-start-line="98" selection-start-column="44" selection-end-line="98" selection-end-column="44" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DatagramAttribute.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/simulator/core/DatagramAttribute.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1482">
+              <caret line="176" column="17" selection-start-line="176" selection-start-column="17" selection-end-line="176" selection-end-column="17" />
               <folding />
             </state>
           </provider>
@@ -96,14 +128,12 @@
         <option value="$PROJECT_DIR$/simulator/CsvParser.py" />
         <option value="C:/Program Files/Python35/Lib/site-packages/recordtype.py" />
         <option value="$PROJECT_DIR$/simulator/core/CsvParser.py" />
-        <option value="$PROJECT_DIR$/simulator/core/DatagramAttribute.py" />
         <option value="$PROJECT_DIR$/simulator/uiapplication/StructTreeViewDelegate.py" />
         <option value="$PROJECT_DIR$/simulator/uiapplication/InputBox.py" />
         <option value="$PROJECT_DIR$/simulator/uiapplication/PackageTreeWidgetDelegate.py" />
         <option value="$PROJECT_DIR$/simulator/core/DataType.py" />
         <option value="$PROJECT_DIR$/simulator/core/NameClass.py" />
         <option value="$PROJECT_DIR$/simulator/uiapplication/GeneralTreeViewDelegate.py" />
-        <option value="$PROJECT_DIR$/simulator/core/DataDictionaryInfo.py" />
         <option value="$PROJECT_DIR$/simulator/uiapplication/DictionaryTreeViewDelegate.py" />
         <option value="$PROJECT_DIR$/simulator/core/Datagram.py" />
         <option value="$PROJECT_DIR$/simulator/uiapplication/DataDictionaryTreeViewModel.py" />
@@ -129,14 +159,16 @@
         <option value="$PROJECT_DIR$/simulator/uiapplication/WinMainUi.py" />
         <option value="$PROJECT_DIR$/simulator/core/DatagramServer.py" />
         <option value="$PROJECT_DIR$/simulator/core/PayloadPackage.py" />
-        <option value="$PROJECT_DIR$/simulator/core/DatagramManager.py" />
         <option value="$PROJECT_DIR$/simulator/uiapplication/main.py" />
+        <option value="$PROJECT_DIR$/simulator/core/DatagramAttribute.py" />
+        <option value="$PROJECT_DIR$/simulator/core/DataDictionaryInfo.py" />
+        <option value="$PROJECT_DIR$/simulator/core/DatagramManager.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-8" />
-    <option name="y" value="-8" />
+    <option name="x" value="-870" />
+    <option name="y" value="142" />
     <option name="width" value="1936" />
     <option name="height" value="1056" />
   </component>
@@ -165,6 +197,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -211,7 +244,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="uiapplication" />
+              <option name="myItemId" value="core" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -231,7 +264,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
       <pane id="Scope" />
     </panes>
   </component>
@@ -661,7 +693,14 @@
       <option name="project" value="LOCAL" />
       <updated>1481266323654</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="Update the version from 0.5.1 to 0.5.2 Beta&#10;Update the default data dictionary file to version 0601">
+      <created>1481267035890</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1481267035891</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -682,7 +721,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="-870" y="142" width="1936" height="1056" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22550052" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -690,7 +729,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.22383073" sideWeight="0.50842994" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32850778" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32962137" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20935412" sideWeight="0.4915701" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.20895523" sideWeight="0.4915701" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33636364" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -782,7 +821,8 @@
     <MESSAGE value="Delete config.ini&#10;NameClass can be init as list or string" />
     <MESSAGE value="Support command and setting datagram" />
     <MESSAGE value="Move the connect broker action in to file menu item&#10;Add the connection result information display&#10;" />
-    <option name="LAST_COMMIT_MESSAGE" value="Move the connect broker action in to file menu item&#10;Add the connection result information display&#10;" />
+    <MESSAGE value="Update the version from 0.5.1 to 0.5.2 Beta&#10;Update the default data dictionary file to version 0601" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update the version from 0.5.1 to 0.5.2 Beta&#10;Update the default data dictionary file to version 0601" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -792,6 +832,10 @@
           <line>18</line>
           <option name="timeStamp" value="403" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/simulator/core/DataDictionaryInfo.py</url>
+          <option name="timeStamp" value="423" />
+        </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
         <breakpoint type="python-exception">
@@ -800,7 +844,7 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="423" />
+      <option name="time" value="424" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="PythonConfigurationType">
@@ -872,13 +916,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="95">
           <caret line="18" column="75" selection-start-line="18" selection-start-column="75" selection-end-line="18" selection-end-column="75" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/simulator/core/DatagramAttribute.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="95">
-          <caret line="105" column="38" selection-start-line="105" selection-start-column="38" selection-end-line="105" selection-end-column="38" />
         </state>
       </provider>
     </entry>
@@ -979,13 +1016,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/simulator/core/DataDictionaryInfo.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-361">
-          <caret line="79" column="38" selection-start-line="79" selection-start-column="38" selection-end-line="79" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/simulator/uiapplication/DataMonitorTableViewModel.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="115">
@@ -1018,13 +1048,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="213">
           <caret line="318" column="0" selection-start-line="318" selection-start-column="0" selection-end-line="318" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/simulator/core/Repeater.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-21">
-          <caret line="98" column="44" selection-start-line="98" selection-start-column="44" selection-end-line="98" selection-end-column="44" />
         </state>
       </provider>
     </entry>
@@ -1088,7 +1111,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
           <caret line="443" column="91" selection-start-line="443" selection-start-column="91" selection-end-line="443" selection-end-column="91" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1100,26 +1122,52 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/simulator/core/DatagramServer.py">
+    <entry file="file://$PROJECT_DIR$/simulator/core/Repeater.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="361">
-          <caret line="124" column="43" selection-start-line="124" selection-start-column="43" selection-end-line="124" selection-end-column="43" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/simulator/core/DatagramManager.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="114">
-          <caret line="88" column="67" selection-start-line="88" selection-start-column="67" selection-end-line="88" selection-end-column="67" />
+        <state relative-caret-position="264">
+          <caret line="98" column="44" selection-start-line="98" selection-start-column="44" selection-end-line="98" selection-end-column="44" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/simulator/uiapplication/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="302">
-          <caret line="126" column="34" selection-start-line="126" selection-start-column="34" selection-end-line="126" selection-end-column="34" />
+        <state relative-caret-position="872">
+          <caret line="119" column="56" selection-start-line="119" selection-start-column="56" selection-end-line="119" selection-end-column="56" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/simulator/core/DatagramAttribute.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1482">
+          <caret line="176" column="17" selection-start-line="176" selection-start-column="17" selection-end-line="176" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/simulator/core/DataDictionaryInfo.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="47" column="17" selection-start-line="47" selection-start-column="8" selection-end-line="47" selection-end-column="17" />
+          <folding>
+            <element signature="e#0#35#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/simulator/core/DatagramServer.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="399">
+          <caret line="114" column="47" selection-start-line="114" selection-start-column="47" selection-end-line="114" selection-end-column="47" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/simulator/core/DatagramManager.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="169">
+          <caret line="63" column="73" selection-start-line="63" selection-start-column="73" selection-end-line="63" selection-end-column="73" />
           <folding />
         </state>
       </provider>
