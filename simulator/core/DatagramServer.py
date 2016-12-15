@@ -114,9 +114,16 @@ class DatagramServer:
 
     def mqtt_on_message(self, mqttc, obj, msg):
         print(msg.topic + " " + str(msg.qos) + " " + str(msg.payload))
-        package_msg_cbor = cbor.loads(msg.payload)
         package_msg = PayloadPackage()
-        is_valid_package = package_msg.loads(package_msg_cbor)
+        try:
+            package_msg_cbor = cbor.loads(msg.payload)
+            is_valid_package = package_msg.loads(package_msg_cbor)
+        except Exception as exception:
+            print('ERROR:', 'The message received format is not cbor format,', exception)
+            package_msg_cbor = msg.payload
+            is_valid_package = False
+            pass
+
         if (self.record_message_callback is not None) and (not msg.topic.startswith('$sys')):
             msg_str = 'topic   : ' + msg.topic
             msg_str += '\nqos     : ' + str(msg.qos)
