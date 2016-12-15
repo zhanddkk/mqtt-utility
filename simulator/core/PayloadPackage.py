@@ -18,8 +18,8 @@ D_NODE_MASK_TUNER = 16      # (1<<4)
 
 # ----Action----
 E_DATAGRAM_ACTION_PUBLISH = 0
-E_DATAGRAM_ACTION_REQUEST = 1
-E_DATAGRAM_ACTION_RESPONSE = 2
+E_DATAGRAM_ACTION_RESPONSE = 1
+E_DATAGRAM_ACTION_REQUEST = 2
 E_DATAGRAM_ACTION_ALLOW = 3
 # ----Time Stamp----
 # The timestamp is used to indicate the accurate time of the datagram value update
@@ -56,7 +56,7 @@ payload_package_item_info = {
                                  D_NODE_MASK_SLC_NMC: 'SLC_NMC',
                                  D_NODE_MASK_HMI: 'HMI',
                                  D_NODE_MASK_TUNER: 'TUNER'}],
-    E_ACTION: ['UInt16', {0: 'Publish', 1: 'Request', 2: 'Response', 3: 'Allow'}],
+    E_ACTION: ['UInt16', {0: 'Publish', 1: 'Response', 2: 'Request', 3: 'Allow'}],
     E_TIMESTAMP_SECOND: ['UInt32', None],
     E_TIMESTAMP_MS: ['UInt16', None],
     E_DEVICE_INSTANCE_INDEX: ['UInt16', None],

@@ -773,12 +773,12 @@ gridline-color: rgb(85, 170, 127);</string>
           </item>
           <item>
            <property name="text">
-            <string>1 | Request</string>
+            <string>1 | Response</string>
            </property>
           </item>
           <item>
            <property name="text">
-            <string>2 | Response</string>
+            <string>2 | Request</string>
            </property>
           </item>
           <item>
