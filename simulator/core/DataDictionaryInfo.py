@@ -1,6 +1,6 @@
 from collections import OrderedDict
 from simulator.core.NameClass import NameClass
-from simulator.core.DatagramAttribute import DatagramAttributeVer08
+from simulator.core.DatagramAttribute import DatagramAttributeV0V9
 
 
 def set_sub_attr_value(obj, range, row, item=None):
@@ -38,7 +38,7 @@ class DataDictionaryInfo:
     def ver(self):
         ver_text = ''
         try:
-            ver_text = self.info['Master Template Version'] + self.info['Data Dictionary Version']
+            ver_text = self.info['Master Template Version'] + '.' + self.info['Data Dictionary Version']
         except KeyError:
             pass
         return ver_text.replace('_', '')
@@ -46,12 +46,12 @@ class DataDictionaryInfo:
 
     @property
     def ver_index(self):
-        return self.info['Master Template Version'].replace('_', '')
+        return self.info['Master Template Version']
 
     def get_version_info(self, reader):
         for row in reader:
             try:
-                self.info[row[0]] = row[1]
+                self.info[row[0]] = row[1].strip(' ').upper().lstrip('V')
             except KeyError:
                 pass
             if reader.line_num >= 3:
@@ -97,7 +97,7 @@ class DataDictionaryInfo:
     pass
 
 
-class DataDictionaryInfoVer08(DataDictionaryInfo):
+class DataDictionaryInfoV0V9(DataDictionaryInfo):
     __attribute_name_list = [
         'SubSystem',
         'DataPath',
@@ -140,9 +140,9 @@ class DataDictionaryInfoVer08(DataDictionaryInfo):
     pass
 
 data_dictionary = {
-    '08': {
-        'data_dictionary_info_class': DataDictionaryInfoVer08,
-        'datagram_attribute_class': DatagramAttributeVer08,
+    '0.9': {
+        'data_dictionary_info_class': DataDictionaryInfoV0V9,
+        'datagram_attribute_class': DatagramAttributeV0V9,
     }
 }
 

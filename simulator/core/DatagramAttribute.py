@@ -445,7 +445,7 @@ class DatagramAttribute:
     pass
 
 
-class DatagramAttributeVer08(DatagramAttribute):
+class DatagramAttributeV0V9(DatagramAttribute):
     pass
 
 

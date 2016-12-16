@@ -3,7 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="d639cb57-f970-46ec-8a89-2f9997dd3944" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/simulator/core/DatagramServer.py" afterPath="$PROJECT_DIR$/simulator/core/DatagramServer.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/simulator/core/DataDictionaryInfo.py" afterPath="$PROJECT_DIR$/simulator/core/DataDictionaryInfo.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/simulator/core/DatagramAttribute.py" afterPath="$PROJECT_DIR$/simulator/core/DatagramAttribute.py" />
     </list>
     <ignored path="secure_power_agilis_mqtt_simulator.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -22,100 +23,7 @@
     <favorites_list name="secure_power_agilis_mqtt_simulator" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="main.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/simulator/uiapplication/main.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
-              <caret line="121" column="35" selection-start-line="121" selection-start-column="35" selection-end-line="121" selection-end-column="35" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="DatagramServer.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/simulator/core/DatagramServer.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="266">
-              <caret line="125" column="8" selection-start-line="125" selection-start-column="8" selection-end-line="125" selection-end-column="8" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="DatagramManager.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/simulator/core/DatagramManager.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="302">
-              <caret line="82" column="93" selection-start-line="82" selection-start-column="93" selection-end-line="82" selection-end-column="93" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="DataDictionaryInfo.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/simulator/core/DataDictionaryInfo.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding>
-                <element signature="e#0#35#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="PayloadPackage.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/simulator/core/PayloadPackage.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="279">
-              <caret line="49" column="17" selection-start-line="49" selection-start-column="17" selection-end-line="49" selection-end-column="17" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="WinMainUi.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/simulator/uiapplication/WinMainUi.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="609">
-              <caret line="462" column="0" selection-start-line="462" selection-start-column="0" selection-end-line="462" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="DatagramData.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/simulator/core/DatagramData.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="58">
-              <caret line="252" column="33" selection-start-line="252" selection-start-column="33" selection-end-line="252" selection-end-column="33" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Repeater.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/simulator/core/Repeater.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1843">
-              <caret line="98" column="44" selection-start-line="98" selection-start-column="44" selection-end-line="98" selection-end-column="44" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="DatagramAttribute.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/simulator/core/DatagramAttribute.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3306">
-              <caret line="176" column="17" selection-start-line="176" selection-start-column="17" selection-end-line="176" selection-end-column="17" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -130,7 +38,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/simulator/uiapplication/DataDictionTreeViewItem.py" />
         <option value="$PROJECT_DIR$/simulator/uiapplication/DatagramManagerTreeViewItem.py" />
         <option value="$PROJECT_DIR$/simulator/uiapplication/ValueTreeViewItem.py" />
         <option value="$PROJECT_DIR$/simulator/uiapplication/ValueTreeViewModel.py" />
@@ -174,13 +81,14 @@
         <option value="$PROJECT_DIR$/simulator/core/DatagramData.py" />
         <option value="$PROJECT_DIR$/simulator/uiapplication/BitMapDelegate.py" />
         <option value="$PROJECT_DIR$/simulator/uiapplication/BitMapValueEditModel.py" />
-        <option value="$PROJECT_DIR$/simulator/core/DatagramAttribute.py" />
-        <option value="$PROJECT_DIR$/simulator/core/DataDictionaryInfo.py" />
         <option value="$PROJECT_DIR$/simulator/core/DatagramManager.py" />
         <option value="$PROJECT_DIR$/simulator/uiapplication/main.py" />
         <option value="$PROJECT_DIR$/simulator/core/PayloadPackage.py" />
         <option value="$PROJECT_DIR$/simulator/uiapplication/WinMainUi.py" />
         <option value="$PROJECT_DIR$/simulator/core/DatagramServer.py" />
+        <option value="$PROJECT_DIR$/simulator/datadictionarysource/default_data_dictionary.CSV" />
+        <option value="$PROJECT_DIR$/simulator/core/DatagramAttribute.py" />
+        <option value="$PROJECT_DIR$/simulator/core/DataDictionaryInfo.py" />
       </list>
     </option>
   </component>
@@ -264,6 +172,24 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="uiapplication" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="secure_power_agilis_mqtt_simulator" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="secure_power_agilis_mqtt_simulator" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="simulator" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="datadictionarysource" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -750,7 +676,14 @@
       <option name="project" value="LOCAL" />
       <updated>1481769781044</updated>
     </task>
-    <option name="localTasksCounter" value="28" />
+    <task id="LOCAL-00028" summary="Fix the bug that the simulaort's mqtt thread will exit when received the invalid cbor message payload&#10;">
+      <created>1481793609649</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1481793609649</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -772,9 +705,9 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-1928" y="-8" width="1936" height="1096" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22550052" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22550052" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32962137" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.22383073" sideWeight="0.50842994" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32850778" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -783,7 +716,7 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33636364" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.28464818" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5155902" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -847,7 +780,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_COMMIT_MESSAGE_SPELLING" value="false" />
-    <MESSAGE value="Finished some the Datagram access APIs;&#10;Import data form .csv, and display those data" />
     <MESSAGE value="Delete  invalid code" />
     <MESSAGE value="Finished the MQQT message receiving and publishing function, and update the message info to the GUI" />
     <MESSAGE value="Finished the code refactoring," />
@@ -872,7 +804,8 @@
     <MESSAGE value="Update the version from 0.5.1 to 0.5.2 Beta&#10;Update the default data dictionary file to version 0601" />
     <MESSAGE value="Update the version from 0.5.2 Beta to 0.6.0 rc1&#10;" />
     <MESSAGE value="Set the action value of response from 2 to 1, and set the action value of request from 1 to 2&#10;" />
-    <option name="LAST_COMMIT_MESSAGE" value="Set the action value of response from 2 to 1, and set the action value of request from 1 to 2&#10;" />
+    <MESSAGE value="Fix the bug that the simulaort's mqtt thread will exit when received the invalid cbor message payload&#10;" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix the bug that the simulaort's mqtt thread will exit when received the invalid cbor message payload&#10;" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -890,7 +823,7 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="425" />
+      <option name="time" value="426" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="PythonConfigurationType">
@@ -899,7 +832,6 @@
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/simulator/core/CsvParser.py" />
     <entry file="file://C:/Program Files/Python35/Lib/site-packages/recordtype.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="4406">
@@ -1154,32 +1086,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/simulator/core/DatagramAttribute.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3306">
-          <caret line="176" column="17" selection-start-line="176" selection-start-column="17" selection-end-line="176" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/simulator/uiapplication/main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="121" column="35" selection-start-line="121" selection-start-column="35" selection-end-line="121" selection-end-column="35" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/simulator/core/DataDictionaryInfo.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#35#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/simulator/uiapplication/WinMainUi.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="609">
@@ -1214,8 +1120,42 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/simulator/core/DatagramServer.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="266">
-          <caret line="125" column="8" selection-start-line="125" selection-start-column="8" selection-end-line="125" selection-end-column="8" />
+        <state relative-caret-position="247">
+          <caret line="124" column="16" selection-start-line="124" selection-start-column="16" selection-end-line="124" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/simulator/datadictionarysource/default_data_dictionary.CSV">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="95">
+          <caret line="5" column="52" selection-start-line="5" selection-start-column="52" selection-end-line="5" selection-end-column="52" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/simulator/core/DatagramAttribute.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="495">
+          <caret line="450" column="0" selection-start-line="450" selection-start-column="0" selection-end-line="450" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/simulator/core/DataDictionaryInfo.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="228">
+          <caret line="51" column="26" selection-start-line="51" selection-start-column="26" selection-end-line="51" selection-end-column="26" />
+          <folding>
+            <element signature="e#0#35#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/simulator/uiapplication/main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="262">
+          <caret line="32" column="0" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
           <folding />
         </state>
       </provider>
