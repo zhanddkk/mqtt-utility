@@ -3,8 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="d639cb57-f970-46ec-8a89-2f9997dd3944" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/simulator/core/DataDictionaryInfo.py" afterPath="$PROJECT_DIR$/simulator/core/DataDictionaryInfo.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/simulator/core/DatagramAttribute.py" afterPath="$PROJECT_DIR$/simulator/core/DatagramAttribute.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/simulator/datadictionarysource/default_data_dictionary.csv" afterPath="$PROJECT_DIR$/simulator/datadictionarysource/default_data_dictionary.csv" />
     </list>
     <ignored path="secure_power_agilis_mqtt_simulator.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -683,7 +682,14 @@
       <option name="project" value="LOCAL" />
       <updated>1481793609649</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="Update version from 0.6.0 rc1 to 0.6.0&#10;Support new version format in data dictionary&#10;">
+      <created>1481864826880</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1481864826880</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -780,7 +786,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_COMMIT_MESSAGE_SPELLING" value="false" />
-    <MESSAGE value="Delete  invalid code" />
     <MESSAGE value="Finished the MQQT message receiving and publishing function, and update the message info to the GUI" />
     <MESSAGE value="Finished the code refactoring," />
     <MESSAGE value="Display hash id as hexadecimal format" />
@@ -805,7 +810,8 @@
     <MESSAGE value="Update the version from 0.5.2 Beta to 0.6.0 rc1&#10;" />
     <MESSAGE value="Set the action value of response from 2 to 1, and set the action value of request from 1 to 2&#10;" />
     <MESSAGE value="Fix the bug that the simulaort's mqtt thread will exit when received the invalid cbor message payload&#10;" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix the bug that the simulaort's mqtt thread will exit when received the invalid cbor message payload&#10;" />
+    <MESSAGE value="Update version from 0.6.0 rc1 to 0.6.0&#10;Support new version format in data dictionary&#10;" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update version from 0.6.0 rc1 to 0.6.0&#10;Support new version format in data dictionary&#10;" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
