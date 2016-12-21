@@ -323,6 +323,10 @@ class DatagramAttribute:
         return self._text_attribute
 
     @property
+    def root_system(self):
+        return self._text_attribute.RootSystem[0]
+
+    @property
     def sub_system(self):
         return self._text_attribute.SubSystem[0]
 
@@ -439,13 +443,23 @@ class DatagramAttribute:
         return consumer_list
 
     @property
+    def no_setting_req_consumer(self):
+        no_setting_req_consumer_list = []
+        for item in self._text_attribute.Consumer.fields:
+            val = getattr(self._text_attribute.Consumer, item)
+            if val[0].upper() == 'RO':
+                no_setting_req_consumer_list.append(item)
+            pass
+        return no_setting_req_consumer_list
+
+    @property
     def hash_id(self):
         num = self.convert(self._text_attribute.HashID[0], 'UInt32')
         return 0xffffffff if num is None else num
     pass
 
 
-class DatagramAttributeV0V9(DatagramAttribute):
+class DatagramAttributeV0V10(DatagramAttribute):
     pass
 
 

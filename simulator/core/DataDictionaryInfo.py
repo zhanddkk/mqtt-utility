@@ -1,6 +1,6 @@
 from collections import OrderedDict
 from simulator.core.NameClass import NameClass
-from simulator.core.DatagramAttribute import DatagramAttributeV0V9
+from simulator.core.DatagramAttribute import DatagramAttributeV0V10
 
 
 def set_sub_attr_value(obj, range, row, item=None):
@@ -69,7 +69,8 @@ class DataDictionaryInfo:
             tmp_cell_text = tmp_cell_text.strip('\t')
 
             if tmp_cell_text != '':
-                range_dict[cell] = [index + offset, None]
+                # strip all space characters in header's key
+                range_dict[tmp_cell_text] = [index + offset, None]
                 index_list.append(index)
 
             if index + 1 == len(row):
@@ -97,8 +98,9 @@ class DataDictionaryInfo:
     pass
 
 
-class DataDictionaryInfoV0V9(DataDictionaryInfo):
+class DataDictionaryInfoV0V10(DataDictionaryInfo):
     __attribute_name_list = [
+        'RootSystem',
         'SubSystem',
         'DataPath',
         'Name',
@@ -127,22 +129,24 @@ class DataDictionaryInfoV0V9(DataDictionaryInfo):
     __producer_class = NameClass('ProducerNameText', __producer_name_list).new_class
     __consumer_class = NameClass('ConsumerNameText', __consumer_name_list).new_class
 
-    def make(self, *args):
+    def make(self, args):
+        for i in range(len(args)):
+            args[i] = args[i].strip(' ')
         producer = self.__producer_class('No', 'No', 'No', 'No', 'No')
         consumer = self.__consumer_class('No', 'No', 'No', 'No', 'No')
         attribute_text = self.__attribute_class(
-            '', '', '', 'name', 'GENERAL', '32BUS', '1', '', '', '', '',
-            'Sec', '', 'No', 'Yes', '', producer, consumer,
-            '0xFFFFFFFF'
+            [''], [''], [''], [''], ['NO_DEFINE'], ['GENERAL'], ['32BUS'], ['1'], [''], [''], [''], [''],
+            ['Sec'], [''], ['No'], ['Yes'], [''], producer, consumer,
+            ['0xFFFFFFFF']
         )
-        set_attr_value(attribute_text, self.header, args[0])
+        set_attr_value(attribute_text, self.header, args)
         return attribute_text
     pass
 
 data_dictionary = {
-    '0.9': {
-        'data_dictionary_info_class': DataDictionaryInfoV0V9,
-        'datagram_attribute_class': DatagramAttributeV0V9,
+    '0.10': {
+        'data_dictionary_info_class': DataDictionaryInfoV0V10,
+        'datagram_attribute_class': DatagramAttributeV0V10,
     }
 }
 

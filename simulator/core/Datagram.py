@@ -17,22 +17,29 @@ class Datagram:
         return self._attribute
 
     def _make_data_list(self):
+        root = self._attribute.root_system
         system = self._attribute.sub_system
         path = self._attribute.data_path
         name = self._attribute.name
         default = self._attribute.default
 
-        system = system.strip(' ')
-        if system != '':
-            system = 'UPSSystem/' + system
+        if root == '':
+            pass
         else:
-            system = 'UPSSystem'
-        path = path.strip(' ')
-        if path != '':
-            path = '/' + path
-        name = name.strip(' ')
-        if name != '':
-            name = '/' + name
+            root += '/'
+            pass
+        if system == '':
+            pass
+        else:
+            system += '/'
+        system = root + system
+        path = path.strip('/').replace('\\', '/')
+        if path == '':
+            pass
+        else:
+            path += '/'
+        if name == '':
+            name = 'NO_DEFINE'
 
         start = path.find('[')
         end = path.find(']')
@@ -45,7 +52,7 @@ class Datagram:
             datagram_data_class = DatagramData
 
         if (start == -1) or (end == -1) or (start >= end) or (start < 1) or (end < 1):
-            self._data_list.append(datagram_data_class(0, (system + path + name).replace('\\', '/'), default))
+            self._data_list.append(datagram_data_class(0, system + path + name, default))
         else:
             num = path[start + 1:end]
 
@@ -55,9 +62,9 @@ class Datagram:
                 behind = path[end + 1:]
                 for i in range(device_number):
                     tmp = system + front + str(i + 1) + behind + name
-                    self._data_list.append(datagram_data_class(i, tmp.replace('\\', '/'), default))
+                    self._data_list.append(datagram_data_class(i, tmp, default))
             else:
-                self._data_list.append(datagram_data_class(0, (system + path + name).replace('\\', '/'), default))
+                self._data_list.append(datagram_data_class(0, system + path + name, default))
         pass
 
     pass
