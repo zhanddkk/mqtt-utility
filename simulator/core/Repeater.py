@@ -1,126 +1,296 @@
 import threading
-from simulator.core.PayloadPackage import PayloadPackage
+import ast as _ast
+from NamedList import named_list
+from DatagramPayload import DatagramPayload
+
+repeater_parameter_type = named_list('RepeaterParameter', 'counter,'
+                                                          'tagger_count,'
+                                                          'repeat_times_counter,'
+                                                          'repeat_times_count,'
+                                                          'user_input_str,'
+                                                          'user_function')
+
+
+def repeater_parameter(tagger_count, repeat_times_count, user_input_str):
+    parameter = repeater_parameter_type(counter=0,
+                                        tagger_count=tagger_count,
+                                        repeat_times_counter=0,
+                                        repeat_times_count=repeat_times_count,
+                                        user_input_str=user_input_str,
+                                        user_function=None)
+    return parameter
+    pass
+
+user_function_header_str = '''\
+def user_function(value, times):
+'''
+
+user_function_end_str = '''\
+    return value
+'''
+
+default_user_input_str = '''\
+value += 1
+if value > 100:
+    value = 0
+print('value = ', value, 'times = ', times)
+'''
+
+
+def get_user_function(user_input_str):
+    if user_input_str.startswith('    '):
+        pass
+    else:
+        user_input_str = user_input_str.strip(' ').strip('\n')
+        user_input_str = user_input_str.replace('\n', '\n    ')
+        user_input_str = '    ' + user_input_str + '\n'
+        pass
+    source_code = user_function_header_str + user_input_str + user_function_end_str
+    # print(source_code)
+    # convert to ast format
+    module_node = _ast.parse(source_code, '<string>', 'exec')
+
+    # compile the ast as binary byte code
+    code = compile(module_node, '<string>', 'exec')
+
+    # and eval it in the right context
+    globals_ = {}
+    locals_ = dict()
+    eval(code, globals_, locals_)
+
+    # return the mapping class
+    return locals_['user_function']
+    pass
 
 
 class Repeater(threading.Thread):
-    _index_list = []    # item = [hash_id, instance],
-
-    def __init__(self, datagram_server, interval, def_package=PayloadPackage()):
+    def __init__(self, datagram_manager, user_data=None):
         super(Repeater, self).__init__()
-        self.datagram_server = datagram_server
-        self.interval = interval
-        self.lock = threading.Lock()
-        self.finished = threading.Event()
-        self._def_package = def_package
-        self.user_function = None
-        self.finish_repeat_callback = None
-        self.finish_repeat_data = None
+        self.__datagram_manager = datagram_manager
+        self.__user_data = user_data
+        self.__access_data_lock = threading.Lock()
+        self.__finished_event = threading.Event()
+        self.__payload = DatagramPayload()
+        self.__payload.value = 0
+        self.__interval = 0.1
+        self.__server_is_running = False
+        self.__repeater_item_list = []
+        self.__resource_dict = {}
         pass
 
-    def append_data(self, item, def_package=None):
-        self.lock.acquire()
+    @property
+    def repeater_items(self):
+        return list(self.__repeater_item_list)
+
+    @property
+    def is_running(self):
+        return self.__server_is_running
+
+    def set_default_payload_package(self, package):
+        self.__access_data_lock.acquire()
+        ret = self.__payload.set_package(package)
+        self.__access_data_lock.release()
+        return ret
+        pass
+
+    def append_repeater_item(self, hash_id, instance, action, resource):
+        if self.__datagram_manager.is_valid_datagram(hash_id, instance, action) is False:
+            print('ERROR:', '[hash id: 0x{hash_id:>08X} instance: {instance} action: {action}]'
+                            ' is not define in data dictionary'.format(hash_id=hash_id,
+                                                                       instance=instance,
+                                                                       action=action))
+            return False
+        resource = repeater_parameter_type(**(vars(resource)))
         try:
-            index = self._index_list.index(item)
-            print('WARNING:', item, 'is existed at', index)
+            resource.user_function = get_user_function(resource.user_input_str)
+        except Exception as exception:
+            print('ERROR:', 'Parse user function failed,', exception)
+            return False
+        index = [hash_id, instance, action]
+        if index in self.__repeater_item_list:
+            print('ERROR:',
+                  '[hash id: 0x{hash_id:>08X} instance: {instance} action: {action}]'
+                  ' already exists in repeater list'.format(hash_id=hash_id, instance=instance, action=action))
+            return False
+        self.__access_data_lock.acquire()
+        self.__repeater_item_list.append(index)
+        if hash_id in self.__resource_dict:
+            tmp_dict = self.__resource_dict[hash_id]
+            if instance in tmp_dict:
+                tmp_dict = tmp_dict[instance]
+                tmp_dict[action] = resource
+            else:
+                tmp_dict[instance] = {action: resource}
+        else:
+            self.__resource_dict[hash_id] = {instance: {action: resource}}
+        # print(self.__repeater_item_list)
+        # print(self.__resource_dict)
+        self.__access_data_lock.release()
+        if self.__server_is_running:
             pass
-        except ValueError:
-            try:
-                dg = self.datagram_server.datagram_manager.get_datagram(item[0])
-                if dg is None:
-                    print('ERROR:', item, 'is error, can\'t find the datagram')
-                    return
-                d = dg.data_list[item[1]]
-                if d.repeater_info.tagger_count < 1:
-                    print('ERROR:', 'repeat tagger count should be greater then 1')
-                    return
-                d.repeater_info.is_running = True
-                d.repeater_info.counter = 0
-                d.repeater_info.repeat_times = 0
-            except IndexError:
-                print('ERROR:', item, 'is error, can\'t find the data in the datagram')
-                return
-            self._index_list.append(item)
-            pass
-        if def_package is not None:
-            self._def_package = def_package
-        self.lock.release()
+        else:
+            self.start_server()
         pass
 
-    def remove_data(self, item):
-        self.lock.acquire()
-        try:
-            self._index_list.remove(item)
-            try:
-                dg = self.datagram_server.datagram_manager.get_datagram(item[0])
-                if dg is None:
-                    print('ERROR:', item, 'is error, can\'t find the datagram')
-                    return
-                d = dg.data_list[item[1]]
-                d.repeater_info.is_running = False
-                d.repeater_info.counter = 0
-                d.repeater_info.repeat_times = 0
-            except IndexError:
-                print('ERROR:', item, 'is error, can\'t find the data in the datagram')
-                return
+    def delete_repeater_item(self, hash_id, instance, action):
+        index = [hash_id, instance, action]
+        if index not in self.__repeater_item_list:
+            print('ERROR:',
+                  '[hash id: 0x{hash_id:>08X} instance: {instance} action: {action}]'
+                  ' not exists in repeater list'.format(hash_id=hash_id, instance=instance, action=action))
+            return False
+        self.__access_data_lock.acquire()
+        self.__repeater_item_list.remove(index)
+        self.__resource_dict[hash_id][instance].pop(action)
+        if self.__resource_dict[hash_id][instance]:
             pass
-        except ValueError:
-            print('ERROR:', item, 'is not existed')
+        else:
+            self.__resource_dict[hash_id].pop(instance)
+            if self.__resource_dict[hash_id]:
+                pass
+            else:
+                self.__resource_dict.pop(hash_id)
+        # print(self.__repeater_item_list)
+        # print(self.__resource_dict)
+        self.__access_data_lock.release()
+        if self.__repeater_item_list:
             pass
-        self.lock.release()
+        else:
+            self.__finished_event.set()
         pass
 
-    def stop(self):
-        self.finished.set()
+    def clear_repeater_item(self):
+        self.__access_data_lock.acquire()
+        self.__repeater_item_list.clear()
+        self.__resource_dict.clear()
+        self.__access_data_lock.release()
+        self.__finished_event.set()
+        pass
+
+    def get_repeater_item_resource(self, hash_id, instance, action):
+        self.__access_data_lock.acquire()
+        if hash_id in self.__resource_dict:
+            tmp_dict = self.__resource_dict[hash_id]
+            if instance in tmp_dict:
+                tmp_dict = tmp_dict[instance]
+                resource = tmp_dict[action]
+            else:
+                resource = None
+        else:
+            resource = None
+        self.__access_data_lock.release()
+        return resource
+        pass
+
+    def start_server(self, interval=0.1):
+        if self.__server_is_running:
+            print('ERROR:', 'The repeater server is running')
+            return
+        if interval < 0.1:
+            print('WARNING:', 'Interval value should bigger then 0.1, so set it as 0.1 automatically')
+            interval = 0.1
+        self.__interval = interval
+        self.start()
         pass
 
     def run(self):
-        while not self.finished.is_set():
-            tmp = self._index_list
-            for item in tmp:
-                try:
-                    dg = self.datagram_server.datagram_manager.get_datagram(item[0])
-                    d = dg.data_list[item[1]]
-                    repeater_info = d.repeater_info
-                    if repeater_info.counter >= repeater_info.tagger_count:
-                        self._def_package.hash_id = item[0]
-                        self._def_package.device_instance_index = item[1] + 1
-                        repeater_info.repeat_times += 1
+        finished_item = []
+        self.__server_is_running = True
+        while not self.__finished_event.is_set():
+            self.__access_data_lock.acquire()
+            for index in self.__repeater_item_list:
+                hash_id = index[0]
+                instance = index[1]
+                action = index[2]
+                resource = self.__resource_dict[hash_id][instance][action]
+                if resource.counter >= resource.tagger_count:
+                    self.__payload.hash_id = hash_id
+                    self.__payload.device_instance_index = instance + 1
+                    self.__payload.action = action
+                    resource.repeat_times_counter += 1
 
+                    # Get value and publish message
+                    try:
+                        dg = self.__datagram_manager.get_datagram(hash_id)
+                        val = dg.get_device_data_value(instance, action)
+                        self.__payload.value = resource.user_function(val,
+                                                                      resource.repeat_times_counter)
+                    except Exception as exception:
+                        print('ERROR:',
+                              'Excuse user function failed, {exception},'
+                              ' so set payload value as {value}, automatically'.format(exception=exception,
+                                                                                       value=self.__payload.value))
+                    if self.__datagram_manager is not None:
+                        self.__datagram_manager.send_package_by_payload(self.__payload)
+                    # Check if it needs exit
+                    if (resource.repeat_times_count > 0) and\
+                            (resource.repeat_times_counter >= resource.repeat_times_count):
+                        # Remove finished item
+                        finished_item.append([hash_id, instance, action])
+                        pass
+                    if self.__user_data is not None:
                         try:
-                            exec(repeater_info.user_function_str + '\nself.user_function = user_function')
-
-                            self._def_package.value = self.user_function(d.get_value(item[2]),
-                                                                         repeater_info.repeat_times)
-                        except Exception as exception:
-                            print('ERROR:',
-                                  'when parse user function of item',
-                                  item,
-                                  'and run it, exception :',
-                                  exception)
-
-                        self.datagram_server.publish(self._def_package)
-
-                        if (repeater_info.exit_times > 0) and (repeater_info.repeat_times >= repeater_info.exit_times):
-                            repeater_info.is_running = False
-                            repeater_info.repeat_times = 0
-                            self._index_list.remove(item)
-
-                        repeater_info.counter = 0
+                            __resource = repeater_parameter_type(**(vars(resource)))
+                            self.__user_data.repeater_recored(hash_id, instance, action, __resource)
+                        except AttributeError:
+                            pass
+                    resource.counter = 0
+                    # print(index, 'Source:', resource)
+                else:
+                    resource.counter += 1
+            if finished_item:
+                # Need remove finished items
+                for item in finished_item:
+                    hash_id = item[0]
+                    instance = item[1]
+                    action = item[2]
+                    self.__repeater_item_list.remove(item)
+                    self.__resource_dict[hash_id][instance].pop(action)
+                    if self.__resource_dict[hash_id][instance]:
+                        pass
                     else:
-                        repeater_info.counter += 1
+                        self.__resource_dict[hash_id].pop(instance)
+                        if self.__resource_dict[hash_id]:
+                            pass
+                        else:
+                            self.__resource_dict.pop(hash_id)
+                    if self.__user_data is not None:
+                        try:
+                            self.__user_data.repeater_finished(hash_id, instance, action)
+                        except AttributeError:
+                            pass
+                if self.__repeater_item_list:
                     pass
-                except IndexError:
-                    print('ERROR:', 'Item format or value is error', item)
-                    self.stop()
-                    pass
-                except TypeError:
-                    print('ERROR:', 'Item type is error', item)
-                    self.stop()
-                    pass
+                else:
+                    self.__finished_event.set()
+                finished_item.clear()
                 pass
-            self.finished.wait(self.interval)
+            self.__access_data_lock.release()
+            self.__finished_event.wait(self.__interval)
+            pass
+        self.__server_is_running = False
+        print('Repeater server is stopped')
         pass
 
+    def stop_server(self):
+        if self.__server_is_running:
+            self.__finished_event.set()
+        pass
+    pass
 
-if __name__ == "__main__":
+
+def demo_code():
+    rpt = Repeater(None)
+    rpt.start_server(0.1)
+    resource = repeater_parameter(tagger_count=10,
+                                  repeat_times_count=10,
+                                  user_input_str=default_user_input_str)
+    print(vars(resource))
+    rpt.append_repeater_item(0x11, 0, 0, resource)
+
+    print('OK')
+    pass
+
+if __name__ == '__main__':
+    demo_code()
     pass

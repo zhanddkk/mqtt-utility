@@ -1,5 +1,5 @@
 from PyQt5.QtCore import QAbstractItemModel, QModelIndex, Qt
-from simulator.uiapplication.ValueTreeViewItem import ValueTreeViewItem
+from ValueTreeViewItem import ValueTreeViewItem
 
 
 class ValueTreeViewModel(QAbstractItemModel):

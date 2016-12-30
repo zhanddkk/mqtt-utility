@@ -1,21 +1,22 @@
+from PyQt5.Qt import Qt
 from PyQt5.QtWidgets import QDialog
-from simulator.uiapplication.SettingDlgUi import Ui_SettingDialog
+from UiSettingDlg import Ui_SettingDialog
 
 
 class SettingDlg(QDialog):
     def __init__(self, configuration_info, parent=None):
-        super(SettingDlg, self).__init__(parent)
+        super(SettingDlg, self).__init__(parent, flags=Qt.Window)
         self.ui = Ui_SettingDialog()
         self.ui.setupUi(self)
 
         self.ui.apply_push_button.clicked.connect(self.apply)
         self.ui.contents_list_widget.currentItemChanged.connect(self.change_page)
-        self.ui.broker_address_line_edit.textChanged.connect(self.edit_mqtt_connect_addr)
-        self.ui.broker_port_spin_box.valueChanged.connect(self.edit_mqtt_connect_port)
+        self.ui.broker_address_line_edit.textChanged.connect(self.edit_connect_broker_ip)
+        self.ui.broker_port_spin_box.valueChanged.connect(self.edit_connect_broker_ip_port)
 
-        self.configuration = configuration_info
-        self.ui.broker_address_line_edit.setText(self.configuration.mqtt_connect_addr)
-        self.ui.broker_port_spin_box.setValue(self.configuration.mqtt_connect_port)
+        self.__configuration = configuration_info
+        self.ui.broker_address_line_edit.setText(self.__configuration.connect_broker_ip)
+        self.ui.broker_port_spin_box.setValue(self.__configuration.connect_broker_ip_port)
 
     def accept(self):
         self.apply()
@@ -24,15 +25,15 @@ class SettingDlg(QDialog):
 
     def apply(self):
         if self.ui.apply_push_button.isEnabled():
-            self.configuration.mqtt_connect_addr = self.ui.broker_address_line_edit.text()
-            self.configuration.mqtt_connect_port = self.ui.broker_port_spin_box.value()
-            self.configuration.save_config()
+            self.__configuration.connect_broker_ip = self.ui.broker_address_line_edit.text()
+            self.__configuration.connect_broker_ip_port = self.ui.broker_port_spin_box.value()
+            self.__configuration.save_config()
             self.ui.status_label.setText('Saved')
             self.ui.apply_push_button.setEnabled(False)
         pass
 
-    def edit_mqtt_connect_addr(self):
-        if self.ui.broker_address_line_edit.text() != self.configuration.mqtt_connect_addr:
+    def edit_connect_broker_ip(self):
+        if self.ui.broker_address_line_edit.text() != self.__configuration.connect_broker_ip:
             if not self.ui.apply_push_button.isEnabled():
                 self.ui.apply_push_button.setEnabled(True)
             self.ui.status_label.clear()
@@ -40,8 +41,8 @@ class SettingDlg(QDialog):
             self.ui.apply_push_button.setEnabled(False)
         pass
 
-    def edit_mqtt_connect_port(self):
-        if self.ui.broker_port_spin_box.value() != self.configuration.mqtt_connect_port:
+    def edit_connect_broker_ip_port(self):
+        if self.ui.broker_port_spin_box.value() != self.__configuration.connect_broker_ip_port:
             if not self.ui.apply_push_button.isEnabled():
                 self.ui.apply_push_button.setEnabled(True)
             self.ui.status_label.clear()

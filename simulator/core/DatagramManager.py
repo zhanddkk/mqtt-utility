@@ -1,126 +1,260 @@
 import csv
-# local file
-from simulator.core.Datagram import Datagram
-from simulator.core.DataDictionaryInfo import data_dictionary, DataDictionaryInfo
-from simulator.core import PayloadPackage
+import cbor
+import ctypes
+from NamedList import named_list
+from DataDictionaryManager import DataDictionaryManager
+from DatagramAttribute import DatagramAttribute
+from Datagram import Datagram
+from DatagramPayload import DatagramPayload
+from DatagramPayload import E_DATAGRAM_ACTION_PUBLISH as _E_DATAGRAM_ACTION_PUBLISH
+
+
+message_format_class = named_list('MessageFormat', 'topic, qos, retain, is_valid, payload')
 
 
 class DatagramManager:
-    def __init__(self):
-        self.__data_dict = {}  # Datagram dictionary {hash_id: datagram}
-        self.__indexes = []  # item = [hash_id, instance, action]
-        self.seq_num = 0
-        self.value_update_user_data = None
-        self.value_update_callback = None
-        self.data_dictionary = DataDictionaryInfo()
+    def __init__(self, user_data=None):
+        self.__datagram_dict = {}
+        self.__datagram_indexes = []
+        self.__datagram_access_client = None   # DatagramServer(self)
+        self.__data_dictionary_manager = DataDictionaryManager()
+        self.__seq_num = 0
+        self.__user_data = user_data
         pass
 
     @property
-    def index_list(self):
-        return self.__indexes
+    def sequence_number(self):
+        return self.__seq_num
 
-    @property
-    def datagram_dict(self):
-        return self.__data_dict
-
-    @property
-    def len(self):
-        return len(self.__indexes)
-
-    def clear(self):
-        self.__data_dict.clear()
-        self.__indexes.clear()
-        self.seq_num = 0
-        self.data_dictionary = DataDictionaryInfo()
-
-    def on_message(self, topic, package_msg):
-        hash_id = package_msg.hash_id
-        instance = package_msg.device_instance_index - 1
+    @sequence_number.setter
+    def sequence_number(self, value):
         try:
-            dg = self.__data_dict[hash_id]
-        except KeyError:
-            print('WARNING:', 'Can\'t find any datagram which hash ID is', hex(hash_id))
-            return
-        try:
-            d = dg.data_list[instance]
-        except IndexError:
-            print('ERROR:', 'Can\'t find the data which the device instance is', instance, 'at the datagram')
-            return
-        d.set_value(package_msg.value, package_msg.action)
-        if self.value_update_callback is not None:
-            self.value_update_callback(self.value_update_user_data, package_msg)
-        pass
+            self.__seq_num = ctypes.c_uint16(value).value
+        except TypeError as exception:
+            print('ERROR:', exception)
 
-    def on_publish(self):
-        pass
+    @property
+    def datagram_indexes(self):
+        return self.__datagram_indexes
 
-    def import_csv(self, file_name):
+    @property
+    def datagram_dictionary(self):
+        return self.__datagram_dict
+
+    @property
+    def data_dictionary_version(self):
+        return self.__data_dictionary_manager.ver
+
+    @property
+    def product_information(self):
+        return self.__data_dictionary_manager.product_info
+
+    @property
+    def datagram_access_client(self):
+        return self.__datagram_access_client
+
+    def import_data_dictionary(self, file_name):
+        datagram_dict = {}
+        datagram_indexes = []
+        data_dictionary_manager = self.__data_dictionary_manager
         try:
             with open(file_name, newline='') as csv_file:
                 reader = csv.reader(csv_file, dialect='excel')
                 try:
-                    self.data_dictionary.get_version_info(reader)
-                    self.data_dictionary.get_header_info(reader)
-                    if self.data_dictionary.ver_index in data_dictionary:
-                        data_dictionary_class = data_dictionary[self.data_dictionary.ver_index]['data_dictionary_info_class']
-                        data_attribute_class = data_dictionary[self.data_dictionary.ver_index]['datagram_attribute_class']
-                        tmp_data_dictionary = data_dictionary_class()
-                        tmp_data_dictionary.header = self.data_dictionary.header
-                        tmp_data_dictionary.info = self.data_dictionary.info
-                        self.data_dictionary = tmp_data_dictionary
-                        for record in map(self.data_dictionary.make, reader):
-                            attribute = data_attribute_class(record)
-                            hash_id = attribute.hash_id
-                            datagram = Datagram(attribute)
-                            self.__data_dict[hash_id] = datagram
-                            for data in datagram.data_list:
-                                self.__indexes.append([hash_id,
-                                                       data.instance,
-                                                       PayloadPackage.E_DATAGRAM_ACTION_PUBLISH])
-                                if attribute.type == 'COMMAND':
-                                    self.__indexes.append([hash_id,
-                                                           data.instance,
-                                                           PayloadPackage.E_DATAGRAM_ACTION_RESPONSE])
-                                    self.__indexes.append([hash_id,
-                                                           data.instance,
-                                                           PayloadPackage.E_DATAGRAM_ACTION_ALLOW])
-                                    pass
-                                elif attribute.type == 'SETTING':
-                                    self.__indexes.append([hash_id,
-                                                           data.instance,
-                                                           PayloadPackage.E_DATAGRAM_ACTION_REQUEST])
-                                    self.__indexes.append([hash_id,
-                                                           data.instance,
-                                                           PayloadPackage.E_DATAGRAM_ACTION_RESPONSE])
-                                    self.__indexes.append([hash_id,
-                                                           data.instance,
-                                                           PayloadPackage.E_DATAGRAM_ACTION_ALLOW])
-                                    pass
-                            pass
-                        return True
-                    else:
-                        print('ERROR:', 'this simulator not supports the dictionary that the version is',
-                              self.data_dictionary.ver)
+                    if data_dictionary_manager.get_version_info(reader) is False:
                         return False
+                    if data_dictionary_manager.get_product_info(reader) is False:
+                        return False
+                    if data_dictionary_manager.get_header_info(reader) is False:
+                        return False
+                    for record in map(data_dictionary_manager.make, reader):
+                        data_dictionary_item = data_dictionary_manager.interface.get_data_dictionary_item(record)
+                        if data_dictionary_item is None:
+                            print('ERROR:', 'Parse failed in line', reader.line_num)
+                            continue
+                        datagram = Datagram(DatagramAttribute(data_dictionary_item))
+                        hash_id = data_dictionary_item.hash_id
+                        datagram_dict[hash_id] = datagram
+                        for instance in range(datagram.device_number):
+                            datagram_indexes.append((hash_id, instance))
+                    pass
                 except csv.Error as exception:
-                    print('ERROR:', 'in line', reader.line_num, exception)
+                    print('ERROR:', 'Parse failed in line', reader.line_num, exception)
                     return False
         except FileNotFoundError as exception:
             print('ERROR:', exception)
             return False
-        pass
+        if datagram_indexes and datagram_dict:
+            self.__datagram_indexes = datagram_indexes
+            self.__datagram_dict = datagram_dict
+        else:
+            print('ERROR:', 'Import failed.')
+            return False
+        return True
         pass
 
     def get_datagram(self, hash_id):
         try:
-            return self.__data_dict[hash_id]
+            return self.__datagram_dict[hash_id]
         except KeyError:
+            print('ERROR:', 'Can not find any datagram by hash id:', '0x{0:>08X}'.format(hash_id))
             return None
+
+    def is_valid_datagram(self, hash_id, instance=0, action=_E_DATAGRAM_ACTION_PUBLISH):
+        try:
+            dg = self.__datagram_dict[hash_id]
+            return dg.is_valid_device(instance, action)
+        except KeyError:
+            return False
+        pass
+
+    def init_datagram_access_client(self, name='', ip='localhost', port=1883):
+        if self.__datagram_access_client is None:
+            from DatagramAccessClient import DatagramAccessClient
+            self.__datagram_access_client = DatagramAccessClient(name, self)
+            self.__datagram_access_client.config(ip, port)
+        else:
+            print('WARNING:', 'The datagram access client already be initialized.')
+        pass
+
+    def delete_datagram_access_client(self):
+        if self.__datagram_access_client is None:
+            return
+        if self.__datagram_access_client.is_running is True:
+            self.__datagram_access_client.stop()
+            self.__datagram_access_client = None
+        pass
+
+    def get_client(self):
+        return self.__datagram_access_client
+
+    def record_message(self, msg):
+        is_valid = False
+        try:
+            package = cbor.loads(msg.payload)
+            is_valid = True
+        except Exception as exception:
+            print('ERROR:', 'The message received format is not cbor format,', exception)
+            package = msg.payload
+
+        if is_valid:
+            payload = DatagramPayload()
+            is_valid = payload.set_package(package)
+            if is_valid:
+                self.received_payload(msg.topic, payload)
+            else:
+                payload = package
+        else:
+            payload = package
+        if self.__user_data is not None:
+            message = message_format_class(topic=msg.topic,
+                                           qos=msg.qos,
+                                           retain=msg.retain,
+                                           is_valid=is_valid,
+                                           payload=payload)
+            try:
+                self.__user_data.record_message(message)
+            except AttributeError:
+                pass
+        pass
+
+    def received_payload(self, topic, payload):
+        dg = self.get_datagram(getattr(payload, 'hash_id'))
+        if dg is None:
+            return
+        dg.update_device_data_value_by_payload(topic, payload)
+        if self.__user_data is not None:
+            try:
+                self.__user_data.received_payload(topic, payload)
+                pass
+            except AttributeError:
+                pass
+        pass
+
+    def send_package_by_payload(self, payload, topic=None, qos=0, retain=False):
+        if self.__datagram_access_client is None:
+            print('ERROR:', 'No datagram server.')
+            return False
+        if topic is None:
+            hash_id = payload.hash_id
+            dg = self.get_datagram(hash_id)
+            if dg is None:
+                print('ERROR:', 'No topic')
+                return False
+            instance = payload.device_instance_index - 1
+            dev_data = dg.get_device_data(instance)
+            if dev_data is None:
+                print('ERROR:', 'No topic')
+                return False
+            topic = dev_data.get_topic(payload.action)
+            if topic is None:
+                print('ERROR:', 'No topic')
+                return False
+        else:
+            hash_id = payload.hash_id
+            dg = self.get_datagram(hash_id)
+            if dg is not None:
+                instance = payload.device_instance_index - 1
+                dev_data = dg.get_device_data(instance)
+                if dev_data is not None:
+                    topic_tmp = dev_data.get_topic(payload.action)
+                    if topic_tmp is not None:
+                        if topic != topic_tmp:
+                            print('WARNING:', 'Input topic and defined topic in datagram do not match. Input =',
+                                  topic + ',', 'Defined = ', topic_tmp)
+        if self.__datagram_access_client.publish(payload.get_package(), topic, qos, retain) is True:
+            if dg is not None:
+                if dg.set_device_data_value_by_payload(payload) is False:
+                    print('WARNING:', 'The data is set failed.')
+                if (dg.attribute.type == 'Command') and payload.action == _E_DATAGRAM_ACTION_PUBLISH:
+                    from BitMapParser import bit_map_parser, cmd_bit_format
+                    try:
+                        value_parsed = bit_map_parser(payload.value, cmd_bit_format)
+                        if value_parsed.sequence.key != self.__seq_num:
+                            self.__seq_num = value_parsed.sequence.key
+                    except TypeError:
+                        print('WARNING:',
+                              'The published value({value}) '
+                              'type of the command datagram shall be UInt32'.format(value=payload.value))
+                    self.__seq_num = self.__seq_num + 1 if self.__seq_num < 65535 else 0
+            return True
+            pass
+        else:
+            return False
+            pass
+        pass
+
     pass
 
 
-if __name__ == "__main__":
+def demo_code():
     dgm = DatagramManager()
-    dgm.import_csv('..\\datadictionarysource\\Full_Interface.CSV')
-    print('ok')
+    if dgm.import_data_dictionary('../datadictionarysource/default_data_dictionary.CSV') is False:
+        return False
+    print('Import data dictionary OK')
+    dgm.init_datagram_access_client('demo_code', '192.168.2.99')
+    dgm.datagram_access_client.start()
+    while dgm.datagram_access_client.is_running is False:
+        pass
+    print('Server is running')
+
+    from Repeater import repeater_parameter, Repeater, default_user_input_str
+    rpt = Repeater(dgm)
+    resource = repeater_parameter(tagger_count=10,
+                                  repeat_times_count=10,
+                                  user_input_str=default_user_input_str)
+    payload = DatagramPayload()
+    payload.value = 10
+    rpt.set_default_payload_package(payload.package)
+
+    payload.hash_id = 0x6FEEF2A6
+    rpt.append_repeater_item(payload.hash_id, 0, 0, resource)
+    payload.hash_id = 0x2D0F0D2
+    rpt.append_repeater_item(payload.hash_id, 0, 0, resource)
+
+    print('OK')
+    pass
+
+if __name__ == "__main__":
+    demo_code()
     pass

@@ -3,54 +3,65 @@ import configparser
 
 class Configuration:
     def __init__(self):
-        self.config_file_name = 'config.ini'
-        self.config_ini = configparser.ConfigParser()
+        self.__config_file_name = 'config.ini'
+        self.__config_ini = configparser.ConfigParser()
         pass
 
     def create_config(self):
-        self.config_ini['MQTT_CONNECT'] = {
+        self.__config_ini['IMPORT'] = {
+            'data_dictionary_path': '../datadictionarysource/'
+        }
+        self.__config_ini['CONNECT_TO_BROKER'] = {
             'broker_address': 'localhost',
             'broker_net_port': '1883'
         }
-        self.config_ini['MQTT_BROKER'] = {
+        self.__config_ini['LOCAL_BROKER'] = {
             'net_port': '1883'
         }
-        with open(self.config_file_name, 'w') as configfile:
-            self.config_ini.write(configfile)
+        with open(self.__config_file_name, 'w') as configfile:
+            self.__config_ini.write(configfile)
             configfile.close()
         pass
 
     def read_config(self, file_name='config.ini'):
-        self.config_file_name = file_name
-        if not self.config_ini.read(self.config_file_name):
+        self.__config_file_name = file_name
+        if not self.__config_ini.read(self.__config_file_name):
             self.create_config()
         pass
 
     def save_config(self):
-        with open(self.config_file_name, 'w') as configfile:
-            self.config_ini.write(configfile)
+        with open(self.__config_file_name, 'w') as configfile:
+            self.__config_ini.write(configfile)
             configfile.close()
         pass
 
     @property
-    def mqtt_connect_addr(self):
-        return self.config_ini['MQTT_CONNECT']['broker_address']
+    def data_dictionary_path(self):
+        return self.__config_ini['IMPORT']['data_dictionary_path']
 
-    @mqtt_connect_addr.setter
-    def mqtt_connect_addr(self, addr):
-        self.config_ini['MQTT_CONNECT']['broker_address'] = addr
+    @data_dictionary_path.setter
+    def data_dictionary_path(self, path):
+        self.__config_ini['IMPORT']['data_dictionary_path'] = path
+
+    @property
+    def connect_broker_ip(self):
+        return self.__config_ini['CONNECT_TO_BROKER']['broker_address']
+
+    @connect_broker_ip.setter
+    def connect_broker_ip(self, ip):
+        self.__config_ini['CONNECT_TO_BROKER']['broker_address'] = ip
         pass
 
     @property
-    def mqtt_connect_port(self):
-        return int(self.config_ini['MQTT_CONNECT']['broker_net_port'])
+    def connect_broker_ip_port(self):
+        return int(self.__config_ini['CONNECT_TO_BROKER']['broker_net_port'])
 
-    @mqtt_connect_port.setter
-    def mqtt_connect_port(self, port):
+    @connect_broker_ip_port.setter
+    def connect_broker_ip_port(self, port):
         if port < 0 or port > 65535:
             print('ERROR:', 'Invalid port')
             return
-        self.config_ini['MQTT_CONNECT']['broker_net_port'] = str(port)
+        self.__config_ini['CONNECT_TO_BROKER']['broker_net_port'] = str(port)
 
     pass
 

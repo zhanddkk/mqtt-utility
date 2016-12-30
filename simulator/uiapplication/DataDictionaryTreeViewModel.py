@@ -1,20 +1,29 @@
-from simulator.uiapplication.ValueTreeViewItem import ValueTreeViewItem
-from simulator.uiapplication.ValueTreeViewModel import ValueTreeViewModel
+from ValueTreeViewItem import ValueTreeViewItem
+from ValueTreeViewModel import ValueTreeViewModel
 
 
 class DataDictionaryTreeViewModel(ValueTreeViewModel):
-    def __init__(self, datagram_manager, parent=None):
-        self.datagram_manager = datagram_manager
-        header = ('Topic Tree',)
+    def __init__(self, datagram_manager, topic_indexes, parent=None):
+        self.__datagram_manager = datagram_manager
+        self.__topic_indexes = topic_indexes
+        header = ('Data Dictionary Tree',)
         super(DataDictionaryTreeViewModel, self).__init__(header, parent)
 
     def update(self):
         self.beginResetModel()
         self.root_item.clear_children()
-        for index in self.datagram_manager.index_list:
-            datagram = self.datagram_manager.datagram_dict[index[0]]
-            data = datagram.data_list[index[1]]
-            item_name_list = data.get_topic(index[2]).split('/')
+        for index in self.__topic_indexes:
+            hash_id = index[0]
+            instance = index[1]
+            action = index[2]
+            datagram = self.__datagram_manager.get_datagram(hash_id)
+            if datagram is None:
+                continue
+            dev_data = datagram.get_device_data(instance)
+            if dev_data is None:
+                continue
+            item_name_list = dev_data.get_topic(action).split('/')
+
             item = self.root_item
             for i, item_name in enumerate(item_name_list):
                 is_find = False

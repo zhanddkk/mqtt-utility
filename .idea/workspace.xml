@@ -2,7 +2,85 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d639cb57-f970-46ec-8a89-2f9997dd3944" name="Default" comment="Update version from 0.6.0 to 0.6.1&#10;Support new version format of data dictionary, which adds the root system&#10;">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/simulator/core/BitMapParser.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/simulator/core/DataDictionaryFormatInfo.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/simulator/core/DataDictionaryInterface.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/simulator/core/DataDictionaryItem.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/simulator/core/DataDictionaryManager.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/simulator/core/DatagramAccessClient.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/simulator/core/DatagramDeviceData.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/simulator/core/DatagramDeviceDataHistory.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/simulator/core/DatagramPayload.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/simulator/core/NamedList.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/simulator/uiapplication/HistoryDataDisplayTreeViewArrayTypeItem.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/simulator/uiapplication/HistoryDataDisplayTreeViewBasicTypeItem.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/simulator/uiapplication/HistoryDataDisplayTreeViewBitTypeItem.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/simulator/uiapplication/HistoryDataDisplayTreeViewBitmapTypeItem.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/simulator/uiapplication/HistoryDataDisplayTreeViewEnumTypeItem.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/simulator/uiapplication/HistoryDataDisplayTreeViewModel.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/simulator/uiapplication/HistoryDataDisplayTreeViewStringTypeItem.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/simulator/uiapplication/HistoryDataDisplayTreeViewStructureTypeItem.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/simulator/uiapplication/MainWin.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/simulator/uiapplication/QSimpleThread.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/simulator/uiapplication/SafeConnector.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/simulator/uiapplication/UiWaitingDlg.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/simulator/uiapplication/UiWaitingDlg.ui" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/simulator/uiapplication/ValueAttributeType.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/simulator/uiapplication/ValueEditorTreeViewArrayTypeItem.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/simulator/uiapplication/ValueEditorTreeViewBasicTypeItem.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/simulator/uiapplication/ValueEditorTreeViewBitTypeItem.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/simulator/uiapplication/ValueEditorTreeViewBitmapTypeItem.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/simulator/uiapplication/ValueEditorTreeViewDelegate.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/simulator/uiapplication/ValueEditorTreeViewEnumTypeItem.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/simulator/uiapplication/ValueEditorTreeViewModel.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/simulator/uiapplication/ValueEditorTreeViewRootItem.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/simulator/uiapplication/ValueEditorTreeViewStringTypeItem.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/simulator/uiapplication/ValueEditorTreeViewStructureTypeItem.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/simulator/uiapplication/Version.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/simulator/uiapplication/WaitingDlg.py" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/simulator/core/DataDictionaryInfo.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/simulator/core/DataHistory.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/simulator/core/DatagramData.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/simulator/core/DatagramServer.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/simulator/core/NameClass.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/simulator/core/PayloadPackage.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/simulator/core/RepeaterParameter.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/simulator/uiapplication/BitMapDelegate.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/simulator/uiapplication/BitMapValueDspModel.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/simulator/uiapplication/BitMapValueEditModel.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/simulator/uiapplication/DictionaryTreeViewDelegate.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/simulator/uiapplication/DictionaryValueDspTreeModel.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/simulator/uiapplication/DictionaryValueEditTreeModel.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/simulator/uiapplication/GeneralTreeViewDelegate.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/simulator/uiapplication/GeneralValueDspTreeViewModel.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/simulator/uiapplication/GeneralValueEditTreeViewModel.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/simulator/uiapplication/InputBox.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/simulator/uiapplication/ListValueDspTreeModel.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/simulator/uiapplication/ListValueEditTreeModel.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/simulator/uiapplication/QUint32SpinBox.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/simulator/uiapplication/StructTreeViewDelegate.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/simulator/uiapplication/StructValueDspModel.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/simulator/uiapplication/StructValueEditModel.py" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/secure_power_agilis_mqtt_simulator.iml" afterPath="$PROJECT_DIR$/.idea/secure_power_agilis_mqtt_simulator.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/simulator/core/Datagram.py" afterPath="$PROJECT_DIR$/simulator/core/Datagram.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/simulator/core/DatagramAttribute.py" afterPath="$PROJECT_DIR$/simulator/core/DatagramAttribute.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/simulator/core/DatagramManager.py" afterPath="$PROJECT_DIR$/simulator/core/DatagramManager.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/simulator/core/Repeater.py" afterPath="$PROJECT_DIR$/simulator/core/Repeater.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/simulator/core/__init__.py" afterPath="$PROJECT_DIR$/simulator/core/__init__.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/simulator/datadictionarysource/default_data_dictionary.csv" afterPath="$PROJECT_DIR$/simulator/datadictionarysource/default_data_dictionary.csv" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/simulator/uiapplication/Configuration.py" afterPath="$PROJECT_DIR$/simulator/uiapplication/Configuration.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/simulator/uiapplication/DataDictionaryTreeViewModel.py" afterPath="$PROJECT_DIR$/simulator/uiapplication/DataDictionaryTreeViewModel.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/simulator/uiapplication/DataMonitorTableViewModel.py" afterPath="$PROJECT_DIR$/simulator/uiapplication/DataMonitorTableViewModel.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/simulator/uiapplication/SettingDlg.py" afterPath="$PROJECT_DIR$/simulator/uiapplication/SettingDlg.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/simulator/uiapplication/UiResource_rc.py" afterPath="$PROJECT_DIR$/simulator/uiapplication/UiResource_rc.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/simulator/uiapplication/ValueTreeViewModel.py" afterPath="$PROJECT_DIR$/simulator/uiapplication/ValueTreeViewModel.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/simulator/uiapplication/main.py" afterPath="$PROJECT_DIR$/simulator/uiapplication/main.py" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/simulator/uiapplication/SettingDlgUi.py" afterPath="$PROJECT_DIR$/simulator/uiapplication/UiSettingDlg.py" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/simulator/uiapplication/SettingDlgUi.ui" afterPath="$PROJECT_DIR$/simulator/uiapplication/UiSettingDlg.ui" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/simulator/uiapplication/WinMainUi.py" afterPath="$PROJECT_DIR$/simulator/uiapplication/UiMainWin.py" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/simulator/uiapplication/WinMainUi.ui" afterPath="$PROJECT_DIR$/simulator/uiapplication/UiMainWin.ui" />
     </list>
     <ignored path="secure_power_agilis_mqtt_simulator.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -21,35 +99,15 @@
     <favorites_list name="secure_power_agilis_mqtt_simulator" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Repeater.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/simulator/core/Repeater.py">
+    <leaf>
+      <file leaf-file-name="MainWin.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/simulator/uiapplication/MainWin.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="297">
-              <caret line="95" column="50" selection-start-line="95" selection-start-column="50" selection-end-line="95" selection-end-column="50" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="DatagramData.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/simulator/core/DatagramData.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="456">
-              <caret line="24" column="0" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
+            <state relative-caret-position="189">
+              <caret line="775" column="41" lean-forward="true" selection-start-line="775" selection-start-column="41" selection-end-line="775" selection-end-column="41" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="RepeaterParameter.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/simulator/core/RepeaterParameter.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="76">
-              <caret line="4" column="0" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -63,81 +121,78 @@
       </list>
     </option>
   </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>value</find>
+      <find>update_datagram_info_display_signal</find>
+      <find>update_datagram_info_display</find>
+    </findStrings>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/simulator/uiapplication/DatagramManagerTreeViewItem.py" />
-        <option value="$PROJECT_DIR$/simulator/uiapplication/ValueTreeViewItem.py" />
-        <option value="$PROJECT_DIR$/simulator/uiapplication/ValueTreeViewModel.py" />
-        <option value="$PROJECT_DIR$/simulator/uiapplication/DatagramManagerTreeViewCtrl.py" />
-        <option value="$PROJECT_DIR$/simulator/uiapplication/ListTreeViewDelegate.py" />
-        <option value="$PROJECT_DIR$/simulator/uiapplication/QUint32SpinBox.py" />
-        <option value="$PROJECT_DIR$/simulator/core/RepeaterParameter.py" />
-        <option value="$PROJECT_DIR$/simulator/uiapplication/Configuration.py" />
-        <option value="$PROJECT_DIR$/simulator/uiapplication/test_dlg.py" />
-        <option value="$PROJECT_DIR$/simulator/uiapplication/SettingDlg.py" />
-        <option value="$PROJECT_DIR$/simulator/uiapplication/SettingDlgUi.py" />
-        <option value="$PROJECT_DIR$/simulator/uiapplication/config.ini" />
-        <option value="$PROJECT_DIR$/simulator/CsvParser.py" />
-        <option value="C:/Program Files/Python35/Lib/site-packages/recordtype.py" />
-        <option value="$PROJECT_DIR$/simulator/core/CsvParser.py" />
-        <option value="$PROJECT_DIR$/simulator/uiapplication/StructTreeViewDelegate.py" />
-        <option value="$PROJECT_DIR$/simulator/uiapplication/InputBox.py" />
-        <option value="$PROJECT_DIR$/simulator/uiapplication/PackageTreeWidgetDelegate.py" />
-        <option value="$PROJECT_DIR$/simulator/core/DataType.py" />
-        <option value="$PROJECT_DIR$/simulator/core/NameClass.py" />
-        <option value="$PROJECT_DIR$/simulator/uiapplication/GeneralTreeViewDelegate.py" />
-        <option value="$PROJECT_DIR$/simulator/uiapplication/DictionaryTreeViewDelegate.py" />
-        <option value="$PROJECT_DIR$/simulator/uiapplication/DataDictionaryTreeViewModel.py" />
-        <option value="$PROJECT_DIR$/simulator/uiapplication/DataMonitorTableViewModel.py" />
-        <option value="$PROJECT_DIR$/simulator/uiapplication/ListValueDspTreeModel.py" />
-        <option value="$PROJECT_DIR$/simulator/uiapplication/ListValueEditTreeModel.py" />
-        <option value="$PROJECT_DIR$/simulator/uiapplication/DictionaryValueDspTreeModel.py" />
-        <option value="$PROJECT_DIR$/simulator/uiapplication/DictionaryValueEditTreeModel.py" />
-        <option value="$PROJECT_DIR$/simulator/uiapplication/StructValueEditModel.py" />
-        <option value="$PROJECT_DIR$/simulator/uiapplication/StructValueDspModel.py" />
-        <option value="$PROJECT_DIR$/simulator/uiapplication/GeneralValueDspTreeViewModel.py" />
-        <option value="$PROJECT_DIR$/simulator/uiapplication/GeneralValueEditTreeViewModel.py" />
-        <option value="$PROJECT_DIR$/simulator/uiapplication/CommandValueDspTreeViewModel.py" />
-        <option value="$PROJECT_DIR$/simulator/uiapplication/CommandValueEditTreeViewModel.py" />
-        <option value="$PROJECT_DIR$/simulator/uiapplication/CommandTreeViewDelegate.py" />
-        <option value="$PROJECT_DIR$/simulator/uiapplication/SettingResponseDspTreeViewModel.py" />
-        <option value="$PROJECT_DIR$/simulator/uiapplication/SettingResponseEditTreeViewModel.py" />
-        <option value="$PROJECT_DIR$/simulator/uiapplication/BitMapValueDspModel.py" />
-        <option value="$PROJECT_DIR$/simulator/core/Repeater.py" />
-        <option value="$PROJECT_DIR$/simulator/core/DatagramData.py" />
-        <option value="$PROJECT_DIR$/simulator/uiapplication/BitMapDelegate.py" />
-        <option value="$PROJECT_DIR$/simulator/uiapplication/BitMapValueEditModel.py" />
-        <option value="$PROJECT_DIR$/simulator/core/DatagramManager.py" />
-        <option value="$PROJECT_DIR$/simulator/core/PayloadPackage.py" />
-        <option value="$PROJECT_DIR$/simulator/uiapplication/WinMainUi.py" />
-        <option value="$PROJECT_DIR$/simulator/core/DatagramServer.py" />
-        <option value="$PROJECT_DIR$/simulator/datadictionarysource/default_data_dictionary.CSV" />
-        <option value="$PROJECT_DIR$/simulator/core/DatagramAttribute.py" />
-        <option value="$PROJECT_DIR$/simulator/core/DataDictionaryInfo.py" />
         <option value="$PROJECT_DIR$/simulator/core/Datagram.py" />
+        <option value="$PROJECT_DIR$/simulator/core/DatagramAttribute.py" />
+        <option value="$PROJECT_DIR$/simulator/core/DatagramDeviceData.py" />
+        <option value="$PROJECT_DIR$/simulator/core/Repeater.py" />
+        <option value="$PROJECT_DIR$/simulator/uiapplication/ValueTreeViewModel.py" />
+        <option value="$PROJECT_DIR$/simulator/uiapplication/DataDictionaryTreeViewModel.py" />
+        <option value="$PROJECT_DIR$/simulator/build.bat" />
+        <option value="$PROJECT_DIR$/simulator/uiapplication/SafeConnector.py" />
+        <option value="$PROJECT_DIR$/simulator/uiapplication/DataMonitorTableViewModel.py" />
+        <option value="$PROJECT_DIR$/simulator/core/DatagramPayload.py" />
+        <option value="$PROJECT_DIR$/simulator/core/DatagramManager.py" />
+        <option value="$PROJECT_DIR$/simulator/uiapplication/DictionaryTreeViewDelegate.py" />
+        <option value="$PROJECT_DIR$/simulator/uiapplication/GeneralTreeViewDelegate.py" />
+        <option value="$PROJECT_DIR$/simulator/datadictionarysource/default_data_dictionary.csv" />
+        <option value="$PROJECT_DIR$/simulator/uiapplication/GeneralValueEditTreeViewModel.py" />
+        <option value="$PROJECT_DIR$/simulator/uiapplication/DictionaryValueEditTreeModel.py" />
+        <option value="$PROJECT_DIR$/simulator/uiapplication/StructTreeViewDelegate.py" />
+        <option value="$PROJECT_DIR$/simulator/uiapplication/StructValueEditModel.py" />
+        <option value="$PROJECT_DIR$/simulator/uiapplication/ListValueEditTreeModel.py" />
+        <option value="$PROJECT_DIR$/simulator/uiapplication/BitMapValueEditModel.py" />
+        <option value="$PROJECT_DIR$/simulator/uiapplication/BitMapDelegate.py" />
+        <option value="$PROJECT_DIR$/simulator/core/BitMapParser.py" />
+        <option value="$PROJECT_DIR$/simulator/uiapplication/ValueEditorTreeViewItem.py" />
+        <option value="$PROJECT_DIR$/simulator/uiapplication/ValueEditorTreeViewBasicTypeItem.py" />
+        <option value="$PROJECT_DIR$/simulator/uiapplication/ValueEditorTreeViewStringTypeItem.py" />
+        <option value="$PROJECT_DIR$/simulator/uiapplication/ValueEditorTreeViewBitmapTypeItem.py" />
+        <option value="$PROJECT_DIR$/simulator/ValueEditorTreeViewBitTypeItem.py" />
+        <option value="$PROJECT_DIR$/simulator/uiapplication/ValueEditorTreeViewArrayTypeItem.py" />
+        <option value="$PROJECT_DIR$/simulator/uiapplication/ValueEditorTreeViewStructureTypeItem.py" />
+        <option value="$PROJECT_DIR$/simulator/uiapplication/ValueEditorTreeViewEnumTypeItem.py" />
+        <option value="$PROJECT_DIR$/simulator/uiapplication/ValueEditorTreeViewRootItem.py" />
+        <option value="$PROJECT_DIR$/simulator/uiapplication/ValueAttributeType.py" />
+        <option value="$PROJECT_DIR$/simulator/uiapplication/ValueEditorTreeViewBitTypeItem.py" />
+        <option value="$PROJECT_DIR$/simulator/uiapplication/WaitingDlg.py" />
+        <option value="$PROJECT_DIR$/simulator/uiapplication/SettingDlg.py" />
+        <option value="$PROJECT_DIR$/simulator/uiapplication/UiMainWin.py" />
         <option value="$PROJECT_DIR$/simulator/uiapplication/main.py" />
+        <option value="$PROJECT_DIR$/simulator/core/DatagramDeviceDataHistory.py" />
+        <option value="$PROJECT_DIR$/simulator/uiapplication/HistoryDataDisplayTreeViewArrayTypeItem.py" />
+        <option value="$PROJECT_DIR$/simulator/uiapplication/HistoryDataDisplayTreeViewBasicTypeItem.py" />
+        <option value="$PROJECT_DIR$/simulator/uiapplication/HistoryDataDisplayTreeViewBitmapTypeItem.py" />
+        <option value="$PROJECT_DIR$/simulator/uiapplication/HistoryDataDisplayTreeViewBitTypeItem.py" />
+        <option value="$PROJECT_DIR$/simulator/uiapplication/HistoryDataDisplayTreeViewStringTypeItem.py" />
+        <option value="$PROJECT_DIR$/simulator/uiapplication/HistoryDataDisplayTreeViewStructureTypeItem.py" />
+        <option value="$PROJECT_DIR$/simulator/uiapplication/HistoryDataDisplayTreeViewEnumTypeItem.py" />
+        <option value="$PROJECT_DIR$/simulator/uiapplication/ValueEditorTreeViewDelegate.py" />
+        <option value="$PROJECT_DIR$/simulator/uiapplication/Version.py" />
+        <option value="$PROJECT_DIR$/simulator/core/DataDictionaryManager.py" />
+        <option value="$PROJECT_DIR$/simulator/uiapplication/HistoryDataDisplayTreeViewModel.py" />
+        <option value="$PROJECT_DIR$/simulator/uiapplication/ValueEditorTreeViewModel.py" />
+        <option value="$PROJECT_DIR$/simulator/uiapplication/MainWin.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-1928" />
+    <option name="x" value="-8" />
     <option name="y" value="-8" />
     <option name="width" value="1936" />
-    <option name="height" value="1096" />
-  </component>
-  <component name="ProjectLevelVcsManager" settingsEditedManually="false">
-    <OptionsSetting value="true" id="Add" />
-    <OptionsSetting value="true" id="Remove" />
-    <OptionsSetting value="true" id="Checkout" />
-    <OptionsSetting value="true" id="Update" />
-    <OptionsSetting value="true" id="Status" />
-    <OptionsSetting value="true" id="Edit" />
-    <ConfirmationsSetting value="0" id="Add" />
-    <ConfirmationsSetting value="0" id="Remove" />
+    <option name="height" value="1056" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -154,6 +209,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -161,12 +217,6 @@
               <option name="myItemId" value="secure_power_agilis_mqtt_simulator" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="secure_power_agilis_mqtt_simulator" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="secure_power_agilis_mqtt_simulator" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
@@ -183,60 +233,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="simulator" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="secure_power_agilis_mqtt_simulator" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="secure_power_agilis_mqtt_simulator" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="simulator" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="uiapplication" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="secure_power_agilis_mqtt_simulator" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="secure_power_agilis_mqtt_simulator" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="simulator" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="datadictionarysource" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="secure_power_agilis_mqtt_simulator" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="secure_power_agilis_mqtt_simulator" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="simulator" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="core" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -256,7 +252,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="Scratches" />
     </panes>
   </component>
@@ -288,7 +283,7 @@
       <option name="SHOW_COMMAND_LINE" value="false" />
       <method />
     </configuration>
-    <configuration default="false" name="DataType" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration default="false" name="DatagramPayload" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
@@ -300,46 +295,12 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="secure_power_agilis_mqtt_simulator" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/simulator/core/DataType.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/simulator/core/DatagramPayload.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <method />
     </configuration>
-    <configuration default="false" name="DatagramData" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/simulator/core" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="secure_power_agilis_mqtt_simulator" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/simulator/core/DatagramData.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <method />
-    </configuration>
-    <configuration default="false" name="PayloadPackage" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/simulator/core" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="secure_power_agilis_mqtt_simulator" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/simulator/core/PayloadPackage.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <method />
-    </configuration>
-    <configuration default="false" name="BitMapValueDspModel" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration default="false" name="ValueEditorTreeViewModel" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
@@ -351,7 +312,24 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="secure_power_agilis_mqtt_simulator" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/simulator/uiapplication/BitMapValueDspModel.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/simulator/uiapplication/ValueEditorTreeViewModel.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <method />
+    </configuration>
+    <configuration default="false" name="HistoryDataDisplayTreeViewModel" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/simulator/uiapplication" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="secure_power_agilis_mqtt_simulator" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/simulator/uiapplication/HistoryDataDisplayTreeViewModel.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <method />
@@ -490,25 +468,26 @@
       <option name="USE_KEYWORD" value="false" />
       <method />
     </configuration>
-    <list size="5">
+    <list size="4">
       <item index="0" class="java.lang.String" itemvalue="Python.main" />
-      <item index="1" class="java.lang.String" itemvalue="Python.DataType" />
-      <item index="2" class="java.lang.String" itemvalue="Python.DatagramData" />
-      <item index="3" class="java.lang.String" itemvalue="Python.PayloadPackage" />
-      <item index="4" class="java.lang.String" itemvalue="Python.BitMapValueDspModel" />
+      <item index="1" class="java.lang.String" itemvalue="Python.DatagramPayload" />
+      <item index="2" class="java.lang.String" itemvalue="Python.ValueEditorTreeViewModel" />
+      <item index="3" class="java.lang.String" itemvalue="Python.HistoryDataDisplayTreeViewModel" />
     </list>
     <recent_temporary>
-      <list size="5">
+      <list size="4">
         <item index="0" class="java.lang.String" itemvalue="Python.main" />
-        <item index="1" class="java.lang.String" itemvalue="Python.DatagramData" />
-        <item index="2" class="java.lang.String" itemvalue="Python.BitMapValueDspModel" />
-        <item index="3" class="java.lang.String" itemvalue="Python.PayloadPackage" />
-        <item index="4" class="java.lang.String" itemvalue="Python.DataType" />
+        <item index="1" class="java.lang.String" itemvalue="Python.ValueEditorTreeViewModel" />
+        <item index="2" class="java.lang.String" itemvalue="Python.HistoryDataDisplayTreeViewModel" />
+        <item index="3" class="java.lang.String" itemvalue="Python.DatagramPayload" />
       </list>
     </recent_temporary>
   </component>
   <component name="ShelveChangesManager" show_recycled="false">
     <option name="remove_strategy" value="false" />
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -738,6 +717,15 @@
     <history-entry file="Unittests_in_Test - 2016.12.01 at 14h 11m 00s.xml">
       <configuration name="Unittests in Test" configurationId="tests" />
     </history-entry>
+    <history-entry file="Unittests_in_ValueEditorTreeViewModel - 2016.12.30 at 10h 38m 16s.xml">
+      <configuration name="Unittests in ValueEditorTreeViewModel" configurationId="tests" />
+    </history-entry>
+    <history-entry file="Unittests_in_ValueEditorTreeViewModel - 2016.12.30 at 10h 38m 23s.xml">
+      <configuration name="Unittests in ValueEditorTreeViewModel" configurationId="tests" />
+    </history-entry>
+    <history-entry file="Unittests_in_ValueEditorTreeViewModel - 2016.12.30 at 10h 41m 00s.xml">
+      <configuration name="Unittests in ValueEditorTreeViewModel" configurationId="tests" />
+    </history-entry>
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -749,26 +737,26 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-1928" y="-8" width="1936" height="1096" extended-state="6" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22550052" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16354166" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32962137" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.22383073" sideWeight="0.50842994" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32850778" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32962137" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20788912" sideWeight="0.4915701" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16720955" sideWeight="0.4915701" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33636364" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25266525" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.37024972" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32962137" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32941177" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
@@ -854,13 +842,6 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/simulator/uiapplication/StructValueDspModel.py</url>
-          <line>18</line>
-          <option name="timeStamp" value="403" />
-        </line-breakpoint>
-      </breakpoints>
       <default-breakpoints>
         <breakpoint type="python-exception">
           <properties notifyOnTerminate="true" exception="BaseException">
@@ -868,7 +849,7 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="429" />
+      <option name="time" value="464" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="PythonConfigurationType">
@@ -877,340 +858,383 @@
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://C:/Program Files/Python35/Lib/site-packages/recordtype.py">
+    <entry file="file://$PROJECT_DIR$/simulator/core/DataDictionaryFormatInfo.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4406">
-          <caret line="249" column="0" selection-start-line="249" selection-start-column="0" selection-end-line="249" selection-end-column="0" />
+        <state relative-caret-position="-478">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://C:/Program Files/Python35/Lib/json/__init__.py">
+    <entry file="file://$PROJECT_DIR$/simulator/core/DataDictionaryInterface.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="274">
-          <caret line="318" column="0" selection-start-line="318" selection-start-column="0" selection-end-line="318" selection-end-column="0" />
+        <state relative-caret-position="-9085">
+          <caret line="11" column="0" lean-forward="false" selection-start-line="11" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://C:/Program Files/Python35/Lib/json/decoder.py">
+    <entry file="file://$PROJECT_DIR$/simulator/core/DataDictionaryItem.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="177">
-          <caret line="338" column="0" selection-start-line="338" selection-start-column="0" selection-end-line="338" selection-end-column="0" />
+        <state relative-caret-position="-402">
+          <caret line="18" column="21" lean-forward="false" selection-start-line="18" selection-start-column="5" selection-end-line="18" selection-end-column="21" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/.PyCharm2016.2/system/python_stubs/-1249248731/PyQt5/QtWidgets/QStyledItemDelegate.py">
+    <entry file="file://$PROJECT_DIR$/simulator/core/DatagramAccessClient.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="342">
-          <caret line="67" column="21" selection-start-line="67" selection-start-column="8" selection-end-line="67" selection-end-column="21" />
+        <state relative-caret-position="-1751">
+          <caret line="32" column="0" lean-forward="true" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/.PyCharm2016.2/system/python_stubs/-1249248731/PyQt5/QtWidgets/QDoubleSpinBox.py">
+    <entry file="file://$PROJECT_DIR$/simulator/core/DatagramPayload.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="171">
-          <caret line="13" column="6" selection-start-line="13" selection-start-column="6" selection-end-line="13" selection-end-column="6" />
+        <state relative-caret-position="-1485">
+          <caret line="104" column="59" lean-forward="false" selection-start-line="104" selection-start-column="46" selection-end-line="104" selection-end-column="59" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/simulator/uiapplication/QUint32SpinBox.py">
+    <entry file="file://$PROJECT_DIR$/simulator/core/NamedList.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="133">
-          <caret line="9" column="26" selection-start-line="9" selection-start-column="26" selection-end-line="9" selection-end-column="26" />
+        <state relative-caret-position="-250">
+          <caret line="6" column="0" lean-forward="false" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/simulator/core/DataType.py" />
-    <entry file="file://$PROJECT_DIR$/simulator/uiapplication/config.ini">
+    <entry file="file://$PROJECT_DIR$/simulator/core/Repeater.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="133">
-          <caret line="7" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+        <state relative-caret-position="-5152">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://C:/Program Files/Python35/Lib/collections/__init__.py">
+    <entry file="file://$PROJECT_DIR$/simulator/uiapplication/BitMapValueDspModel.py" />
+    <entry file="file://$PROJECT_DIR$/simulator/uiapplication/Configuration.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="47">
-          <caret line="85" column="8" selection-start-line="85" selection-start-column="8" selection-end-line="85" selection-end-column="8" />
+        <state relative-caret-position="-825">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/simulator/uiapplication/PackageTreeWidgetDelegate.py" />
-    <entry file="file://$PROJECT_DIR$/simulator/uiapplication/StructTreeViewDelegate.py">
+    <entry file="file://$PROJECT_DIR$/simulator/uiapplication/DataDictionaryTreeViewModel.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="95">
-          <caret line="18" column="75" selection-start-line="18" selection-start-column="75" selection-end-line="18" selection-end-column="75" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/simulator/core/NameClass.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="57">
-          <caret line="3" column="29" selection-start-line="3" selection-start-column="29" selection-end-line="3" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/.PyCharm2016.2/system/python_stubs/-1249248731/PyQt5/QtCore/QAbstractItemModel.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="171">
-          <caret line="12" column="24" selection-start-line="12" selection-start-column="6" selection-end-line="12" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/simulator/uiapplication/DictionaryValueDspTreeModel.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="18" column="34" selection-start-line="18" selection-start-column="34" selection-end-line="18" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/simulator/uiapplication/DictionaryValueEditTreeModel.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="266">
-          <caret line="16" column="28" selection-start-line="16" selection-start-column="28" selection-end-line="16" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/simulator/uiapplication/ListValueDspTreeModel.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="380">
-          <caret line="20" column="92" selection-start-line="20" selection-start-column="92" selection-end-line="20" selection-end-column="92" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/simulator/uiapplication/StructValueEditModel.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="133">
-          <caret line="15" column="77" selection-start-line="15" selection-start-column="77" selection-end-line="15" selection-end-column="77" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/simulator/uiapplication/ListValueEditTreeModel.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1">
-          <caret line="19" column="47" selection-start-line="19" selection-start-column="47" selection-end-line="19" selection-end-column="47" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/simulator/uiapplication/StructValueDspModel.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="190">
-          <caret line="11" column="42" selection-start-line="11" selection-start-column="42" selection-end-line="11" selection-end-column="42" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/simulator/uiapplication/CommandValueDspTreeViewModel.py" />
-    <entry file="file://$PROJECT_DIR$/simulator/uiapplication/CommandValueEditTreeViewModel.py" />
-    <entry file="file://$PROJECT_DIR$/simulator/uiapplication/CommandTreeViewDelegate.py" />
-    <entry file="file://$PROJECT_DIR$/simulator/uiapplication/SettingResponseDspTreeViewModel.py" />
-    <entry file="file://$PROJECT_DIR$/simulator/uiapplication/SettingResponseEditTreeViewModel.py" />
-    <entry file="file://$PROJECT_DIR$/simulator/uiapplication/GeneralTreeViewDelegate.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-184">
-          <caret line="5" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/simulator/uiapplication/GeneralValueDspTreeViewModel.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="95">
-          <caret line="5" column="55" selection-start-line="5" selection-start-column="55" selection-end-line="5" selection-end-column="55" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/simulator/uiapplication/GeneralValueEditTreeViewModel.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="437">
-          <caret line="26" column="38" selection-start-line="26" selection-start-column="38" selection-end-line="26" selection-end-column="38" />
+        <state relative-caret-position="-274">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/simulator/uiapplication/DataMonitorTableViewModel.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="115">
-          <caret line="35" column="38" selection-start-line="35" selection-start-column="38" selection-end-line="35" selection-end-column="38" />
+        <state relative-caret-position="-1110">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/simulator/uiapplication/DictionaryTreeViewDelegate.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="112">
-          <caret line="14" column="29" selection-start-line="14" selection-start-column="29" selection-end-line="14" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/simulator/uiapplication/InputBox.py">
+    <entry file="file://$PROJECT_DIR$/simulator/uiapplication/QSimpleThread.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="228">
-          <caret line="12" column="41" selection-start-line="12" selection-start-column="41" selection-end-line="12" selection-end-column="41" />
+          <caret line="12" column="0" lean-forward="true" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/simulator/uiapplication/BitMapDelegate.py">
+    <entry file="file://$PROJECT_DIR$/simulator/uiapplication/SafeConnector.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="494">
-          <caret line="35" column="26" selection-start-line="35" selection-start-column="26" selection-end-line="35" selection-end-column="26" />
+        <state relative-caret-position="-326">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/simulator/uiapplication/ValueTreeViewModel.py">
+    <entry file="file://$PROJECT_DIR$/simulator/uiapplication/SettingDlg.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="133">
-          <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+        <state relative-caret-position="-535">
+          <caret line="5" column="18" lean-forward="true" selection-start-line="5" selection-start-column="18" selection-end-line="5" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/simulator/uiapplication/StructValueDspModel.py" />
+    <entry file="file://$PROJECT_DIR$/simulator/uiapplication/UiSettingDlg.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/simulator/uiapplication/UiWaitingDlg.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/simulator/uiapplication/UiResource_rc.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="616">
+          <caret line="3998" column="16" lean-forward="true" selection-start-line="3998" selection-start-column="16" selection-end-line="3998" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/.PyCharmCE2016.3/system/python_stubs/-1249248731/PyQt5/QtWidgets/QStyleFactory.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="190">
+          <caret line="11" column="6" lean-forward="false" selection-start-line="11" selection-start-column="6" selection-end-line="11" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/simulator/uiapplication/ValueEditorTreeViewArrayTypeItem.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="304">
+          <caret line="16" column="0" lean-forward="true" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/simulator/uiapplication/UiMainWin.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="114">
+          <caret line="328" column="53" lean-forward="false" selection-start-line="328" selection-start-column="53" selection-end-line="328" selection-end-column="53" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/simulator/uiapplication/ValueEditorTreeViewRootItem.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="114">
+          <caret line="6" column="0" lean-forward="true" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/simulator/datadictionarysource/default_data_dictionary.csv">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="456">
+          <caret line="24" column="40" lean-forward="true" selection-start-line="24" selection-start-column="40" selection-end-line="24" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/simulator/uiapplication/ValueEditorTreeViewBasicTypeItem.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1159">
+          <caret line="61" column="8" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="61" selection-end-column="8" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/simulator/uiapplication/ValueTreeViewItem.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="133">
-          <caret line="7" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+        <state relative-caret-position="437">
+          <caret line="23" column="36" lean-forward="true" selection-start-line="23" selection-start-column="36" selection-end-line="23" selection-end-column="36" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/simulator/uiapplication/BitMapValueDspModel.py">
+    <entry file="file://$PROJECT_DIR$/simulator/uiapplication/ValueTreeViewModel.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="380">
-          <caret line="20" column="12" selection-start-line="20" selection-start-column="12" selection-end-line="20" selection-end-column="12" />
+        <state relative-caret-position="-285">
+          <caret line="13" column="24" lean-forward="true" selection-start-line="13" selection-start-column="24" selection-end-line="13" selection-end-column="24" />
         </state>
       </provider>
     </entry>
-    <entry file="file://C:/Program Files/Python35/Lib/codecs.py">
+    <entry file="file://$PROJECT_DIR$/simulator/core/DatagramAttribute.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="98">
-          <caret line="302" column="7" selection-start-line="302" selection-start-column="7" selection-end-line="302" selection-end-column="7" />
+        <state relative-caret-position="549">
+          <caret line="41" column="55" lean-forward="true" selection-start-line="41" selection-start-column="55" selection-end-line="41" selection-end-column="55" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/simulator/uiapplication/BitMapValueEditModel.py">
+    <entry file="file://$PROJECT_DIR$/simulator/core/DatagramDeviceDataHistory.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="494">
-          <caret line="26" column="0" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
+        <state relative-caret-position="19">
+          <caret line="2" column="13" lean-forward="false" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/simulator/datadictionarysource/default_data_dictionary.CSV">
+    <entry file="file://$PROJECT_DIR$/simulator/uiapplication/ValueAttributeType.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="38">
-          <caret line="2" column="28" selection-start-line="2" selection-start-column="28" selection-end-line="2" selection-end-column="28" />
+        <state relative-caret-position="701">
+          <caret line="73" column="32" lean-forward="false" selection-start-line="73" selection-start-column="32" selection-end-line="73" selection-end-column="32" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/simulator/core/PayloadPackage.py">
+    <entry file="file://$PROJECT_DIR$/simulator/uiapplication/HistoryDataDisplayTreeViewBasicTypeItem.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="419">
-          <caret line="95" column="17" selection-start-line="95" selection-start-column="17" selection-end-line="95" selection-end-column="17" />
+        <state relative-caret-position="361">
+          <caret line="19" column="24" lean-forward="false" selection-start-line="19" selection-start-column="24" selection-end-line="19" selection-end-column="24" />
         </state>
       </provider>
     </entry>
-    <entry file="file://C:/Program Files/Python35/Lib/site-packages/paho/mqtt/client.py">
+    <entry file="file://$PROJECT_DIR$/simulator/uiapplication/HistoryDataDisplayTreeViewBitmapTypeItem.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="46132">
-          <caret line="2432" column="40" selection-start-line="2432" selection-start-column="40" selection-end-line="2432" selection-end-column="40" />
+        <state relative-caret-position="359">
+          <caret line="19" column="24" lean-forward="false" selection-start-line="19" selection-start-column="24" selection-end-line="19" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/simulator/uiapplication/HistoryDataDisplayTreeViewBitTypeItem.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="435">
+          <caret line="28" column="24" lean-forward="false" selection-start-line="28" selection-start-column="24" selection-end-line="28" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/simulator/uiapplication/HistoryDataDisplayTreeViewStringTypeItem.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="342">
+          <caret line="18" column="16" lean-forward="true" selection-start-line="18" selection-start-column="16" selection-end-line="18" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/simulator/uiapplication/HistoryDataDisplayTreeViewStructureTypeItem.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="57">
+          <caret line="3" column="49" lean-forward="false" selection-start-line="3" selection-start-column="6" selection-end-line="3" selection-end-column="49" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/simulator/uiapplication/ValueEditorTreeViewEnumTypeItem.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="73" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/simulator/uiapplication/HistoryDataDisplayTreeViewEnumTypeItem.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="57">
+          <caret line="3" column="44" lean-forward="false" selection-start-line="3" selection-start-column="6" selection-end-line="3" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/simulator/uiapplication/HistoryDataDisplayTreeViewArrayTypeItem.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="152">
+          <caret line="8" column="0" lean-forward="true" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/simulator/core/DatagramDeviceData.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="342">
+          <caret line="43" column="0" lean-forward="true" selection-start-line="43" selection-start-column="0" selection-end-line="43" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/simulator/core/Datagram.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="95">
+          <caret line="80" column="31" lean-forward="false" selection-start-line="80" selection-start-column="8" selection-end-line="80" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/.PyCharmCE2016.3/system/python_stubs/-1249248731/PyQt5/QtWidgets/QComboBox.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="265">
+          <caret line="136" column="113" lean-forward="true" selection-start-line="136" selection-start-column="76" selection-end-line="136" selection-end-column="113" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/.PyCharmCE2016.3/system/python_stubs/-1249248731/PyQt5/QtCore/Qt.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2146">
+          <caret line="763" column="25" lean-forward="true" selection-start-line="763" selection-start-column="25" selection-end-line="763" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/simulator/uiapplication/ValueEditorTreeViewDelegate.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="836">
+          <caret line="44" column="16" lean-forward="true" selection-start-line="44" selection-start-column="16" selection-end-line="44" selection-end-column="16" />
+          <folding>
+            <element signature="e#0#69#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/Program Files/Python35/Lib/site-packages/cbor/VERSION.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/Program Files/Python35/Lib/site-packages/cbor/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="209">
+          <caret line="11" column="21" lean-forward="false" selection-start-line="11" selection-start-column="21" selection-end-line="11" selection-end-column="43" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/simulator/core/DatagramManager.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="304">
-          <caret line="20" column="0" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+        <state relative-caret-position="416">
+          <caret line="49" column="58" lean-forward="false" selection-start-line="49" selection-start-column="46" selection-end-line="49" selection-end-column="58" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/simulator/core/DataHistory.py">
+    <entry file="file://$PROJECT_DIR$/simulator/uiapplication/Version.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="247">
-          <caret line="13" column="0" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/simulator/core/DatagramServer.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="506">
-          <caret line="129" column="32" selection-start-line="129" selection-start-column="26" selection-end-line="129" selection-end-column="32" />
-          <folding>
-            <element signature="e#0#31#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/simulator/uiapplication/WinMainUi.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="514">
-          <caret line="457" column="70" selection-start-line="457" selection-start-column="70" selection-end-line="457" selection-end-column="70" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/simulator/core/Datagram.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="542">
-          <caret line="70" column="0" selection-start-line="70" selection-start-column="0" selection-end-line="71" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/simulator/core/DataDictionaryInfo.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="266">
-          <caret line="71" column="60" selection-start-line="71" selection-start-column="60" selection-end-line="71" selection-end-column="60" />
-          <folding>
-            <element signature="e#0#35#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/simulator/core/DatagramAttribute.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5282">
-          <caret line="280" column="12" selection-start-line="280" selection-start-column="12" selection-end-line="280" selection-end-column="12" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/simulator/uiapplication/DataDictionaryTreeViewModel.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="361">
-          <caret line="20" column="51" selection-start-line="20" selection-start-column="51" selection-end-line="20" selection-end-column="51" />
+        <state relative-caret-position="19">
+          <caret line="1" column="0" lean-forward="true" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/simulator/uiapplication/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="152">
-          <caret line="16" column="0" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
+        <state relative-caret-position="475">
+          <caret line="25" column="4" lean-forward="false" selection-start-line="25" selection-start-column="4" selection-end-line="25" selection-end-column="4" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/simulator/core/DatagramData.py">
+    <entry file="file://$PROJECT_DIR$/simulator/core/DataDictionaryManager.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="456">
-          <caret line="24" column="0" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
+        <state relative-caret-position="646">
+          <caret line="37" column="0" lean-forward="false" selection-start-line="37" selection-start-column="0" selection-end-line="37" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/simulator/uiapplication/ValueEditorTreeViewModel.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4636">
+          <caret line="259" column="12" lean-forward="true" selection-start-line="259" selection-start-column="12" selection-end-line="259" selection-end-column="12" />
+          <folding>
+            <element signature="e#0#60#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/simulator/uiapplication/HistoryDataDisplayTreeViewModel.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="665">
+          <caret line="35" column="12" lean-forward="false" selection-start-line="35" selection-start-column="12" selection-end-line="35" selection-end-column="12" />
+          <folding>
+            <element signature="e#0#60#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/simulator/uiapplication/MainWin.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="189">
+          <caret line="775" column="41" lean-forward="true" selection-start-line="775" selection-start-column="41" selection-end-line="775" selection-end-column="41" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/simulator/core/RepeaterParameter.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="76">
-          <caret line="4" column="0" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/simulator/core/Repeater.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="297">
-          <caret line="95" column="50" selection-start-line="95" selection-start-column="50" selection-end-line="95" selection-end-column="50" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ScopeChooserConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
   </component>
 </project>
