@@ -19,7 +19,11 @@ from core.DatagramManager import DatagramManager, message_format_class
 from core.DatagramPayload import (E_DATAGRAM_ACTION_PUBLISH, E_DATAGRAM_ACTION_RESPONSE, E_DATAGRAM_ACTION_REQUEST,
                                   E_DATAGRAM_ACTION_ALLOW)
 from core.DatagramPayload import E_PAYLOAD_TYPE, E_PRODUCER_MASK, E_ACTION, payload_package_info, DatagramPayload
-from core.Repeater import Repeater, user_function_header_str, default_user_input_str, user_function_end_str
+from core.Repeater import (Repeater,
+                           user_function_header_str,
+                           default_user_input_str,
+                           user_function_end_str,
+                           get_user_function_source_code)
 _about_application_message_format = """\
 <p>----------Application Info----------</p>
 <p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;-qt-block-indent:0; text-indent:0px;">
@@ -340,7 +344,7 @@ class MainWin(QMainWindow):
 
     def __update_repeater_info_display(self, repeater_resource):
         if repeater_resource is None:
-            self.ui.interval_spin_box.setValue(0)
+            self.ui.interval_spin_box.setValue(1)
             self.ui.repeate_times_spin_box.setValue(0)
             user_input_str = default_user_input_str
             pass
@@ -349,15 +353,8 @@ class MainWin(QMainWindow):
             self.ui.repeate_times_spin_box.setValue(repeater_resource.repeat_times_count)
             user_input_str = repeater_resource.user_input_str
             pass
-        if user_input_str.startswith('    '):
-            pass
-        else:
-            user_input_str = user_input_str.strip(' ').strip('\n')
-            user_input_str = user_input_str.replace('\n', '\n    ')
-            user_input_str = '    ' + user_input_str + '\n'
-            pass
         self.ui.user_function_plain_text_edit.setPlainText(
-            user_function_header_str + user_input_str + user_function_end_str
+            get_user_function_source_code(user_input_str)
         )
         pass
 
@@ -784,8 +781,35 @@ class MainWin(QMainWindow):
 
     @pyqtSlot(name='')
     def on_repeater_push_button_clicked(self):
-        print('OK')
-        pass
+        sender = self.sender()
+        try:
+            hash_id = self.__current_datagram_topic_index[0]
+            instance = self.__current_datagram_topic_index[1]
+            action = self.__current_datagram_topic_index[2]
+
+            repeater_resource = self.__repeater.get_repeater_item_resource(hash_id, instance, action)
+            if self.__repeater.is_running and (repeater_resource is not None):
+                if self.__repeater.delete_repeater_item(hash_id, instance, action):
+                    self.ui.repeater_push_button.setText('Start')
+                    self.ui.publish_push_button.setEnabled(True)
+                pass
+            else:
+                from Repeater import repeater_parameter
+                _input_text = str(self.ui.user_function_plain_text_edit.toPlainText())
+                _input_text = _input_text.lstrip(user_function_header_str.rstrip('\n'))
+                _input_text = _input_text.rstrip(user_function_end_str).strip('\n')
+                repeater_resource = repeater_parameter(
+                    tagger_count=self.ui.interval_spin_box.value(),
+                    repeat_times_count=self.ui.repeate_times_spin_box.value(),
+                    user_input_str=_input_text)
+                if self.__repeater.append_repeater_item(hash_id, instance, action, repeater_resource):
+                    self.ui.repeater_push_button.setText('Stop')
+                    self.ui.publish_push_button.setEnabled(False)
+                pass
+            pass
+        except Exception as exception:
+            print('ERROR:', type(exception).__name__, exception)
+            self.statusBar().showMessage('{} Failed'.format(sender.text()))
 
     def release_resource(self):
         self.__datagram_manager.delete_datagram_access_client()

@@ -33,19 +33,24 @@ default_user_input_str = '''\
 value += 1
 if value > 100:
     value = 0
-print('value = ', value, 'times = ', times)
-'''
+print('value = ', value, 'times = ', times)'''
 
 
-def get_user_function(user_input_str):
+def get_user_function_source_code(user_input_str):
     if user_input_str.startswith('    '):
+        user_input_str = user_input_str.strip('\n') + '\n'
         pass
     else:
         user_input_str = user_input_str.strip(' ').strip('\n')
         user_input_str = user_input_str.replace('\n', '\n    ')
         user_input_str = '    ' + user_input_str + '\n'
         pass
-    source_code = user_function_header_str + user_input_str + user_function_end_str
+    return user_function_header_str + user_input_str + user_function_end_str
+    pass
+
+
+def get_user_function(user_input_str):
+    source_code = get_user_function_source_code(user_input_str)
     # print(source_code)
     # convert to ast format
     module_node = _ast.parse(source_code, '<string>', 'exec')
@@ -63,9 +68,8 @@ def get_user_function(user_input_str):
     pass
 
 
-class Repeater(threading.Thread):
+class Repeater:
     def __init__(self, datagram_manager, user_data=None):
-        super(Repeater, self).__init__()
         self.__datagram_manager = datagram_manager
         self.__user_data = user_data
         self.__access_data_lock = threading.Lock()
@@ -76,6 +80,7 @@ class Repeater(threading.Thread):
         self.__server_is_running = False
         self.__repeater_item_list = []
         self.__resource_dict = {}
+        self.__thread = None
         pass
 
     @property
@@ -131,6 +136,7 @@ class Repeater(threading.Thread):
         else:
             self.start_server()
         pass
+        return True
 
     def delete_repeater_item(self, hash_id, instance, action):
         index = [hash_id, instance, action]
@@ -158,6 +164,7 @@ class Repeater(threading.Thread):
         else:
             self.__finished_event.set()
         pass
+        return True
 
     def clear_repeater_item(self):
         self.__access_data_lock.acquire()
@@ -183,14 +190,16 @@ class Repeater(threading.Thread):
         pass
 
     def start_server(self, interval=0.1):
-        if self.__server_is_running:
+        if (self.__server_is_running is True) or (self.__thread is not None):
             print('ERROR:', 'The repeater server is running')
             return
         if interval < 0.1:
             print('WARNING:', 'Interval value should bigger then 0.1, so set it as 0.1 automatically')
             interval = 0.1
         self.__interval = interval
-        self.start()
+        # self.start()
+        self.__thread = threading.Thread(target=self.run)
+        self.__thread.start()
         pass
 
     def run(self):
@@ -269,6 +278,8 @@ class Repeater(threading.Thread):
             self.__finished_event.wait(self.__interval)
             pass
         self.__server_is_running = False
+        self.__thread = None
+        self.__finished_event.clear()
         print('Repeater server is stopped')
         pass
 
