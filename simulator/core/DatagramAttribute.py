@@ -1,5 +1,5 @@
 import ast as _ast
-from DataDictionaryItem import data_dictionary_item_type
+from .DataDictionaryItem import data_dictionary_item_type
 
 code_generator_header_text = '''
 class DatagramAttributeMapping:

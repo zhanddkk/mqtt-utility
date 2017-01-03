@@ -1,8 +1,8 @@
 import json
 from ctypes import *
 from collections import OrderedDict
-from NamedList import named_list
-from DataDictionaryItem import data_dictionary_item_type
+from .NamedList import named_list
+from .DataDictionaryItem import data_dictionary_item_type
 
 basic_type_attribute_class = named_list('BasicTypeAttribute', 'range, size, type')
 udt_type_attribute_class = named_list('UserDefineType', 'name, size, type, content, comment')

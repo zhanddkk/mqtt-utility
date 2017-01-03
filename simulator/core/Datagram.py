@@ -1,6 +1,6 @@
-from DatagramDeviceData import DatagramDeviceData
-from DatagramPayload import (E_DATAGRAM_ACTION_PUBLISH, E_DATAGRAM_ACTION_RESPONSE, E_DATAGRAM_ACTION_REQUEST,
-                             E_DATAGRAM_ACTION_ALLOW)
+from .DatagramDeviceData import DatagramDeviceData
+from .DatagramPayload import (E_DATAGRAM_ACTION_PUBLISH, E_DATAGRAM_ACTION_RESPONSE, E_DATAGRAM_ACTION_REQUEST,
+                              E_DATAGRAM_ACTION_ALLOW)
 
 
 class Datagram:

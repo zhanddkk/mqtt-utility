@@ -1,4 +1,4 @@
-from NamedList import named_list
+from .NamedList import named_list
 
 
 class DataDictionaryFormatInfoV0:

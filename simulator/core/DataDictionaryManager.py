@@ -1,7 +1,7 @@
 from collections import OrderedDict
-from NamedList import named_list
-from DataDictionaryFormatInfo import data_dictionary_format_info
-from DataDictionaryInterface import data_dictionary_interface
+from .NamedList import named_list
+from .DataDictionaryFormatInfo import data_dictionary_format_info
+from .DataDictionaryInterface import data_dictionary_interface
 __data_dictionary_version_map = (
     ('0.10', (0, 0)),
 )

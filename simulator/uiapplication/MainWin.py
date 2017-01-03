@@ -2,8 +2,8 @@ import datetime
 from collections import OrderedDict
 from PyQt5.Qt import Qt, QDir, QFileInfo, QFontMetrics, pyqtSignal, pyqtSlot
 from PyQt5.QtWidgets import QApplication, QMainWindow, QFileDialog, QMessageBox, QHeaderView, QTreeWidgetItem
-from Version import __doc__ as __app_version__
 from UiMainWin import Ui_MainWindow
+from AppVersion import __doc__ as __app_version__
 from DataDictionaryTreeViewModel import DataDictionaryTreeViewModel
 from DataMonitorTableViewModel import DataMonitorTableViewModel
 from Configuration import Configuration
@@ -794,7 +794,7 @@ class MainWin(QMainWindow):
                     self.ui.publish_push_button.setEnabled(True)
                 pass
             else:
-                from Repeater import repeater_parameter
+                from core.Repeater import repeater_parameter
                 _input_text = str(self.ui.user_function_plain_text_edit.toPlainText())
                 _input_text = _input_text.lstrip(user_function_header_str.rstrip('\n'))
                 _input_text = _input_text.rstrip(user_function_end_str).strip('\n')

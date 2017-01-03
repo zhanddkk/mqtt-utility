@@ -1,7 +1,7 @@
 import threading
 import ast as _ast
-from NamedList import named_list
-from DatagramPayload import DatagramPayload
+from .NamedList import named_list
+from .DatagramPayload import DatagramPayload
 
 repeater_parameter_type = named_list('RepeaterParameter', 'counter,'
                                                           'tagger_count,'
@@ -180,7 +180,10 @@ class Repeater:
             tmp_dict = self.__resource_dict[hash_id]
             if instance in tmp_dict:
                 tmp_dict = tmp_dict[instance]
-                resource = tmp_dict[action]
+                try:
+                    resource = tmp_dict[action]
+                except KeyError:
+                    resource = None
             else:
                 resource = None
         else:

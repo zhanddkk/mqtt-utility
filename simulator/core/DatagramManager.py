@@ -1,14 +1,14 @@
 import csv
 import cbor
 import ctypes
-from NamedList import named_list
-from DataDictionaryManager import DataDictionaryManager
-from DatagramAttribute import DatagramAttribute
-from Datagram import Datagram
-from DatagramPayload import DatagramPayload
-from DatagramPayload import E_DATAGRAM_ACTION_PUBLISH as _E_DATAGRAM_ACTION_PUBLISH
-
-
+from .NamedList import named_list
+from .DataDictionaryManager import DataDictionaryManager
+from .DatagramAttribute import DatagramAttribute
+from .Datagram import Datagram
+from .DatagramPayload import DatagramPayload
+from .DatagramPayload import E_DATAGRAM_ACTION_PUBLISH as _E_DATAGRAM_ACTION_PUBLISH
+from .DatagramAccessClient import DatagramAccessClient
+from .BitMapParser import bit_map_parser, cmd_bit_format
 message_format_class = named_list('MessageFormat', 'topic, qos, retain, is_valid, payload')
 
 
@@ -110,7 +110,6 @@ class DatagramManager:
 
     def init_datagram_access_client(self, name='', ip='localhost', port=1883):
         if self.__datagram_access_client is None:
-            from DatagramAccessClient import DatagramAccessClient
             self.__datagram_access_client = DatagramAccessClient(name, self)
             self.__datagram_access_client.config(ip, port)
         else:
@@ -207,7 +206,6 @@ class DatagramManager:
                 if dg.set_device_data_value_by_payload(payload) is False:
                     print('WARNING:', 'The data is set failed.')
                 if (dg.attribute.type == 'Command') and payload.action == _E_DATAGRAM_ACTION_PUBLISH:
-                    from BitMapParser import bit_map_parser, cmd_bit_format
                     try:
                         value_parsed = bit_map_parser(payload.value, cmd_bit_format)
                         if value_parsed.sequence.key != self.__seq_num:

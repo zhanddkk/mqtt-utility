@@ -1,5 +1,5 @@
-from NamedList import named_list
-from DatagramDeviceDataHistory import DatagramDeviceDataHistory
+from .NamedList import named_list
+from .DatagramDeviceDataHistory import DatagramDeviceDataHistory
 datagram_device_data_action_class = named_list('DatagramDeviceDataAction', 'publish, response, request, allow')
 action_item_class = named_list('ActionItem', 'topic, value, history')
 

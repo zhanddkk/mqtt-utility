@@ -1,4 +1,4 @@
-from NamedList import named_list
+from .NamedList import named_list
 bit_map_item_type = named_list('BitMapItem', 'bit_wide, value_dict')
 bit_map_item_Data_type = named_list('BitMapItemData', 'key, value')
 command_bit_map_format_type = named_list('CommandBitMapFormat', 'ack_cmd_code, sequence, producer')
