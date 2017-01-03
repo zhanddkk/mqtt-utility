@@ -2,15 +2,20 @@ from collections import OrderedDict
 from NamedList import named_list
 from DataDictionaryFormatInfo import data_dictionary_format_info
 from DataDictionaryInterface import data_dictionary_interface
+__data_dictionary_version_map = (
+    ('0.10', (0, 0)),
+)
+data_dictionary_version_map = OrderedDict(__data_dictionary_version_map)
+latest_data_dictionary_version = __data_dictionary_version_map[-1][0]
 
 
-def set_sub_attr_value(obj, range, row, item):
+def set_sub_attr_value(obj, _range, row, item):
     if type(item) is not str:
         print('ERROR:', 'Attribute name must be string, but not', type(item))
         return
-    if type(range) is list:
+    if type(_range) is list:
         try:
-            setattr(obj, item, row[range[0]:range[1]])
+            setattr(obj, item, row[_range[0]:_range[1]])
         except AttributeError:
             print('ERROR:', item, 'is not the right attribute name of', obj)
             return
@@ -30,8 +35,8 @@ def set_sub_attr_value(obj, range, row, item):
             return
             pass
         for obj_attr in fields:
-            if obj_attr in range:
-                tmp_range = range[obj_attr]
+            if obj_attr in _range:
+                tmp_range = _range[obj_attr]
                 set_sub_attr_value(tmp_obj, tmp_range, row, item=obj_attr)
                 pass
             else:
@@ -41,10 +46,10 @@ def set_sub_attr_value(obj, range, row, item):
     pass
 
 
-def set_attr_value(obj, range, row):
+def set_attr_value(obj, _range, row):
     for obj_attr in obj.fields:
-        if obj_attr in range:
-            tmp_range = range[obj_attr]
+        if obj_attr in _range:
+            tmp_range = _range[obj_attr]
             set_sub_attr_value(obj, tmp_range, row, item=obj_attr)
             pass
         else:
@@ -124,11 +129,34 @@ class DataDictionaryManager:
         print(self.ver)
         version_key = '{major}.{minor}'.format(major=self.__version.template.major, minor=self.__version.template.minor)
         try:
-            self.format_info = data_dictionary_format_info[version_key]
-            self.interface = data_dictionary_interface[version_key]
+            _version = data_dictionary_version_map[version_key]
+            _format_info_ver = _version[0]
+            _interface_ver = _version[1]
+
+            self.format_info = data_dictionary_format_info[_format_info_ver]
+            self.interface = data_dictionary_interface[_interface_ver]
             return True
         except KeyError:
-            print('ERROR:', 'This template version(' + version_key + ') of the data dictionary is not supported')
+            _latest_ver = latest_data_dictionary_version.split('.')
+            _latest_major_ver = int(_latest_ver[0])
+            _latest_minor_ver = int(_latest_ver[1])
+            if (_latest_major_ver < self.__version.template.major) or\
+                    ((_latest_major_ver == self.__version.template.major) and
+                        (_latest_minor_ver < self.__version.template.minor)):
+                print('WARNING:',  'The template version(' +
+                      version_key + ') of the data dictionary is bigger then the supported(' +
+                      latest_data_dictionary_version + ') by this application')
+                _version = data_dictionary_version_map[latest_data_dictionary_version]
+                _format_info_ver = _version[0]
+                _interface_ver = _version[1]
+                self.format_info = data_dictionary_format_info[_format_info_ver]
+                self.interface = data_dictionary_interface[_interface_ver]
+                return True
+            print('ERROR:', 'The template version(' + version_key + ') of the data dictionary is not supported')
+            return False
+        except IndexError:
+            print('ERROR:', 'The interface and format information version(' +
+                  str(data_dictionary_version_map[version_key]) + ') of the data dictionary is not supported')
             return False
         pass
 

@@ -1,4 +1,4 @@
-Master Template Version,v0.10
+Master Template Version,v0.11
 Data Dictionary Version,v0.5
 Product Name,AgilisAlphaTest
 RootSystem,SubSystem,DataPath,Name,Description,Type,Format,MaxSize,Default,Min,Max,ChoiceList,ScaleUnit,Precision,IsAlarm,IsEvtLog,CmdTimeOut,Producer, , , , ,Consumer, , , , ,HashID

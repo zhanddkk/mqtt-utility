@@ -1,7 +1,7 @@
 from NamedList import named_list
 
 
-class DataDictionaryFormatInfoV0V10:
+class DataDictionaryFormatInfoV0:
     __attribute_name_list = [
         'RootSystem',
         'SubSystem',
@@ -45,6 +45,6 @@ class DataDictionaryFormatInfoV0V10:
         pass
     pass
 
-data_dictionary_format_info = {
-    '0.10': DataDictionaryFormatInfoV0V10(),
-}
+data_dictionary_format_info = (
+    DataDictionaryFormatInfoV0(),
+)

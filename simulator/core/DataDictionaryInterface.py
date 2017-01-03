@@ -60,7 +60,7 @@ def json_object_pairs_hook(list_data):
     pass
 
 
-class DataDictionaryInterfaceV0V10:
+class DataDictionaryInterfaceV0:
     def __init__(self):
         pass
 
@@ -506,9 +506,9 @@ class DataDictionaryInterfaceV0V10:
         pass
     pass
 
-data_dictionary_interface = {
-    '0.10': DataDictionaryInterfaceV0V10(),
-}
+data_dictionary_interface = (
+    DataDictionaryInterfaceV0(),
+)
 
 if __name__ == '__main__':
     pass

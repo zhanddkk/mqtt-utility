@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d639cb57-f970-46ec-8a89-2f9997dd3944" name="Default" comment="Update version from 0.6.0 to 0.6.1&#10;Support new version format of data dictionary, which adds the root system&#10;">
+    <list default="true" id="d639cb57-f970-46ec-8a89-2f9997dd3944" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/simulator/core/Repeater.py" afterPath="$PROJECT_DIR$/simulator/core/Repeater.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/simulator/uiapplication/MainWin.py" afterPath="$PROJECT_DIR$/simulator/uiapplication/MainWin.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/simulator/uiapplication/UiMainWin.py" afterPath="$PROJECT_DIR$/simulator/uiapplication/UiMainWin.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/simulator/uiapplication/UiMainWin.ui" afterPath="$PROJECT_DIR$/simulator/uiapplication/UiMainWin.ui" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/simulator/core/DataDictionaryFormatInfo.py" afterPath="$PROJECT_DIR$/simulator/core/DataDictionaryFormatInfo.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/simulator/core/DataDictionaryInterface.py" afterPath="$PROJECT_DIR$/simulator/core/DataDictionaryInterface.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/simulator/core/DataDictionaryManager.py" afterPath="$PROJECT_DIR$/simulator/core/DataDictionaryManager.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/simulator/datadictionarysource/default_data_dictionary.csv" afterPath="$PROJECT_DIR$/simulator/datadictionarysource/default_data_dictionary.csv" />
     </list>
     <ignored path="secure_power_agilis_mqtt_simulator.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -25,7 +25,62 @@
     <favorites_list name="secure_power_agilis_mqtt_simulator" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
+    <leaf>
+      <file leaf-file-name="DataDictionaryManager.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/simulator/core/DataDictionaryManager.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-815">
+              <caret line="193" column="0" lean-forward="true" selection-start-line="193" selection-start-column="0" selection-end-line="193" selection-end-column="0" />
+              <folding>
+                <element signature="e#0#35#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="default_data_dictionary.csv" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/simulator/datadictionarysource/default_data_dictionary.csv">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="29" lean-forward="false" selection-start-line="0" selection-start-column="29" selection-end-line="0" selection-end-column="29" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DataDictionaryFormatInfo.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/simulator/core/DataDictionaryFormatInfo.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="496">
+              <caret line="48" column="4" lean-forward="false" selection-start-line="48" selection-start-column="4" selection-end-line="48" selection-end-column="4" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DataDictionaryInterface.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/simulator/core/DataDictionaryInterface.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="496">
+              <caret line="511" column="0" lean-forward="true" selection-start-line="511" selection-start-column="0" selection-end-line="511" selection-end-column="0" />
+              <folding>
+                <element signature="e#0#11#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DatagramManager.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/simulator/core/DatagramManager.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-3475">
+              <caret line="49" column="58" lean-forward="false" selection-start-line="49" selection-start-column="46" selection-end-line="49" selection-end-column="58" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -47,8 +102,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/simulator/core/Datagram.py" />
-        <option value="$PROJECT_DIR$/simulator/core/DatagramAttribute.py" />
         <option value="$PROJECT_DIR$/simulator/core/DatagramDeviceData.py" />
         <option value="$PROJECT_DIR$/simulator/uiapplication/ValueTreeViewModel.py" />
         <option value="$PROJECT_DIR$/simulator/uiapplication/DataDictionaryTreeViewModel.py" />
@@ -59,7 +112,6 @@
         <option value="$PROJECT_DIR$/simulator/core/DatagramManager.py" />
         <option value="$PROJECT_DIR$/simulator/uiapplication/DictionaryTreeViewDelegate.py" />
         <option value="$PROJECT_DIR$/simulator/uiapplication/GeneralTreeViewDelegate.py" />
-        <option value="$PROJECT_DIR$/simulator/datadictionarysource/default_data_dictionary.csv" />
         <option value="$PROJECT_DIR$/simulator/uiapplication/GeneralValueEditTreeViewModel.py" />
         <option value="$PROJECT_DIR$/simulator/uiapplication/DictionaryValueEditTreeModel.py" />
         <option value="$PROJECT_DIR$/simulator/uiapplication/StructTreeViewDelegate.py" />
@@ -93,11 +145,14 @@
         <option value="$PROJECT_DIR$/simulator/uiapplication/HistoryDataDisplayTreeViewEnumTypeItem.py" />
         <option value="$PROJECT_DIR$/simulator/uiapplication/ValueEditorTreeViewDelegate.py" />
         <option value="$PROJECT_DIR$/simulator/uiapplication/Version.py" />
-        <option value="$PROJECT_DIR$/simulator/core/DataDictionaryManager.py" />
         <option value="$PROJECT_DIR$/simulator/uiapplication/HistoryDataDisplayTreeViewModel.py" />
         <option value="$PROJECT_DIR$/simulator/uiapplication/ValueEditorTreeViewModel.py" />
         <option value="$PROJECT_DIR$/simulator/core/Repeater.py" />
         <option value="$PROJECT_DIR$/simulator/uiapplication/MainWin.py" />
+        <option value="$PROJECT_DIR$/simulator/core/DataDictionaryFormatInfo.py" />
+        <option value="$PROJECT_DIR$/simulator/core/DataDictionaryInterface.py" />
+        <option value="$PROJECT_DIR$/simulator/datadictionarysource/default_data_dictionary.csv" />
+        <option value="$PROJECT_DIR$/simulator/core/DataDictionaryManager.py" />
       </list>
     </option>
   </component>
@@ -105,7 +160,7 @@
     <option name="x" value="-8" />
     <option name="y" value="-8" />
     <option name="width" value="1936" />
-    <option name="height" value="1066" />
+    <option name="height" value="1056" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -181,6 +236,24 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="datadictionarysource" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="secure_power_agilis_mqtt_simulator" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="secure_power_agilis_mqtt_simulator" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="simulator" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="core" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -232,23 +305,6 @@
       <option name="SHOW_COMMAND_LINE" value="false" />
       <method />
     </configuration>
-    <configuration default="false" name="DatagramPayload" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/simulator/core" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="secure_power_agilis_mqtt_simulator" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/simulator/core/DatagramPayload.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <method />
-    </configuration>
     <configuration default="false" name="ValueEditorTreeViewModel" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -296,6 +352,23 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="secure_power_agilis_mqtt_simulator" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/simulator/uiapplication/MainWin.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <method />
+    </configuration>
+    <configuration default="false" name="DataDictionaryManager" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/simulator/core" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="secure_power_agilis_mqtt_simulator" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/simulator/core/DataDictionaryManager.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <method />
@@ -436,18 +509,18 @@
     </configuration>
     <list size="5">
       <item index="0" class="java.lang.String" itemvalue="Python.main" />
-      <item index="1" class="java.lang.String" itemvalue="Python.DatagramPayload" />
-      <item index="2" class="java.lang.String" itemvalue="Python.ValueEditorTreeViewModel" />
-      <item index="3" class="java.lang.String" itemvalue="Python.HistoryDataDisplayTreeViewModel" />
-      <item index="4" class="java.lang.String" itemvalue="Python.MainWin" />
+      <item index="1" class="java.lang.String" itemvalue="Python.ValueEditorTreeViewModel" />
+      <item index="2" class="java.lang.String" itemvalue="Python.HistoryDataDisplayTreeViewModel" />
+      <item index="3" class="java.lang.String" itemvalue="Python.MainWin" />
+      <item index="4" class="java.lang.String" itemvalue="Python.DataDictionaryManager" />
     </list>
     <recent_temporary>
       <list size="5">
         <item index="0" class="java.lang.String" itemvalue="Python.main" />
-        <item index="1" class="java.lang.String" itemvalue="Python.MainWin" />
-        <item index="2" class="java.lang.String" itemvalue="Python.ValueEditorTreeViewModel" />
-        <item index="3" class="java.lang.String" itemvalue="Python.HistoryDataDisplayTreeViewModel" />
-        <item index="4" class="java.lang.String" itemvalue="Python.DatagramPayload" />
+        <item index="1" class="java.lang.String" itemvalue="Python.DataDictionaryManager" />
+        <item index="2" class="java.lang.String" itemvalue="Python.MainWin" />
+        <item index="3" class="java.lang.String" itemvalue="Python.ValueEditorTreeViewModel" />
+        <item index="4" class="java.lang.String" itemvalue="Python.HistoryDataDisplayTreeViewModel" />
       </list>
     </recent_temporary>
   </component>
@@ -675,7 +748,14 @@
       <option name="project" value="LOCAL" />
       <updated>1482300510518</updated>
     </task>
-    <option name="localTasksCounter" value="31" />
+    <task id="LOCAL-00031" summary="Add repeater&#10;">
+      <created>1483325770492</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1483325770492</updated>
+    </task>
+    <option name="localTasksCounter" value="32" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -705,19 +785,19 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1066" extended-state="6" />
-    <editor active="false" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21338251" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21302083" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32962137" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.22383073" sideWeight="0.50842994" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32850778" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32962137" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26629835" sideWeight="0.4915701" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2660152" sideWeight="0.4915701" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33636364" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24088398" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.23995657" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -781,7 +861,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_COMMIT_MESSAGE_SPELLING" value="false" />
-    <MESSAGE value="Finished the code refactoring," />
     <MESSAGE value="Display hash id as hexadecimal format" />
     <MESSAGE value="Able to import data dictionary in menu" />
     <MESSAGE value="Support new format csv import;&#10;Support string value send and receive;&#10;Support history value display;" />
@@ -806,7 +885,8 @@
     <MESSAGE value="Fix the bug that the simulaort's mqtt thread will exit when received the invalid cbor message payload&#10;" />
     <MESSAGE value="Update version from 0.6.0 rc1 to 0.6.0&#10;Support new version format in data dictionary&#10;" />
     <MESSAGE value="Update version from 0.6.0 to 0.6.1&#10;Support new version format of data dictionary, which adds the root system&#10;" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update version from 0.6.0 to 0.6.1&#10;Support new version format of data dictionary, which adds the root system&#10;" />
+    <MESSAGE value="Add repeater&#10;" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add repeater&#10;" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -817,7 +897,7 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="479" />
+      <option name="time" value="480" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="PythonConfigurationType">
@@ -826,20 +906,6 @@
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/simulator/core/DataDictionaryItem.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-402">
-          <caret line="18" column="21" lean-forward="false" selection-start-line="18" selection-start-column="5" selection-end-line="18" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/simulator/core/DatagramAccessClient.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1751">
-          <caret line="32" column="0" lean-forward="true" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/simulator/core/DatagramPayload.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1485">
@@ -944,13 +1010,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="114">
           <caret line="6" column="0" lean-forward="true" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/simulator/datadictionarysource/default_data_dictionary.csv">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="456">
-          <caret line="24" column="40" lean-forward="true" selection-start-line="24" selection-start-column="40" selection-end-line="24" selection-end-column="40" />
         </state>
       </provider>
     </entry>
@@ -1101,13 +1160,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/simulator/core/DatagramManager.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="416">
-          <caret line="49" column="58" lean-forward="false" selection-start-line="49" selection-start-column="46" selection-end-line="49" selection-end-column="58" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/simulator/uiapplication/Version.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="19">
@@ -1119,13 +1171,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="475">
           <caret line="25" column="4" lean-forward="false" selection-start-line="25" selection-start-column="4" selection-end-line="25" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/simulator/core/DataDictionaryManager.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="646">
-          <caret line="37" column="0" lean-forward="false" selection-start-line="37" selection-start-column="0" selection-end-line="37" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -1155,7 +1200,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="14231">
           <caret line="755" column="55" lean-forward="false" selection-start-line="755" selection-start-column="55" selection-end-line="755" selection-end-column="55" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1163,7 +1207,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="126">
           <caret line="25" column="0" lean-forward="false" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1171,8 +1214,49 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1319">
           <caret line="828" column="4" lean-forward="false" selection-start-line="828" selection-start-column="4" selection-end-line="828" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/simulator/core/DatagramManager.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-3475">
+          <caret line="49" column="58" lean-forward="false" selection-start-line="49" selection-start-column="46" selection-end-line="49" selection-end-column="58" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/simulator/core/DataDictionaryInterface.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="496">
+          <caret line="511" column="0" lean-forward="true" selection-start-line="511" selection-start-column="0" selection-end-line="511" selection-end-column="0" />
           <folding>
-            <element signature="e#0#15#0" expanded="true" />
+            <element signature="e#0#11#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/simulator/core/DataDictionaryFormatInfo.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="496">
+          <caret line="48" column="4" lean-forward="false" selection-start-line="48" selection-start-column="4" selection-end-line="48" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/simulator/datadictionarysource/default_data_dictionary.csv">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="29" lean-forward="false" selection-start-line="0" selection-start-column="29" selection-end-line="0" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/simulator/core/DataDictionaryManager.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-815">
+          <caret line="193" column="0" lean-forward="true" selection-start-line="193" selection-start-column="0" selection-end-line="193" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#35#0" expanded="true" />
           </folding>
         </state>
       </provider>
