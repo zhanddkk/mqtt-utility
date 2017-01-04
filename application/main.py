@@ -4,10 +4,8 @@
 import sys
 import os as _os
 _path = _os.path.dirname(__file__)
-_path_root = _os.path.join(_path, '../../')
-_path_application = _os.path.join(_path, '../')
+_path_root = _os.path.join(_path, '../')
 sys.path.append(_path_root)
-sys.path.append(_path_application)
 ########################################################################################################################
 except_hook = sys.excepthook
 

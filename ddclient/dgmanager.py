@@ -1,14 +1,24 @@
 import csv
 import cbor
 import ctypes
-from .NamedList import named_list
-from .DataDictionaryManager import DataDictionaryManager
-from .DatagramAttribute import DatagramAttribute
-from .Datagram import Datagram
-from .DatagramPayload import DatagramPayload
-from .DatagramPayload import E_DATAGRAM_ACTION_PUBLISH as _E_DATAGRAM_ACTION_PUBLISH
-from .DatagramAccessClient import DatagramAccessClient
-from .BitMapParser import bit_map_parser, cmd_bit_format
+from namedlist import namedlist as named_list
+try:
+    from .ddmanager import DataDictionaryManager
+    from .dgattribute import DatagramAttribute
+    from .dg import Datagram
+    from .dgpayload import DatagramPayload
+    from .dgpayload import E_DATAGRAM_ACTION_PUBLISH as _E_DATAGRAM_ACTION_PUBLISH
+    from .dgaccessclient import DatagramAccessClient
+    from .bitmapparser import bit_map_parser, cmd_bit_format
+except SystemError:
+    from ddmanager import DataDictionaryManager
+    from dgattribute import DatagramAttribute
+    from dg import Datagram
+    from dgpayload import DatagramPayload
+    from dgpayload import E_DATAGRAM_ACTION_PUBLISH as _E_DATAGRAM_ACTION_PUBLISH
+    from dgaccessclient import DatagramAccessClient
+    from bitmapparser import bit_map_parser, cmd_bit_format
+
 message_format_class = named_list('MessageFormat', 'topic, qos, retain, is_valid, payload')
 
 
@@ -227,16 +237,16 @@ class DatagramManager:
 
 def demo_code():
     dgm = DatagramManager()
-    if dgm.import_data_dictionary('../datadictionarysource/default_data_dictionary.CSV') is False:
+    if dgm.import_data_dictionary('default_data_dictionary.csv') is False:
         return False
     print('Import data dictionary OK')
-    dgm.init_datagram_access_client('demo_code', '192.168.2.99')
+    dgm.init_datagram_access_client('demo_code')
     dgm.datagram_access_client.start()
     while dgm.datagram_access_client.is_running is False:
         pass
     print('Server is running')
 
-    from Repeater import repeater_parameter, Repeater, default_user_input_str
+    from repeater import repeater_parameter, Repeater, default_user_input_str
     rpt = Repeater(dgm)
     resource = repeater_parameter(tagger_count=10,
                                   repeat_times_count=10,

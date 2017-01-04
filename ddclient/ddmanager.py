@@ -1,7 +1,14 @@
 from collections import OrderedDict
-from .NamedList import named_list
-from .DataDictionaryFormatInfo import data_dictionary_format_info
-from .DataDictionaryInterface import data_dictionary_interface
+
+from namedlist import namedlist as named_list
+
+try:
+    from ddformatinfo import data_dictionary_format_info
+    from .ddinterface import data_dictionary_interface
+except SystemError:
+    from ddformatinfo import data_dictionary_format_info
+    from ddinterface import data_dictionary_interface
+
 __data_dictionary_version_map = (
     ('0.11', (0, 0)),
 )
@@ -27,7 +34,7 @@ def set_sub_attr_value(obj, _range, row, item):
             except AttributeError:
                 print('ERROR:', item, 'is not the right attribute name of', obj)
                 return
-            fields = tmp_obj.fields
+            fields = getattr(tmp_obj, '_fields')
             pass
         except AttributeError:
             print('ERROR:', 'Predefine attribute',
@@ -47,7 +54,7 @@ def set_sub_attr_value(obj, _range, row, item):
 
 
 def set_attr_value(obj, _range, row):
-    for obj_attr in obj.fields:
+    for obj_attr in getattr(obj, '_fields'):
         if obj_attr in _range:
             tmp_range = _range[obj_attr]
             set_sub_attr_value(obj, tmp_range, row, item=obj_attr)
@@ -94,7 +101,7 @@ class DataDictionaryManager:
     def __product_info_str(_self):
         product_info_str = ''.join('{name:<30}: {value!s}\n'.format(name=fields_name,
                                                                     value=getattr(_self, fields_name))
-                                   for fields_name in _self.fields)
+                                   for fields_name in getattr(_self, '_fields'))
         return product_info_str
 
     @property
@@ -235,10 +242,10 @@ class DataDictionaryManager:
 
 def demo_code():
     import csv
-    from DataDictionaryItem import data_dictionary_item_text_format
+    from dditem import data_dictionary_item_text_format
     data_dictionary_manager = DataDictionaryManager()
     try:
-        with open('Full_Interface.CSV', newline='') as csv_file:
+        with open('default_data_dictionary.csv', newline='') as csv_file:
             reader = csv.reader(csv_file, dialect='excel')
             try:
                 if data_dictionary_manager.get_version_info(reader):

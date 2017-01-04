@@ -1,5 +1,5 @@
 import datetime
-from .NamedList import named_list
+from namedlist import namedlist as named_list
 history_data_item_type = named_list('HistoryDataType', 'operation, data_time, value, additional_data')
 
 

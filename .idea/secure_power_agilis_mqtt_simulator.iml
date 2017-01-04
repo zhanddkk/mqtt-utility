@@ -5,6 +5,8 @@
       <sourceFolder url="file://$MODULE_DIR$/simulator" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/simulator/uiapplication" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/simulator/core" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/ddclient" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/application" isTestSource="false" />
     </content>
     <orderEntry type="jdk" jdkName="Python 3.5.2 (C:\Program Files\Python35\python.exe)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />

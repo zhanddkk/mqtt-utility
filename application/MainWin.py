@@ -15,15 +15,15 @@ from ValueAttributeType import standard_value_attribute_dictionary, value_attrib
 from ValueEditorTreeViewModel import ValueEditorTreeViewModel
 from ValueEditorTreeViewDelegate import ValueEditorTreeViewDelegate
 from HistoryDataDisplayTreeViewModel import HistoryDataDisplayTreeViewModel
-from core.DatagramManager import DatagramManager, message_format_class
-from core.DatagramPayload import (E_DATAGRAM_ACTION_PUBLISH, E_DATAGRAM_ACTION_RESPONSE, E_DATAGRAM_ACTION_REQUEST,
-                                  E_DATAGRAM_ACTION_ALLOW)
-from core.DatagramPayload import E_PAYLOAD_TYPE, E_PRODUCER_MASK, E_ACTION, payload_package_info, DatagramPayload
-from core.Repeater import (Repeater,
-                           user_function_header_str,
-                           default_user_input_str,
-                           user_function_end_str,
-                           get_user_function_source_code)
+from ddclient.dgmanager import DatagramManager, message_format_class
+from ddclient.dgpayload import (E_DATAGRAM_ACTION_PUBLISH, E_DATAGRAM_ACTION_RESPONSE, E_DATAGRAM_ACTION_REQUEST,
+                                E_DATAGRAM_ACTION_ALLOW)
+from ddclient.dgpayload import E_PAYLOAD_TYPE, E_PRODUCER_MASK, E_ACTION, payload_package_info, DatagramPayload
+from ddclient.repeater import (Repeater,
+                               user_function_header_str,
+                               default_user_input_str,
+                               user_function_end_str,
+                               get_user_function_source_code)
 _about_application_message_format = """\
 <p>----------Application Info----------</p>
 <p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;-qt-block-indent:0; text-indent:0px;">
@@ -210,7 +210,7 @@ class MainWin(QMainWindow):
         self.ui.menuView.addAction(self.ui.log_dock_widget.toggleViewAction())
 
     def __init_data_attribute_tree_widget(self):
-        from core.DataDictionaryItem import data_dictionary_item_type
+        from ddclient.dditem import data_dictionary_item_type
         import string
         widget = self.ui.data_attribute_tree_widget
         for field_name in getattr(data_dictionary_item_type, '_fields'):
@@ -248,7 +248,7 @@ class MainWin(QMainWindow):
 
     def __update_data_attribute_tree_widget(self, datagram_attribute):
         widget = self.ui.data_attribute_tree_widget
-        for (index, field_name) in enumerate(getattr(datagram_attribute, '_source').fields):
+        for (index, field_name) in enumerate(getattr(getattr(datagram_attribute, '_source'), '_fields')):
             top_item = self.ui.data_attribute_tree_widget.topLevelItem(index)
             value = getattr(datagram_attribute, field_name)
             if field_name == 'choice_list':
@@ -794,7 +794,7 @@ class MainWin(QMainWindow):
                     self.ui.publish_push_button.setEnabled(True)
                 pass
             else:
-                from core.Repeater import repeater_parameter
+                from ddclient.repeater import repeater_parameter
                 _input_text = str(self.ui.user_function_plain_text_edit.toPlainText())
                 _input_text = _input_text.lstrip(user_function_header_str.rstrip('\n'))
                 _input_text = _input_text.rstrip(user_function_end_str).strip('\n')

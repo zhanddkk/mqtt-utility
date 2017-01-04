@@ -1,4 +1,4 @@
-from .NamedList import named_list
+from namedlist import namedlist as named_list
 
 data_dictionary_item_attribute_names = (
     'root_system',

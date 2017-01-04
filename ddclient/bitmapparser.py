@@ -1,4 +1,4 @@
-from .NamedList import named_list
+from namedlist import namedlist as named_list
 bit_map_item_type = named_list('BitMapItem', 'bit_wide, value_dict')
 bit_map_item_Data_type = named_list('BitMapItemData', 'key, value')
 command_bit_map_format_type = named_list('CommandBitMapFormat', 'ack_cmd_code, sequence, producer')
@@ -28,7 +28,7 @@ setting_response_bit_map_format = setting_response_bit_map_format_type(error_cod
 
 def bit_map_parser(value, bit_map_format):
     val_tmp = []
-    for bit_field in bit_map_format.fields:
+    for bit_field in getattr(bit_map_format, '_fields'):
         bit_wide = getattr(bit_map_format, bit_field).bit_wide
         value_dict = getattr(bit_map_format, bit_field).value_dict
         _key = value & ((1 << bit_wide) - 1)

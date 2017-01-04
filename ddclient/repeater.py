@@ -1,8 +1,10 @@
 import threading
 import ast as _ast
-from .NamedList import named_list
-from .DatagramPayload import DatagramPayload
-
+from namedlist import namedlist as named_list
+try:
+    from .dgpayload import DatagramPayload
+except SystemError:
+    from dgpayload import DatagramPayload
 repeater_parameter_type = named_list('RepeaterParameter', 'counter,'
                                                           'tagger_count,'
                                                           'repeat_times_counter,'

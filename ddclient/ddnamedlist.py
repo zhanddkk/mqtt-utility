@@ -18,7 +18,8 @@ def get_ordered_dict(self):
 def named_list(typename, field_names, default=NO_DEFAULT, rename=False, use_slots=True):
     named_class = __named_list('_' + typename, field_names, default, rename, use_slots)
     type_dict = {
-        'fields': property(fget=get_fields, doc='Get all attributes\'s name as a tuple'),
+        # 'fields': property(fget=get_fields, doc='Get all attributes\'s name as a tuple'),
+        'fields': getattr(named_class, '_fields'),
         '__dict__': property(fget=get_dict, doc='Convert named list to dict'),
         'ordered_dict': property(fget=get_ordered_dict, doc='Convert named list to ordered dict')
     }
@@ -29,7 +30,6 @@ def named_list(typename, field_names, default=NO_DEFAULT, rename=False, use_slot
     named_class = type(typename, (named_class, ), type_dict)
     return named_class
     pass
-
 
 if __name__ == '__main__':
     test_class = named_list('TestClass', 'a, b, z, y, h, k')

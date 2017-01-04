@@ -1,6 +1,11 @@
-from .DatagramDeviceData import DatagramDeviceData
-from .DatagramPayload import (E_DATAGRAM_ACTION_PUBLISH, E_DATAGRAM_ACTION_RESPONSE, E_DATAGRAM_ACTION_REQUEST,
-                              E_DATAGRAM_ACTION_ALLOW)
+try:
+    from .dgdevdata import DatagramDeviceData
+    from .dgpayload import (E_DATAGRAM_ACTION_PUBLISH, E_DATAGRAM_ACTION_RESPONSE, E_DATAGRAM_ACTION_REQUEST,
+                            E_DATAGRAM_ACTION_ALLOW)
+except SystemError:
+    from dgdevdata import DatagramDeviceData
+    from dgpayload import (E_DATAGRAM_ACTION_PUBLISH, E_DATAGRAM_ACTION_RESPONSE, E_DATAGRAM_ACTION_REQUEST,
+                           E_DATAGRAM_ACTION_ALLOW)
 
 
 class Datagram:

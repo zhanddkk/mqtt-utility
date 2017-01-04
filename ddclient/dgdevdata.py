@@ -1,5 +1,8 @@
-from .NamedList import named_list
-from .DatagramDeviceDataHistory import DatagramDeviceDataHistory
+from namedlist import namedlist as named_list
+try:
+    from .dgdevdatahistory import DatagramDeviceDataHistory
+except SystemError:
+    from dgdevdatahistory import DatagramDeviceDataHistory
 datagram_device_data_action_class = named_list('DatagramDeviceDataAction', 'publish, response, request, allow')
 action_item_class = named_list('ActionItem', 'topic, value, history')
 

@@ -1,4 +1,4 @@
-from .NamedList import named_list
+from namedlist import namedlist as named_list
 # ----Payload Type----
 # 0: Datagram dynamic value(default)
 # 1: Datagram property value

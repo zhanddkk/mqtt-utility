@@ -1,8 +1,11 @@
 import json
 from ctypes import *
 from collections import OrderedDict
-from .NamedList import named_list
-from .DataDictionaryItem import data_dictionary_item_type
+from namedlist import namedlist as named_list
+try:
+    from .dditem import data_dictionary_item_type
+except SystemError:
+    from dditem import data_dictionary_item_type
 
 basic_type_attribute_class = named_list('BasicTypeAttribute', 'range, size, type')
 udt_type_attribute_class = named_list('UserDefineType', 'name, size, type, content, comment')
@@ -456,7 +459,7 @@ class DataDictionaryInterfaceV0:
     @staticmethod
     def parse_producer(data_dictionary_item, data_dictionary_item_source):
         data_dictionary_item.producer = []
-        for item in data_dictionary_item_source.Producer.fields:
+        for item in getattr(data_dictionary_item_source.Producer, '_fields'):
             val = getattr(data_dictionary_item_source.Producer, item)[0].upper()
             if val == 'YES':
                 data_dictionary_item.producer.append(item)
@@ -469,7 +472,7 @@ class DataDictionaryInterfaceV0:
     def parse_consumer(data_dictionary_item, data_dictionary_item_source):
         data_dictionary_item.consumer = []
         data_dictionary_item.no_setting_req_consumer = []
-        for item in data_dictionary_item_source.Consumer.fields:
+        for item in getattr(data_dictionary_item_source.Consumer, '_fields'):
             val = getattr(data_dictionary_item_source.Consumer, item)[0].upper()
             if val == 'YES':
                 data_dictionary_item.consumer.append(item)
