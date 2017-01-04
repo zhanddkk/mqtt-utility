@@ -3,7 +3,7 @@ from .NamedList import named_list
 from .DataDictionaryFormatInfo import data_dictionary_format_info
 from .DataDictionaryInterface import data_dictionary_interface
 __data_dictionary_version_map = (
-    ('0.10', (0, 0)),
+    ('0.11', (0, 0)),
 )
 data_dictionary_version_map = OrderedDict(__data_dictionary_version_map)
 latest_data_dictionary_version = __data_dictionary_version_map[-1][0]

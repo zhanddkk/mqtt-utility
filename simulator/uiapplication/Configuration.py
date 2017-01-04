@@ -1,4 +1,5 @@
 import configparser
+import os as _os
 
 
 class Configuration:
@@ -9,7 +10,7 @@ class Configuration:
 
     def create_config(self):
         self.__config_ini['IMPORT'] = {
-            'data_dictionary_path': '../datadictionarysource/'
+            'data_dictionary_path': _os.path.join(_os.path.dirname(__file__), '../datadictionarysource/')
         }
         self.__config_ini['CONNECT_TO_BROKER'] = {
             'broker_address': 'localhost',

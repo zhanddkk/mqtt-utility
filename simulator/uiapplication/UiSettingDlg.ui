@@ -25,19 +25,6 @@
      </property>
     </widget>
    </item>
-   <item row="1" column="2">
-    <widget class="QPushButton" name="close_push_button">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="text">
-      <string>Close</string>
-     </property>
-    </widget>
-   </item>
    <item row="1" column="4">
     <widget class="QPushButton" name="apply_push_button">
      <property name="enabled">
@@ -195,7 +182,7 @@
      <widget class="QWidget" name="page_2"/>
     </widget>
    </item>
-   <item row="1" column="3">
+   <item row="1" column="2">
     <widget class="QPushButton" name="ok_push_button">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
@@ -208,8 +195,29 @@
      </property>
     </widget>
    </item>
+   <item row="1" column="3">
+    <widget class="QPushButton" name="close_push_button">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="text">
+      <string>Close</string>
+     </property>
+    </widget>
+   </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>broker_address_line_edit</tabstop>
+  <tabstop>broker_port_spin_box</tabstop>
+  <tabstop>apply_push_button</tabstop>
+  <tabstop>ok_push_button</tabstop>
+  <tabstop>close_push_button</tabstop>
+  <tabstop>contents_list_widget</tabstop>
+ </tabstops>
  <resources>
   <include location="UiResource.qrc"/>
  </resources>
