@@ -3,7 +3,7 @@ from collections import OrderedDict
 from namedlist import namedlist as named_list
 
 try:
-    from ddformatinfo import data_dictionary_format_info
+    from .ddformatinfo import data_dictionary_format_info
     from .ddinterface import data_dictionary_interface
 except SystemError:
     from ddformatinfo import data_dictionary_format_info
