@@ -2,10 +2,10 @@
 # Simulation main application
 ########################################################################################################################
 import sys
-import os as _os
-_path = _os.path.dirname(__file__)
-_path_root = _os.path.join(_path, '../')
-sys.path.append(_path_root)
+# import os as _os
+# _path = _os.path.dirname(__file__)
+# _path_root = _os.path.join(_path, '../')
+# sys.path.append(_path_root)
 ########################################################################################################################
 except_hook = sys.excepthook
 
