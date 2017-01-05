@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d639cb57-f970-46ec-8a89-2f9997dd3944" name="Default" comment="Make ddclient to be a package format">
+    <list default="true" id="d639cb57-f970-46ec-8a89-2f9997dd3944" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package-ddclient/setup.py" afterPath="$PROJECT_DIR$/package-ddclient/setup.py" />
     </list>
     <ignored path="secure_power_agilis_mqtt_simulator.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -21,7 +22,20 @@
     <favorites_list name="secure_power_agilis_mqtt_simulator" />
   </component>
   <component name="FileEditorManager">
-    <leaf />
+    <leaf>
+      <file leaf-file-name="setup.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/package-ddclient/setup.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="342">
+              <caret line="18" column="0" lean-forward="false" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
+              <folding>
+                <element signature="e#0#43#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -97,14 +111,14 @@
         <option value="$PROJECT_DIR$/package-ddclient/Test.py" />
         <option value="$PROJECT_DIR$/package-ddclient/src/ddclient/version.py" />
         <option value="$PROJECT_DIR$/package-ddclient/src/ddclient/__init__.py" />
-        <option value="$PROJECT_DIR$/package-ddclient/setup.py" />
         <option value="$PROJECT_DIR$/package-ddclient/README.rst" />
+        <option value="$PROJECT_DIR$/package-ddclient/setup.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="270" />
-    <option name="y" value="87" />
+    <option name="x" value="301" />
+    <option name="y" value="106" />
     <option name="width" value="1503" />
     <option name="height" value="827" />
   </component>
@@ -156,46 +170,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="package-ddclient" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="secure_power_agilis_mqtt_simulator" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="secure_power_agilis_mqtt_simulator" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="package-ddclient" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="secure_power_agilis_mqtt_simulator" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="secure_power_agilis_mqtt_simulator" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="package-ddclient" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ddclient" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -681,7 +655,14 @@
       <option name="project" value="LOCAL" />
       <updated>1483605330754</updated>
     </task>
-    <option name="localTasksCounter" value="37" />
+    <task id="LOCAL-00037" summary="Add default data dictionary file in  doc folder">
+      <created>1483605759225</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1483605759226</updated>
+    </task>
+    <option name="localTasksCounter" value="38" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -711,8 +692,8 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="270" y="87" width="1503" height="827" extended-state="1" />
-    <editor active="false" />
+    <frame x="301" y="106" width="1503" height="827" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26227304" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32962137" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -787,7 +768,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_COMMIT_MESSAGE_SPELLING" value="false" />
-    <MESSAGE value="Add Install Guide to doc folder" />
     <MESSAGE value="Support  the general vaule which is a structure to be sent by UI" />
     <MESSAGE value="1. Add id to DatagramManager class to make the application can be runed in different threads&#10;2. Change the char '\' to '/' in the topic" />
     <MESSAGE value="Add log display" />
@@ -812,7 +792,8 @@
     <MESSAGE value="Rebuild the project structure to make the core of the simulator to be a separate package" />
     <MESSAGE value="Fix the import bug of the ddmanager" />
     <MESSAGE value="Make ddclient to be a package format" />
-    <option name="LAST_COMMIT_MESSAGE" value="Make ddclient to be a package format" />
+    <MESSAGE value="Add default data dictionary file in  doc folder" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add default data dictionary file in  doc folder" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -853,6 +834,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="278">
           <caret line="2545" column="8" lean-forward="false" selection-start-line="2545" selection-start-column="8" selection-end-line="2545" selection-end-column="8" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -934,6 +916,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1879">
           <caret line="216" column="40" lean-forward="false" selection-start-line="216" selection-start-column="40" selection-end-line="216" selection-end-column="40" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1010,8 +993,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/package-ddclient/setup.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="361">
-          <caret line="19" column="0" lean-forward="true" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+        <state relative-caret-position="342">
+          <caret line="18" column="0" lean-forward="false" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#43#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
