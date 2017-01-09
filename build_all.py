@@ -40,7 +40,7 @@ def build_package():
     from subprocess import call
     import sys
     try:
-        ret_code = call(_build_package_args, shell=True)
+        ret_code = call(_build_package_args)
         if ret_code < 0:
             print("Build package was terminated by signal", -ret_code, file=sys.stderr)
         else:
