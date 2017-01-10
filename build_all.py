@@ -22,6 +22,7 @@ else:
         '--clean',
         '--i', "application/ico/MainWindowIcon.ico",
         '--paths', "package-ddclient/src",
+        '-n', 'application',
         '-y',
         "application/main.py"
     )
