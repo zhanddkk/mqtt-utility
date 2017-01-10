@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d639cb57-f970-46ec-8a89-2f9997dd3944" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/clean_all.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build_all.py" afterPath="$PROJECT_DIR$/build_all.py" />
     </list>
@@ -23,13 +24,25 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="build_all.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="build_all.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/build_all.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="452">
-              <caret line="42" column="44" lean-forward="true" selection-start-line="42" selection-start-column="44" selection-end-line="42" selection-end-column="44" />
+            <state relative-caret-position="1197">
+              <caret line="63" column="25" lean-forward="true" selection-start-line="63" selection-start-column="25" selection-end-line="63" selection-end-column="25" />
               <folding>
                 <element signature="e#0#43#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="clean_all.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/clean_all.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="475">
+              <caret line="25" column="0" lean-forward="true" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
+              <folding>
+                <element signature="e#0#16#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -65,7 +78,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/simulator/uiapplication/__AppVersion__.py" />
         <option value="$PROJECT_DIR$/simulator/uiapplication/AppVersion.py" />
         <option value="$PROJECT_DIR$/simulator/core/__init__.py" />
         <option value="$PROJECT_DIR$/simulator/core/BitMapParser.py" />
@@ -116,6 +128,7 @@
         <option value="$PROJECT_DIR$/package-ddclient/src/ddclient/__init__.py" />
         <option value="$PROJECT_DIR$/test/versioninfo.py" />
         <option value="$PROJECT_DIR$/build_all.py" />
+        <option value="$PROJECT_DIR$/clean_all.py" />
       </list>
     </option>
   </component>
@@ -169,7 +182,7 @@
       <recent name="C:\Users\sesa432851\Documents\Work\Git\Simulator\secure_power_agilis_mqtt_simulator\simulator" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.build_all">
+  <component name="RunManager" selected="Python.clean_all">
     <configuration default="false" name="main" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -234,6 +247,23 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="secure_power_agilis_mqtt_simulator" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test/versioninfo.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <method />
+    </configuration>
+    <configuration default="false" name="clean_all" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="secure_power_agilis_mqtt_simulator" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/clean_all.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <method />
@@ -372,18 +402,20 @@
       <option name="USE_KEYWORD" value="false" />
       <method />
     </configuration>
-    <list size="4">
+    <list size="5">
       <item index="0" class="java.lang.String" itemvalue="Python.main" />
       <item index="1" class="java.lang.String" itemvalue="Python.build_all" />
       <item index="2" class="java.lang.String" itemvalue="Python.setup" />
       <item index="3" class="java.lang.String" itemvalue="Python.versioninfo" />
+      <item index="4" class="java.lang.String" itemvalue="Python.clean_all" />
     </list>
     <recent_temporary>
-      <list size="4">
-        <item index="0" class="java.lang.String" itemvalue="Python.build_all" />
-        <item index="1" class="java.lang.String" itemvalue="Python.versioninfo" />
-        <item index="2" class="java.lang.String" itemvalue="Python.setup" />
-        <item index="3" class="java.lang.String" itemvalue="Python.main" />
+      <list size="5">
+        <item index="0" class="java.lang.String" itemvalue="Python.clean_all" />
+        <item index="1" class="java.lang.String" itemvalue="Python.build_all" />
+        <item index="2" class="java.lang.String" itemvalue="Python.versioninfo" />
+        <item index="3" class="java.lang.String" itemvalue="Python.setup" />
+        <item index="4" class="java.lang.String" itemvalue="Python.main" />
       </list>
     </recent_temporary>
   </component>
@@ -688,7 +720,14 @@
       <option name="project" value="LOCAL" />
       <updated>1483945092233</updated>
     </task>
-    <option name="localTasksCounter" value="42" />
+    <task id="LOCAL-00042" summary="Fix the bug that the process can deadlock when run build_all.py in ubuntu of python3.4&#10;">
+      <created>1483953330262</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1483953330262</updated>
+    </task>
+    <option name="localTasksCounter" value="43" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -730,7 +769,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.22383073" sideWeight="0.50842994" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.52890176" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32962137" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.26837417" sideWeight="0.4915701" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26837417" sideWeight="0.4915701" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3363029" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -797,7 +836,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_COMMIT_MESSAGE_SPELLING" value="false" />
-    <MESSAGE value="Add the feature that is to configure the mqtt connection address and port&#10;Change the word 'UPS_System' to 'UPSSystem' in the topic of datagram&#10;Add configuration file to save the application configuration data" />
     <MESSAGE value="change the import path" />
     <MESSAGE value="Subscrib all topics" />
     <MESSAGE value="Init the config file" />
@@ -822,7 +860,8 @@
     <MESSAGE value="Update version format" />
     <MESSAGE value="Add build script&#10;Update application version from 0.7.0rc1 to 0.7.0&#10;" />
     <MESSAGE value="Add packing application function in the build all script&#10;" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add packing application function in the build all script&#10;" />
+    <MESSAGE value="Fix the bug that the process can deadlock when run build_all.py in ubuntu of python3.4&#10;" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix the bug that the process can deadlock when run build_all.py in ubuntu of python3.4&#10;" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -836,7 +875,7 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="520" />
+      <option name="time" value="521" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="PythonConfigurationType">
@@ -845,7 +884,6 @@
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/package-ddclient/Test.py" />
     <entry file="file://C:/Program Files/Python35/Lib/site-packages/setuptools/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="145">
@@ -1191,10 +1229,20 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/build_all.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="452">
-          <caret line="42" column="44" lean-forward="true" selection-start-line="42" selection-start-column="44" selection-end-line="42" selection-end-column="44" />
+        <state relative-caret-position="1197">
+          <caret line="63" column="25" lean-forward="true" selection-start-line="63" selection-start-column="25" selection-end-line="63" selection-end-column="25" />
           <folding>
             <element signature="e#0#43#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/clean_all.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="475">
+          <caret line="25" column="0" lean-forward="true" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#16#0" expanded="true" />
           </folding>
         </state>
       </provider>

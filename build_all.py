@@ -13,6 +13,7 @@ if platform.system() == 'Windows':
         '--i', "application/ico/MainWindowIcon.ico",
         '--paths', "{}/Lib/site-packages/PyQt5/Qt/bin".format(_py_executable_path),
         '--paths', "package-ddclient/src",
+        '-n', 'application',
         '-y',
         "application/main.py"
     )
@@ -90,7 +91,7 @@ def packing_app(app_pkg_name):
     from zipfile import ZipFile
     with ZipFile(app_pkg_name, 'w') as zip_f:
         __add_dir_in_zip(zip_f, 'dist/dd_source', 'dd_source')
-        __add_dir_in_zip(zip_f, 'dist/main', 'application')
+        __add_dir_in_zip(zip_f, 'dist/application', 'application')
     pass
 
 
