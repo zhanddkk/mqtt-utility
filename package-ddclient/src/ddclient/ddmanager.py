@@ -22,7 +22,11 @@ def set_sub_attr_value(obj, _range, row, item):
         return
     if type(_range) is list:
         try:
-            setattr(obj, item, row[_range[0]:_range[1]])
+            _item_value = row[_range[0]:_range[1]]
+            if not _item_value:
+                print('WARNING:', item, 'value is empty, so set it as [\'\'] automatically')
+                _item_value = ['']
+            setattr(obj, item, _item_value)
         except AttributeError:
             print('ERROR:', item, 'is not the right attribute name of', obj)
             return

@@ -1,3 +1,4 @@
+from PyQt5.QtGui import QFontMetrics
 from PyQt5.QtWidgets import QComboBox, QLineEdit, QStyledItemDelegate
 from PyQt5.Qt import Qt
 
@@ -52,3 +53,26 @@ class ValueEditorTreeViewDelegate(QStyledItemDelegate):
         except AttributeError:
             pass
         return _editor
+
+    def sizeHint(self, option, model):
+        size = super(ValueEditorTreeViewDelegate, self).sizeHint(option, model)
+        font = option.widget.font()
+        font_metrics = QFontMetrics(font)
+        font_height = font_metrics.height() + 4
+        size.setHeight(font_height)
+        return size
+
+    def paint(self, painter, option, index):
+        from PyQt5.QtGui import QColor
+        x1, y1, x2, y2 = option.rect.getCoords()
+        painter.save()
+        painter.setPen(QColor(Qt.gray))
+        if index.column() > 0:
+            _x1 = x1 - 1 if x1 > 1 else x1
+            painter.drawLine(_x1, y1, _x1, y2)
+            painter.drawLine(x1, y2, x2, y2)
+        else:
+            painter.drawLine(0, y2, x2, y2)
+        painter.restore()
+
+        super(ValueEditorTreeViewDelegate, self).paint(painter, option, index)

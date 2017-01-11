@@ -138,9 +138,6 @@ class MainWin(QMainWindow):
         self.__value_editor_tree_view_model = ValueEditorTreeViewModel()
         self.__history_data_display_tree_view_model = HistoryDataDisplayTreeViewModel()
 
-        # Define delegate
-        self.__value_editor_tree_view_delegate = ValueEditorTreeViewDelegate()
-
         # Set model
         self.ui.data_dictionary_tree_view.setModel(self.__data_dictionary_tree_view_module)
         self.ui.data_monitor_table_view.setModel(self.__data_monitor_table_view_model)
@@ -148,7 +145,14 @@ class MainWin(QMainWindow):
         self.ui.history_data_display_tree_view.setModel(self.__history_data_display_tree_view_model)
 
         # Set delegate
-        self.ui.value_editor_tree_view.setItemDelegateForColumn(2, self.__value_editor_tree_view_delegate)
+        self.ui.value_editor_tree_view.setItemDelegate(ValueEditorTreeViewDelegate())
+
+        # Set data monitor table view all cells' height
+        font = self.ui.data_monitor_table_view.font()
+        font_metrics = QFontMetrics(font)
+        font_height = font_metrics.height() + 4
+        vertical_header = self.ui.data_monitor_table_view.verticalHeader()
+        vertical_header.setDefaultSectionSize(font_height)
 
         # Menu action
         self.ui.actionExit.triggered.connect(getattr(QApplication, 'instance')().quit)
@@ -539,12 +543,6 @@ class MainWin(QMainWindow):
                 self.__data_monitor_table_view_model.update(self.__datagram_topic_index)
                 self.ui.data_monitor_table_view.resizeColumnToContents(0)
                 self.ui.data_monitor_table_view.resizeColumnToContents(1)
-
-                font = self.ui.data_monitor_table_view.font()
-                font_metrics = QFontMetrics(font)
-                font_height = font_metrics.height() + 4
-                for i in range(self.__data_monitor_table_view_model.rowCount()):
-                    self.ui.data_monitor_table_view.setRowHeight(i, font_height)
 
                 self.statusBar().showMessage(file_name)
             else:
