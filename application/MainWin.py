@@ -215,7 +215,9 @@ class MainWin(QMainWindow):
 
     def __init_data_attribute_tree_widget(self):
         from ddclient.dditem import data_dictionary_item_type
+        from DataAttributeTreeWidgetDelegate import DataAttributeTreeWidgetDelegate
         import string
+        self.ui.data_attribute_tree_widget.setItemDelegate(DataAttributeTreeWidgetDelegate())
         widget = self.ui.data_attribute_tree_widget
         for field_name in getattr(data_dictionary_item_type, '_fields'):
             name = field_name.replace('_', ' ')

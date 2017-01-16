@@ -1,6 +1,7 @@
 import csv
 import cbor
 import ctypes
+import threading
 from namedlist import namedlist as named_list
 try:
     from .ddmanager import DataDictionaryManager
@@ -26,10 +27,12 @@ class DatagramManager:
     def __init__(self, user_data=None):
         self.__datagram_dict = {}
         self.__datagram_indexes = []
-        self.__datagram_access_client = None   # DatagramServer(self)
+        self.__datagram_access_client = None
         self.__data_dictionary_manager = DataDictionaryManager()
         self.__seq_num = 0
         self.__user_data = user_data
+        self.__msg_observers = dict()
+        self.__msg_observers_lock = threading.Lock()
         pass
 
     @property
@@ -137,6 +140,22 @@ class DatagramManager:
     def get_client(self):
         return self.__datagram_access_client
 
+    def register_msg_observer(self, observer):
+        self.__msg_observers_lock.acquire()
+        self.__msg_observers[observer.identification] = observer
+        self.__msg_observers_lock.release()
+        pass
+
+    def un_register_msg_observer(self, identification):
+        self.__msg_observers_lock.acquire()
+        try:
+            self.__msg_observers.pop(identification)
+        except KeyError:
+            print('ERROR:', identification, 'is invalid identification')
+            pass
+        self.__msg_observers_lock.release()
+        pass
+
     def record_message(self, msg):
         is_valid = False
         try:
@@ -155,16 +174,22 @@ class DatagramManager:
                 payload = package
         else:
             payload = package
+        message = message_format_class(topic=msg.topic,
+                                       qos=msg.qos,
+                                       retain=msg.retain,
+                                       is_valid=is_valid,
+                                       payload=payload)
         if self.__user_data is not None:
-            message = message_format_class(topic=msg.topic,
-                                           qos=msg.qos,
-                                           retain=msg.retain,
-                                           is_valid=is_valid,
-                                           payload=payload)
             try:
                 self.__user_data.record_message(message)
             except AttributeError:
                 pass
+
+        self.__msg_observers_lock.acquire()
+        for observer in self.__msg_observers.values():
+            if observer.on_msg_received(message):
+                observer.do_msg_received(message)
+        self.__msg_observers_lock.release()
         pass
 
     def received_payload(self, topic, payload):
