@@ -3,8 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="d639cb57-f970-46ec-8a89-2f9997dd3944" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package-ddclient/src/ddclient/__init__.py" afterPath="$PROJECT_DIR$/package-ddclient/src/ddclient/__init__.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package-ddclient/usermanual.txt" afterPath="$PROJECT_DIR$/package-ddclient/usermanual.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package-ddclient/src/example/testframework/main.py" afterPath="$PROJECT_DIR$/package-ddclient/src/example/testframework/main.py" />
     </list>
     <ignored path="secure_power_agilis_mqtt_simulator.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -24,41 +23,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="usermanual.txt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/package-ddclient/usermanual.txt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="171">
-              <caret line="9" column="0" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="__init__.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/package-ddclient/src/ddclient/__init__.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="19">
-              <caret line="1" column="0" lean-forward="true" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="setup.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/package-ddclient/setup.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="737">
-              <caret line="48" column="24" lean-forward="false" selection-start-line="48" selection-start-column="24" selection-end-line="48" selection-end-column="48" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="main.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="main.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/package-ddclient/src/example/testframework/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1574">
-              <caret line="174" column="0" lean-forward="false" selection-start-line="174" selection-start-column="0" selection-end-line="175" selection-end-column="0" />
+            <state relative-caret-position="133">
+              <caret line="10" column="0" lean-forward="true" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
               </folding>
@@ -96,7 +65,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/ddclient/dgdevdatahistory.py" />
         <option value="$PROJECT_DIR$/ddclient/datagram.py" />
         <option value="$PROJECT_DIR$/ddclient/dgpayload.py" />
         <option value="$PROJECT_DIR$/ddclient/ddinterface.py" />
@@ -142,11 +110,12 @@
         <option value="$PROJECT_DIR$/package-ddclient/src/example/__init__.py" />
         <option value="$PROJECT_DIR$/package-ddclient/src/example/demo.py" />
         <option value="$PROJECT_DIR$/application/AppVersion.py" />
-        <option value="$PROJECT_DIR$/package-ddclient/src/example/testframework/main.py" />
         <option value="$PROJECT_DIR$/doc/Install Guide.txt" />
         <option value="$PROJECT_DIR$/package-ddclient/setup.py" />
         <option value="$PROJECT_DIR$/package-ddclient/usermanual.txt" />
         <option value="$PROJECT_DIR$/package-ddclient/src/ddclient/__init__.py" />
+        <option value="$PROJECT_DIR$/package-ddclient/src/example/testframework/main.py" />
+        <option value="$PROJECT_DIR$/package-ddclient/src/example/testframework/doc/dd.csv" />
       </list>
     </option>
   </component>
@@ -243,7 +212,33 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="ddclient" />
+              <option name="myItemId" value="example" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="testframework" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="doc" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="secure_power_agilis_mqtt_simulator" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="secure_power_agilis_mqtt_simulator" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="package-ddclient" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -829,7 +824,14 @@
       <option name="project" value="LOCAL" />
       <updated>1484708962624</updated>
     </task>
-    <option name="localTasksCounter" value="47" />
+    <task id="LOCAL-00047" summary="Release the ddclient with the version: 0.2.0">
+      <created>1484717599886</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1484717599886</updated>
+    </task>
+    <option name="localTasksCounter" value="48" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -883,7 +885,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.22383073" sideWeight="0.50842994" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.52890176" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32962137" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32855093" sideWeight="0.4915701" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32855093" sideWeight="0.4915701" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3363029" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -950,7 +952,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_COMMIT_MESSAGE_SPELLING" value="false" />
-    <MESSAGE value="Delete config.ini&#10;NameClass can be init as list or string" />
     <MESSAGE value="Support command and setting datagram" />
     <MESSAGE value="Move the connect broker action in to file menu item&#10;Add the connection result information display&#10;" />
     <MESSAGE value="Update the version from 0.5.1 to 0.5.2 Beta&#10;Update the default data dictionary file to version 0601" />
@@ -975,7 +976,8 @@
     <MESSAGE value="Optimize the value editor display and data monitor table display&#10;Optimize the data dictionary loading&#10;" />
     <MESSAGE value="Optimize the data attribute tree widget display&#10;Add observer mode for doing datagram message process&#10;Add test framework and test demo for ddclient&#10;ddclient version: 0.2.0 rc1&#10;aplication version: 0.7.1" />
     <MESSAGE value="Add user manual for using the demo code.&#10;Add some comments for demo code" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add user manual for using the demo code.&#10;Add some comments for demo code" />
+    <MESSAGE value="Release the ddclient with the version: 0.2.0" />
+    <option name="LAST_COMMIT_MESSAGE" value="Release the ddclient with the version: 0.2.0" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -998,7 +1000,6 @@
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/package-ddtesthelper/src/ddtesthelper/basicexpect.py" />
     <entry file="file://$PROJECT_DIR$/application/ValueEditorTreeViewDelegate.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="249">
@@ -1188,14 +1189,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/doc/datadictionarysource/default_data_dictionary.csv">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1766">
-          <caret line="7" column="221" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="221" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/package-ddclient/src/ddclient/dditem.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="456">
@@ -1236,17 +1229,15 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/package-ddclient/src/example/testframework/main.py">
+    <entry file="file://$PROJECT_DIR$/application/AppVersion.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1574">
-          <caret line="174" column="0" lean-forward="false" selection-start-line="174" selection-start-column="0" selection-end-line="175" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#15#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="19">
+          <caret line="1" column="0" lean-forward="true" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/application/AppVersion.py">
+    <entry file="file://$PROJECT_DIR$/package-ddclient/src/ddclient/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="19">
           <caret line="1" column="0" lean-forward="true" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
@@ -1262,11 +1253,29 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/package-ddclient/src/ddclient/__init__.py">
+    <entry file="file://$PROJECT_DIR$/doc/datadictionarysource/default_data_dictionary.csv">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="19">
-          <caret line="1" column="0" lean-forward="true" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+          <caret line="7" column="221" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="139" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/package-ddclient/src/example/testframework/doc/dd.csv">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="541">
+          <caret line="139" column="0" lean-forward="false" selection-start-line="139" selection-start-column="0" selection-end-line="139" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/package-ddclient/src/example/testframework/main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="133">
+          <caret line="10" column="0" lean-forward="true" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#15#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

@@ -16,7 +16,7 @@ class TestDemo(unittest.TestCase):
         # Set the broker's ip and port, and the name can be set as any string.
         cls._dgm.init_datagram_access_client(name='TestDemo', ip='localhost', port=1883)
         # Import data dictionary file, the file path can be changed if needed.
-        file_path = '{}/../../../../doc/datadictionarysource/default_data_dictionary.csv'.format(_here)
+        file_path = '{}/doc/dd.csv'.format(_here)
         if not cls._dgm.import_data_dictionary(file_name=file_path):
             raise Exception('Import failed, please check the file path and the content of the file')
         # Connect to the broker
