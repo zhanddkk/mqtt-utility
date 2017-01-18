@@ -52,9 +52,13 @@ _log_text_format = '''\
  topic: {topic}
  payload: {payload}
 '''
-_ack_cmd_code_names = {
+
+_cmd_code_names = {
     'Rest': 0,
     'Set': 1,
+}
+
+_cmd_ack_code_names = {
     'Idle': 0x10,
     'Receive': 0x11,
     'Completed': 0x12,
@@ -78,7 +82,22 @@ command_value_attribute = value_attribute_type(
     size=4,
     special_data=OrderedDict(
         (
-            ('ack_cmd_code', bit_attribute_type(wide=8, names=_ack_cmd_code_names)),
+            ('cmd_code', bit_attribute_type(wide=8, names=_cmd_code_names)),
+            ('sequence', bit_attribute_type(wide=16, names=None)),
+            ('producer', bit_attribute_type(wide=8, names=_producer_names)),
+        )
+    )
+)  # Bitmap
+
+command_response_value_attribute = value_attribute_type(
+    system_tag='BitmapType',
+    basic_type='UInt32',
+    type_name='Bitmap',
+    array_count=1,
+    size=4,
+    special_data=OrderedDict(
+        (
+            ('ack_code', bit_attribute_type(wide=8, names=_cmd_ack_code_names)),
             ('sequence', bit_attribute_type(wide=16, names=None)),
             ('producer', bit_attribute_type(wide=8, names=_producer_names)),
         )
@@ -439,8 +458,8 @@ class MainWin(QMainWindow):
                 _value_attribute = one_allow_value_attribute
                 pass
             else:
-                _value_attribute = command_value_attribute
                 if action == E_DATAGRAM_ACTION_PUBLISH:
+                    _value_attribute = command_value_attribute
                     _sequence_num = self.__datagram_manager.sequence_number
                     # No general
                     if _value is None:
@@ -449,6 +468,7 @@ class MainWin(QMainWindow):
                     _value |= 0x00ffff00 & (_sequence_num << 8)
                     pass
                 else:
+                    _value_attribute = command_response_value_attribute
                     pass
                 pass
             pass
@@ -483,7 +503,10 @@ class MainWin(QMainWindow):
                 _value_attribute = one_allow_value_attribute
                 pass
             else:
-                _value_attribute = command_value_attribute
+                if action == E_DATAGRAM_ACTION_PUBLISH:
+                    _value_attribute = command_value_attribute
+                else:
+                    _value_attribute = command_response_value_attribute
                 pass
             pass
         elif datagram.attribute.type == 'Setting':
