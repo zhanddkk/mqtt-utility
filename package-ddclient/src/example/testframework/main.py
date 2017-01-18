@@ -96,6 +96,55 @@ class TestDemo(unittest.TestCase):
         self.assertTrue(ret)
         pass
 
+    def test_un_verify_seq_num(self):
+        _payload = DatagramPayload()
+        _payload.set_package(self._payload.package)
+
+        matcher = OrderedMessageMatcher()
+
+        from ddclient.unverifyseqnumpkgcomparator import UnVerifySeqNumPackageComparator
+        _payload.hash_id = 0x49a34eb9
+        _payload.value = 0x12000537
+        matcher.first_package(_payload.package)  # Add first
+        matcher.set_comparator(UnVerifySeqNumPackageComparator())
+
+        self.__test_framework.first_matcher(matcher)
+
+        # Trigger message
+        self._payload.hash_id = 0x49a34eb9
+
+        # The value is 0x12ffee37, so the seq number is 0xffee
+        self._payload.value = 0x12ffee37
+        ret = self._dgm.send_package_by_payload(self._payload)
+        self.assertTrue(ret)
+
+        # wait the result
+        ret = self.__test_framework.wait_verify_result(10)
+        self.assertTrue(ret)
+
+        matcher = UnorderedMessageMatcher()
+
+        _payload.hash_id = 0x49a34eb9
+        # The value is 0x2e55aafe, so the seq number is 55aa
+        _payload.value = 0x2e55aafe
+        matcher.add_package(_payload.package)  # Add first
+        matcher.set_comparator(UnVerifySeqNumPackageComparator())
+
+        self.__test_framework.first_matcher(matcher)
+
+        # Trigger message
+        self._payload.hash_id = 0x49a34eb9
+
+        # The value is 0x2eaa55fe, so the seq number is aa55
+        self._payload.value = 0x2eaa55fe
+        ret = self._dgm.send_package_by_payload(self._payload)
+        self.assertTrue(ret)
+
+        # wait the result
+        ret = self.__test_framework.wait_verify_result(10)
+        self.assertTrue(ret)
+        pass
+
     def test_one_ordered_matcher(self):
         _payload = DatagramPayload()
         _payload.set_package(self._payload.package)

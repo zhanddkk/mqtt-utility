@@ -21,7 +21,7 @@ class OrderedMessageMatcher(MessageMatcher):
         try:
             try:
                 _package = self._packages[self.__package_index]
-                if package == _package:
+                if self.compare_package(package, _package):
                     self.__package_index += 1
                     if self.__package_index == len(self._packages):
                         self._is_passed = True

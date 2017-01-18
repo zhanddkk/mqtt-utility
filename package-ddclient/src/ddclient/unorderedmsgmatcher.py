@@ -20,12 +20,22 @@ class UnorderedMessageMatcher(MessageMatcher):
         :return:
         """
         ret = False
+        '''
         try:
             self._packages.remove(package)
             if not self._packages:
                 self._is_passed = True
             ret = True
         except ValueError:
+            pass
+        '''
+        for _package in self._packages:
+            if self.compare_package(package, _package):
+                self._packages.remove(_package)
+                if not self._packages:
+                    self._is_passed = True
+                ret = True
+                break
             pass
         return ret
         pass
