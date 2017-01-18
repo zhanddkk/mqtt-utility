@@ -1,8 +1,16 @@
 1. Get the package
    You can get the ddclient python package from the box. The file path is "Box Sync\Secure Power Firmware\Platform Firmware\Delivery\Simulator"
    The file name is "ddclient-0.2.0.rc1.tar.gz".
+
 2. Install
    1. Put the package in a folder
    2. Open the command window as administrator and go to the path of the step1 said.
    3. Do : pip install --proxy http://wf1-ch.pac.schneider-electric.com:80 ddclient-0.2.0.rc1.tar.gz (Python 3.5 must be installed first, and no python2.7)
-   4. Extract the demo package, and enter example/testframework path, then start the broker on localhost and run main.py
+      Note: The package depends on 'namedlist' and 'paho-mqtt'. If you have installed them before, you don't need to add proxy.
+
+3. Run demo code
+   1. Get the demo zip package from the box, The file path is "Box Sync\Secure Power Firmware\Platform Firmware\Delivery\Simulator".
+      The file name is "example.zip"
+   2. Extract the demo package, and enter example/testframework path,
+   3. Start the broker on localhost
+   4. Run main.py, and you will see that all the test cases are passed.

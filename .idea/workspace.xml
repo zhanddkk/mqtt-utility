@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d639cb57-f970-46ec-8a89-2f9997dd3944" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/package-ddclient/usermanual.txt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package-ddclient/src/example/testframework/main.py" afterPath="$PROJECT_DIR$/package-ddclient/src/example/testframework/main.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package-ddclient/src/ddclient/__init__.py" afterPath="$PROJECT_DIR$/package-ddclient/src/ddclient/__init__.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package-ddclient/usermanual.txt" afterPath="$PROJECT_DIR$/package-ddclient/usermanual.txt" />
     </list>
     <ignored path="secure_power_agilis_mqtt_simulator.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -24,34 +24,44 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="main.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/package-ddclient/src/example/testframework/main.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3306">
-              <caret line="174" column="43" lean-forward="true" selection-start-line="174" selection-start-column="43" selection-end-line="174" selection-end-column="43" />
-              <folding>
-                <element signature="e#0#15#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="usermanual.txt" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/package-ddclient/usermanual.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="133">
-              <caret line="7" column="86" lean-forward="true" selection-start-line="7" selection-start-column="86" selection-end-line="7" selection-end-column="86" />
+            <state relative-caret-position="171">
+              <caret line="9" column="0" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="dgpayload.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/package-ddclient/src/ddclient/dgpayload.py">
+      <file leaf-file-name="__init__.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/package-ddclient/src/ddclient/__init__.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="399">
-              <caret line="54" column="0" lean-forward="false" selection-start-line="54" selection-start-column="0" selection-end-line="55" selection-end-column="0" />
+            <state relative-caret-position="19">
+              <caret line="1" column="0" lean-forward="true" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="setup.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/package-ddclient/setup.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="737">
+              <caret line="48" column="24" lean-forward="false" selection-start-line="48" selection-start-column="24" selection-end-line="48" selection-end-column="48" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="main.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/package-ddclient/src/example/testframework/main.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-1574">
+              <caret line="174" column="0" lean-forward="false" selection-start-line="174" selection-start-column="0" selection-end-line="175" selection-end-column="0" />
+              <folding>
+                <element signature="e#0#15#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -124,7 +134,6 @@
         <option value="$PROJECT_DIR$/package-ddtesthelper/src/ddtesthelper/msgmatcher.py" />
         <option value="$PROJECT_DIR$/package-ddtesthelper/src/ddtesthelper/orderedmsgmatcher.py" />
         <option value="$PROJECT_DIR$/package-ddtesthelper/src/ddtesthelper/testframework.py" />
-        <option value="$PROJECT_DIR$/package-ddclient/src/ddclient/__init__.py" />
         <option value="$PROJECT_DIR$/package-ddclient/src/ddclient/msgmatcher.py" />
         <option value="$PROJECT_DIR$/package-ddclient/src/ddclient/orderedmsgmatcher.py" />
         <option value="$PROJECT_DIR$/package-ddclient/src/ddclient/testframework.py" />
@@ -132,19 +141,20 @@
         <option value="$PROJECT_DIR$/package-ddclient/src/ddclient/demo.py" />
         <option value="$PROJECT_DIR$/package-ddclient/src/example/__init__.py" />
         <option value="$PROJECT_DIR$/package-ddclient/src/example/demo.py" />
-        <option value="$PROJECT_DIR$/package-ddclient/setup.py" />
         <option value="$PROJECT_DIR$/application/AppVersion.py" />
         <option value="$PROJECT_DIR$/package-ddclient/src/example/testframework/main.py" />
         <option value="$PROJECT_DIR$/doc/Install Guide.txt" />
+        <option value="$PROJECT_DIR$/package-ddclient/setup.py" />
         <option value="$PROJECT_DIR$/package-ddclient/usermanual.txt" />
+        <option value="$PROJECT_DIR$/package-ddclient/src/ddclient/__init__.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="146" />
-    <option name="y" value="89" />
-    <option name="width" value="1693" />
-    <option name="height" value="951" />
+    <option name="x" value="435" />
+    <option name="y" value="44" />
+    <option name="width" value="1327" />
+    <option name="height" value="855" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -812,7 +822,14 @@
       <option name="project" value="LOCAL" />
       <updated>1484552260545</updated>
     </task>
-    <option name="localTasksCounter" value="46" />
+    <task id="LOCAL-00046" summary="Add user manual for using the demo code.&#10;Add some comments for demo code">
+      <created>1484708962624</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1484708962624</updated>
+    </task>
+    <option name="localTasksCounter" value="47" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -857,16 +874,16 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="146" y="89" width="1693" height="951" extended-state="0" />
+    <frame x="435" y="44" width="1327" height="855" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18912387" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2428239" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32962137" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.22383073" sideWeight="0.50842994" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.52890176" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32962137" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3404792" sideWeight="0.4915701" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32855093" sideWeight="0.4915701" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3363029" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -933,7 +950,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_COMMIT_MESSAGE_SPELLING" value="false" />
-    <MESSAGE value="Support new format data dictionary" />
     <MESSAGE value="Delete config.ini&#10;NameClass can be init as list or string" />
     <MESSAGE value="Support command and setting datagram" />
     <MESSAGE value="Move the connect broker action in to file menu item&#10;Add the connection result information display&#10;" />
@@ -958,7 +974,8 @@
     <MESSAGE value="Add clean all script&#10;" />
     <MESSAGE value="Optimize the value editor display and data monitor table display&#10;Optimize the data dictionary loading&#10;" />
     <MESSAGE value="Optimize the data attribute tree widget display&#10;Add observer mode for doing datagram message process&#10;Add test framework and test demo for ddclient&#10;ddclient version: 0.2.0 rc1&#10;aplication version: 0.7.1" />
-    <option name="LAST_COMMIT_MESSAGE" value="Optimize the data attribute tree widget display&#10;Add observer mode for doing datagram message process&#10;Add test framework and test demo for ddclient&#10;ddclient version: 0.2.0 rc1&#10;aplication version: 0.7.1" />
+    <MESSAGE value="Add user manual for using the demo code.&#10;Add some comments for demo code" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add user manual for using the demo code.&#10;Add some comments for demo code" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1077,13 +1094,6 @@
     <entry file="file://$PROJECT_DIR$/package-ddtesthelper/src/ddtesthelper/orderedmsgmatcher.py" />
     <entry file="file://$PROJECT_DIR$/package-ddtesthelper/src/ddtesthelper/demo.py" />
     <entry file="file://$PROJECT_DIR$/package-ddclient/src/ddclient/version.py" />
-    <entry file="file://$PROJECT_DIR$/package-ddclient/src/ddclient/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="19">
-          <caret line="1" column="0" lean-forward="true" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/package-ddclient/src/ddclient/dgaccessclient.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="398">
@@ -1161,13 +1171,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/application/AppVersion.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="19">
-          <caret line="1" column="0" lean-forward="true" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/clean_all.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="247">
@@ -1217,36 +1220,52 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/package-ddclient/src/ddclient/dgpayload.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="593">
+          <caret line="191" column="52" lean-forward="true" selection-start-line="191" selection-start-column="52" selection-end-line="191" selection-end-column="52" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/package-ddclient/setup.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="737">
+          <caret line="48" column="24" lean-forward="false" selection-start-line="48" selection-start-column="24" selection-end-line="48" selection-end-column="48" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/package-ddclient/src/example/testframework/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3306">
-          <caret line="174" column="43" lean-forward="true" selection-start-line="174" selection-start-column="43" selection-end-line="174" selection-end-column="43" />
+        <state relative-caret-position="-1574">
+          <caret line="174" column="0" lean-forward="false" selection-start-line="174" selection-start-column="0" selection-end-line="175" selection-end-column="0" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/package-ddclient/setup.py">
+    <entry file="file://$PROJECT_DIR$/application/AppVersion.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-331">
-          <caret line="6" column="11" lean-forward="true" selection-start-line="6" selection-start-column="11" selection-end-line="6" selection-end-column="11" />
+        <state relative-caret-position="19">
+          <caret line="1" column="0" lean-forward="true" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/package-ddclient/usermanual.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="133">
-          <caret line="7" column="86" lean-forward="true" selection-start-line="7" selection-start-column="86" selection-end-line="7" selection-end-column="86" />
+        <state relative-caret-position="171">
+          <caret line="9" column="0" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/package-ddclient/src/ddclient/dgpayload.py">
+    <entry file="file://$PROJECT_DIR$/package-ddclient/src/ddclient/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="399">
-          <caret line="54" column="0" lean-forward="false" selection-start-line="54" selection-start-column="0" selection-end-line="55" selection-end-column="0" />
+        <state relative-caret-position="19">
+          <caret line="1" column="0" lean-forward="true" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
           <folding />
         </state>
       </provider>
