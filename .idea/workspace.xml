@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d639cb57-f970-46ec-8a89-2f9997dd3944" name="Default" comment="">
+    <list default="true" id="d639cb57-f970-46ec-8a89-2f9997dd3944" name="Default" comment="Set the adding max value as 0xffff in the default user repeater function">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/AppVersion.py" afterPath="$PROJECT_DIR$/application/AppVersion.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/MainWin.py" afterPath="$PROJECT_DIR$/application/MainWin.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package-ddclient/src/ddclient/__init__.py" afterPath="$PROJECT_DIR$/package-ddclient/src/ddclient/__init__.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package-ddclient/src/ddclient/bitmapparser.py" afterPath="$PROJECT_DIR$/package-ddclient/src/ddclient/bitmapparser.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package-ddclient/src/ddclient/dgmanager.py" afterPath="$PROJECT_DIR$/package-ddclient/src/ddclient/dgmanager.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package-ddclient/src/example/testframework/main.py" afterPath="$PROJECT_DIR$/package-ddclient/src/example/testframework/main.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/UiMainWin.py" afterPath="$PROJECT_DIR$/application/UiMainWin.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/UiMainWin.ui" afterPath="$PROJECT_DIR$/application/UiMainWin.ui" />
     </list>
     <ignored path="secure_power_agilis_mqtt_simulator.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -38,13 +34,37 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="bitmapparser.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="bitmapparser.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/package-ddclient/src/ddclient/bitmapparser.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="380">
+            <state relative-caret-position="1097">
               <caret line="179" column="0" lean-forward="true" selection-start-line="179" selection-start-column="0" selection-end-line="179" selection-end-column="0" />
               <folding>
                 <element signature="e#0#48#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MainWin.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/application/MainWin.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="14117">
+              <caret line="785" column="27" lean-forward="false" selection-start-line="785" selection-start-column="16" selection-end-line="785" selection-end-column="27" />
+              <folding>
+                <element signature="e#0#15#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="repeater.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/package-ddclient/src/ddclient/repeater.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="342">
+              <caret line="39" column="0" lean-forward="false" selection-start-line="39" selection-start-column="0" selection-end-line="40" selection-end-column="0" />
+              <folding>
+                <element signature="e#0#16#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -80,7 +100,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/ddclient/repeater.py" />
         <option value="$PROJECT_DIR$/ddclient/bitmapparser.py" />
         <option value="$PROJECT_DIR$/ddclient/__init__.py" />
         <option value="$PROJECT_DIR$/application/Configuration.py" />
@@ -131,6 +150,7 @@
         <option value="$PROJECT_DIR$/package-ddclient/src/example/testframework/main.py" />
         <option value="$PROJECT_DIR$/application/AppVersion.py" />
         <option value="$PROJECT_DIR$/package-ddclient/src/ddclient/bitmapparser.py" />
+        <option value="$PROJECT_DIR$/package-ddclient/src/ddclient/repeater.py" />
       </list>
     </option>
   </component>
@@ -332,7 +352,7 @@
       <recent name="C:\Users\sesa432851\Documents\Work\Git\Simulator\secure_power_agilis_mqtt_simulator\simulator" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.main">
+  <component name="RunManager" selected="Python.main (1)">
     <configuration default="false" name="clean_all" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -561,8 +581,8 @@
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python.main" />
-        <item index="1" class="java.lang.String" itemvalue="Python.main (1)" />
+        <item index="0" class="java.lang.String" itemvalue="Python.main (1)" />
+        <item index="1" class="java.lang.String" itemvalue="Python.main" />
         <item index="2" class="java.lang.String" itemvalue="Python.bitmapparser" />
         <item index="3" class="java.lang.String" itemvalue="Python.clean_all" />
         <item index="4" class="java.lang.String" itemvalue="Python.build_all" />
@@ -582,20 +602,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1476867300631</updated>
-    </task>
-    <task id="LOCAL-00003" summary="Finished some the Datagram access APIs;&#10;Import data form .csv, and display those data">
-      <created>1477472160309</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1477472160310</updated>
-    </task>
-    <task id="LOCAL-00004" summary="Delete  invalid code">
-      <created>1477534157417</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1477534157417</updated>
     </task>
     <task id="LOCAL-00005" summary="Finished the MQQT message receiving and publishing function, and update the message info to the GUI">
       <created>1477637879996</created>
@@ -926,7 +932,21 @@
       <option name="project" value="LOCAL" />
       <updated>1484729177524</updated>
     </task>
-    <option name="localTasksCounter" value="52" />
+    <task id="LOCAL-00052" summary="Add bit map parser class in ddclient">
+      <created>1484896262914</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1484896262915</updated>
+    </task>
+    <task id="LOCAL-00053" summary="Set the adding max value as 0xffff in the default user repeater function">
+      <created>1484897170215</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1484897170215</updated>
+    </task>
+    <option name="localTasksCounter" value="54" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1047,8 +1067,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_COMMIT_MESSAGE_SPELLING" value="false" />
-    <MESSAGE value="Set the action value of response from 2 to 1, and set the action value of request from 1 to 2&#10;" />
-    <MESSAGE value="Fix the bug that the simulaort's mqtt thread will exit when received the invalid cbor message payload&#10;" />
     <MESSAGE value="Update version from 0.6.0 rc1 to 0.6.0&#10;Support new version format in data dictionary&#10;" />
     <MESSAGE value="Update version from 0.6.0 to 0.6.1&#10;Support new version format of data dictionary, which adds the root system&#10;" />
     <MESSAGE value="Add repeater&#10;" />
@@ -1072,7 +1090,9 @@
     <MESSAGE value="Add package comparator class for different comparing requirments" />
     <MESSAGE value="Add package comparator class for different comparing requirments(recommit)" />
     <MESSAGE value="Separate the ack code and command code display" />
-    <option name="LAST_COMMIT_MESSAGE" value="Separate the ack code and command code display" />
+    <MESSAGE value="Add bit map parser class in ddclient" />
+    <MESSAGE value="Set the adding max value as 0xffff in the default user repeater function" />
+    <option name="LAST_COMMIT_MESSAGE" value="Set the adding max value as 0xffff in the default user repeater function" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1095,16 +1115,6 @@
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/package-ddclient/src/ddclient/dgaccessclient.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="398">
-          <caret line="21" column="46" lean-forward="false" selection-start-line="21" selection-start-column="46" selection-end-line="21" selection-end-column="46" />
-          <folding>
-            <element signature="e#0#11#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/package-ddclient/src/ddclient/dgattribute.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="19">
@@ -1422,16 +1432,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/application/MainWin.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="76">
-          <caret line="52" column="15" lean-forward="true" selection-start-line="52" selection-start-column="15" selection-end-line="52" selection-end-column="15" />
-          <folding>
-            <element signature="e#0#15#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/package-ddclient/src/ddclient/dgmanager.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1197">
@@ -1448,6 +1448,16 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/package-ddclient/src/ddclient/bitmapparser.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1097">
+          <caret line="179" column="0" lean-forward="true" selection-start-line="179" selection-start-column="0" selection-end-line="179" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#48#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/package-ddclient/src/example/testframework/main.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1990">
@@ -1456,12 +1466,22 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/package-ddclient/src/ddclient/bitmapparser.py">
+    <entry file="file://$PROJECT_DIR$/application/MainWin.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="380">
-          <caret line="179" column="0" lean-forward="true" selection-start-line="179" selection-start-column="0" selection-end-line="179" selection-end-column="0" />
+        <state relative-caret-position="14117">
+          <caret line="785" column="27" lean-forward="false" selection-start-line="785" selection-start-column="16" selection-end-line="785" selection-end-column="27" />
           <folding>
-            <element signature="e#0#48#0" expanded="true" />
+            <element signature="e#0#15#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/package-ddclient/src/ddclient/repeater.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="342">
+          <caret line="39" column="0" lean-forward="false" selection-start-line="39" selection-start-column="0" selection-end-line="40" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#16#0" expanded="true" />
           </folding>
         </state>
       </provider>

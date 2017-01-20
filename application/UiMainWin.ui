@@ -317,8 +317,11 @@ gridline-color: rgb(85, 170, 127);</string>
           <property name="lineWrapMode">
            <enum>QPlainTextEdit::NoWrap</enum>
           </property>
+          <property name="readOnly">
+           <bool>false</bool>
+          </property>
           <property name="textInteractionFlags">
-           <set>Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
+           <set>Qt::TextEditorInteraction</set>
           </property>
          </widget>
         </item>
