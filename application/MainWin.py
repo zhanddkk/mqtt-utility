@@ -24,6 +24,7 @@ from ddclient.repeater import (Repeater,
                                default_user_input_str,
                                user_function_end_str,
                                get_user_function_source_code)
+from ddclient.bitmapparser import command_bit_map, command_response_bit_map, setting_response_bit_map
 _about_application_message_format = """\
 <p>----------Application Info----------</p>
 <p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;-qt-block-indent:0; text-indent:0px;">
@@ -53,40 +54,13 @@ _log_text_format = '''\
  payload: {payload}
 '''
 
-_cmd_code_names = {
-    'Rest': 0,
-    'Set': 1,
-}
-
-_cmd_ack_code_names = {
-    'Idle': 0x10,
-    'Receive': 0x11,
-    'Completed': 0x12,
-    'Locked': 0x13,
-    'Refused': 0x14
-}
-
-_producer_names = {
-    'UC': 0,
-    'SLC_UPS': 1,
-    'SLC_NMC': 2,
-    'HMI': 3,
-    'TUNER': 4
-}
-
 command_value_attribute = value_attribute_type(
     system_tag='BitmapType',
     basic_type='UInt32',
     type_name='Bitmap',
     array_count=1,
     size=4,
-    special_data=OrderedDict(
-        (
-            ('cmd_code', bit_attribute_type(wide=8, names=_cmd_code_names)),
-            ('sequence', bit_attribute_type(wide=16, names=None)),
-            ('producer', bit_attribute_type(wide=8, names=_producer_names)),
-        )
-    )
+    special_data=command_bit_map
 )  # Bitmap
 
 command_response_value_attribute = value_attribute_type(
@@ -95,13 +69,7 @@ command_response_value_attribute = value_attribute_type(
     type_name='Bitmap',
     array_count=1,
     size=4,
-    special_data=OrderedDict(
-        (
-            ('ack_code', bit_attribute_type(wide=8, names=_cmd_ack_code_names)),
-            ('sequence', bit_attribute_type(wide=16, names=None)),
-            ('producer', bit_attribute_type(wide=8, names=_producer_names)),
-        )
-    )
+    special_data=command_response_bit_map
 )  # Bitmap
 
 setting_response_value_attribute = value_attribute_type(
@@ -110,12 +78,7 @@ setting_response_value_attribute = value_attribute_type(
     type_name='Bitmap',
     array_count=1,
     size=4,
-    special_data=OrderedDict(
-        (
-            ('error_code', bit_attribute_type(wide=16, names={'OK': 0})),
-            ('producer', bit_attribute_type(wide=16, names=_producer_names)),
-        )
-    )
+    special_data=setting_response_bit_map
 )
 
 one_allow_value_attribute = standard_value_attribute_dictionary['Bool']

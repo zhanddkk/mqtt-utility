@@ -143,6 +143,7 @@ class TestDemo(unittest.TestCase):
         # wait the result
         ret = self.__test_framework.wait_verify_result(10)
         self.assertTrue(ret)
+
         pass
 
     def test_one_ordered_matcher(self):
@@ -315,6 +316,67 @@ class TestDemo(unittest.TestCase):
         ret = self._dgm.send_package_by_payload(self._payload)
         # Verify published result
         self.assertTrue(ret)
+
+        # Verify current value of the datagram
+        _value = dg.get_device_data_value(instance=self._payload.device_instance_index - 1,
+                                          action=self._payload.action)
+        self.assertEqual(_value, self._payload.value)
+        pass
+
+    def test_cmd_seq(self):
+        _payload = DatagramPayload()
+        _payload.set_package(self._payload.package)
+
+        matcher = OrderedMessageMatcher()
+
+        from ddclient.unverifyseqnumpkgcomparator import UnVerifySeqNumPackageComparator
+        _payload.hash_id = 0x49a34eb9
+
+        from ddclient.bitmapparser import BitMapParser, command_bit_map
+        bit_map = BitMapParser(command_bit_map)
+        # Set the published command value of expectation
+        _value = bit_map.encode(cmd_code=command_bit_map['cmd_code'].names['Rest'],  # 0
+                                producer=command_bit_map['producer'].names['SLC_UPS']  # 1
+                                )  # 0x01000000
+        self.assertEqual(_value, 0x01000000)
+
+        _payload.value = _value
+        matcher.first_package(_payload.package)  # Add first
+        matcher.set_comparator(UnVerifySeqNumPackageComparator())
+
+        self.__test_framework.first_matcher(matcher)
+
+        # Trigger message
+        self._payload.hash_id = 0x49a34eb9
+
+        # Set the command value to publish
+        _value = bit_map.encode(cmd_code=command_bit_map['cmd_code'].names['Rest'],  # 0
+                                sequence=5,
+                                producer=command_bit_map['producer'].names['SLC_UPS']  # 1
+                                )  # 0x01000500
+        self.assertEqual(_value, 0x01000500)
+
+        self._payload.value = _value
+        ret = self._dgm.send_package_by_payload(self._payload)
+        self.assertTrue(ret)
+
+        # wait the result
+        ret = self.__test_framework.wait_verify_result(10)
+        self.assertTrue(ret)
+
+        _dg = self._dgm.get_datagram(self._payload.hash_id)
+        self.assertIsNotNone(_dg)
+
+        # Get the current value of the datagram
+        _value = _dg.get_device_data_value(instance=self._payload.device_instance_index - 1,
+                                           action=self._payload.action)
+        self.assertEqual(_value, 0x01000500)
+
+        # Get the sequence number of the command datagram
+        seq_num = BitMapParser(command_bit_map).decode(_value).sequence.value
+
+        # Verify the sequence number
+        self.assertEqual(seq_num, 5)
 
         pass
 

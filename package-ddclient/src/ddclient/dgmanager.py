@@ -10,7 +10,7 @@ try:
     from .dgpayload import DatagramPayload
     from .dgpayload import E_DATAGRAM_ACTION_PUBLISH as _E_DATAGRAM_ACTION_PUBLISH
     from .dgaccessclient import DatagramAccessClient
-    from .bitmapparser import bit_map_parser, cmd_bit_format
+    from .bitmapparser import BitMapParser, command_bit_map
 except SystemError:
     from ddmanager import DataDictionaryManager
     from dgattribute import DatagramAttribute
@@ -18,7 +18,7 @@ except SystemError:
     from dgpayload import DatagramPayload
     from dgpayload import E_DATAGRAM_ACTION_PUBLISH as _E_DATAGRAM_ACTION_PUBLISH
     from dgaccessclient import DatagramAccessClient
-    from bitmapparser import bit_map_parser, cmd_bit_format
+    from bitmapparser import BitMapParser, command_bit_map
 
 message_format_class = named_list('MessageFormat', 'topic, qos, retain, is_valid, payload')
 
@@ -242,9 +242,9 @@ class DatagramManager:
                     print('WARNING:', 'The data is set failed.')
                 if (dg.attribute.type == 'Command') and payload.action == _E_DATAGRAM_ACTION_PUBLISH:
                     try:
-                        value_parsed = bit_map_parser(payload.value, cmd_bit_format)
-                        if value_parsed.sequence.key != self.__seq_num:
-                            self.__seq_num = value_parsed.sequence.key
+                        sequence = BitMapParser(command_bit_map).decode(payload.value).sequence
+                        if sequence.value != self.__seq_num:
+                            self.__seq_num = sequence.value
                     except TypeError:
                         print('WARNING:',
                               'The published value({value}) '
