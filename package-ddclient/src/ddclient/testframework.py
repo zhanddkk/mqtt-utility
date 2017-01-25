@@ -27,7 +27,7 @@ class TestFramework(DatagramMessageObserver):
         if timeout and timeout > 0:
             _timeout = timeout
             _used_time = 0.0
-            while True:
+            while _timeout is not None:
                 _matcher = self.__msg_matcher_list[_matcher_index]
 
                 _start_time = time.time()
@@ -49,11 +49,8 @@ class TestFramework(DatagramMessageObserver):
                     _matcher_index += 1
                     if _matcher_index == len(self.__msg_matcher_list):
                         return True
-                        pass
         else:
             return False
-            pass
-        pass
 
     def do_msg_received(self, msg):
         self.__queue.put(msg.payload.package)

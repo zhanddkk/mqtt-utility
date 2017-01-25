@@ -24,13 +24,22 @@ class MessageMatcher:
     def set_comparator(self, comparator):
         self.__pkg_comparator = comparator
 
+    def print_same_hash_id_package(self, received_package, expect_package):
+        received_payload = DatagramPayload()
+        received_payload.set_package(received_package)
+        expect_payload = DatagramPayload()
+        expect_payload.set_package(expect_package)
+        result = False
+        if received_payload.hash_id == expect_payload.hash_id:
+            print("Received:", received_package)
+            print("expected", expect_package)
+
     def compare_package(self, pkg0, pkg1):
-        return self.__pkg_comparator.compare(pkg0, pkg1)
-        pass
+        equal = self.__pkg_comparator.compare(pkg0, pkg1)
+        self.print_same_hash_id_package(pkg0, pkg1)
+        if equal:
+            print("Packages are equal.")
+        return equal
 
     def verify(self, package):
-        ret = False
-        return ret
-        pass
-
-    pass
+        raise Exception("MessageMatcher should not be used directly.")
