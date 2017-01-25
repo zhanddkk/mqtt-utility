@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'UiMainWin.ui'
 #
-# Created by: PyQt5 UI code generator 5.7
+# Created by: PyQt5 UI code generator 5.7.1
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -132,7 +132,8 @@ class Ui_MainWindow(object):
         self.user_function_plain_text_edit.setStyleSheet("background-color: rgb(245, 245, 245);")
         self.user_function_plain_text_edit.setFrameShape(QtWidgets.QFrame.Box)
         self.user_function_plain_text_edit.setLineWrapMode(QtWidgets.QPlainTextEdit.NoWrap)
-        self.user_function_plain_text_edit.setTextInteractionFlags(QtCore.Qt.TextSelectableByKeyboard|QtCore.Qt.TextSelectableByMouse)
+        self.user_function_plain_text_edit.setReadOnly(False)
+        self.user_function_plain_text_edit.setTextInteractionFlags(QtCore.Qt.TextEditorInteraction)
         self.user_function_plain_text_edit.setObjectName("user_function_plain_text_edit")
         self.gridLayout_9.addWidget(self.user_function_plain_text_edit, 3, 0, 1, 3)
         self.label_2 = QtWidgets.QLabel(self.frame)

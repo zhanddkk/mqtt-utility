@@ -33,7 +33,7 @@ user_function_end_str = '''\
 
 default_user_input_str = '''\
 value += 1
-if value > 100:
+if value > 0xffff:
     value = 0
 print('value = ', value, 'times = ', times)'''
 
