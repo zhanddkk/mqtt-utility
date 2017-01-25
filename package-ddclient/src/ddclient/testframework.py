@@ -2,8 +2,10 @@ import time
 from queue import Queue, Empty
 try:
     from .dgmsgobserver import DatagramMessageObserver
+    from .msgmatcher import MessageMatcher
 except SystemError:
     from dgmsgobserver import DatagramMessageObserver
+    from msgmatcher import MessageMatcher
 
 
 class TestFramework(DatagramMessageObserver):
@@ -15,12 +17,14 @@ class TestFramework(DatagramMessageObserver):
         pass
 
     def first_matcher(self, matcher):
+        if not isinstance(matcher, MessageMatcher):
+            raise TypeError("matcher should be subclass of MessageMatcher")
         self.__msg_matcher_list = [matcher]
-        pass
 
     def then_matcher(self, matcher):
+        if not isinstance(matcher, MessageMatcher):
+            raise TypeError("matcher should be subclass of MessageMatcher")
         self.__msg_matcher_list.append(matcher)
-        pass
 
     def wait_verify_result(self, timeout=1):
         _matcher_index = 0

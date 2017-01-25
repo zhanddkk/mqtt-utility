@@ -22,6 +22,8 @@ class MessageMatcher:
         return self._is_passed
 
     def set_comparator(self, comparator):
+        if not isinstance(comparator, PackageComparator):
+            raise TypeError("comparator should be subclass of type PackageComparator")
         self.__pkg_comparator = comparator
 
     def print_same_hash_id_package(self, received_package, expect_package):
