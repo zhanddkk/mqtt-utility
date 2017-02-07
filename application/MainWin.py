@@ -162,6 +162,8 @@ class MainWin(QMainWindow):
         self.__init_view_menu_items()
         self.__init_data_attribute_tree_widget()
 
+        self.__set_dlg = None
+
         # For test
 
     def __init_payload_dock_widget(self):
@@ -627,27 +629,15 @@ class MainWin(QMainWindow):
             if _dg:
                 self.__update_history_data_tree_view_display(_dg, topic_index[1], topic_index[2])
         pass
-    '''
-    def update_log_display(self, message):
-        data_time = datetime.datetime.now()
-        log_text = _log_text_format.format(
-            time=data_time.strftime("%Y-%m-%d %H:%M:%S"),
-            qos=message.qos,
-            retain=message.retain,
-            topic=message.topic,
-            payload='☟\n  |->' + str(message.payload).replace('\n', '\n  |->')
-            if message.is_valid else message.payload)
-        self.ui.log_plain_text_edit.appendPlainText(log_text)
-        pass
-    '''
 
     def do_record_message(self, message):
         self.__log_win.update_log_display(message)
         pass
 
     def setting(self):
-        set_dlg = SettingDlg(self.__configuration)
-        set_dlg.exec()
+        if self.__set_dlg is None:
+            self.__set_dlg = SettingDlg(self.__configuration)
+        self.__set_dlg.exec()
 
     def about(self):
         about_dlg = QMessageBox()

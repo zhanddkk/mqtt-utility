@@ -28,23 +28,31 @@ class TestFramework(DatagramMessageObserver):
 
     def wait_verify_result(self, timeout=1):
         _matcher_index = 0
+        _is_waiting = True
+        _ret = False
         if timeout and timeout > 0:
             _timeout = timeout
             _used_time = 0.0
-            while _timeout is not None:
+            while _is_waiting:
                 _matcher = self.__msg_matcher_list[_matcher_index]
 
                 _start_time = time.time()
                 _timeout = _timeout - _used_time
                 if _timeout < 0:
-                    _timeout = None
-
-                try:
-                    package = self.__queue.get(timeout=_timeout)
-                except Empty:
-                    print('TIMEOUT:', 'When wait the matcher', _matcher_index)
-                    return False
-                    pass
+                    _is_waiting = False
+                    try:
+                        package = self.__queue.get_nowait()
+                    except Empty:
+                        print('TIMEOUT:', 'When wait the matcher', _matcher_index)
+                        break
+                        pass
+                else:
+                    try:
+                        package = self.__queue.get(timeout=_timeout)
+                    except Empty:
+                        print('TIMEOUT:', 'When wait the matcher', _matcher_index)
+                        break
+                        pass
 
                 _used_time = time.time() - _start_time
 
@@ -52,9 +60,9 @@ class TestFramework(DatagramMessageObserver):
                 if _matcher.is_passed:
                     _matcher_index += 1
                     if _matcher_index == len(self.__msg_matcher_list):
-                        return True
-        else:
-            return False
+                        _ret = True
+                        break
+        return _ret
 
     def do_msg_received(self, msg):
         self.__queue.put(msg.payload.package)

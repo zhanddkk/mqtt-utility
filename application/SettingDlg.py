@@ -29,6 +29,8 @@ class SettingDlg(QDialog):
         self.ui.log_filter_data_table_view.setModel(self.__log_filter_data_table_view_module)
         self.ui.log_filter_data_table_view.itemDelegate().closeEditor.connect(self.log_filter_data_table_view_end_edit)
 
+        self.ui.contents_list_widget.setCurrentRow(0)
+
     def __update_display_status(self):
         if self.__is_edited_mask != 0:
             if not self.ui.apply_push_button.isEnabled():
