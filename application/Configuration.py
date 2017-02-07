@@ -73,7 +73,7 @@ class Configuration:
         _txt = self.__config_ini['LOG_FILTER']['hash_id_list'].split(',')
         try:
             return [int(value, base=16) for value in _txt]
-        except TypeError:
+        except ValueError:
             return []
 
     @log_filter_hash_id_list.setter
