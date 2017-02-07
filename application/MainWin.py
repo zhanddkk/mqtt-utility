@@ -15,6 +15,7 @@ from ValueAttributeType import standard_value_attribute_dictionary, value_attrib
 from ValueEditorTreeViewModel import ValueEditorTreeViewModel
 from ValueEditorTreeViewDelegate import ValueEditorTreeViewDelegate
 from HistoryDataDisplayTreeViewModel import HistoryDataDisplayTreeViewModel
+from ddclient import __version__ as __dd_client_pkg_version__
 from ddclient.dgmanager import DatagramManager, message_format_class
 from ddclient.dgpayload import (E_DATAGRAM_ACTION_PUBLISH, E_DATAGRAM_ACTION_RESPONSE, E_DATAGRAM_ACTION_REQUEST,
                                 E_DATAGRAM_ACTION_ALLOW)
@@ -28,7 +29,8 @@ from ddclient.bitmapparser import command_bit_map, command_response_bit_map, set
 _about_application_message_format = """\
 <p>----------Application Info----------</p>
 <p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;-qt-block-indent:0; text-indent:0px;">
-    This <span style=" font-weight:600;">Application</span> is a simulator.
+    This <span style=" font-weight:600;">Application</span> is a simulator which depends on the
+    <span style=" font-weight:600;">ddclient</span>({dd_client_pkg_version}).
 </p>
 <p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">
     <span style=" font-weight:600;">Version</span> : {app_version}
@@ -89,6 +91,7 @@ class MainWin(QMainWindow):
         self.ui.setupUi(self)
 
         self.__application_version = __app_version__
+        self.__dd_client_pkg_version = __dd_client_pkg_version__
         self.__qt_signal_safe_convert = SafeConnector()
         self.__qt_signal_safe_convert.connect(self.record_message_signal, self.do_record_message)
         self.__qt_signal_safe_convert.connect(self.update_datagram_value_display_signal,
@@ -643,6 +646,7 @@ class MainWin(QMainWindow):
         about_dlg = QMessageBox()
         about_dlg.about(self, 'About Application', _about_application_message_format.format(
             app_version=self.__application_version,
+            dd_client_pkg_version=self.__dd_client_pkg_version,
             template_doc=self.__datagram_manager.data_dictionary_version.template.doc,
             template='{}.{}'.format(self.__datagram_manager.data_dictionary_version.template.major,
                                     self.__datagram_manager.data_dictionary_version.template.minor),

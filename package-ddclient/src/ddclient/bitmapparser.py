@@ -34,7 +34,7 @@ command_bit_map = OrderedDict(
 
 command_response_bit_map = OrderedDict(
     (
-        ('ack_code', bit_attribute_type(wide=8, names=_cmd_code_names)),
+        ('ack_code', bit_attribute_type(wide=8, names=_cmd_ack_code_names)),
         ('sequence', bit_attribute_type(wide=16, names=None)),
         ('producer', bit_attribute_type(wide=8, names=_producer_names)),
     )
