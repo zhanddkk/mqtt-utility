@@ -6,6 +6,7 @@ class Configuration:
     def __init__(self):
         self.__config_file_name = 'config.ini'
         self.__config_ini = configparser.ConfigParser()
+        self.__log_filter_hash_id_list = []
         pass
 
     def create_config(self):
@@ -18,6 +19,9 @@ class Configuration:
         }
         self.__config_ini['LOCAL_BROKER'] = {
             'net_port': '1883'
+        }
+        self.__config_ini['LOG_FILTER'] = {
+            'hash_id_list': ''
         }
         with open(self.__config_file_name, 'w') as configfile:
             self.__config_ini.write(configfile)
@@ -64,6 +68,17 @@ class Configuration:
             return
         self.__config_ini['CONNECT_TO_BROKER']['broker_net_port'] = str(port)
 
+    @property
+    def log_filter_hash_id_list(self):
+        _txt = self.__config_ini['LOG_FILTER']['hash_id_list'].split(',')
+        try:
+            return [int(value, base=16) for value in _txt]
+        except TypeError:
+            return []
+
+    @log_filter_hash_id_list.setter
+    def log_filter_hash_id_list(self, hash_id_list):
+        self.__config_ini['LOG_FILTER']['hash_id_list'] = ','.join('0x{:>08X}'.format(value) for value in hash_id_list)
     pass
 
 if __name__ == '__main__':

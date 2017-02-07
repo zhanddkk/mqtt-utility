@@ -4,5 +4,7 @@
     <file>ico/MainWindowIcon.ico</file>
     <file>ico/Setting.ico</file>
     <file>ico/MqttBrokerConfig.ico</file>
+    <file>ico/LogClear.ico</file>
+    <file>ico/LogFilter.ico</file>
   </qresource>
 </RCC>

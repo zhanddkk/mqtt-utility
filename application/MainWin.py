@@ -1,4 +1,3 @@
-import datetime
 from collections import OrderedDict
 from PyQt5.Qt import Qt, QDir, QFileInfo, QFontMetrics, pyqtSignal, pyqtSlot
 from PyQt5.QtWidgets import QApplication, QMainWindow, QFileDialog, QMessageBox, QHeaderView, QTreeWidgetItem
@@ -10,8 +9,9 @@ from Configuration import Configuration
 from QSimpleThread import QSimpleThread
 from SettingDlg import SettingDlg
 from WaitingDlg import WaitingDlg
+from LogWin import LogWin
 from SafeConnector import SafeConnector
-from ValueAttributeType import standard_value_attribute_dictionary, value_attribute_type, bit_attribute_type
+from ValueAttributeType import standard_value_attribute_dictionary, value_attribute_type
 from ValueEditorTreeViewModel import ValueEditorTreeViewModel
 from ValueEditorTreeViewDelegate import ValueEditorTreeViewDelegate
 from HistoryDataDisplayTreeViewModel import HistoryDataDisplayTreeViewModel
@@ -46,13 +46,6 @@ _about_application_message_format = """\
 <p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">
 <span style=font-weight:600;>Product Name</span> : {pro_name}</p>
 """
-_log_text_format = '''\
-----------{time}----------
- qos: {qos}
- retain: {retain}
- topic: {topic}
- payload: {payload}
-'''
 
 command_value_attribute = value_attribute_type(
     system_tag='BitmapType',
@@ -94,9 +87,10 @@ class MainWin(QMainWindow):
         super(MainWin, self).__init__(parent, flags=Qt.Window)
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
+
         self.__application_version = __app_version__
         self.__qt_signal_safe_convert = SafeConnector()
-        self.__qt_signal_safe_convert.connect(self.record_message_signal, self.update_log_display)
+        self.__qt_signal_safe_convert.connect(self.record_message_signal, self.do_record_message)
         self.__qt_signal_safe_convert.connect(self.update_datagram_value_display_signal,
                                               self.update_datagram_value_display)
         self.__current_datagram_topic_index = None
@@ -104,6 +98,9 @@ class MainWin(QMainWindow):
 
         self.__configuration = Configuration()
         self.__configuration.read_config()
+
+        self.__log_win = LogWin(self.__configuration, self)
+        self.ui.log_dock_widget.setWidget(self.__log_win)
 
         self.__datagram_manager = DatagramManager(self)
         self.__datagram_manager.init_datagram_access_client('UI',
@@ -630,7 +627,7 @@ class MainWin(QMainWindow):
             if _dg:
                 self.__update_history_data_tree_view_display(_dg, topic_index[1], topic_index[2])
         pass
-
+    '''
     def update_log_display(self, message):
         data_time = datetime.datetime.now()
         log_text = _log_text_format.format(
@@ -641,6 +638,11 @@ class MainWin(QMainWindow):
             payload='☟\n  |->' + str(message.payload).replace('\n', '\n  |->')
             if message.is_valid else message.payload)
         self.ui.log_plain_text_edit.appendPlainText(log_text)
+        pass
+    '''
+
+    def do_record_message(self, message):
+        self.__log_win.update_log_display(message)
         pass
 
     def setting(self):
