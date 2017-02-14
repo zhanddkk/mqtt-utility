@@ -244,12 +244,12 @@ class DataDictionaryManager:
     pass
 
 
-def demo_code():
+def demo_code(file_name='default_data_dictionary.csv'):
     import csv
     from dditem import data_dictionary_item_text_format
     data_dictionary_manager = DataDictionaryManager()
     try:
-        with open('default_data_dictionary.csv', newline='') as csv_file:
+        with open(file_name, newline='') as csv_file:
             reader = csv.reader(csv_file, dialect='excel')
             try:
                 if data_dictionary_manager.get_version_info(reader):

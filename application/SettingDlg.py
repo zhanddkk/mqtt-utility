@@ -93,6 +93,7 @@ class SettingDlg(QDialog):
             return
         _row = _model.rowCount()
         _model.insertRow(_row)
+        self.ui.log_filter_data_table_view.edit(_model.index(_row, 0))
         if self.__configuration.log_filter_hash_id_list != _model.data_list:
             self.__is_edited_mask |= self.E_LOG_FILTER_DATA
         else:
@@ -106,9 +107,9 @@ class SettingDlg(QDialog):
         if not _model:
             return
         _item_index = self.ui.log_filter_data_table_view.selectionModel().currentIndex()
-        if not _item_index:
-            return
         _row = _item_index.row()
+        if _row < 0:
+            return
         _model.removeRow(_row)
         if self.__configuration.log_filter_hash_id_list != _model.data_list:
             self.__is_edited_mask |= self.E_LOG_FILTER_DATA

@@ -124,12 +124,14 @@ class DataDictionaryInterfaceV0:
             structure_format = json.loads(data_dictionary_item_source.ChoiceList[0],
                                           object_pairs_hook=json_object_pairs_hook)
             if 'UniversalChoiceList' in structure_format:
-                key = structure_format['UniversalChoiceList']
-                if key in structure_format:
-                    structure_format = structure_format[key]
+                _name = structure_format['UniversalChoiceList']
+                if _name in structure_format:
+                    structure_format = structure_format[_name]
                 else:
                     print('ERROR:', 'Structure format not be defined')
                     return None
+            else:
+                _name = 'NO DEFINE'
             ret_dict = OrderedDict()
             for (key, data) in structure_format.items():
                 item = structure_type_item_attribute_class('BasicType', None, 1, None, None)
@@ -157,7 +159,7 @@ class DataDictionaryInterfaceV0:
         except ValueError:
             return None
         if ret_dict:
-            structure = udt_type_attribute_class(name='NO DEFINE',
+            structure = udt_type_attribute_class(name=_name,
                                                  size=None,
                                                  type='Structure',
                                                  content=ret_dict,
@@ -172,12 +174,14 @@ class DataDictionaryInterfaceV0:
             structure_format = json.loads(data_dictionary_item_source.ChoiceList[0],
                                           object_pairs_hook=json_object_pairs_hook)
             if 'UniversalChoiceList' in structure_format:
-                key = structure_format['UniversalChoiceList']
-                if key in structure_format:
-                    structure_format = structure_format[key]
+                _name = structure_format['UniversalChoiceList']
+                if _name in structure_format:
+                    structure_format = structure_format[_name]
                 else:
                     print('ERROR:', 'Enum choice list not be defined')
                     return None
+            else:
+                _name = 'NO DEFINE'
             ret_dict = OrderedDict()
             for (key, data) in structure_format.items():
                 item = enum_type_item_attribute_class(0, None)
@@ -201,7 +205,7 @@ class DataDictionaryInterfaceV0:
         except ValueError:
             return None
         if ret_dict:
-            enum = udt_type_attribute_class(name='NO DEFINE',
+            enum = udt_type_attribute_class(name=_name,
                                             size=None,
                                             type='Enum',
                                             content=ret_dict,

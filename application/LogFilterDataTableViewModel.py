@@ -31,7 +31,7 @@ class LogFilterDataTableViewModel(QAbstractTableModel):
     def data(self, index, int_role=None):
         row = index.row()
         column = index.column()
-        if int_role == Qt.DisplayRole:
+        if int_role == Qt.DisplayRole or int_role == Qt.EditRole:
             try:
                 hash_id = self.__data_list[row]
             except IndexError:
