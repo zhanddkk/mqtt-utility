@@ -260,9 +260,9 @@ class DatagramManager:
     pass
 
 
-def demo_code():
+def demo_code(file_name='default_data_dictionary.csv'):
     dgm = DatagramManager()
-    if dgm.import_data_dictionary('default_data_dictionary.csv') is False:
+    if dgm.import_data_dictionary(file_name) is False:
         return False
     print('Import data dictionary OK')
     dgm.init_datagram_access_client('demo_code')
@@ -270,8 +270,10 @@ def demo_code():
     while dgm.datagram_access_client.is_running is False:
         pass
     print('Server is running')
-
-    from repeater import repeater_parameter, Repeater, default_user_input_str
+    try:
+        from .repeater import repeater_parameter, Repeater, default_user_input_str
+    except SystemError:
+        from repeater import repeater_parameter, Repeater, default_user_input_str
     rpt = Repeater(dgm)
     resource = repeater_parameter(tagger_count=10,
                                   repeat_times_count=10,

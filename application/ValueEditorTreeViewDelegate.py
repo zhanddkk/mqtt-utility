@@ -46,7 +46,7 @@ class ValueEditorTreeViewDelegate(QStyledItemDelegate):
             pass
         try:
             _current_index = _editor.findText(_current_data, Qt.MatchExactly | Qt.MatchCaseSensitive)
-            if _current_data == -1:
+            if _current_index == -1:
                 pass
             else:
                 _editor.setCurrentIndex(_current_index)

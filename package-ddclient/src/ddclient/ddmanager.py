@@ -246,7 +246,10 @@ class DataDictionaryManager:
 
 def demo_code(file_name='default_data_dictionary.csv'):
     import csv
-    from dditem import data_dictionary_item_text_format
+    try:
+        from .dditem import data_dictionary_item_text_format
+    except SystemError:
+        from dditem import data_dictionary_item_text_format
     data_dictionary_manager = DataDictionaryManager()
     try:
         with open(file_name, newline='') as csv_file:

@@ -348,6 +348,10 @@ class DataDictionaryInterfaceV0:
             return True
             pass
         elif data_dictionary_item.system_tag == 'ArrayType':
+            if data_dictionary_item.type == 'Measure':
+                tmp_value = self.convert(default_text, data_dictionary_item.basic_type)
+                if tmp_value is not None:
+                    data_dictionary_item.default = [tmp_value for i in range(data_dictionary_item.array_count)]
             return True
             pass
         elif data_dictionary_item.system_tag == 'StructureType':
@@ -424,6 +428,15 @@ class DataDictionaryInterfaceV0:
                     data_dictionary_item.selectable_point = selectable_point
                 return True
             pass
+        elif data_dictionary_item.system_tag == 'ArrayType':
+            if data_dictionary_item.type == 'Measure':
+                _min = self.convert(data_dictionary_item_source.Min[0], data_dictionary_item.basic_type)
+                _max = self.convert(data_dictionary_item_source.Max[0], data_dictionary_item.basic_type)
+                if _min is not None:
+                    data_dictionary_item.min = [_min for i in range(data_dictionary_item.array_count)]
+                if _max is not None:
+                    data_dictionary_item.max = [_max for i in range(data_dictionary_item.array_count)]
+            return True
         else:
             return True
         pass
