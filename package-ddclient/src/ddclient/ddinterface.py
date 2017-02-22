@@ -88,6 +88,16 @@ class DataDictionaryInterfaceV0:
                                 num = c_type(num).value
                             except ValueError:
                                 pass
+                        else:
+                            try:
+                                num = int(float(str_num))
+                                num = c_type(num).value
+                                print('WARNING:', 'Input value({}) and value type({}) are not match'.format(
+                                    str_num,
+                                    to_type))
+                            except ValueError:
+                                pass
+                            pass
                         pass
                 else:
                     try:
@@ -399,6 +409,7 @@ class DataDictionaryInterfaceV0:
         if (data_dictionary_item.system_tag == 'BasicType') or (data_dictionary_item.system_tag == 'EnumType'):
             data_dictionary_item.min = self.convert(data_dictionary_item_source.Min[0], data_dictionary_item.basic_type)
             data_dictionary_item.max = self.convert(data_dictionary_item_source.Max[0], data_dictionary_item.basic_type)
+
             if data_dictionary_item.max is None:
                 try:
                     choice_point_dict = json.loads(data_dictionary_item_source.Max[0])

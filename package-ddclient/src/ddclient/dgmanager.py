@@ -9,6 +9,9 @@ try:
     from .dg import Datagram
     from .dgpayload import DatagramPayload
     from .dgpayload import E_DATAGRAM_ACTION_PUBLISH as _E_DATAGRAM_ACTION_PUBLISH
+    from .dgpayload import E_DATAGRAM_ACTION_RESPONSE as _E_DATAGRAM_ACTION_RESPONSE
+    from .dgpayload import E_DATAGRAM_ACTION_REQUEST as _E_DATAGRAM_ACTION_REQUEST
+    from .dgpayload import E_DATAGRAM_ACTION_ALLOW as _E_DATAGRAM_ACTION_ALLOW
     from .dgaccessclient import DatagramAccessClient
     from .bitmapparser import BitMapParser, command_bit_map
 except SystemError:
@@ -17,6 +20,9 @@ except SystemError:
     from dg import Datagram
     from dgpayload import DatagramPayload
     from dgpayload import E_DATAGRAM_ACTION_PUBLISH as _E_DATAGRAM_ACTION_PUBLISH
+    from dgpayload import E_DATAGRAM_ACTION_RESPONSE as _E_DATAGRAM_ACTION_RESPONSE
+    from dgpayload import E_DATAGRAM_ACTION_REQUEST as _E_DATAGRAM_ACTION_REQUEST
+    from dgpayload import E_DATAGRAM_ACTION_ALLOW as _E_DATAGRAM_ACTION_ALLOW
     from dgaccessclient import DatagramAccessClient
     from bitmapparser import BitMapParser, command_bit_map
 
@@ -205,7 +211,7 @@ class DatagramManager:
                 pass
         pass
 
-    def send_package_by_payload(self, payload, topic=None, qos=0, retain=False):
+    def send_package_by_payload(self, payload, topic=None, qos=0, retain=None):
         if self.__datagram_access_client is None:
             print('ERROR:', 'No datagram server.')
             return False
@@ -236,6 +242,16 @@ class DatagramManager:
                         if topic != topic_tmp:
                             print('WARNING:', 'Input topic and defined topic in datagram do not match. Input =',
                                   topic + ',', 'Defined = ', topic_tmp)
+        if retain is None:
+            retain = True
+            if dg.attribute.type == 'Command':
+                if payload.action == _E_DATAGRAM_ACTION_PUBLISH or payload.action == _E_DATAGRAM_ACTION_RESPONSE:
+                    retain = False
+            elif dg.attribute.type == 'Setting':
+                if payload.action == _E_DATAGRAM_ACTION_REQUEST or payload.action == _E_DATAGRAM_ACTION_RESPONSE:
+                    retain = False
+            else:
+                pass
         if self.__datagram_access_client.publish(payload.get_package(), topic, qos, retain) is True:
             if dg is not None:
                 if dg.set_device_data_value_by_payload(payload) is False:
