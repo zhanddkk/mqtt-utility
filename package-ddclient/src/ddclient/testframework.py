@@ -18,12 +18,12 @@ class TestFramework(DatagramMessageObserver):
 
     def first_matcher(self, matcher):
         if not isinstance(matcher, MessageMatcher):
-            raise TypeError("matcher should be subclass of MessageMatcher")
+            raise TypeError("Matcher should be subclass of MessageMatcher")
         self.__msg_matcher_list = [matcher]
 
     def then_matcher(self, matcher):
         if not isinstance(matcher, MessageMatcher):
-            raise TypeError("matcher should be subclass of MessageMatcher")
+            raise TypeError("Matcher should be subclass of MessageMatcher")
         self.__msg_matcher_list.append(matcher)
 
     def wait_verify_result(self, timeout=1):

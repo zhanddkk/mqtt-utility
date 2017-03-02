@@ -83,33 +83,33 @@ payload_package_info = {
 
 datagram_payload_data_class = named_list('DatagramPayloadData',
                                          'payload_type,'
-                                         ' payload_version,'
-                                         ' hash_id,'
-                                         ' producer_mask,'
-                                         ' action,'
-                                         ' time_stamp_second,'
-                                         ' time_stamp_ms,'
-                                         ' device_instance_index,'   # Start from 1, not 0
-                                         ' data_object_reference_type,'
-                                         ' data_object_reference_value,'
-                                         ' value')
+                                         'payload_version,'
+                                         'hash_id,'
+                                         'producer_mask,'
+                                         'action,'
+                                         'time_stamp_second,'
+                                         'time_stamp_ms,'
+                                         'device_instance_index,'   # Start from 1, not 0
+                                         'data_object_reference_type,'
+                                         'data_object_reference_value,'
+                                         'value')
 
 
 class DatagramPayload(datagram_payload_data_class):
 
-    def __init__(self, hash_id=0, device_instance_index=1):
+    def __init__(self, hash_id=0, device_instance_index=1, value=None, action=0, producer_mask=D_NODE_MASK_SLC_UPS):
         self.is_object_reference_package = False
         super(DatagramPayload, self).__init__(payload_type=0,
                                               payload_version=0,
                                               hash_id=hash_id,
-                                              producer_mask=1,
-                                              action=0,
+                                              producer_mask=producer_mask,
+                                              action=action,
                                               time_stamp_second=0xffffffff,
                                               time_stamp_ms=0xffff,
                                               device_instance_index=device_instance_index,
                                               data_object_reference_type=0,
                                               data_object_reference_value=0,
-                                              value=None)
+                                              value=value)
         pass
 
     def __str__(self):

@@ -15,6 +15,9 @@ enum_type_item_attribute_class = named_list('EnumTypeItemAttribute', 'value, com
 
 basic_type_name_map = {
     'bool': 'Bool',
+    'char': 'Char',     # Only to be used to identify if the value is string
+    'float': 'Float',
+
     'int8_t': 'Int8',
     'int16_t': 'Int16',
     'int32_t': 'Int32',
@@ -30,7 +33,6 @@ basic_type_name_map = {
     '32BS': 'Int32',
     '32BUS': 'UInt32',
     '32BFL': 'Float',
-    'float': 'Float',
 }
 
 special_type_name_map = {
@@ -148,7 +150,22 @@ class DataDictionaryInterfaceV0:
                 if type(data) is list:
                     try:
                         item.basic_type = basic_type_name_map[data[0]]
-                        item.comment = str(data[1])
+                        # item.comment = data[1]
+                        if isinstance(data[1], int):
+                            # 'system_tag, basic_type, array_count, special_data, comment'
+                            if item.basic_type == 'Char':
+                                item.system_tag = 'StringType'
+                            else:
+                                item.system_tag = 'ArrayType'
+                                item.special_data = structure_type_item_attribute_class(
+                                    system_tag='BasicType',
+                                    basic_type=item.basic_type,
+                                    array_count=1,
+                                    special_data=None,
+                                    comment=None
+                                )
+                            item.array_count = data[1]
+                            item.comment = data[2]
                     except KeyError:
                         print('ERROR:', 'Structure can only support basic type')
                         return None
@@ -314,7 +331,7 @@ class DataDictionaryInterfaceV0:
                 if data_dictionary_item_source.Format[0] in special_type_name_map:
                     data_dictionary_item.system_tag = special_type_name_map[data_dictionary_item_source.Format[0]]
                     if data_dictionary_item.system_tag == 'StringType':
-                        data_dictionary_item.basic_type = 'UInt8'
+                        data_dictionary_item.basic_type = 'Char'
                         data_dictionary_item.array_count = 1
                         pass
                     elif data_dictionary_item.system_tag == 'ArrayType':

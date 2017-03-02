@@ -10,7 +10,7 @@ _cmd_code_names = {
 
 _cmd_ack_code_names = {
     'Idle': 0x10,
-    'Receive': 0x11,
+    'Received': 0x11,
     'Completed': 0x12,
     'Locked': 0x13,
     'Refused': 0x14

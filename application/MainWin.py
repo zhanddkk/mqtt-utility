@@ -350,8 +350,7 @@ class MainWin(QMainWindow):
         )
         pass
 
-    @staticmethod
-    def __convert_sub_array_type(_type):
+    def __convert_sub_array_type(self, _type):
         _new_type = value_attribute_type(
             system_tag='ArrayType',
             basic_type=None,
@@ -362,32 +361,57 @@ class MainWin(QMainWindow):
         if _type.special_data is None:
             _new_type.special_data = standard_value_attribute_dictionary['UInt8']
         else:
-            try:
-                _new_type.special_data = standard_value_attribute_dictionary[_type.special_data.basic_type]
-            except KeyError:
-                pass
+            _new_type.special_data = self.__convert_sub_item(_type.special_data)
         return _new_type
         pass
 
     @staticmethod
     def __convert_sub_string_type(_type):
+        return standard_value_attribute_dictionary['String']
         pass
 
     @staticmethod
     def __convert_sub_basic_type(_type):
+        try:
+            return standard_value_attribute_dictionary[_type.basic_type]
+        except KeyError:
+            print('ERROR:', '{} is invalid basic type'.format(_type.basic_type))
+            return standard_value_attribute_dictionary['String']
+            pass
         pass
 
     @staticmethod
     def __convert_sub_structure_type(_type):
+        return None
+        pass
+
+    @staticmethod
+    def __convert_sub_enum_type(_type):
+        return None
         pass
 
     def __convert_sub_item(self, _type):
-
+        if _type.system_tag == 'BasicType':
+            return self.__convert_sub_basic_type(_type)
+            pass
+        elif _type.system_tag == 'EnumType':
+            return self.__convert_sub_enum_type(_type)
+            pass
+        elif _type.system_tag == 'StringType':
+            return self.__convert_sub_string_type(_type)
+            pass
+        elif _type.system_tag == 'ArrayType':
+            return self.__convert_sub_array_type(_type)
+            pass
+        elif _type.system_tag == 'StructureType':
+            return self.__convert_sub_structure_type(_type)
+            pass
+        else:
+            print('WARNING:', '{} is not supported'.format(_type.system_tag))
+            return None
         pass
 
-    # @staticmethod
     def __get_value_attribute_form_datagram_attribute(self, datagram_attribute):
-        # def __get_value_attribute_form_datagram_attribute(self, datagram_attribute):
         _value_attribute = None
         if datagram_attribute.system_tag == 'StringType':
             _value_attribute = standard_value_attribute_dictionary['String']
@@ -428,20 +452,7 @@ class MainWin(QMainWindow):
             structure_dict = datagram_attribute.structure_format.content
             _special_data = OrderedDict()
             for _key, _data in structure_dict.items():
-                if _data.system_tag == 'BasicType':
-                    try:
-                        _special_data[_key] = standard_value_attribute_dictionary[_data.basic_type]
-                    except KeyError:
-                        pass
-                elif _data.system_tag == 'StringType':
-                    _special_data[_key] = standard_value_attribute_dictionary['String']
-                # elif _data.system_tag == 'ArrayType':
-                #     _special_data[_key] = self.__convert_sub_array_type(_data)
-                    pass
-                else:   # Will only supports basic type or string type in structure for this version
-                    _special_data[_key] = standard_value_attribute_dictionary['String']
-                    pass
-                pass
+                _special_data[_key] = self.__convert_sub_item(_data)
             if _special_data:
                 _value_attribute = value_attribute_type(
                     system_tag='StructureType',

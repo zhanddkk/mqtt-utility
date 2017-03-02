@@ -23,7 +23,7 @@ class MessageMatcher:
 
     def set_comparator(self, comparator):
         if not isinstance(comparator, PackageComparator):
-            raise TypeError("comparator should be subclass of type PackageComparator")
+            raise TypeError("Comparator should be subclass of type PackageComparator")
         self.__pkg_comparator = comparator
 
     def print_same_hash_id_package(self, received_package, expect_package):
@@ -34,7 +34,7 @@ class MessageMatcher:
         result = False
         if received_payload.hash_id == expect_payload.hash_id:
             print("Received:", received_package)
-            print("expected", expect_package)
+            print("Expected", expect_package)
 
     def compare_package(self, pkg0, pkg1):
         equal = self.__pkg_comparator.compare(pkg0, pkg1)
