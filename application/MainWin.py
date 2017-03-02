@@ -15,6 +15,7 @@ from ValueAttributeType import standard_value_attribute_dictionary, value_attrib
 from ValueEditorTreeViewModel import ValueEditorTreeViewModel
 from ValueEditorTreeViewDelegate import ValueEditorTreeViewDelegate
 from HistoryDataDisplayTreeViewModel import HistoryDataDisplayTreeViewModel
+from SettingDatagramValues import SettingDatagramValues
 from ddclient import __version__ as __dd_client_pkg_version__
 from ddclient.dgmanager import DatagramManager, message_format_class
 from ddclient.dgpayload import (E_DATAGRAM_ACTION_PUBLISH, E_DATAGRAM_ACTION_RESPONSE, E_DATAGRAM_ACTION_REQUEST,
@@ -142,6 +143,7 @@ class MainWin(QMainWindow):
         self.ui.actionConnect_Broker.triggered.connect(self.connect_to_broker)
         self.ui.actionSettings.triggered.connect(self.setting)
         self.ui.actionAbout.triggered.connect(self.about)
+        self.ui.actionDump_Setting_Data.triggered.connect(self.dump_setting_data)
 
         # Set dock widget
         self.tabifyDockWidget(self.ui.payload_dock_widget, self.ui.repeater_dock_widget)
@@ -526,6 +528,7 @@ class MainWin(QMainWindow):
             file_name = fdg.selectedFiles()[0]
             file_info = QFileInfo(file_name)
             self.__configuration.data_dictionary_path = file_info.absolutePath()
+            self.__configuration.data_dictionary_file_name = file_info.fileName()
             self.__configuration.save_config()
             if self.__datagram_manager.import_data_dictionary(file_name):
                 self.__expand_datagram_index_to_topic_index()
@@ -641,6 +644,25 @@ class MainWin(QMainWindow):
         if self.__set_dlg is None:
             self.__set_dlg = SettingDlg(self.__configuration)
         self.__set_dlg.exec()
+
+    def dump_setting_data(self):
+        fdg = QFileDialog()
+        fdg.setAcceptMode(QFileDialog.AcceptSave)
+        q_dir = QDir(self.__configuration.setting_data_file_path)
+        csv_path = q_dir.absolutePath()
+        fdg.setDirectory(csv_path)
+        fdg.setNameFilter("Json Files (*.json);;Text Files (*.txt);;All Files (*)")
+        if fdg.exec():
+            file_name = fdg.selectedFiles()[0]
+            file_info = QFileInfo(file_name)
+            self.__configuration.setting_data_file_path = file_info.absolutePath()
+            self.__configuration.save_config()
+            _values = SettingDatagramValues(self.__datagram_manager, self.__configuration, self)
+            if _values.dump(file_name):
+                self.statusBar().showMessage('Dumped to [{}]'.format(file_name))
+            else:
+                self.statusBar().showMessage('Dump failed')
+        pass
 
     def about(self):
         about_dlg = QMessageBox()
