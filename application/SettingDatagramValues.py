@@ -34,9 +34,13 @@ class SettingDatagramValues(QObject):
         try:
             if _args[0] == 'Default':
                 _args[0] = '{}/{}'.format(self.__config.data_dictionary_path, self.__config.data_dictionary_file_name)
-            _args.insert(0, node['script'])
+            if _args[1] == 'Default':
+                _args[1] = self.__config.connect_broker_ip
+            if _args[2] == 'Default':
+                _args[2] = str(self.__config.connect_broker_ip_port)
         except IndexError:
             pass
+        _args.insert(0, node['script'])
         _process.start(py_executable, _args)
         _process_stdout_dlg.show()
         pass

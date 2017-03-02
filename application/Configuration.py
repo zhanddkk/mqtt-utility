@@ -37,20 +37,20 @@ class Configuration:
             'device_index': 0,
             'communication_status_hash_id': '0x62E89354',
             'script': 'nodescript/UcNode.py',
-            'args': '{dd}'.format(
+            'args': '{dd},{ip},{port}'.format(
                 dd='Default',
-                ip=self.__config_ini['CONNECT_TO_BROKER']['broker_address'],
-                port=self.__config_ini['CONNECT_TO_BROKER']['broker_net_port'])
+                ip='Default',
+                port='Default')
         }
         _hmi_node_data = {
             'name': 'HMI',
             'device_index': 0,
             'communication_status_hash_id': '0x37CFE282',
             'script': 'nodescript/HmiNode.py',
-            'args': '{dd}'.format(
+            'args': '{dd},{ip},{port}'.format(
                 dd='Default',
-                ip=self.__config_ini['CONNECT_TO_BROKER']['broker_address'],
-                port=self.__config_ini['CONNECT_TO_BROKER']['broker_net_port'])
+                ip='Default',
+                port='Default')
         }
         self.__node_data = {
             'UC_0': _uc_node_data,

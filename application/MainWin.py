@@ -351,7 +351,42 @@ class MainWin(QMainWindow):
         pass
 
     @staticmethod
-    def __get_value_attribute_form_datagram_attribute(datagram_attribute):
+    def __convert_sub_array_type(_type):
+        _new_type = value_attribute_type(
+            system_tag='ArrayType',
+            basic_type=None,
+            type_name='Array',
+            array_count=_type.array_count,
+            size=None,
+            special_data=None)
+        if _type.special_data is None:
+            _new_type.special_data = standard_value_attribute_dictionary['UInt8']
+        else:
+            try:
+                _new_type.special_data = standard_value_attribute_dictionary[_type.special_data.basic_type]
+            except KeyError:
+                pass
+        return _new_type
+        pass
+
+    @staticmethod
+    def __convert_sub_string_type(_type):
+        pass
+
+    @staticmethod
+    def __convert_sub_basic_type(_type):
+        pass
+
+    @staticmethod
+    def __convert_sub_structure_type(_type):
+        pass
+
+    def __convert_sub_item(self, _type):
+
+        pass
+
+    # @staticmethod
+    def __get_value_attribute_form_datagram_attribute(self, datagram_attribute):
         # def __get_value_attribute_form_datagram_attribute(self, datagram_attribute):
         _value_attribute = None
         if datagram_attribute.system_tag == 'StringType':
@@ -372,7 +407,7 @@ class MainWin(QMainWindow):
                                                     basic_type=None,
                                                     type_name='Array',
                                                     array_count=datagram_attribute.array_count,
-                                                    size=20,
+                                                    size=None,
                                                     special_data=_special_data
                                                     )
         elif datagram_attribute.system_tag == 'EnumType':
@@ -400,6 +435,9 @@ class MainWin(QMainWindow):
                         pass
                 elif _data.system_tag == 'StringType':
                     _special_data[_key] = standard_value_attribute_dictionary['String']
+                # elif _data.system_tag == 'ArrayType':
+                #     _special_data[_key] = self.__convert_sub_array_type(_data)
+                    pass
                 else:   # Will only supports basic type or string type in structure for this version
                     _special_data[_key] = standard_value_attribute_dictionary['String']
                     pass
