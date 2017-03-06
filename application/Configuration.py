@@ -59,6 +59,9 @@ class Configuration:
         self.__config_ini['NODE_DEFINE'] = {
             'data': json.dumps(self.__node_data, indent=4)
         }
+        self.__config_ini['PYTHON'] = {
+            'executable': 'python'
+        }
         with open(self.__config_file_name, 'w') as configfile:
             self.__config_ini.write(configfile)
             configfile.close()
@@ -161,6 +164,15 @@ class Configuration:
             return self.__node_data[_key]
         except KeyError:
             return {}
+
+    @property
+    def python_exe(self):
+        return self.__config_ini['PYTHON']['executable']
+        pass
+
+    @python_exe.setter
+    def python_exe(self, path):
+        self.__config_ini['PYTHON']['executable'] = path
     pass
 
 if __name__ == '__main__':

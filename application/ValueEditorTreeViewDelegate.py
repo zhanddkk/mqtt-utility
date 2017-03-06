@@ -22,8 +22,8 @@ class ValueEditorTreeViewDelegate(QStyledItemDelegate):
                     _editor = QComboBox(parent)
                     _editor.setEditable(True)
                     _item_text_list = []
-                    for item in sorted(_item.hide_data.special_data.items(), key=lambda _d: _d[1]):
-                        _item_text_list.append('{value} | {name}'.format(value=item[1], name=item[0]))
+                    for item in sorted(_item.hide_data.special_data.items(), key=lambda _d: _d[1].value):
+                        _item_text_list.append('{value} | {name}'.format(value=item[1].value, name=item[0]))
                     _editor.addItems(_item_text_list)
                     pass
             elif _item.hide_data.system_tag == 'BasicType':

@@ -4,18 +4,15 @@ from collections import OrderedDict
 from namedlist import namedlist as named_list
 try:
     from .dditem import data_dictionary_item_type
+    from .valuetype import standard_value_attribute_dictionary, get_value_type_standard_template, ValueType
 except SystemError:
     from dditem import data_dictionary_item_type
+    from valuetype import standard_value_attribute_dictionary, get_value_type_standard_template, ValueType
 
-basic_type_attribute_class = named_list('BasicTypeAttribute', 'range, size, type')
-udt_type_attribute_class = named_list('UserDefineType', 'name, size, type, content, comment')
-structure_type_item_attribute_class = named_list('StructureTypeItemAttribute',
-                                                 'system_tag, basic_type, array_count, special_data, comment')
-enum_type_item_attribute_class = named_list('EnumTypeItemAttribute', 'value, comment')
+enum_item_attribute_type = named_list('EnumItemAttributeType', 'value, comment')
 
 basic_type_name_map = {
     'bool': 'Bool',
-    'char': 'Char',     # Only to be used to identify if the value is string
     'float': 'Float',
 
     'int8_t': 'Int8',
@@ -35,6 +32,10 @@ basic_type_name_map = {
     '32BFL': 'Float',
 }
 
+special_basic_type_name_map = {
+    'char': 'Char',  # Only to be used to identify if the value is string
+}
+
 special_type_name_map = {
     'STRING': 'StringType',
     'BINARY_BLOC': 'ArrayType'
@@ -46,17 +47,6 @@ datagram_type_name_map = {
     'STATUS': 'Status',
     'GENERAL': 'General',
     'MEASURE': 'Measure'
-}
-
-basic_type_attribute = {
-    'Bool': basic_type_attribute_class(range=[0, 1], size=1, type=c_bool),
-    'Int8': basic_type_attribute_class(range=[-128, 127], size=1, type=c_int8),
-    'Int16': basic_type_attribute_class(range=[-32768, 32767], size=2, type=c_int16),
-    'Int32': basic_type_attribute_class(range=[-2147483648, 2147483647], size=4, type=c_int32),
-    'UInt8': basic_type_attribute_class(range=[0, 0xff], size=1, type=c_uint8),
-    'UInt16': basic_type_attribute_class(range=[0, 0xffff], size=2, type=c_uint16),
-    'UInt32': basic_type_attribute_class(range=[0, 0xffffffff], size=4, type=c_uint32),
-    'Float': basic_type_attribute_class(range=[3.4E-38, 3.4E38], size=4, type=c_float),
 }
 
 
@@ -73,8 +63,8 @@ class DataDictionaryInterfaceV0:
     def convert(str_num, to_type=None):
         num = None
         if to_type is not None:
-            if to_type in basic_type_attribute:
-                c_type = basic_type_attribute[to_type].type
+            if to_type in getattr(ValueType, '_basic_types'):
+                c_type = standard_value_attribute_dictionary[to_type].special_data
                 if to_type != 'Float':
                     if str_num.isdigit():
                         try:
@@ -131,7 +121,7 @@ class DataDictionaryInterfaceV0:
         pass
 
     @staticmethod
-    def parse_structure_format(data_dictionary_item_source):
+    def parse_structure_special_data(data_dictionary_item_source):
         try:
             structure_format = json.loads(data_dictionary_item_source.ChoiceList[0],
                                           object_pairs_hook=json_object_pairs_hook)
@@ -143,38 +133,54 @@ class DataDictionaryInterfaceV0:
                     print('ERROR:', 'Structure format not be defined')
                     return None
             else:
-                _name = 'NO DEFINE'
+                _name = 'Default'
             ret_dict = OrderedDict()
+
             for (key, data) in structure_format.items():
-                item = structure_type_item_attribute_class('BasicType', None, 1, None, None)
                 if type(data) is list:
                     try:
-                        item.basic_type = basic_type_name_map[data[0]]
-                        # item.comment = data[1]
-                        if isinstance(data[1], int):
-                            # 'system_tag, basic_type, array_count, special_data, comment'
-                            if item.basic_type == 'Char':
-                                item.system_tag = 'StringType'
+                        try:
+                            _basic_type = special_basic_type_name_map[data[0]]
+                        except KeyError:
+                            _basic_type = basic_type_name_map[data[0]]
+                            item = None
+                        try:
+                            if isinstance(data[1], int):
+                                if _basic_type == 'Char':
+                                    item = get_value_type_standard_template('String')
+                                    item.size = data[1]
+                                    item.array_count = data[1]
+                                elif _basic_type in getattr(ValueType, '_basic_types'):
+                                    _sub_type = standard_value_attribute_dictionary[_basic_type]
+                                    item = ValueType(system_tag='ArrayType',
+                                                     basic_type=_basic_type,
+                                                     size=data[1] * _sub_type.size,
+                                                     array_count=data[1],
+                                                     special_data=_sub_type)
+                                else:
+                                    print('ERROR:', '{} is not supported in structure'.format(data[0]))
+                                    return None
+                                    pass
+                                item.comment = data[2]
+                            elif isinstance(data[1], str):
+                                item = get_value_type_standard_template(_basic_type)
+                                item.comment = data[1]
                             else:
-                                item.system_tag = 'ArrayType'
-                                item.special_data = structure_type_item_attribute_class(
-                                    system_tag='BasicType',
-                                    basic_type=item.basic_type,
-                                    array_count=1,
-                                    special_data=None,
-                                    comment=None
-                                )
-                            item.array_count = data[1]
-                            item.comment = data[2]
+                                item = standard_value_attribute_dictionary[_basic_type]
+                                pass
+                        except IndexError:
+                            if item is None:
+                                item = standard_value_attribute_dictionary[_basic_type]
+                            pass
+
                     except KeyError:
                         print('ERROR:', 'Structure can only support basic type')
                         return None
-                    except IndexError:
-                        pass
                     pass
-                elif type(data) is str:
+                elif isinstance(data, str):
                     try:
-                        item.basic_type = basic_type_name_map[data]
+                        _basic_type = basic_type_name_map[data]
+                        item = standard_value_attribute_dictionary[_basic_type]
                     except KeyError:
                         print('ERROR:', 'Structure can only support basic type')
                         return None
@@ -185,18 +191,10 @@ class DataDictionaryInterfaceV0:
                 ret_dict[key] = item
         except ValueError:
             return None
-        if ret_dict:
-            structure = udt_type_attribute_class(name=_name,
-                                                 size=None,
-                                                 type='Structure',
-                                                 content=ret_dict,
-                                                 comment='')
-            return structure
-        else:
-            return None
+        return _name, ret_dict
 
     @staticmethod
-    def parse_enum_choice_list(data_dictionary_item_source):
+    def parse_enum_special_data(data_dictionary_item_source):
         try:
             structure_format = json.loads(data_dictionary_item_source.ChoiceList[0],
                                           object_pairs_hook=json_object_pairs_hook)
@@ -208,13 +206,14 @@ class DataDictionaryInterfaceV0:
                     print('ERROR:', 'Enum choice list not be defined')
                     return None
             else:
-                _name = 'NO DEFINE'
+                _name = 'Default'
+
             ret_dict = OrderedDict()
             for (key, data) in structure_format.items():
-                item = enum_type_item_attribute_class(0, None)
-                if type(data) is list:
+                item = enum_item_attribute_type(0, None)
+                if isinstance(data, list):
                     try:
-                        if type(data[0]) is not int:
+                        if not isinstance(data[0], int):
                             print('ERROR:', 'Enum value can only be UInt32')
                             return None
                         item.value = c_uint32(data[0]).value
@@ -222,7 +221,7 @@ class DataDictionaryInterfaceV0:
                     except IndexError:
                         pass
                     pass
-                elif type(data) is int:
+                elif isinstance(data, int):
                     item.value = c_uint32(data).value
                 else:
                     print('ERROR:', 'Parse enum failed with bad item', key, data)
@@ -231,16 +230,7 @@ class DataDictionaryInterfaceV0:
                 ret_dict[key] = item
         except ValueError:
             return None
-        if ret_dict:
-            enum = udt_type_attribute_class(name=_name,
-                                            size=None,
-                                            type='Enum',
-                                            content=ret_dict,
-                                            comment='')
-            return enum
-        else:
-            return None
-        pass
+        return _name, ret_dict
 
     def parse_basic_info(self, data_dictionary_item, data_dictionary_item_source):
         data_dictionary_item.root_system = data_dictionary_item_source.RootSystem[0]
@@ -256,93 +246,97 @@ class DataDictionaryInterfaceV0:
             return False
 
         try:
-            data_dictionary_item.basic_type = basic_type_name_map[data_dictionary_item_source.Format[0]]
-            data_dictionary_item.system_tag = 'BasicType'
+            _basic_type = basic_type_name_map[data_dictionary_item_source.Format[0]]
+            data_dictionary_item.value_type = standard_value_attribute_dictionary[_basic_type]
         except KeyError:
             pass
 
-        data_dictionary_item.max_size = self.convert(data_dictionary_item_source.MaxSize[0], 'UInt32')
-        if data_dictionary_item.max_size is None:
+        _max_size = self.convert(data_dictionary_item_source.MaxSize[0], 'UInt32')
+        if _max_size is None:
             print('ERROR:', 'Can\'t parse the max size ', data_dictionary_item_source.MaxSize[0])
             return False
+
         if data_dictionary_item.type == 'Command':
-            if data_dictionary_item.basic_type != 'UInt32':
-                print('ERROR:', 'Command type must be UInt32, but not', data_dictionary_item.basic_type)
+            if data_dictionary_item.value_type is None:
+                print('ERROR:', 'Command type parse value type failed')
+                return False
+            if data_dictionary_item.value_type.basic_type != 'UInt32':
+                print('ERROR:', 'Command type must be UInt32, but not', data_dictionary_item.value_type.basic_type)
                 return False
             else:
-                if data_dictionary_item.max_size != 1:
+                if _max_size != 1:
                     print('ERROR:', 'Command type datagram\'s max size must be 1 but not',
-                          data_dictionary_item.max_size)
+                          _max_size)
                     return False
-                data_dictionary_item.array_count = data_dictionary_item.max_size
                 pass
         elif data_dictionary_item.type == 'Status':
-            '''
-            if attribute.basic_type != 'UInt32':
-                print('ERROR:', 'Status type must be UInt32, but not', attribute.basic_type)
+            if data_dictionary_item.value_type is None:
+                print('ERROR:', 'Status type parse value type failed')
                 return False
-            else:
-                if attribute.max_size != 1:
-                    print('ERROR:', 'Enum type datagram\'s max size must be 1 but not', attribute.max_size)
-                    return False
-                attribute.array_count = attribute.max_size
-                attribute.system_tag = 'EnumType'
-                attribute.choice_list = self.parse_enum_choice_list(attribute_text)
-                if attribute.choice_list is None:
-                    print('ERROR:', 'Enum type must have the choice list')
-                    return False
-                pass
-            '''
-            if data_dictionary_item.system_tag != 'BasicType':
-                print('ERROR:', 'Status type\'s system tag must be BasicType, but not', data_dictionary_item.system_tag)
-                return False
-            if data_dictionary_item.basic_type != 'UInt32':
-                print('WARNING:', 'Status type shall be UInt32, but not', data_dictionary_item.basic_type,
-                      'so automatically set it as UInt32')
-                data_dictionary_item.basic_type = 'UInt32'
 
-            if data_dictionary_item.max_size != 1:
-                print('ERROR:', 'Status type datagram\'s max size must be 1 but not', data_dictionary_item.max_size)
+            if _max_size != 1:
+                print('ERROR:', 'Status type datagram\'s max size must be 1 but not', _max_size)
                 return False
-            data_dictionary_item.array_count = data_dictionary_item.max_size
-            data_dictionary_item.system_tag = 'EnumType'
-            data_dictionary_item.choice_list = self.parse_enum_choice_list(data_dictionary_item_source)
-            if data_dictionary_item.choice_list is None:
+
+            if data_dictionary_item.value_type.basic_type != 'UInt32':
+                print('WARNING:', 'Status type shall be UInt32, but not', data_dictionary_item.value_type.basic_type,
+                      'so automatically set it as UInt32')
+
+            _enum_define_data = self.parse_enum_special_data(data_dictionary_item_source)
+            if _enum_define_data is None:
                 print('ERROR:', 'Enum type must have the choice list')
                 return False
+
+            data_dictionary_item.value_type = ValueType(system_tag='EnumType',
+                                                        basic_type='UInt32',
+                                                        size=4,
+                                                        type_name=_enum_define_data[0])
+            data_dictionary_item.value_type.special_data = _enum_define_data[1]
+
         elif data_dictionary_item.type == 'Measure':
-            if data_dictionary_item.basic_type != 'Float':
-                print('ERROR:', 'Measure type must be Float, but not', data_dictionary_item.basic_type)
+            if data_dictionary_item.value_type.basic_type != 'Float':
+                print('ERROR:', 'Measure type must be Float, but not', data_dictionary_item.value_type.basic_type)
                 return False
             else:
-                if data_dictionary_item.max_size > 3:
+                if _max_size > 3:
                     print('ERROR:', 'Enum type datagram\'s max size must be less then 3 but it is',
-                          data_dictionary_item.max_size)
+                          _max_size)
                     return False
-                elif data_dictionary_item.max_size > 1:
-                    data_dictionary_item.system_tag = 'ArrayType'
+                elif _max_size > 1:
+                    _sub_type = data_dictionary_item.value_type
+                    data_dictionary_item.value_type = ValueType(system_tag='ArrayType',
+                                                                basic_type=_sub_type.basic_type,
+                                                                size=_max_size * _sub_type.size,
+                                                                array_count=_max_size,
+                                                                special_data=_sub_type)
                 else:
                     pass
-                data_dictionary_item.array_count = data_dictionary_item.max_size
                 pass
             pass
         else:
-            if data_dictionary_item.basic_type is None:
+            if data_dictionary_item.value_type is None:
                 if data_dictionary_item_source.Format[0] in special_type_name_map:
-                    data_dictionary_item.system_tag = special_type_name_map[data_dictionary_item_source.Format[0]]
-                    if data_dictionary_item.system_tag == 'StringType':
-                        data_dictionary_item.basic_type = 'Char'
-                        data_dictionary_item.array_count = 1
+                    _system_tag = special_type_name_map[data_dictionary_item_source.Format[0]]
+                    if _system_tag == 'StringType':
+                        data_dictionary_item.value_type = get_value_type_standard_template('String')
+                        data_dictionary_item.value_type.size = _max_size
                         pass
-                    elif data_dictionary_item.system_tag == 'ArrayType':
-                        data_dictionary_item.structure_format = self.parse_structure_format(data_dictionary_item_source)
-                        if data_dictionary_item.structure_format is not None:
-                            data_dictionary_item.system_tag = 'StructureType'
-                            data_dictionary_item.array_count = 1
+                    elif _system_tag == 'ArrayType':
+                        _structure_define_data = self.parse_structure_special_data(data_dictionary_item_source)
+                        if _structure_define_data is not None:
+                            data_dictionary_item.value_type = ValueType(system_tag='StructureType',
+                                                                        basic_type=None,
+                                                                        size=_max_size,
+                                                                        type_name=_structure_define_data[0],
+                                                                        special_data=_structure_define_data[1])
                             pass
                         else:
-                            data_dictionary_item.basic_type = 'UInt8'
-                            data_dictionary_item.array_count = data_dictionary_item.max_size
+                            data_dictionary_item.value_type = ValueType(
+                                system_tag='ArrayType',
+                                basic_type='UInt8',
+                                size=_max_size,
+                                array_count=_max_size,
+                                special_data=standard_value_attribute_dictionary['UInt8'])
                             pass
                         pass
                     else:
@@ -354,42 +348,56 @@ class DataDictionaryInterfaceV0:
                     return False
                 pass
             else:
-                data_dictionary_item.choice_list = self.parse_enum_choice_list(data_dictionary_item_source)
-                if data_dictionary_item.choice_list is None:
+                _enum_define_data = self.parse_enum_special_data(data_dictionary_item_source)
+                if _enum_define_data is None:
+                    if _max_size > 1:
+                        _sub_type = data_dictionary_item.value_type
+                        data_dictionary_item.value_type = ValueType(
+                            system_tag='ArrayType',
+                            basic_type=_sub_type.basic_type,
+                            size=_max_size * _sub_type.size,
+                            array_count=_max_size,
+                            special_data=standard_value_attribute_dictionary[_sub_type.basic_type])
                     pass
                 else:
-                    data_dictionary_item.system_tag = 'EnumType'
-                    if data_dictionary_item.basic_type != 'UInt32':
-                        print('WARNING:', 'Enum type shall be UInt32 but not', data_dictionary_item.basic_type,
+                    if data_dictionary_item.value_type.basic_type != 'UInt32':
+                        print('WARNING:', 'Enum type shall be UInt32 but not',
+                              data_dictionary_item.value_type.basic_type,
                               'so automatically set it as UInt32')
-                        data_dictionary_item.basic_type = 'UInt32'
+
+                    data_dictionary_item.value_type = ValueType(system_tag='EnumType',
+                                                                basic_type='UInt32',
+                                                                size=4,
+                                                                type_name=_enum_define_data[0])
+                    data_dictionary_item.value_type.special_data = _enum_define_data[1]
                     pass
                 pass
-                data_dictionary_item.array_count = data_dictionary_item.max_size
         pass
 
     def parse_default_value(self, data_dictionary_item, data_dictionary_item_source):
         default_text = data_dictionary_item_source.Default[0]
-        if (data_dictionary_item.system_tag == 'BasicType') or (data_dictionary_item.system_tag == 'EnumType'):
-            data_dictionary_item.default = self.convert(default_text, data_dictionary_item.basic_type)
+        if (data_dictionary_item.value_type.system_tag == 'BasicType') or\
+                (data_dictionary_item.value_type.system_tag == 'EnumType'):
+            data_dictionary_item.default = self.convert(default_text, data_dictionary_item.value_type.basic_type)
             return True
             pass
-        elif data_dictionary_item.system_tag == 'ArrayType':
+        elif data_dictionary_item.value_type.system_tag == 'ArrayType':
             if data_dictionary_item.type == 'Measure':
-                tmp_value = self.convert(default_text, data_dictionary_item.basic_type)
+                tmp_value = self.convert(default_text, data_dictionary_item.value_type.basic_type)
                 if tmp_value is not None:
-                    data_dictionary_item.default = [tmp_value for i in range(data_dictionary_item.array_count)]
+                    data_dictionary_item.default = [tmp_value
+                                                    for i in range(data_dictionary_item.value_type.array_count)]
             return True
             pass
-        elif data_dictionary_item.system_tag == 'StructureType':
+        elif data_dictionary_item.value_type.system_tag == 'StructureType':
             try:
                 default_value_dict = json.loads(default_text)
             except ValueError:
                 return True
             default_value = []
-            for (key, data) in data_dictionary_item.structure_format.content.items():
+            for (key, data) in data_dictionary_item.value_type.special_data.items():
                 if data.system_tag == 'BasicType':
-                    c_type = basic_type_attribute[data.basic_type].type
+                    c_type = data.special_data
                     if key in default_value_dict:
                         try:
                             val = c_type(default_value_dict[key]).value
@@ -414,18 +422,21 @@ class DataDictionaryInterfaceV0:
             if default_value:
                 data_dictionary_item.default = default_value
             return True
-        elif data_dictionary_item.system_tag == 'StringType':
+        elif data_dictionary_item.value_type.system_tag == 'StringType':
             data_dictionary_item.default = default_text
         else:
-            print('ERROR:', 'Can not support the system tag', data_dictionary_item.system_tag)
+            print('ERROR:', 'Can not support the system tag', data_dictionary_item.value_type.system_tag)
             return False
             pass
         pass
 
     def parse_range_info(self, data_dictionary_item, data_dictionary_item_source):
-        if (data_dictionary_item.system_tag == 'BasicType') or (data_dictionary_item.system_tag == 'EnumType'):
-            data_dictionary_item.min = self.convert(data_dictionary_item_source.Min[0], data_dictionary_item.basic_type)
-            data_dictionary_item.max = self.convert(data_dictionary_item_source.Max[0], data_dictionary_item.basic_type)
+        if (data_dictionary_item.value_type.system_tag == 'BasicType') or\
+                (data_dictionary_item.value_type.system_tag == 'EnumType'):
+            data_dictionary_item.min = self.convert(data_dictionary_item_source.Min[0],
+                                                    data_dictionary_item.value_type.basic_type)
+            data_dictionary_item.max = self.convert(data_dictionary_item_source.Max[0],
+                                                    data_dictionary_item.value_type.basic_type)
 
             if data_dictionary_item.max is None:
                 try:
@@ -434,16 +445,16 @@ class DataDictionaryInterfaceV0:
                     return True
                 selectable_point = []
                 for (key, data) in choice_point_dict.items():
-                    if type(data) is list:
+                    if isinstance(data, list):
                         data = data[0]
-                    if type(data) is int:
+                    if isinstance(data, int):
                         data = c_uint32(data).value
-                        if key in data_dictionary_item.choice_list.content:
-                            if data == data_dictionary_item.choice_list.content[key].value:
+                        if key in data_dictionary_item.value_type.special_data:
+                            if data == data_dictionary_item.value_type.special_data[key].value:
                                 selectable_point.append(data)
                             else:
                                 print('WARNING:', 'Item', key, ':', data, 'and enum defined value',
-                                      data_dictionary_item.choice_list.content[key].value, 'mismatch')
+                                      data_dictionary_item.value_type.special_data[key].value, 'mismatch')
                         else:
                             print('WARNING:', 'Item', key, ':', data, 'is not defined in the enum')
                         pass
@@ -456,14 +467,14 @@ class DataDictionaryInterfaceV0:
                     data_dictionary_item.selectable_point = selectable_point
                 return True
             pass
-        elif data_dictionary_item.system_tag == 'ArrayType':
+        elif data_dictionary_item.value_type.system_tag == 'ArrayType':
             if data_dictionary_item.type == 'Measure':
-                _min = self.convert(data_dictionary_item_source.Min[0], data_dictionary_item.basic_type)
-                _max = self.convert(data_dictionary_item_source.Max[0], data_dictionary_item.basic_type)
+                _min = self.convert(data_dictionary_item_source.Min[0], data_dictionary_item.value_type.basic_type)
+                _max = self.convert(data_dictionary_item_source.Max[0], data_dictionary_item.value_type.basic_type)
                 if _min is not None:
-                    data_dictionary_item.min = [_min for i in range(data_dictionary_item.array_count)]
+                    data_dictionary_item.min = [_min for i in range(data_dictionary_item.value_type.array_count)]
                 if _max is not None:
-                    data_dictionary_item.max = [_max for i in range(data_dictionary_item.array_count)]
+                    data_dictionary_item.max = [_max for i in range(data_dictionary_item.value_type.array_count)]
             return True
         else:
             return True

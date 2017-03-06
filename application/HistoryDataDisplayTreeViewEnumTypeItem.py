@@ -19,8 +19,8 @@ class HistoryDataDisplayTreeViewEnumTypeItem(ValueTreeViewItem):
             pass
         elif column == 2:
             for _key, _data in self.hide_data.special_data.items():
-                if _data == self.item_data[1]:
-                    return '{value} | {name}'.format(value=_data, name=_key)
+                if _data.value == self.item_data[1]:
+                    return '{value} | {name}'.format(value=_data.value, name=_key)
             return str(self.item_data[1])
             pass
         else:

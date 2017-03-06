@@ -67,6 +67,26 @@ def add_data_file():
     pass
 
 
+def __only_py(src, names):
+    ret = []
+    for sub_name in names:
+        if not sub_name.endswith('.py'):
+            ret.append(sub_name)
+            pass
+    return ret
+    pass
+
+
+def add_node_script_file():
+    src_path = 'application/nodescript'
+    dist_path = 'dist/application/nodescript'
+    from shutil import copytree, rmtree
+    if _os.path.exists(dist_path):
+        rmtree(dist_path)
+    copytree(src_path, dist_path, ignore=__only_py)
+    pass
+
+
 def __add_dir_in_zip(_zip_f, dir_name, arc_pre_path=''):
     file_list = []
     if arc_pre_path and not arc_pre_path.endswith('/'):
@@ -112,6 +132,7 @@ if __name__ == "__main__":
         build_exe()
         build_package()
         add_data_file()
+        add_node_script_file()
         packing_app('dist/{}'.format(format_app_package_name()))
         pass
     except Exception as exception:

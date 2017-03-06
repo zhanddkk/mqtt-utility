@@ -11,7 +11,6 @@ from SettingDlg import SettingDlg
 from WaitingDlg import WaitingDlg
 from LogWin import LogWin
 from SafeConnector import SafeConnector
-from ValueAttributeType import standard_value_attribute_dictionary, value_attribute_type
 from ValueEditorTreeViewModel import ValueEditorTreeViewModel
 from ValueEditorTreeViewDelegate import ValueEditorTreeViewDelegate
 from HistoryDataDisplayTreeViewModel import HistoryDataDisplayTreeViewModel
@@ -26,7 +25,9 @@ from ddclient.repeater import (Repeater,
                                default_user_input_str,
                                user_function_end_str,
                                get_user_function_source_code)
-from ddclient.bitmapparser import command_bit_map, command_response_bit_map, setting_response_bit_map
+from ddclient.bitmapparser import command_bit_map, command_response_bit_map, setting_response_bit_map, BitMapParser
+from ddclient.valuetype import ValueType, standard_value_attribute_dictionary
+from ddclient.ddinterface import enum_item_attribute_type
 _about_application_message_format = """\
 <p>----------Application Info----------</p>
 <p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;-qt-block-indent:0; text-indent:0px;">
@@ -50,29 +51,23 @@ _about_application_message_format = """\
 <span style=font-weight:600;>Product Name</span> : {pro_name}</p>
 """
 
-command_value_attribute = value_attribute_type(
+command_value_attribute = ValueType(
     system_tag='BitmapType',
     basic_type='UInt32',
-    type_name='Bitmap',
-    array_count=1,
     size=4,
     special_data=command_bit_map
 )  # Bitmap
 
-command_response_value_attribute = value_attribute_type(
+command_response_value_attribute = ValueType(
     system_tag='BitmapType',
     basic_type='UInt32',
-    type_name='Bitmap',
-    array_count=1,
     size=4,
     special_data=command_response_bit_map
 )  # Bitmap
 
-setting_response_value_attribute = value_attribute_type(
+setting_response_value_attribute = ValueType(
     system_tag='BitmapType',
     basic_type='UInt32',
-    type_name='Bitmap',
-    array_count=1,
     size=4,
     special_data=setting_response_bit_map
 )
@@ -97,6 +92,9 @@ class MainWin(QMainWindow):
         self.__qt_signal_safe_convert.connect(self.record_message_signal, self.do_record_message)
         self.__qt_signal_safe_convert.connect(self.update_datagram_value_display_signal,
                                               self.update_datagram_value_display)
+
+        self.__command_bit_map_parser = BitMapParser(command_bit_map)
+
         self.__current_datagram_topic_index = None
         self.__payload = DatagramPayload()
 
@@ -238,34 +236,45 @@ class MainWin(QMainWindow):
             pass
         pass
 
+    def __build_value_type_attribute_tree_widget_sub_item(self, parent_item, _type):
+        if isinstance(_type, ValueType):
+            for filed_name in _type.fields:
+                if filed_name == 'special_data':
+                    _special_data = getattr(_type, filed_name)
+                    item_value_str = '' if _special_data is None else _special_data.__class__.__name__
+                    sub_item = QTreeWidgetItem([filed_name, item_value_str])
+                    self.__build_value_type_attribute_tree_widget_sub_item(sub_item, _special_data)
+                    pass
+                else:
+                    sub_item = QTreeWidgetItem([filed_name, str(getattr(_type, filed_name))])
+                parent_item.addChild(sub_item)
+            pass
+        elif isinstance(_type, OrderedDict):
+            for _key, _data in _type.items():
+                if isinstance(_data, enum_item_attribute_type):
+                    sub_item = QTreeWidgetItem([_key, str(_data.value)])
+                elif isinstance(_data, ValueType):
+                    sub_item = QTreeWidgetItem([_key, str(_data.type_name)])
+                    self.__build_value_type_attribute_tree_widget_sub_item(sub_item, _data)
+                else:
+                    sub_item = QTreeWidgetItem([_key, 'Undefined'])
+                parent_item.addChild(sub_item)
+                pass
+            pass
+        else:
+            pass
+        pass
+
     def __update_data_attribute_tree_widget(self, datagram_attribute):
         widget = self.ui.data_attribute_tree_widget
         for (index, field_name) in enumerate(getattr(getattr(datagram_attribute, '_source'), '_fields')):
             top_item = self.ui.data_attribute_tree_widget.topLevelItem(index)
             value = getattr(datagram_attribute, field_name)
-            if field_name == 'choice_list':
+            if field_name == 'value_type':
                 top_item.takeChildren()
-                if value is None:
-                    item_value_str = ''
-                else:
-                    item_value_str = '...'
-                    for (key, choice_item_data) in value.content.items():
-                        sub_item = QTreeWidgetItem([key, str(choice_item_data.value)])
-                        top_item.addChild(sub_item)
-
-                    widget.expandItem(top_item)
-                pass
-            elif field_name == 'structure_format':
-                top_item.takeChildren()
-                if value is None:
-                    item_value_str = ''
-                else:
-                    item_value_str = '...'
-                    for (key, choice_item_data) in value.content.items():
-                        sub_item = QTreeWidgetItem([key, choice_item_data.basic_type])
-                        top_item.addChild(sub_item)
-
-                    widget.expandItem(top_item)
+                item_value_str = value.type_name
+                self.__build_value_type_attribute_tree_widget_sub_item(top_item, value)
+                self.ui.data_attribute_tree_widget.expandItem(top_item)
                 pass
             elif field_name == 'hash_id':
                 if value is None:
@@ -350,123 +359,6 @@ class MainWin(QMainWindow):
         )
         pass
 
-    def __convert_sub_array_type(self, _type):
-        _new_type = value_attribute_type(
-            system_tag='ArrayType',
-            basic_type=None,
-            type_name='Array',
-            array_count=_type.array_count,
-            size=None,
-            special_data=None)
-        if _type.special_data is None:
-            _new_type.special_data = standard_value_attribute_dictionary['UInt8']
-        else:
-            _new_type.special_data = self.__convert_sub_item(_type.special_data)
-        return _new_type
-        pass
-
-    @staticmethod
-    def __convert_sub_string_type(_type):
-        return standard_value_attribute_dictionary['String']
-        pass
-
-    @staticmethod
-    def __convert_sub_basic_type(_type):
-        try:
-            return standard_value_attribute_dictionary[_type.basic_type]
-        except KeyError:
-            print('ERROR:', '{} is invalid basic type'.format(_type.basic_type))
-            return standard_value_attribute_dictionary['String']
-            pass
-        pass
-
-    @staticmethod
-    def __convert_sub_structure_type(_type):
-        return None
-        pass
-
-    @staticmethod
-    def __convert_sub_enum_type(_type):
-        return None
-        pass
-
-    def __convert_sub_item(self, _type):
-        if _type.system_tag == 'BasicType':
-            return self.__convert_sub_basic_type(_type)
-            pass
-        elif _type.system_tag == 'EnumType':
-            return self.__convert_sub_enum_type(_type)
-            pass
-        elif _type.system_tag == 'StringType':
-            return self.__convert_sub_string_type(_type)
-            pass
-        elif _type.system_tag == 'ArrayType':
-            return self.__convert_sub_array_type(_type)
-            pass
-        elif _type.system_tag == 'StructureType':
-            return self.__convert_sub_structure_type(_type)
-            pass
-        else:
-            print('WARNING:', '{} is not supported'.format(_type.system_tag))
-            return None
-        pass
-
-    def __get_value_attribute_form_datagram_attribute(self, datagram_attribute):
-        _value_attribute = None
-        if datagram_attribute.system_tag == 'StringType':
-            _value_attribute = standard_value_attribute_dictionary['String']
-        elif datagram_attribute.system_tag == 'BasicType':
-            _value_attribute = standard_value_attribute_dictionary[datagram_attribute.basic_type]
-        elif datagram_attribute.system_tag == 'ArrayType':
-            # Will not supports structure array, enum array and bit map array for this version
-            if datagram_attribute.basic_type is None:
-                _special_data = standard_value_attribute_dictionary['String']
-            else:
-                try:
-                    _special_data = standard_value_attribute_dictionary[datagram_attribute.basic_type]
-                except KeyError:
-                    _special_data = standard_value_attribute_dictionary['UInt8']
-
-            _value_attribute = value_attribute_type(system_tag='ArrayType',
-                                                    basic_type=None,
-                                                    type_name='Array',
-                                                    array_count=datagram_attribute.array_count,
-                                                    size=None,
-                                                    special_data=_special_data
-                                                    )
-        elif datagram_attribute.system_tag == 'EnumType':
-            selectable_dict = datagram_attribute.choice_list.content
-            _special_data = OrderedDict()
-            for _key, _data in selectable_dict.items():
-                _special_data[_key] = _data.value
-            if _special_data:
-                _value_attribute = value_attribute_type(
-                    system_tag='EnumType',
-                    basic_type='UInt32',
-                    type_name='Enum',
-                    array_count=1,
-                    size=4,
-                    special_data=_special_data)
-            pass
-        elif datagram_attribute.system_tag == 'StructureType':
-            structure_dict = datagram_attribute.structure_format.content
-            _special_data = OrderedDict()
-            for _key, _data in structure_dict.items():
-                _special_data[_key] = self.__convert_sub_item(_data)
-            if _special_data:
-                _value_attribute = value_attribute_type(
-                    system_tag='StructureType',
-                    basic_type=None,
-                    type_name='Structure',
-                    array_count=1,
-                    size=None,
-                    special_data=_special_data)
-            pass
-        else:   # No supports the BitmapType
-            pass
-        return _value_attribute
-        pass
-
     def __update_value_editor_tree_view_display(self, datagram, instance, action):
         _value = datagram.get_device_data_value(instance, action)
         if datagram.attribute.type == 'Command':
@@ -480,8 +372,10 @@ class MainWin(QMainWindow):
                     # No general
                     if _value is None:
                         _value = 0
-                    _value &= 0xff0000ff
-                    _value |= 0x00ffff00 & (_sequence_num << 8)
+                    self.__command_bit_map_parser.decode(_value)
+                    _value = self.__command_bit_map_parser.encode(sequence=_sequence_num)
+                    # _value &= 0xff0000ff
+                    # _value |= 0x00ffff00 & (_sequence_num << 8)
                     pass
                 else:
                     _value_attribute = command_response_value_attribute
@@ -496,14 +390,14 @@ class MainWin(QMainWindow):
                 _value_attribute = one_allow_value_attribute
                 pass
             else:
-                _value_attribute = self.__get_value_attribute_form_datagram_attribute(datagram.attribute)
+                _value_attribute = datagram.attribute.value_type
                 pass
             pass
         elif datagram.attribute.type == 'Status':
-            _value_attribute = self.__get_value_attribute_form_datagram_attribute(datagram.attribute)
+            _value_attribute = datagram.attribute.value_type
             pass
         else:
-            _value_attribute = self.__get_value_attribute_form_datagram_attribute(datagram.attribute)
+            _value_attribute = datagram.attribute.value_type
             pass
         self.__value_editor_tree_view_model.set_value(_value, _value_attribute)
         self.ui.value_editor_tree_view.expandAll()
@@ -533,11 +427,11 @@ class MainWin(QMainWindow):
                 _value_attribute = one_allow_value_attribute
                 pass
             else:
-                _value_attribute = self.__get_value_attribute_form_datagram_attribute(datagram.attribute)
+                _value_attribute = datagram.attribute.value_type
                 pass
             pass
         else:
-            _value_attribute = self.__get_value_attribute_form_datagram_attribute(datagram.attribute)
+            _value_attribute = datagram.attribute.value_type
             pass
         self.__history_data_display_tree_view_model.set_value(
             history_data=_history_data,
@@ -811,8 +705,10 @@ class MainWin(QMainWindow):
                 if _dg is not None:
                     if (_dg.attribute.type == 'Command') and (self.__payload.action == E_DATAGRAM_ACTION_PUBLISH):
                         # No general
-                        _value = self.__payload.value & 0xff0000ff
-                        _value |= 0x00ffff00 & (self.__datagram_manager.sequence_number << 8)
+                        # _value = self.__payload.value & 0xff0000ff
+                        # _value |= 0x00ffff00 & (self.__datagram_manager.sequence_number << 8)
+                        self.__command_bit_map_parser.decode(self.__payload.value)
+                        _value = self.__command_bit_map_parser.encode(sequence=self.__datagram_manager.sequence_number)
                         model.set_value(_value, command_value_attribute)
                         self.ui.value_editor_tree_view.expandAll()
                         pass

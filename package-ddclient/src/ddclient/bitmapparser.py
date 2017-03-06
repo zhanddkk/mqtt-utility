@@ -92,6 +92,10 @@ class BitMapParser:
         return _value
         pass
 
+    @property
+    def value_as_bitmap(self):
+        return self.__output_value
+
     def decode(self, value):
         if not isinstance(value, int):
             print('ERROR:', 'The input value must be int type')
@@ -122,11 +126,76 @@ class BitMapParser:
                 try:
                     _bit.value = kwargs[field_name]
                 except KeyError:
-                    _bit.value = None
+                    # Keep default if not set
+                    # _bit.value = None
                     pass
                 pass
             _bit.name = self.__get_name(self.__bit_map[field_name].names, _bit.value)
         return self.value
+        pass
+
+    @property
+    def bit_names(self):
+        return getattr(self.__output_value, '_fields')
+        pass
+
+    def __getitem__(self, item):
+        if isinstance(item, str):
+            try:
+                return getattr(self.__output_value, item).value
+            except AttributeError:
+                raise KeyError('{} is invalid key'.format(item))
+            pass
+        elif isinstance(item, int):
+            try:
+                return getattr(self.__output_value, self.bit_names[item]).value
+            except IndexError:
+                raise IndexError('{} is out of the index range({})'.format(item, len(self.bit_names)))
+            pass
+        else:
+            raise KeyError('{} is invalid key'.format(item))
+            pass
+        pass
+
+    def __setitem__(self, key, value):
+        if isinstance(key, str):
+            try:
+                if isinstance(value, int):
+                    _data = self.__bit_map[key]
+                    _bit = getattr(self.__output_value, key)
+                    _bit.value = value & ((1 << _data.wide) - 1)
+                    _bit.name = self.__get_name(_data.names, _bit.value)
+                else:
+                    raise ValueError('{} is invalid for bit\'s value, it must be int type'.format(value))
+            except AttributeError:
+                raise KeyError('{} is invalid key'.format(key))
+            pass
+        elif isinstance(key, int):
+            try:
+                _key = self.bit_names[key]
+                if isinstance(value, int):
+                    _data = self.__bit_map[_key]
+                    _bit = getattr(self.__output_value, _key)
+                    _bit.value = value & ((1 << _data.wide) - 1)
+                    _bit.name = self.__get_name(_data.names, _bit.value)
+                else:
+                    raise ValueError('{} is invalid for bit\'s value, it must be int type'.format(value))
+            except IndexError:
+                raise IndexError('{} is out of the index range({})'.format(key, len(self.bit_names)))
+            pass
+        else:
+            raise KeyError('{} is invalid key'.format(key))
+            pass
+        pass
+
+    def __iter__(self):
+        return (item.value for item in self.__output_value)
+
+    def __repr__(self):
+        return '0x{0:X}|{1}({2})'.format(
+            self.value,
+            self.__class__.__name__,
+            ', '.join('{0}={1!r}'.format(name, getattr(self.__output_value, name)) for name in self.bit_names))
         pass
 
     pass
@@ -144,57 +213,15 @@ def demo():
     print('0x{value:>08X}'.format(value=a.value))
     a.encode()
     print('0x{value:>08X}'.format(value=a.value))
+    print(a)
+    a['cmd_code'] = 1
+    print(a)
+    for i in a:
+        print(i)
+    print(a[2])
+    print(a['cmd_code'])
     pass
 
 if __name__ == '__main__':
     demo()
-    pass
-
-
-# The legacy of the interface
-bit_map_item_type = _type_creator('BitMapItem', 'bit_wide, value_dict')
-bit_map_item_Data_type = _type_creator('BitMapItemData', 'key, value')
-command_bit_map_format_type = _type_creator('CommandBitMapFormat', 'ack_cmd_code, sequence, producer')
-setting_response_bit_map_format_type = _type_creator('SettingResponseBitMapFormat', 'error_code, producer')
-
-cmd_bit_format = command_bit_map_format_type(ack_cmd_code=bit_map_item_type(8, {0: 'Rest',
-                                                                                1: 'Set',
-                                                                                0x10: 'Idle',
-                                                                                0x11: 'Receive',
-                                                                                0x12: 'Completed',
-                                                                                0x13: 'Locked',
-                                                                                0x14: 'Refused'}),
-                                             sequence=bit_map_item_type(16, None),
-                                             producer=bit_map_item_type(8, {0: 'UC',
-                                                                            1: 'SLC_UPS',
-                                                                            2: 'SLC_NMC',
-                                                                            3: 'HMI',
-                                                                            4: 'TUNER'}))
-
-setting_response_bit_map_format = setting_response_bit_map_format_type(error_code=bit_map_item_type(16, {0: 'OK'}),
-                                                                       producer=bit_map_item_type(16, {0: 'UC',
-                                                                                                       1: 'SLC_UPS',
-                                                                                                       2: 'SLC_NMC',
-                                                                                                       3: 'HMI',
-                                                                                                       4: 'TUNER'}))
-
-
-def bit_map_parser(value, bit_map_format):
-    val_tmp = []
-    for bit_field in getattr(bit_map_format, '_fields'):
-        bit_wide = getattr(bit_map_format, bit_field).bit_wide
-        value_dict = getattr(bit_map_format, bit_field).value_dict
-        _key = value & ((1 << bit_wide) - 1)
-        if value_dict is None:
-            _value = None
-            pass
-        else:
-            if _key in value_dict:
-                _value = value_dict[_key]
-            else:
-                _value = None
-        val_tmp.append(bit_map_item_Data_type(key=_key, value=_value))
-        value >>= bit_wide
-    # print(val_tmp)
-    return type(bit_map_format)(*val_tmp)
     pass

@@ -5,7 +5,6 @@ from AppVersion import __doc__ as __app_version__
 from StdoutDlg import ProcessStdoutDlg, StdoutDlg
 from QSimpleThread import QSimpleThread
 from PyQt5.QtCore import QProcess, QObject
-from sys import executable as py_executable
 from ddclient.dgpayload import E_DATAGRAM_ACTION_REQUEST, E_DATAGRAM_ACTION_PUBLISH
 
 
@@ -41,7 +40,7 @@ class SettingDatagramValues(QObject):
         except IndexError:
             pass
         _args.insert(0, node['script'])
-        _process.start(py_executable, _args)
+        _process.start(self.__config.python_exe, _args)
         _process_stdout_dlg.show()
         pass
 

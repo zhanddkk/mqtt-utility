@@ -7,16 +7,11 @@ data_dictionary_item_attribute_names = (
     'name',
     'description',
     'type',                     # General Status Command Setting Measure
-    'system_tag',               # BasicType EnumType ArrayType StructureType StringType
-    'basic_type',               # Bool Int8 UInt8 Int16 UInt16 Int32 UInt32 Float
-    'max_size',                 # As the data dictionary
-    'array_count',              # Array count
+    'value_type',
     'default',
     'min',
     'max',
     'selectable_point',         # List type, limit the value of the datagram been set as the content of the list
-    'choice_list',              # The enum content
-    'structure_format',         # The structure type datagram's data format
     'scale_unit',
     'precision',
     'is_alarm',                 # Bool Type
@@ -30,6 +25,7 @@ data_dictionary_item_attribute_names = (
 
 data_dictionary_item_type = named_list('DataDictionaryItem', data_dictionary_item_attribute_names)
 
+
 data_dictionary_item_text_format = '''\
 root_system             = {root_system}
 sub_system              = {sub_system}
@@ -37,16 +33,11 @@ data_path               = {data_path}
 name                    = {name}
 description             = {description}
 type                    = {type}
-system_tag              = {system_tag}
-basic_type              = {basic_type}
-max_size                = {max_size}
-array_count             = {array_count}
+value_type              = {value_type}
 default                 = {default}
 min                     = {min}
 max                     = {max}
 selectable_point        = {selectable_point}
-choice_list             = {choice_list}
-structure_format        = {structure_format}
 scale_unit              = {scale_unit}
 precision               = {precision}
 is_alarm                = {is_alarm}
@@ -56,6 +47,7 @@ producer                = {producer}
 consumer                = {consumer}
 no_setting_req_consumer = {no_setting_req_consumer}
 hash_id                 = 0x{hash_id:>08X}'''
+
 if __name__ == '__main__':
     data_dictionary_item = data_dictionary_item_type(*[i for i in range(25)])
     print(data_dictionary_item_text_format.format(**vars(data_dictionary_item)))
