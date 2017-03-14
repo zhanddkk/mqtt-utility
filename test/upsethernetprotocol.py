@@ -436,12 +436,13 @@ class ThreadedUdpServer(socketserver.ThreadingMixIn, socketserver.UDPServer):
 
 class UpsEthernetProtocol:
 
-    def __init__(self, host='localhost', port='9999'):
-        self.__host = host
-        self.__port = port
+    def __init__(self, remote='localhost', remote_port='8081', local_port='8081'):
+        self.__remote = remote
+        self.__remote_port = remote_port
+        self.__local_port = local_port
         self.__frame_queue = Queue()
         UdpMessageHandler.message_queue = self.__frame_queue
-        self.__udp_server = ThreadedUdpServer((self.__host, self.__port), UdpMessageHandler)
+        self.__udp_server = ThreadedUdpServer(('localhost', self.__local_port), UdpMessageHandler)
         self.__udp_server_thread = None
         self.__udp_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         self.__crc16_calculator = UpsEthernetProtocolCRC16()
@@ -485,7 +486,7 @@ class UpsEthernetProtocol:
         pass
 
     def send_frame_bytes(self, frame_bytes):
-        self.__udp_socket.sendto(frame_bytes, (self.__host, self.__port))
+        self.__udp_socket.sendto(frame_bytes, (self.__remote, self.__remote_port))
         pass
 
     def send_frame(self, frame, rolling_counter=None):
