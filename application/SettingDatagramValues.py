@@ -150,69 +150,40 @@ class SettingDatagramValues(QObject):
         pass
 
     def load(self, file_name):
-        # try:
-        #     with open(file_name, 'r') as fp:
-        #         _data = json.load(fp)['data']
-        #         for item in _data:
-        #             _hash_id = int(item['hash_id'], base=16)
-        #             _dev_index = item['device_index']
-        #             _value = item['value']
-        #
-        #             _dg = self.__dgm.get_datagram(_hash_id)
-        #             if _dg is None:
-        #                 continue
-        #             _producer = _dg.attribute.producer[0]
-        #             if _producer == 'SLC_UPS':
-        #                 _action = E_DATAGRAM_ACTION_REQUEST
-        #             else:
-        #                 _action = E_DATAGRAM_ACTION_PUBLISH
-        #             _producer_mask = D_NODE_MASK_UC
-        #             _producer = _producer.upper()
-        #             for _mask, _name in payload_package_info[E_PRODUCER_MASK].choice_list:
-        #                 if _producer == _name:
-        #                     _producer_mask = _mask
-        #                     break
-        #                 pass
-        #             _payload = DatagramPayload(hash_id=_hash_id,
-        #                                        device_instance_index=_dev_index,
-        #                                        value=_value,
-        #                                        action=_action,
-        #                                        producer_mask=_producer_mask)
-        #             self.__dgm.send_package_by_payload(_payload)
-        #
-        # except Exception as exception:
-        #     print('ERROR:', type(exception).__name__, exception)
-        #     return False
+        try:
+            with open(file_name, 'r') as fp:
+                _data = json.load(fp)['data']
+                for item in _data:
+                    _hash_id = int(item['hash_id'], base=16)
+                    _dev_index = item['device_index']
+                    _value = item['value']
 
-        with open(file_name, 'r') as fp:
-            _data = json.load(fp)['data']
-            for item in _data:
-                _hash_id = int(item['hash_id'], base=16)
-                _dev_index = item['device_index']
-                _value = item['value']
+                    _dg = self.__dgm.get_datagram(_hash_id)
+                    if _dg is None:
+                        continue
+                    _producer = _dg.attribute.producer[0]
+                    if _producer == 'SLC_UPS':
+                        _action = E_DATAGRAM_ACTION_REQUEST
+                    else:
+                        _action = E_DATAGRAM_ACTION_PUBLISH
+                    _producer_mask = D_NODE_MASK_UC
+                    _producer = _producer.upper()
+                    for _mask, _name in payload_package_info[E_PRODUCER_MASK].choice_list:
+                        if _producer == _name:
+                            _producer_mask = _mask
+                            break
+                        pass
+                    _payload = DatagramPayload(hash_id=_hash_id,
+                                               device_instance_index=_dev_index,
+                                               value=_value,
+                                               action=_action,
+                                               producer_mask=_producer_mask)
+                    self.__dgm.send_package_by_payload(_payload)
+                    return True
 
-                _dg = self.__dgm.get_datagram(_hash_id)
-                if _dg is None:
-                    continue
-                _producer = _dg.attribute.producer[0]
-                if _producer == 'SLC_UPS':
-                    _action = E_DATAGRAM_ACTION_REQUEST
-                else:
-                    _action = E_DATAGRAM_ACTION_PUBLISH
-                _producer_mask = D_NODE_MASK_UC
-                _producer = _producer.upper()
-                for _mask, _name in payload_package_info[E_PRODUCER_MASK].choice_list.items():
-                    if _producer == _name:
-                        _producer_mask = _mask
-                        break
-                    pass
-                _payload = DatagramPayload(hash_id=_hash_id,
-                                           device_instance_index=_dev_index,
-                                           value=_value,
-                                           action=_action,
-                                           producer_mask=_producer_mask)
-                self.__dgm.send_package_by_payload(_payload)
-
+        except Exception as exception:
+            print('ERROR:', type(exception).__name__, exception)
+            return False
         pass
 
     pass

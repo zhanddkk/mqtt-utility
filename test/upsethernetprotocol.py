@@ -476,11 +476,12 @@ class UpsEthernetProtocol:
     def read_frame(self, timeout=None):
         try:
             _frame = self.__frame_queue.get(timeout=timeout)
-            _crc16 = self.__crc16_calculator.calculate_crc16_for_bytes(_frame.bytes, _frame.length - 2)
-            if _crc16 != _frame.check_sum:
-                print('ERROR:', 'CRC 16 check failed (in frame={:04X}, calculate={:04X})'.format(_frame.check_sum,
-                                                                                                 _crc16))
-                return None
+            if _frame.message_type & 0b000100 != 0:
+                _crc16 = self.__crc16_calculator.calculate_crc16_for_bytes(_frame.bytes, _frame.length - 2)
+                if _crc16 != _frame.check_sum:
+                    print('ERROR:', 'CRC 16 check failed (in frame={:04X}, calculate={:04X})'.format(_frame.check_sum,
+                                                                                                     _crc16))
+                    return None
             return _frame
         except Empty:
             return None
@@ -496,7 +497,8 @@ class UpsEthernetProtocol:
         self.__rolling_counter =\
             rolling_counter & 0xff if isinstance(rolling_counter, int) else self.__rolling_counter + 1
         frame.rolling_counter = self.__rolling_counter
-        frame.check_sum = self.__crc16_calculator.calculate_crc16_for_bytes(frame.bytes, frame.length - 2)
+        if frame.message_type & 0b000100 != 0:
+            frame.check_sum = self.__crc16_calculator.calculate_crc16_for_bytes(frame.bytes, frame.length - 2)
         self.send_frame_bytes(frame.bytes)
         print('Send:', frame)
         return frame
