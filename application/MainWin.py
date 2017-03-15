@@ -142,6 +142,7 @@ class MainWin(QMainWindow):
         self.ui.actionSettings.triggered.connect(self.setting)
         self.ui.actionAbout.triggered.connect(self.about)
         self.ui.actionDump_Setting_Data.triggered.connect(self.dump_setting_data)
+        self.ui.actionRestore_Setting_Data.triggered.connect(self.restore_setting_data)
 
         # Set dock widget
         self.tabifyDockWidget(self.ui.payload_dock_widget, self.ui.repeater_dock_widget)
@@ -605,6 +606,24 @@ class MainWin(QMainWindow):
                 self.statusBar().showMessage('Dumped to [{}]'.format(file_name))
             else:
                 self.statusBar().showMessage('Dump failed')
+        pass
+
+    def restore_setting_data(self):
+        fdg = QFileDialog()
+        q_dir = QDir(self.__configuration.setting_data_file_path)
+        csv_path = q_dir.absolutePath()
+        fdg.setDirectory(csv_path)
+        fdg.setNameFilter("Json Files (*.json);;Text Files (*.txt);;All Files (*)")
+        if fdg.exec():
+            file_name = fdg.selectedFiles()[0]
+            file_info = QFileInfo(file_name)
+            self.__configuration.setting_data_file_path = file_info.absolutePath()
+            self.__configuration.save_config()
+            _values = SettingDatagramValues(self.__datagram_manager, self.__configuration, self)
+            if _values.load(file_name):
+                self.statusBar().showMessage('Restored from [{}]'.format(file_name))
+            else:
+                self.statusBar().showMessage('Restored failed')
         pass
 
     def about(self):

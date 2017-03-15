@@ -5,7 +5,8 @@ from AppVersion import __doc__ as __app_version__
 from StdoutDlg import ProcessStdoutDlg, StdoutDlg
 from QSimpleThread import QSimpleThread
 from PyQt5.QtCore import QProcess, QObject
-from ddclient.dgpayload import E_DATAGRAM_ACTION_REQUEST, E_DATAGRAM_ACTION_PUBLISH
+from ddclient.dgpayload import E_DATAGRAM_ACTION_REQUEST, E_DATAGRAM_ACTION_PUBLISH, DatagramPayload
+from ddclient.dgpayload import payload_package_info, E_PRODUCER_MASK, D_NODE_MASK_UC
 
 
 class SettingDatagramValues(QObject):
@@ -64,8 +65,8 @@ class SettingDatagramValues(QObject):
                     dev_index = node['device_index']
                     _value = dg.get_device_data_value(dev_index)
                     _name = None
-                    if dg.attribute.choice_list is not None:
-                        for _key2, _data2 in dg.attribute.choice_list.content.items():
+                    if dg.attribute.value_type.system_tag == 'EnumType':
+                        for _key2, _data2 in dg.attribute.value_type.special_data.items():
                             if _data2.value == _value:
                                 _name = _key2
                     self.node_status[_key] = {'value': _value,
@@ -112,7 +113,7 @@ class SettingDatagramValues(QObject):
                 if dg.attribute.type == 'Setting':
                     for dev_index in range(dg.device_number):
                         _data_item = OrderedDict()
-                        _data_item['HashId'] = '0x{:>08X}'.format(hash_id)
+                        _data_item['hash_id'] = '0x{:>08X}'.format(hash_id)
                         _data_item['device_index'] = dev_index
                         _producer = dg.attribute.producer[0]
                         if _producer in _node_simulators:
@@ -121,8 +122,8 @@ class SettingDatagramValues(QObject):
                             _action = E_DATAGRAM_ACTION_PUBLISH
                         _value = dg.get_device_data_value(dev_index, _action)
                         _name = None
-                        if dg.attribute.choice_list is not None:
-                            for _key2, _data2 in dg.attribute.choice_list.content.items():
+                        if dg.attribute.value_type.system_tag == 'EnumType':
+                            for _key2, _data2 in dg.attribute.value_type.special_data.items():
                                 if _data2.value == _value:
                                     _name = _key2
 
@@ -134,9 +135,9 @@ class SettingDatagramValues(QObject):
                 pass
             _obj = OrderedDict(
                 (
-                    ('Version', self.version),
-                    ('NodeStatus', self.node_status),
-                    ('Data', _data)
+                    ('version', self.version),
+                    ('node_status', self.node_status),
+                    ('data', _data)
                 )
             )
             with open(file_name, 'w') as fp:
@@ -149,6 +150,69 @@ class SettingDatagramValues(QObject):
         pass
 
     def load(self, file_name):
+        # try:
+        #     with open(file_name, 'r') as fp:
+        #         _data = json.load(fp)['data']
+        #         for item in _data:
+        #             _hash_id = int(item['hash_id'], base=16)
+        #             _dev_index = item['device_index']
+        #             _value = item['value']
+        #
+        #             _dg = self.__dgm.get_datagram(_hash_id)
+        #             if _dg is None:
+        #                 continue
+        #             _producer = _dg.attribute.producer[0]
+        #             if _producer == 'SLC_UPS':
+        #                 _action = E_DATAGRAM_ACTION_REQUEST
+        #             else:
+        #                 _action = E_DATAGRAM_ACTION_PUBLISH
+        #             _producer_mask = D_NODE_MASK_UC
+        #             _producer = _producer.upper()
+        #             for _mask, _name in payload_package_info[E_PRODUCER_MASK].choice_list:
+        #                 if _producer == _name:
+        #                     _producer_mask = _mask
+        #                     break
+        #                 pass
+        #             _payload = DatagramPayload(hash_id=_hash_id,
+        #                                        device_instance_index=_dev_index,
+        #                                        value=_value,
+        #                                        action=_action,
+        #                                        producer_mask=_producer_mask)
+        #             self.__dgm.send_package_by_payload(_payload)
+        #
+        # except Exception as exception:
+        #     print('ERROR:', type(exception).__name__, exception)
+        #     return False
+
+        with open(file_name, 'r') as fp:
+            _data = json.load(fp)['data']
+            for item in _data:
+                _hash_id = int(item['hash_id'], base=16)
+                _dev_index = item['device_index']
+                _value = item['value']
+
+                _dg = self.__dgm.get_datagram(_hash_id)
+                if _dg is None:
+                    continue
+                _producer = _dg.attribute.producer[0]
+                if _producer == 'SLC_UPS':
+                    _action = E_DATAGRAM_ACTION_REQUEST
+                else:
+                    _action = E_DATAGRAM_ACTION_PUBLISH
+                _producer_mask = D_NODE_MASK_UC
+                _producer = _producer.upper()
+                for _mask, _name in payload_package_info[E_PRODUCER_MASK].choice_list.items():
+                    if _producer == _name:
+                        _producer_mask = _mask
+                        break
+                    pass
+                _payload = DatagramPayload(hash_id=_hash_id,
+                                           device_instance_index=_dev_index,
+                                           value=_value,
+                                           action=_action,
+                                           producer_mask=_producer_mask)
+                self.__dgm.send_package_by_payload(_payload)
+
         pass
 
     pass
