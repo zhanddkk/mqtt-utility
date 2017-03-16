@@ -274,9 +274,9 @@ class DataDictionaryInterfaceV0:
                 print('ERROR:', 'Status type parse value type failed')
                 return False
 
-            if _max_size != 1:
-                print('ERROR:', 'Status type datagram\'s max size must be 1 but not', _max_size)
-                return False
+            # if _max_size != 1:
+            #     print('ERROR:', 'Status type datagram\'s max size must be 1 but not', _max_size)
+            #     return False
 
             if data_dictionary_item.value_type.basic_type != 'UInt32':
                 print('WARNING:', 'Status type shall be UInt32, but not', data_dictionary_item.value_type.basic_type,
@@ -292,6 +292,14 @@ class DataDictionaryInterfaceV0:
                                                         size=4,
                                                         type_name=_enum_define_data[0])
             data_dictionary_item.value_type.special_data = _enum_define_data[1]
+
+            if _max_size > 1:
+                _sub_type = data_dictionary_item.value_type
+                data_dictionary_item.value_type = ValueType(system_tag='ArrayType',
+                                                            basic_type=_sub_type.basic_type,
+                                                            size=_max_size * _sub_type.size,
+                                                            array_count=_max_size,
+                                                            special_data=_sub_type)
 
         elif data_dictionary_item.type == 'Measure':
             if data_dictionary_item.value_type.basic_type != 'Float':
@@ -326,9 +334,16 @@ class DataDictionaryInterfaceV0:
                         if _structure_define_data is not None:
                             data_dictionary_item.value_type = ValueType(system_tag='StructureType',
                                                                         basic_type=None,
-                                                                        size=_max_size,
+                                                                        size=0,     # Not support structure's size
                                                                         type_name=_structure_define_data[0],
                                                                         special_data=_structure_define_data[1])
+                            if _max_size > 1:
+                                _sub_type = data_dictionary_item.value_type
+                                data_dictionary_item.value_type = ValueType(system_tag='ArrayType',
+                                                                            basic_type=_sub_type.basic_type,
+                                                                            size=_max_size * _sub_type.size,
+                                                                            array_count=_max_size,
+                                                                            special_data=_sub_type)
                             pass
                         else:
                             data_dictionary_item.value_type = ValueType(
