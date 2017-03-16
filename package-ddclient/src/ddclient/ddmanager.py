@@ -10,7 +10,7 @@ except SystemError:
     from ddinterface import data_dictionary_interface
 
 __data_dictionary_version_map = (
-    ('0.11', (0, 0)),
+    ('0.12', (0, 0)),
 )
 data_dictionary_version_map = OrderedDict(__data_dictionary_version_map)
 latest_data_dictionary_version = __data_dictionary_version_map[-1][0]
