@@ -24,6 +24,8 @@ class UcNode(HardwareBasicNode):
             'model_number': E_UC_IDTY_GEN_MODEL_NUMBER,
             'serial_number': E_UC_IDTY_GEN_SERIAL_NUMBER,
             'dd_version': E_UC_IDTY_GEN_DDVERSION,
+            'setting_update_decision': E_UC_STATUS_UCSETTING_UPDATE_DECISION,
+            'setting_update_check': E_UC_CMD_UCSETTING_UPDATE_CHECK,
             'heart_beat_interval': 0.1
         }
         pass

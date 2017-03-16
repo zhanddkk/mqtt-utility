@@ -105,6 +105,22 @@ class HardwareBasicNode:
                                                              cmd_ack_code_names['Completed'])
         self.dgm.send_package_by_payload(cmd_resp_payload)
 
+        # For UC, setting update check
+        try:
+            cmd_payload = self.get_command_response_payload(hash_id=self.node_parameter['setting_update_check'],
+                                                            ack_code=cmd_ack_code_names['Received'])
+            self.dgm.send_package_by_payload(cmd_payload)
+
+            cmd_payload = self.get_command_response_payload(hash_id=self.node_parameter['setting_update_check'],
+                                                            ack_code=cmd_ack_code_names['Completed'])
+            self.dgm.send_package_by_payload(cmd_payload)
+
+            dd_version_payload = DatagramPayload(hash_id=self.node_parameter['setting_update_decision'],
+                                                 value=2)
+            self.dgm.send_package_by_payload(dd_version_payload)
+        except KeyError:
+            pass
+
         # step 7. slc set communication status to authenticated
         authenticated_payload = DatagramPayload(hash_id=self.node_parameter['status_communication_hash_id'],
                                                 value=E_AUTHENTICATED)
@@ -148,7 +164,11 @@ class HardwareBasicNode:
 
         _value = datagram.get_device_data_value(0)
 
+        if not isinstance(_value, int):
+            _value = 0
+
         cmd_bit_map = BitMapParser(command_response_bit_map)
+
         cmd_bit_map_value = cmd_bit_map.decode(_value)
 
         _value = cmd_bit_map.encode(ack_code=ack_code,

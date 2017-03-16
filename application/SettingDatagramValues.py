@@ -168,7 +168,7 @@ class SettingDatagramValues(QObject):
                         _action = E_DATAGRAM_ACTION_PUBLISH
                     _producer_mask = D_NODE_MASK_UC
                     _producer = _producer.upper()
-                    for _mask, _name in payload_package_info[E_PRODUCER_MASK].choice_list:
+                    for _mask, _name in payload_package_info[E_PRODUCER_MASK].choice_list.items():
                         if _producer == _name:
                             _producer_mask = _mask
                             break
@@ -179,7 +179,7 @@ class SettingDatagramValues(QObject):
                                                action=_action,
                                                producer_mask=_producer_mask)
                     self.__dgm.send_package_by_payload(_payload)
-                    return True
+            return True
 
         except Exception as exception:
             print('ERROR:', type(exception).__name__, exception)
