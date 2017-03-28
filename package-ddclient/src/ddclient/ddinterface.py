@@ -125,8 +125,8 @@ class DataDictionaryInterfaceV0:
         try:
             structure_format = json.loads(data_dictionary_item_source.ChoiceList[0],
                                           object_pairs_hook=json_object_pairs_hook)
-            if 'UniversalChoiceList' in structure_format:
-                _name = structure_format['UniversalChoiceList']
+            if 'UniversalBinaryBlock' in structure_format:
+                _name = structure_format['UniversalBinaryBlock']
                 if _name in structure_format:
                     structure_format = structure_format[_name]
                 else:

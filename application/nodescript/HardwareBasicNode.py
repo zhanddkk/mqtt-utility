@@ -107,17 +107,71 @@ class HardwareBasicNode:
 
         # For UC, setting update check
         try:
-            cmd_payload = self.get_command_response_payload(hash_id=self.node_parameter['setting_update_check'],
-                                                            ack_code=cmd_ack_code_names['Received'])
-            self.dgm.send_package_by_payload(cmd_payload)
+            cmd_payload = DatagramPayload(hash_id=self.node_parameter['setting_update_check'],
+                                          value=BitMapParser(command_bit_map).encode(
+                                              cmd_code=cmd_code_names['Rest'],
+                                              sequence=0,
+                                              producer=command_response_bit_map['producer'].names['SLC_UPS']))
+
+            cmd_payload.time_stamp_second = 0
+            cmd_payload.time_stamp_ms = 0
+
+            matcher = UnorderedMessageMatcher()
+            matcher.add_package(cmd_payload.package)
+            matcher.set_comparator(UnVerifySeqNumPackageComparator())
+            self.test_framework.then_matcher(matcher)
+
+            # Check data
+            if self.test_framework.wait_verify_result(25) is False:
+                self.stop()
+                raise Exception('Boot up failed at wait setting update check command')
 
             cmd_payload = self.get_command_response_payload(hash_id=self.node_parameter['setting_update_check'],
-                                                            ack_code=cmd_ack_code_names['Completed'])
+                                                            ack_code=cmd_ack_code_names['Received'])
             self.dgm.send_package_by_payload(cmd_payload)
 
             dd_version_payload = DatagramPayload(hash_id=self.node_parameter['setting_update_decision'],
                                                  value=2)
             self.dgm.send_package_by_payload(dd_version_payload)
+
+            cmd_payload = self.get_command_response_payload(hash_id=self.node_parameter['setting_update_check'],
+                                                            ack_code=cmd_ack_code_names['Completed'])
+            self.dgm.send_package_by_payload(cmd_payload)
+        except KeyError:
+            pass
+
+        try:
+            cmd_payload = DatagramPayload(hash_id=self.node_parameter['rtc_sync_cmd'],
+                                          value=BitMapParser(command_bit_map).encode(
+                                              cmd_code=cmd_code_names['Rest'],
+                                              sequence=0,
+                                              producer=command_response_bit_map['producer'].names['SLC_UPS']))
+
+            cmd_payload.time_stamp_second = 0
+            cmd_payload.time_stamp_ms = 0
+
+            matcher = UnorderedMessageMatcher()
+            matcher.add_package(cmd_payload.package)
+            matcher.set_comparator(UnVerifySeqNumPackageComparator())
+            self.test_framework.then_matcher(matcher)
+
+            # Check data
+            if self.test_framework.wait_verify_result(25) is False:
+                self.stop()
+                raise Exception('Boot up failed at wait rtc sync command')
+
+            cmd_payload = self.get_command_response_payload(hash_id=self.node_parameter['rtc_sync_cmd'],
+                                                            ack_code=cmd_ack_code_names['Received'])
+            self.dgm.send_package_by_payload(cmd_payload)
+
+            dd_version_payload = DatagramPayload(hash_id=self.node_parameter['rtc_value'],
+                                                 value=[12, 5, 4, 12, 35, 24])
+            self.dgm.send_package_by_payload(dd_version_payload)
+
+            cmd_payload = self.get_command_response_payload(hash_id=self.node_parameter['rtc_sync_cmd'],
+                                                            ack_code=cmd_ack_code_names['Completed'])
+            self.dgm.send_package_by_payload(cmd_payload)
+            pass
         except KeyError:
             pass
 
@@ -133,12 +187,10 @@ class HardwareBasicNode:
 
         if self.test_framework.wait_verify_result(20) is False:
             self.stop()
-            raise Exception('Boot up failed')
+            raise Exception('Boot up failed at wait communication status to authenticated')
 
         print('{Node Connected}\n')
 
-        # while self.heart_beat.is_running:
-        #     pass
         pass
 
     def stop(self):
@@ -154,7 +206,7 @@ class HardwareBasicNode:
         ret = self.test_framework.wait_verify_result(10)
         self.dgm.un_register_msg_observer(self.test_framework.identification)
         if ret is False:
-            raise Exception('Can not get the disconnected status')
+            print('Can not get the disconnected status')
         else:
             print('Node stopped')
         pass
@@ -172,8 +224,8 @@ class HardwareBasicNode:
         cmd_bit_map_value = cmd_bit_map.decode(_value)
 
         _value = cmd_bit_map.encode(ack_code=ack_code,
-                                    sequence=cmd_bit_map_value.sequence,
-                                    producer=cmd_bit_map_value.producer)
+                                    sequence=cmd_bit_map_value.sequence.value,
+                                    producer=cmd_bit_map_value.producer.value)
 
         return DatagramPayload(hash_id=hash_id,
                                value=_value,

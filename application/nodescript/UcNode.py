@@ -26,6 +26,8 @@ class UcNode(HardwareBasicNode):
             'dd_version': E_UC_IDTY_GEN_DDVERSION,
             'setting_update_decision': E_UC_STATUS_UCSETTING_UPDATE_DECISION,
             'setting_update_check': E_UC_CMD_UCSETTING_UPDATE_CHECK,
+            'rtc_value': E_UC_GEN_UCRTC_VALUE,
+            'rtc_sync_cmd': E_UC_CMD_UCRTC_REQUEST,
             'heart_beat_interval': 0.1
         }
         pass

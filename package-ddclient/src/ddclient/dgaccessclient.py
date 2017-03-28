@@ -121,26 +121,25 @@ class DatagramAccessClient:
         self.__instance.subscribe('#', 0)
 
     def __on_message(self, mqttc, obj, msg):
-        """
-                print('''[{id}]Datagram access client: received
-                |->timestamp = {timestamp}
-                |->qos = {qos}
-                |->retain = {retain}
-                |->topic = {topic}
-                |->payload = {payload}'''.format(id=self.__client_id,
-                                                 timestamp=msg.timestamp,
-                                                 qos=msg.qos,
-                                                 retain=msg.retain,
-                                                 topic=msg.topic,
-                                                 payload=msg.payload))
-        """
+        # print('''[{id}]Datagram access client: received
+        # |->timestamp = {timestamp}
+        # |->qos = {qos}
+        # |->retain = {retain}
+        # |->topic = {topic}
+        # |->payload = {payload}'''.format(id=self.__client_id,
+        #                                  timestamp=msg.timestamp,
+        #                                  qos=msg.qos,
+        #                                  retain=msg.retain,
+        #                                  topic=msg.topic,
+        #                                  payload=msg.payload))
         if obj is not None:
             obj.record_message(msg)
         pass
 
     def __on_publish(self, mqttc, obj, mid):
-        print('''[{id}]Datagram access client: published
-        |->mid = {mid}'''.format(id=self.__client_id, mid=mid))
+        # print('''[{id}]Datagram access client: published
+        # |->mid = {mid}'''.format(id=self.__client_id, mid=mid))
+        pass
 
     def __on_disconnect(self, mqttc, obj, rc):
         print('''[{id}]Datagram access client: disconnected
