@@ -259,3 +259,6 @@ UPSSystem,BatterySystem,Status,PfcOpModeOneBattOp,Operation mode of PFC one or m
 UPSSystem,SwitchgearSystem,Setting,MBBSetting,Maintenance Bypass Breaker Setting,SETTING,32BUS,1, ,0,1,"{""UniversalChoiceList"":""PresentStatus"",""PresentStatus"":{ ""NOT_PRESENT"": [0, "" Not present""], ""PRESENT"": [1, ""Present""]}}",NA,0,No,Yes, ,No,Yes,No,No,No,No,No,Yes,Yes,Yes,0x5C92656
 Device, ,NMC[2]/probe/General,Name_STR,Probe details attached to NMC,GENERAL,STRING,256, , , , ,NA, ,No,No, ,No,No,Yes,No,No,No,No,No,Yes,Yes,0x3DDB8ED7
 UPSSystem,BatterySystem,UserSuppliedBatterySystem/ChargerSystem/Measure,Progress_Pct,Used to show a progress bar  for battery charging.,MEASURE,32BFL,1,0,0,100, ,NA,0,No,No, ,No,Yes,No,No,No,No,No,Yes,Yes,Yes,0x39DFFFDA
+UPSSystem, ,Command,GenerateEventFileCommand,xx,COMMAND,32BUS,1, , , , ,NA, ,No,Yes,1000,No,No,No,Yes,Yes,Yes,RO,No,No,No,0x00000001
+UPSSystem, ,Command,FetchEventFileCommand,xx,COMMAND,32BUS,1, , , , ,NA, ,No,Yes,1000,No,No,No,Yes,Yes,Yes,RO,No,No,No,0x00000002
+Device, ,SLC/Identity/General,EventLogQueryStatement,xx,GENERAL,STRING,128,SQL, , , ,NA, ,No,Yes, ,No,Yes,No,No,No,Yes,No,Yes,Yes,Yes,0x00000003

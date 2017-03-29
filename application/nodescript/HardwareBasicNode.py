@@ -119,7 +119,7 @@ class HardwareBasicNode:
             matcher = UnorderedMessageMatcher()
             matcher.add_package(cmd_payload.package)
             matcher.set_comparator(UnVerifySeqNumPackageComparator())
-            self.test_framework.then_matcher(matcher)
+            self.test_framework.first_matcher(matcher)
 
             # Check data
             if self.test_framework.wait_verify_result(25) is False:
@@ -138,8 +138,10 @@ class HardwareBasicNode:
                                                             ack_code=cmd_ack_code_names['Completed'])
             self.dgm.send_package_by_payload(cmd_payload)
         except KeyError:
+            print('Skip setting update check')
             pass
 
+        # Time sync
         try:
             cmd_payload = DatagramPayload(hash_id=self.node_parameter['rtc_sync_cmd'],
                                           value=BitMapParser(command_bit_map).encode(
@@ -153,7 +155,7 @@ class HardwareBasicNode:
             matcher = UnorderedMessageMatcher()
             matcher.add_package(cmd_payload.package)
             matcher.set_comparator(UnVerifySeqNumPackageComparator())
-            self.test_framework.then_matcher(matcher)
+            self.test_framework.first_matcher(matcher)
 
             # Check data
             if self.test_framework.wait_verify_result(25) is False:
@@ -173,6 +175,7 @@ class HardwareBasicNode:
             self.dgm.send_package_by_payload(cmd_payload)
             pass
         except KeyError:
+            print('Skip time sync check')
             pass
 
         # step 7. slc set communication status to authenticated
