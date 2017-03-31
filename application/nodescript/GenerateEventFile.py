@@ -198,9 +198,9 @@ def main():
     # import sys
 
     arg_parser = argparse.ArgumentParser(description='Nmc node simulator script')
-    arg_parser.add_argument('-d', '--dd', help='datagram data file')
+    arg_parser.add_argument('-D', '--dd', help='datagram data file')
     arg_parser.add_argument('-H', '--host', help='mqtt host to connect to. Defaults to localhost.')
-    arg_parser.add_argument('-p', '--port', help='network port to connect to. Defaults to 1883.')
+    arg_parser.add_argument('-P', '--port', help='network port to connect to. Defaults to 1883.')
 
     args = arg_parser.parse_args()
 
