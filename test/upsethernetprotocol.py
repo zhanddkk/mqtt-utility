@@ -389,6 +389,12 @@ class BasicFrameFilter:
         pass
 
     def compare(self, input_frame):
+        """
+        Compare function to check if the input frame is valid
+        :param input_frame: A instance of UpsEthernetProtocolFrame that need to be check
+        :return: True: the input frame is valid
+                 False: the input frame is invalid
+        """
         return True
         pass
 
@@ -436,11 +442,18 @@ class ThreadedUdpServer(socketserver.ThreadingMixIn, socketserver.UDPServer):
 
 class UpsEthernetProtocol:
 
-    def __init__(self, remote='localhost', remote_port=8080, local_port=8081):
+    def __init__(self, remote='localhost', remote_port=8080, local=None,  local_port=8081):
+        """
+        The UPS ethernet communication protocol module init
+        :param remote: the remote target ip (string, default: localhost)
+        :param remote_port: the remote target net port (int, default: 8080)
+        :param local: local machine ip (string, default: use the host name that get from socket.gethostname())
+        :param local_port: local machine net port (int, default: 8081)
+        """
         self.__remote = remote
         self.__remote_port = remote_port
         self.__local_port = local_port
-        self.__local = socket.gethostname()
+        self.__local = socket.gethostname() if local is None else local
         self.__frame_queue = Queue()
         UdpMessageHandler.message_queue = self.__frame_queue
         self.__udp_server = ThreadedUdpServer((self.__local, self.__local_port), UdpMessageHandler)
@@ -451,6 +464,10 @@ class UpsEthernetProtocol:
         pass
 
     def start_server(self):
+        """
+        Start a thread to listen the udp 
+        :return: 
+        """
         self.__udp_server_thread = threading.Thread(target=self.__udp_server.serve_forever)
         self.__udp_server_thread.daemon = True
         self.__rolling_counter = 0
@@ -458,12 +475,21 @@ class UpsEthernetProtocol:
         pass
 
     def stop_server(self):
+        """
+        Stop to listen the udp
+        :return: 
+        """
         self.__udp_server.shutdown()
         self.__udp_server.server_close()
         pass
 
     @staticmethod
     def set_frame_filter(frame_filter):
+        """
+        Set the frame filter
+        :param frame_filter: A instance of BasicFrameFilter or BasicFrameFilter's subclass
+        :return: 
+        """
         if isinstance(frame_filter, BasicFrameFilter):
             UdpMessageHandler.lock_set_frame_filter.acquire()
             UdpMessageHandler.frame_filter = frame_filter
@@ -474,6 +500,12 @@ class UpsEthernetProtocol:
         pass
 
     def read_frame(self, timeout=None):
+        """
+        Read a frame from the queue buffer
+        :param timeout: timeout as second for this read (float, default: None)
+        :return: A instance of UpsEthernetProtocolFrame: read succeed
+                None: timeout
+        """
         try:
             _frame = self.__frame_queue.get(timeout=timeout)
             if _frame.message_type & 0b000100 != 0:
@@ -492,6 +524,12 @@ class UpsEthernetProtocol:
         pass
 
     def send_frame(self, frame, rolling_counter=None):
+        """
+        Send a frame
+        :param frame: A instance of UpsEthernetProtocolFrame that need to be send
+        :param rolling_counter: assign the rolling counter for sender (int, default: None)
+        :return: A instance of UpsEthernetProtocolFrame that was send
+        """
         if not isinstance(frame, UpsEthernetProtocolFrame):
             raise ValueError('{} is invalid frame'.format(frame))
         self.__rolling_counter =\
@@ -512,7 +550,7 @@ class UpsEthernetProtocol:
 
 
 def __demo_task(host, port, cmd_line_queue, cmd_line_processed):
-    _ups_ethernet_protocol = UpsEthernetProtocol(host, port)
+    _ups_ethernet_protocol = UpsEthernetProtocol(remote=host, remote_port=port, local=host, local_port=port)
     _ups_ethernet_protocol.set_frame_filter(MessageIdFrameFilter(message_id=0x00000001))
     _ups_ethernet_protocol.start_server()
 
