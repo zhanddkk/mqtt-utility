@@ -166,9 +166,9 @@ class HardwareBasicNode:
                                                             ack_code=cmd_ack_code_names['Received'])
             self.dgm.send_package_by_payload(cmd_payload)
 
-            dd_version_payload = DatagramPayload(hash_id=self.node_parameter['rtc_value'],
-                                                 value=[12, 5, 4, 12, 35, 24])
-            self.dgm.send_package_by_payload(dd_version_payload)
+            rtc_value_payload = DatagramPayload(hash_id=self.node_parameter['rtc_value'],
+                                                value=[12, 5, 4, 3, 5, 7, 12])
+            self.dgm.send_package_by_payload(rtc_value_payload)
 
             cmd_payload = self.get_command_response_payload(hash_id=self.node_parameter['rtc_sync_cmd'],
                                                             ack_code=cmd_ack_code_names['Completed'])
