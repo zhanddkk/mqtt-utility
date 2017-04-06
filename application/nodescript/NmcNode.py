@@ -40,7 +40,7 @@ _event_db_structure_type = namedlist('EventDbStructureType', (
     "rd_information"))
 
 
-class NmcEventLogProcess(DatagramMessageObserver):
+class NmcEventLogProcessor(DatagramMessageObserver):
 
     __event_db_structure = _event_db_structure_type(
         id='INTEGER PRIMARY KEY AUTOINCREMENT',
@@ -116,7 +116,7 @@ class NmcEventLogProcess(DatagramMessageObserver):
         "logTmMs": "log_miliseconds"
     }
 
-    def __init__(self, datagram_manager):
+    def __init__(self, datagram_manager, db_file_name, db_file_path):
         self.__id = 0x80000000
         self.__parse_types = {
             'BasicType': self.__parse_basic_type,
@@ -126,11 +126,13 @@ class NmcEventLogProcess(DatagramMessageObserver):
             'StructureType': self.__parse_structure_type
         }
         self.__event_msg_queue = Queue()
-        super(NmcEventLogProcess, self).__init__(identification=self.__id, name='NmcEventLogProcess')
+        super(NmcEventLogProcessor, self).__init__(identification=self.__id, name='NmcEventLogProcess')
         self.__dgm = datagram_manager
         self.__dgm.register_msg_observer(self)
 
         self.__conn_db = None
+        self.__db_file_name = db_file_name
+        self.__db_file_path = db_file_path.rstrip('\\').rstrip('/')
         self.__db_cursor = None
         self.__db_current_id = None
 
@@ -171,7 +173,7 @@ class NmcEventLogProcess(DatagramMessageObserver):
         pass
 
     def do_msg_received(self, msg):
-        self.__event_msg_queue.put(msg.payload)
+        self.__event_msg_queue.put(msg.payload.package)
 
     @staticmethod
     def __parse_string_type(value_type, value):
@@ -248,7 +250,8 @@ class NmcEventLogProcess(DatagramMessageObserver):
         pass
 
     def write_db_task(self):
-        self.__conn_db = sqlite3.connect('event_log.db')
+        _file_name = self.__db_file_path + '/' if self.__db_file_path else '' + self.__db_file_name
+        self.__conn_db = sqlite3.connect(_file_name)
         self.__db_cursor = self.__conn_db.cursor()
         self.__db_current_id = self.__init_db()
 
@@ -269,8 +272,9 @@ class NmcEventLogProcess(DatagramMessageObserver):
                 event_db_value.id = self.__db_current_id
                 event_db_value.event_number = self.__db_current_id
 
-                if isinstance(_value[1], list):
-                    for sub_value in _value[1]:
+                _dg_val = _value[1]
+                if isinstance(_dg_val, list):
+                    for sub_value in _dg_val:
                         event_db_value.id = self.__db_current_id
                         event_db_value.event_number = self.__db_current_id
                         try:
@@ -328,9 +332,9 @@ class NmcEventLogProcess(DatagramMessageObserver):
 
 class NmcNode(HardwareBasicNode):
 
-    def __init__(self, file_name=dd_file_name, ip='localhost', port=1883):
+    def __init__(self, file_name=dd_file_name, ip='localhost', port=1883, db_file_name='event_log.db', db_file_path=''):
         super(NmcNode, self).__init__(file_name, 'NmcNode', ip, port)
-        self.event_log_process = NmcEventLogProcess(self.dgm)
+        self.event_log_process = NmcEventLogProcessor(self.dgm, db_file_name, db_file_path)
         pass
 
     @property
@@ -355,14 +359,31 @@ def main():
     import sys
 
     arg_parser = argparse.ArgumentParser(description='Nmc node simulator script')
-    arg_parser.add_argument('-d', '--dd', help='datagram data file')
-    arg_parser.add_argument('-H', '--host', help='mqtt host to connect to. Defaults to localhost.')
-    arg_parser.add_argument('-p', '--port', help='network port to connect to. Defaults to 1883.')
-    arg_parser.add_argument('-s', '--sequence', help='if need to run the boot sequence(on/off), Defaults to on')
+    arg_parser.add_argument('-D',
+                            '--dd',
+                            default=dd_file_name,
+                            help='datagram data file')
+    arg_parser.add_argument('-H',
+                            '--host',
+                            default='localhost',
+                            help='mqtt host to connect to. Defaults to localhost.')
+    arg_parser.add_argument('-P',
+                            '--port',
+                            default='1883',
+                            help='network port to connect to. Defaults to 1883.')
+    arg_parser.add_argument('--db-filename',
+                            default='event_log.db',
+                            help='database file name. Defaults is event_log.db.')
+    arg_parser.add_argument('--db-path',
+                            default='',
+                            help='database path. Defaults is current path.')
+    arg_parser.add_argument('--boot-sequence',
+                            default='on',
+                            help='if need to run the boot sequence(on/off), Defaults to on')
     args = arg_parser.parse_args()
 
-    file_name = args.dd if args.dd else dd_file_name
-    ip = args.host if args.host else 'localhost'
+    file_name = args.dd
+    ip = args.host
 
     try:
         port = int(args.port, base=10)
@@ -371,9 +392,12 @@ def main():
     except ValueError:
         port = 1883
 
-    is_need_boot_seq = True if args.sequence == 'on' else False
+    is_need_boot_seq = True if args.boot_sequence == 'on' else False
 
-    node = NmcNode(file_name, ip, port)
+    db_file_name = args.db_filename
+    db_file_path = args.db_path
+
+    node = NmcNode(file_name, ip, port, db_file_name, db_file_path)
 
     if is_need_boot_seq:
         node.run()

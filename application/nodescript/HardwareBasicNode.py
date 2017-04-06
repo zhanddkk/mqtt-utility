@@ -213,6 +213,7 @@ class HardwareBasicNode:
         else:
             print('Node stopped')
         pass
+        self.dgm.datagram_access_client.stop()
 
     def get_command_response_payload(self, hash_id, ack_code):
         datagram = self.dgm.get_datagram(hash_id)
