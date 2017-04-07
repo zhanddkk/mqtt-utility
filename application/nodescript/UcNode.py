@@ -17,7 +17,7 @@ class UcNode(HardwareBasicNode):
     def node_parameter(self):
         return {
             'heart_beat_hash_id': E_UC_IDTY_GEN_HEARTBEAT,
-            'status_communication_hash_id': E_UC_STATUS_COMMONICATION,
+            'status_communication_hash_id': E_UC_STATUS_COMMUNICATION,
             'identity_check_hash_id': E_UC_IDTY_CMD_IDENTITY_REQUEST,
             'hardware_version': E_UC_IDTY_GEN_HWVERSION,
             'firmware_version': E_UC_IDTY_GEN_FWVERSION,
