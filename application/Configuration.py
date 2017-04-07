@@ -35,7 +35,7 @@ class Configuration:
         _uc_node_data = {
             'name': 'UC',
             'device_index': 0,
-            'communication_status_hash_id': '0x62E89354',
+            'communication_status_hash_id': '0x535F962A',
             'script': 'nodescript/UcNode.py',
             'args': '{dd},{ip},{port}'.format(
                 dd='Default',
@@ -45,7 +45,7 @@ class Configuration:
         _hmi_node_data = {
             'name': 'HMI',
             'device_index': 0,
-            'communication_status_hash_id': '0x37CFE282',
+            'communication_status_hash_id': '0x2846E558',
             'script': 'nodescript/HmiNode.py',
             'args': '{dd},{ip},{port}'.format(
                 dd='Default',
