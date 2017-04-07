@@ -46,4 +46,4 @@ setup(name='ddclient',
       keywords='client',
       package_dir={'': 'src'},
       packages=find_packages(where='src', include=['ddclient']),
-      install_requires=['namedlist', 'paho-mqtt'])
+      install_requires=['namedlist', 'paho-mqtt', 'cbor'])
