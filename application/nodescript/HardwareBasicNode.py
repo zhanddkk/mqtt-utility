@@ -62,7 +62,7 @@ class HardwareBasicNode:
         # step 3, slc send the identity check command, I wil check this command is sent, so prepare the matcher.
         identity_check_command = DatagramPayload(hash_id=self.node_parameter['identity_check_hash_id'],
                                                  value=BitMapParser(command_bit_map).encode(
-                                                     cmd_code=cmd_code_names['Rest'],
+                                                     cmd_code=cmd_code_names['Set'],
                                                      sequence=0,
                                                      producer=command_response_bit_map['producer'].names['SLC_UPS']))
         identity_check_command.time_stamp_second = 0
@@ -109,7 +109,7 @@ class HardwareBasicNode:
         try:
             cmd_payload = DatagramPayload(hash_id=self.node_parameter['setting_update_check'],
                                           value=BitMapParser(command_bit_map).encode(
-                                              cmd_code=cmd_code_names['Rest'],
+                                              cmd_code=cmd_code_names['Set'],
                                               sequence=0,
                                               producer=command_response_bit_map['producer'].names['SLC_UPS']))
 
@@ -145,7 +145,7 @@ class HardwareBasicNode:
         try:
             cmd_payload = DatagramPayload(hash_id=self.node_parameter['rtc_sync_cmd'],
                                           value=BitMapParser(command_bit_map).encode(
-                                              cmd_code=cmd_code_names['Rest'],
+                                              cmd_code=cmd_code_names['Set'],
                                               sequence=0,
                                               producer=command_response_bit_map['producer'].names['SLC_UPS']))
 

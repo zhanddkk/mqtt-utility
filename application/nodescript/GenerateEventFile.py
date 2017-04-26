@@ -1,5 +1,6 @@
 import os as _os
 import argparse
+from DatagramId import *
 from queue import Queue, Empty
 from ddclient.dgmsgobserver import DatagramMessageObserver
 from ddclient.dgmanager import DatagramManager
@@ -10,9 +11,9 @@ _here = _os.path.abspath(_os.path.dirname(__file__))
 dd_file_name = '{}../../dd_source/default_data_dictionary.csv'.format(_here)
 
 
-GENERATE_EVENT_FILE_CMD_HASH_ID = 0x31F3362A
-FETCH_EVENT_FILE_CMD_HASH_ID = 0x5776E8DB
-EVENT_LOG_QUERY_STATEMENT_HASH_ID = 0x4F7A85E2
+GENERATE_EVENT_FILE_CMD_HASH_ID = E_SYS_CMD_GENERATE_EVENT_FILE
+FETCH_EVENT_FILE_CMD_HASH_ID = E_SYS_CMD_FETCH_EVENT_FILE
+EVENT_LOG_QUERY_STATEMENT_HASH_ID = E_SYS_GEN_EVENT_LOG_QUERY_STATEMENT
 
 INVALID_STATUS = None
 GET_GENERATE_EVENT_FILE_CMD = 0
