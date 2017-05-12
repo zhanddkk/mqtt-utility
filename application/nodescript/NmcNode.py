@@ -251,7 +251,7 @@ class NmcEventLogProcessor(DatagramMessageObserver):
         pass
 
     def write_db_task(self):
-        _file_name = self.__db_file_path + '/' if self.__db_file_path else '' + self.__db_file_name
+        _file_name = self.__db_file_path + ('/' if self.__db_file_path else '') + self.__db_file_name
         self.__conn_db = sqlite3.connect(_file_name)
         self.__db_cursor = self.__conn_db.cursor()
         self.__db_current_id = self.__init_db()
