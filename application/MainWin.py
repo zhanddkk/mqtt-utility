@@ -1,6 +1,7 @@
 from collections import OrderedDict
 from PyQt5.Qt import Qt, QDir, QFileInfo, QFontMetrics, pyqtSignal, pyqtSlot
-from PyQt5.QtWidgets import QApplication, QMainWindow, QFileDialog, QMessageBox, QHeaderView, QTreeWidgetItem
+from PyQt5.QtWidgets import QApplication, QMainWindow, QFileDialog, QMessageBox, QHeaderView, QTreeWidgetItem, QMenu
+from PyQt5.QtWidgets import QAction
 from UiMainWin import Ui_MainWindow
 from AppVersion import __doc__ as __app_version__
 from DataDictionaryTreeViewModel import DataDictionaryTreeViewModel
@@ -15,6 +16,7 @@ from ValueEditorTreeViewModel import ValueEditorTreeViewModel
 from ValueEditorTreeViewDelegate import ValueEditorTreeViewDelegate
 from HistoryDataDisplayTreeViewModel import HistoryDataDisplayTreeViewModel
 from SettingDatagramValues import SettingDatagramValues
+from MessageBrowserWindow import MessageBrowserWindow
 from ddclient import __version__ as __dd_client_pkg_version__
 from ddclient.dgmanager import DatagramManager, message_format_class
 from ddclient.dgpayload import (E_DATAGRAM_ACTION_PUBLISH, E_DATAGRAM_ACTION_RESPONSE, E_DATAGRAM_ACTION_REQUEST,
@@ -112,6 +114,9 @@ class MainWin(QMainWindow):
 
         self.__repeater = Repeater(self.__datagram_manager)
 
+        self.__message_browser_win = MessageBrowserWindow(self)
+        self.ui.mesg_browser_dock_widget.setWidget(self.__message_browser_win)
+
         # Define model
         self.__data_dictionary_tree_view_module = DataDictionaryTreeViewModel(self.__datagram_manager,
                                                                               self.__datagram_topic_index)
@@ -146,6 +151,7 @@ class MainWin(QMainWindow):
 
         # Set dock widget
         self.tabifyDockWidget(self.ui.payload_dock_widget, self.ui.repeater_dock_widget)
+        self.tabifyDockWidget(self.ui.repeater_dock_widget, self.ui.mesg_browser_dock_widget)
         self.ui.payload_dock_widget.raise_()
 
         # Set data monitor table view attribute
@@ -160,6 +166,22 @@ class MainWin(QMainWindow):
         self.ui.enable_data_object_check_box.clicked.connect(self.enable_data_object_check_box_clicked)
         self.ui.force_edit_package_check_box.clicked.connect(self.force_edit_package_check_box_clicked)
         self.update_history_data_display_signal.connect(self.update_history_data_display)
+
+        # Data dictionary tree view context menu
+        self.__data_dictionary_tree_view_context_menu = QMenu(self)
+        self.__add_datagram_to_watch_action = QAction('Add to watch',
+                                                      self.__data_dictionary_tree_view_context_menu)
+        getattr(self.__add_datagram_to_watch_action.triggered, 'connect')(
+            self.__add_datagram_to_watch_action_triggered)
+        self.__remove_datagram_from_watch_browser = QAction('Remove from watch browser',
+                                                            self.__data_dictionary_tree_view_context_menu)
+        getattr(self.__remove_datagram_from_watch_browser.triggered, 'connect')(
+            self.__remove_datagram_from_watch_browser_triggered)
+        self.__data_dictionary_tree_view_context_menu.addAction(self.__add_datagram_to_watch_action)
+        self.__data_dictionary_tree_view_context_menu.addAction(self.__remove_datagram_from_watch_browser)
+        self.ui.data_dictionary_tree_view.setContextMenuPolicy(Qt.CustomContextMenu)
+        self.ui.data_dictionary_tree_view.customContextMenuRequested.connect(
+            self.__data_dictionary_tree_view_context_menu_req)
 
         # Do init
         self.__init_payload_dock_widget()
@@ -197,6 +219,8 @@ class MainWin(QMainWindow):
         self.ui.menuView.addAction(self.ui.data_history_dock_widget.toggleViewAction())
         self.ui.menuView.addSeparator()
         self.ui.menuView.addAction(self.ui.log_dock_widget.toggleViewAction())
+        self.ui.menuView.addSeparator()
+        self.ui.menuView.addAction(self.ui.mesg_browser_dock_widget.toggleViewAction())
 
     def __init_data_attribute_tree_widget(self):
         from ddclient.dditem import data_dictionary_item_type
@@ -251,7 +275,7 @@ class MainWin(QMainWindow):
                 parent_item.addChild(sub_item)
             pass
         elif isinstance(_type, OrderedDict):
-            for _key, _data in _type.items():
+            for _key, _data in getattr(_type, 'items')():
                 if isinstance(_data, enum_item_attribute_type):
                     sub_item = QTreeWidgetItem([_key, str(_data.value)])
                 elif isinstance(_data, ValueType):
@@ -442,6 +466,41 @@ class MainWin(QMainWindow):
         self.ui.history_data_display_tree_view.resizeColumnToContents(1)
         pass
 
+    def __data_dictionary_tree_view_context_menu_req(self, q_point):
+        _item_index = self.ui.data_dictionary_tree_view.selectionModel().currentIndex()
+        if _item_index:
+            _model = self.ui.data_dictionary_tree_view.model()
+            _item = _model.get_item(_item_index)
+            try:
+                self.__add_datagram_to_watch_action.setEnabled(not _item.is_selected_to_watch)
+                self.__remove_datagram_from_watch_browser.setEnabled(_item.is_selected_to_watch)
+                _pos = self.ui.data_dictionary_tree_view.mapToGlobal(q_point)
+                self.__data_dictionary_tree_view_context_menu.exec(_pos)
+                pass
+            except AttributeError:
+                pass
+        else:
+            pass
+        pass
+
+    def __add_datagram_to_watch_action_triggered(self):
+        _item_index = self.ui.data_dictionary_tree_view.selectionModel().currentIndex()
+        if _item_index:
+            _model = self.ui.data_dictionary_tree_view.model()
+            if _model.set_selected_state_to_watch(_item_index, True):
+                _item = _model.get_item(_item_index)
+                self.__message_browser_win.add_item(_item.datagram_index[0], _item.datagram_index[1])
+        pass
+
+    def __remove_datagram_from_watch_browser_triggered(self):
+        _item_index = self.ui.data_dictionary_tree_view.selectionModel().currentIndex()
+        if _item_index:
+            _model = self.ui.data_dictionary_tree_view.model()
+            if _model.set_selected_state_to_watch(_item_index, False):
+                _item = _model.get_item(_item_index)
+                self.__message_browser_win.remove_item(_item.datagram_index[0], _item.datagram_index[1])
+        pass
+
     @staticmethod
     def __waiting_thread_task(do_task, waiting_dlg):
         waiting_dlg.time_out_signal.emit(do_task())
@@ -582,6 +641,7 @@ class MainWin(QMainWindow):
 
     def do_record_message(self, message):
         self.__log_win.update_log_display(message)
+        self.__message_browser_win.print_message(message)
         pass
 
     def setting(self):

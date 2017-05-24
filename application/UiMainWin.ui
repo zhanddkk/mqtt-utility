@@ -745,11 +745,30 @@ gridline-color: rgb(85, 170, 127);</string>
     </layout>
    </widget>
   </widget>
-  <action name="actionImport">
-   <property name="text">
-    <string>Import</string>
+  <widget class="QDockWidget" name="mesg_browser_dock_widget">
+   <property name="windowTitle">
+    <string>Message Browser</string>
    </property>
-  </action>
+   <attribute name="dockWidgetArea">
+    <number>8</number>
+   </attribute>
+   <widget class="QWidget" name="dockWidgetContents_4">
+    <layout class="QGridLayout" name="gridLayout_10">
+     <property name="leftMargin">
+      <number>1</number>
+     </property>
+     <property name="topMargin">
+      <number>1</number>
+     </property>
+     <property name="rightMargin">
+      <number>1</number>
+     </property>
+     <property name="bottomMargin">
+      <number>1</number>
+     </property>
+    </layout>
+   </widget>
+  </widget>
   <action name="actionExit">
    <property name="text">
     <string>Exit</string>
@@ -781,6 +800,31 @@ gridline-color: rgb(85, 170, 127);</string>
   <action name="actionRestore_Setting_Data">
    <property name="text">
     <string>Restore Setting Data</string>
+   </property>
+  </action>
+  <action name="actionData_Dictionary">
+   <property name="text">
+    <string>Data Dictionary</string>
+   </property>
+  </action>
+  <action name="actionMessage_Browser_Config">
+   <property name="text">
+    <string>Message Browser Config</string>
+   </property>
+  </action>
+  <action name="actionMessage_Browser_Config_2">
+   <property name="text">
+    <string>Message Browser Config</string>
+   </property>
+  </action>
+  <action name="actionMessage_Browser_Config_3">
+   <property name="text">
+    <string>Message Browser Config</string>
+   </property>
+  </action>
+  <action name="actionImport">
+   <property name="text">
+    <string>Import</string>
    </property>
   </action>
  </widget>

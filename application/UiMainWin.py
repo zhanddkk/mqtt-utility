@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'UiMainWin.ui'
 #
-# Created by: PyQt5 UI code generator 5.7.1
+# Created by: PyQt5 UI code generator 5.8.1
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -337,8 +337,15 @@ class Ui_MainWindow(object):
         self.gridLayout_6.addWidget(self.force_edit_package_check_box, 0, 0, 1, 1)
         self.payload_dock_widget.setWidget(self.dockWidgetContents_8)
         MainWindow.addDockWidget(QtCore.Qt.DockWidgetArea(2), self.payload_dock_widget)
-        self.actionImport = QtWidgets.QAction(MainWindow)
-        self.actionImport.setObjectName("actionImport")
+        self.mesg_browser_dock_widget = QtWidgets.QDockWidget(MainWindow)
+        self.mesg_browser_dock_widget.setObjectName("mesg_browser_dock_widget")
+        self.dockWidgetContents_4 = QtWidgets.QWidget()
+        self.dockWidgetContents_4.setObjectName("dockWidgetContents_4")
+        self.gridLayout_10 = QtWidgets.QGridLayout(self.dockWidgetContents_4)
+        self.gridLayout_10.setContentsMargins(1, 1, 1, 1)
+        self.gridLayout_10.setObjectName("gridLayout_10")
+        self.mesg_browser_dock_widget.setWidget(self.dockWidgetContents_4)
+        MainWindow.addDockWidget(QtCore.Qt.DockWidgetArea(8), self.mesg_browser_dock_widget)
         self.actionExit = QtWidgets.QAction(MainWindow)
         self.actionExit.setObjectName("actionExit")
         self.actionAbout = QtWidgets.QAction(MainWindow)
@@ -352,6 +359,16 @@ class Ui_MainWindow(object):
         self.actionDump_Setting_Data.setObjectName("actionDump_Setting_Data")
         self.actionRestore_Setting_Data = QtWidgets.QAction(MainWindow)
         self.actionRestore_Setting_Data.setObjectName("actionRestore_Setting_Data")
+        self.actionData_Dictionary = QtWidgets.QAction(MainWindow)
+        self.actionData_Dictionary.setObjectName("actionData_Dictionary")
+        self.actionMessage_Browser_Config = QtWidgets.QAction(MainWindow)
+        self.actionMessage_Browser_Config.setObjectName("actionMessage_Browser_Config")
+        self.actionMessage_Browser_Config_2 = QtWidgets.QAction(MainWindow)
+        self.actionMessage_Browser_Config_2.setObjectName("actionMessage_Browser_Config_2")
+        self.actionMessage_Browser_Config_3 = QtWidgets.QAction(MainWindow)
+        self.actionMessage_Browser_Config_3.setObjectName("actionMessage_Browser_Config_3")
+        self.actionImport = QtWidgets.QAction(MainWindow)
+        self.actionImport.setObjectName("actionImport")
         self.menuFile.addAction(self.actionImport)
         self.menuFile.addSeparator()
         self.menuFile.addAction(self.actionSettings)
@@ -407,12 +424,17 @@ class Ui_MainWindow(object):
         self.label_4.setText(_translate("MainWindow", "Value Editor"))
         self.label_13.setText(_translate("MainWindow", "Topic:"))
         self.force_edit_package_check_box.setText(_translate("MainWindow", "Force Edit Package"))
-        self.actionImport.setText(_translate("MainWindow", "Import"))
+        self.mesg_browser_dock_widget.setWindowTitle(_translate("MainWindow", "Message Browser"))
         self.actionExit.setText(_translate("MainWindow", "Exit"))
         self.actionAbout.setText(_translate("MainWindow", "About..."))
         self.actionSettings.setText(_translate("MainWindow", "Settings..."))
         self.actionConnect_Broker.setText(_translate("MainWindow", "Connect Broker"))
         self.actionDump_Setting_Data.setText(_translate("MainWindow", "Dump Setting Data"))
         self.actionRestore_Setting_Data.setText(_translate("MainWindow", "Restore Setting Data"))
+        self.actionData_Dictionary.setText(_translate("MainWindow", "Data Dictionary"))
+        self.actionMessage_Browser_Config.setText(_translate("MainWindow", "Message Browser Config"))
+        self.actionMessage_Browser_Config_2.setText(_translate("MainWindow", "Message Browser Config"))
+        self.actionMessage_Browser_Config_3.setText(_translate("MainWindow", "Message Browser Config"))
+        self.actionImport.setText(_translate("MainWindow", "Import"))
 
 import UiResource_rc

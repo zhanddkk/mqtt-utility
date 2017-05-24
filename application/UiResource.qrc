@@ -1,5 +1,9 @@
 <RCC>
   <qresource prefix="ico">
+    <file>ico/Save.ico</file>
+    <file>ico/SaveAs.ico</file>
+    <file>ico/Start.ico</file>
+    <file>ico/Stop.ico</file>
     <file>ico/MqttConnectConfig.ico</file>
     <file>ico/MainWindowIcon.ico</file>
     <file>ico/Setting.ico</file>
