@@ -1,60 +1,62 @@
 from PyQt5.Qt import Qt
 from PyQt5.QtWidgets import QMainWindow, QFileDialog
 from UiMessageBrowserWindow import Ui_MessageBrowserWindow
+from MessageFilterConfig import MessageFilterConfig
 import os as _os
 
 
 class MessageBrowserWindow(QMainWindow):
-    def __init__(self, parent=None, flags=Qt.Widget):
+
+    __print_msg_header_format = '''\
+----------{time}----------
+ qos    : {qos}
+ retain : {retain}
+ topic  : {topic}
+ payload:'''
+
+    def __init__(self, datagram_manager, parent=None, flags=Qt.Widget):
         super(MessageBrowserWindow, self).__init__(parent, flags)
         self.ui = Ui_MessageBrowserWindow()
         self.ui.setupUi(self)
-        self.__filter_data = {}
+        self.__message_filter_config = MessageFilterConfig(datagram_manager, {})
         self.__is_start_to_watch = False
+
         self.ui.actionStopToWatch.setEnabled(False)
+
+        # Set callback for all action
         self.ui.actionStopToWatch.triggered.connect(self.__action_stop)
         self.ui.actionStartToWatch.triggered.connect(self.__action_start)
         self.ui.actionClearAllMessages.triggered.connect(self.__action_clear)
         self.ui.actionOpenFilterConfigFile.triggered.connect(self.__action_open_filter_config_file)
         self.ui.actionSaveFilterConfigFile.triggered.connect(self.__action_save_filter_config_file)
         self.ui.actionSaveAsFilterConfigFile.triggered.connect(self.__action_save_as_filter_config_file)
+
         self.__filter_config_file = 'default_config.xml'
         self.ui.filter_config_file_line_edit.setText(self.__filter_config_file)
+        self.__data_dictionary_tree_view = parent.ui.data_dictionary_tree_view
         pass
 
-    def add_item(self, hash_id, device_index):
-        if hash_id in self.__filter_data:
-            _device_indexes = self.__filter_data[hash_id]
-            if device_index in _device_indexes:
-                pass
-            else:
-                _device_indexes.append(device_index)
-                pass
-        else:
-            self.__filter_data[hash_id] = [device_index]
-            pass
-        pass
-
-    def remove_item(self, hash_id, device_index):
-        if hash_id in self.__filter_data:
-            _device_indexes = self.__filter_data[hash_id]
-            try:
-                _device_indexes.remove(device_index)
-                if not _device_indexes:
-                    self.__filter_data.pop(hash_id)
-                    pass
-            except ValueError:
-                pass
-        pass
-
-    def print_message(self, message):
-        if self.__is_start_to_watch:
+    def print_message(self, message, date_time):
+        if self.__is_start_to_watch and message.is_valid:
             _payload = message.payload
             _hash_id = _payload.hash_id
             _device_index = _payload.device_instance_index - 1
-            if self.__is_need_print(_hash_id, _device_index):
-                self.ui.message_browser_plain_text_edit.appendPlainText('{}'.format(_payload))
+            if not self.__message_filter_config.is_item_exist(_hash_id, _device_index):
+                return
                 pass
+            # Print message header
+            _msg_header_text = self.__print_msg_header_format.format(time=date_time.strftime("%Y-%m-%d %H:%M:%S"),
+                                                                     qos=message.qos,
+                                                                     retain=message.retain,
+                                                                     topic=message.topic)
+            self.ui.message_browser_plain_text_edit.appendPlainText(_msg_header_text)
+
+            # Print payload
+            # TODO
+            self.ui.message_browser_plain_text_edit.appendPlainText('  |->' + str(_payload).replace('\n', '\n  |->'))
+
+            # Print Value
+            pass
         pass
 
     def __action_start(self):
@@ -84,10 +86,12 @@ class MessageBrowserWindow(QMainWindow):
         if _file[0]:
             self.__filter_config_file = _file[0]
             self.ui.filter_config_file_line_edit.setText(self.__filter_config_file)
-            print('Open:', _file)
+            self.__message_filter_config.import_file(self.__filter_config_file)
+            self.__data_dictionary_tree_view.model().update_selections()
         pass
 
     def __action_save_filter_config_file(self):
+        self.__message_filter_config.export_file(self.__filter_config_file)
         pass
 
     def __action_save_as_filter_config_file(self):
@@ -101,25 +105,10 @@ class MessageBrowserWindow(QMainWindow):
         if _file[0]:
             self.__filter_config_file = _file[0]
             self.ui.filter_config_file_line_edit.setText(self.__filter_config_file)
-            print('Save As:', _file)
+            self.__message_filter_config.export_file(self.__filter_config_file)
         pass
 
-    def __is_need_print(self, hash_id, device_index):
-        _ret = False
-        try:
-            _ret = device_index in self.__filter_data[hash_id]
-        except IndexError:
-            pass
-        except KeyError:
-            pass
-        return _ret
-        pass
-
-    def __open_config(self, file_name):
-        pass
-
-    def __save_config(self, file_name):
-        
-        pass
-
+    @property
+    def message_filter_config(self):
+        return self.__message_filter_config
     pass

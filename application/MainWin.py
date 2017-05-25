@@ -1,3 +1,4 @@
+import datetime
 from collections import OrderedDict
 from PyQt5.Qt import Qt, QDir, QFileInfo, QFontMetrics, pyqtSignal, pyqtSlot
 from PyQt5.QtWidgets import QApplication, QMainWindow, QFileDialog, QMessageBox, QHeaderView, QTreeWidgetItem, QMenu
@@ -114,12 +115,14 @@ class MainWin(QMainWindow):
 
         self.__repeater = Repeater(self.__datagram_manager)
 
-        self.__message_browser_win = MessageBrowserWindow(self)
+        self.__message_browser_win = MessageBrowserWindow(self.__datagram_manager, self)
         self.ui.mesg_browser_dock_widget.setWidget(self.__message_browser_win)
 
         # Define model
-        self.__data_dictionary_tree_view_module = DataDictionaryTreeViewModel(self.__datagram_manager,
-                                                                              self.__datagram_topic_index)
+        self.__data_dictionary_tree_view_module =\
+            DataDictionaryTreeViewModel(self.__datagram_manager,
+                                        self.__datagram_topic_index,
+                                        self.__message_browser_win.message_filter_config)
         self.__data_monitor_table_view_model = DataMonitorTableViewModel(self.__datagram_manager)
         self.__value_editor_tree_view_model = ValueEditorTreeViewModel()
         self.__history_data_display_tree_view_model = HistoryDataDisplayTreeViewModel()
@@ -487,18 +490,14 @@ class MainWin(QMainWindow):
         _item_index = self.ui.data_dictionary_tree_view.selectionModel().currentIndex()
         if _item_index:
             _model = self.ui.data_dictionary_tree_view.model()
-            if _model.set_selected_state_to_watch(_item_index, True):
-                _item = _model.get_item(_item_index)
-                self.__message_browser_win.add_item(_item.datagram_index[0], _item.datagram_index[1])
+            _model.select_to_watch(_item_index, True)
         pass
 
     def __remove_datagram_from_watch_browser_triggered(self):
         _item_index = self.ui.data_dictionary_tree_view.selectionModel().currentIndex()
         if _item_index:
             _model = self.ui.data_dictionary_tree_view.model()
-            if _model.set_selected_state_to_watch(_item_index, False):
-                _item = _model.get_item(_item_index)
-                self.__message_browser_win.remove_item(_item.datagram_index[0], _item.datagram_index[1])
+            _model.select_to_watch(_item_index, False)
         pass
 
     @staticmethod
@@ -640,8 +639,9 @@ class MainWin(QMainWindow):
         pass
 
     def do_record_message(self, message):
-        self.__log_win.update_log_display(message)
-        self.__message_browser_win.print_message(message)
+        _date_time = datetime.datetime.now()
+        self.__log_win.update_log_display(message, _date_time)
+        self.__message_browser_win.print_message(message, _date_time)
         pass
 
     def setting(self):

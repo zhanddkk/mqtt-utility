@@ -1,4 +1,3 @@
-import datetime
 from PyQt5.Qt import Qt
 from PyQt5.QtWidgets import QMainWindow
 from UiLogWin import Ui_LogWindow
@@ -23,13 +22,12 @@ class LogWin(QMainWindow):
         self.ui.log_plain_text_edit.clear()
         pass
 
-    def update_log_display(self, message):
+    def update_log_display(self, message, date_time):
         if self.ui.actionFilter.isChecked():
             if message.is_valid and message.payload.hash_id in self.__configuration.log_filter_hash_id_list:
                 return
-        data_time = datetime.datetime.now()
         log_text = _log_text_format.format(
-            time=data_time.strftime("%Y-%m-%d %H:%M:%S"),
+            time=date_time.strftime("%Y-%m-%d %H:%M:%S"),
             qos=message.qos,
             retain=message.retain,
             topic=message.topic,
