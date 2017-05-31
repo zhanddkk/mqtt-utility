@@ -1,8 +1,11 @@
+import os as _os
+
 from PyQt5.Qt import Qt
 from PyQt5.QtWidgets import QMainWindow, QFileDialog
-from UiMessageBrowserWindow import Ui_MessageBrowserWindow
+
 from MessageFilterConfig import MessageFilterConfig
-import os as _os
+from UiMessageBrowserWindow import Ui_MessageBrowserWindow
+from valueprinter import ValuePrinter
 
 
 class MessageBrowserWindow(QMainWindow):
@@ -18,6 +21,9 @@ class MessageBrowserWindow(QMainWindow):
         super(MessageBrowserWindow, self).__init__(parent, flags)
         self.ui = Ui_MessageBrowserWindow()
         self.ui.setupUi(self)
+        self.__dgm = datagram_manager
+        self.__value_printer = ValuePrinter()
+        self.__value_printer.print = self.__print
         self.__message_filter_config = MessageFilterConfig(datagram_manager, {})
         self.__is_start_to_watch = False
 
@@ -44,19 +50,32 @@ class MessageBrowserWindow(QMainWindow):
             if not self.__message_filter_config.is_item_exist(_hash_id, _device_index):
                 return
                 pass
+
             # Print message header
-            _msg_header_text = self.__print_msg_header_format.format(time=date_time.strftime("%Y-%m-%d %H:%M:%S"),
+            _msg_header_text = self.__print_msg_header_format.format(time=date_time.strftime("%Y-%m-%d %H:%M:%S.%f"),
                                                                      qos=message.qos,
                                                                      retain=message.retain,
                                                                      topic=message.topic)
             self.ui.message_browser_plain_text_edit.appendPlainText(_msg_header_text)
 
             # Print payload
-            # TODO
             self.ui.message_browser_plain_text_edit.appendPlainText('  |->' + str(_payload).replace('\n', '\n  |->'))
 
             # Print Value
+            self.ui.message_browser_plain_text_edit.appendPlainText('  =============Value Display===========')
+            _dg = self.__dgm.get_datagram(_hash_id)
+            if _dg:
+                _value_type = _dg.get_value_type(_payload.action)
+                self.__value_printer.print_value(name=_dg.attribute.name,
+                                                 value=_payload.value,
+                                                 value_type=_value_type,
+                                                 deep=1)
+            self.ui.message_browser_plain_text_edit.appendPlainText('  =================End=================')
             pass
+        pass
+
+    def __print(self, text):
+        self.ui.message_browser_plain_text_edit.appendPlainText(text)
         pass
 
     def __action_start(self):

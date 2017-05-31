@@ -2,13 +2,40 @@ try:
     from .dgdevdata import DatagramDeviceData
     from .dgpayload import (E_DATAGRAM_ACTION_PUBLISH, E_DATAGRAM_ACTION_RESPONSE, E_DATAGRAM_ACTION_REQUEST,
                             E_DATAGRAM_ACTION_ALLOW)
+    from .valuetype import ValueType, standard_value_attribute_dictionary
+    from .bitmapparser import command_bit_map, command_response_bit_map, setting_response_bit_map, BitMapParser
 except SystemError:
     from dgdevdata import DatagramDeviceData
     from dgpayload import (E_DATAGRAM_ACTION_PUBLISH, E_DATAGRAM_ACTION_RESPONSE, E_DATAGRAM_ACTION_REQUEST,
                            E_DATAGRAM_ACTION_ALLOW)
+    from valuetype import ValueType, standard_value_attribute_dictionary
+    from bitmapparser import command_bit_map, command_response_bit_map, setting_response_bit_map, BitMapParser
 
 
 class Datagram:
+    __command_value_attribute = ValueType(
+        system_tag='BitmapType',
+        basic_type='UInt32',
+        size=4,
+        special_data=command_bit_map
+    )  # Bitmap
+
+    __command_response_value_attribute = ValueType(
+        system_tag='BitmapType',
+        basic_type='UInt32',
+        size=4,
+        special_data=command_response_bit_map
+    )  # Bitmap
+
+    __setting_response_value_attribute = ValueType(
+        system_tag='BitmapType',
+        basic_type='UInt32',
+        size=4,
+        special_data=setting_response_bit_map
+    )
+
+    __one_allow_value_attribute = standard_value_attribute_dictionary['Bool']
+
     def __init__(self, attribute):
         self.__attribute = attribute
         self.__device_data_list = []
@@ -37,25 +64,69 @@ class Datagram:
             print('ERROR:', 'Can not find any data by instance:', instance)
             return None
 
-    def is_valid_device(self, instance, action=E_DATAGRAM_ACTION_PUBLISH):
-        dg = self.get_device_data(instance)
-        if dg is None:
-            return False
+    def is_valid_action(self, action=E_DATAGRAM_ACTION_PUBLISH):
+        _ret = True
         if action == E_DATAGRAM_ACTION_REQUEST:
             if self.__attribute.type != 'Setting':
-                return False
+                _ret = False
         elif (action == E_DATAGRAM_ACTION_RESPONSE) or \
                 (action == E_DATAGRAM_ACTION_ALLOW):
             if (self.__attribute.type != 'Command') and (self.__attribute.type != 'Setting'):
-                return False
+                _ret = False
             pass
         elif action == E_DATAGRAM_ACTION_PUBLISH:
             pass
         else:
             # Invalid action value
-            return False
+            _ret = False
             pass
-        return True
+        return _ret
+        pass
+
+    def get_value_type(self, action=E_DATAGRAM_ACTION_PUBLISH):
+        _value_type = None
+        if self.is_valid_action(action):
+            if self.__attribute.type == 'Command':
+                if action == E_DATAGRAM_ACTION_PUBLISH:
+                    _value_type = self.__command_value_attribute
+                    pass
+                elif action == E_DATAGRAM_ACTION_RESPONSE:
+                    _value_type = self.__command_response_value_attribute
+                    pass
+                elif action == E_DATAGRAM_ACTION_ALLOW:
+                    _value_type = self.__one_allow_value_attribute
+                else:
+                    pass
+                pass
+            elif self.__attribute.type == 'Setting':
+                if (action == E_DATAGRAM_ACTION_PUBLISH) or action == E_DATAGRAM_ACTION_REQUEST:
+                    _value_type = self.attribute.value_type
+                    pass
+                elif action == E_DATAGRAM_ACTION_RESPONSE:
+                    _value_type = self.__setting_response_value_attribute
+                    pass
+                elif action == E_DATAGRAM_ACTION_ALLOW:
+                    # Maybe
+                    _value_type = self.__one_allow_value_attribute
+                else:
+                    pass
+                pass
+            else:
+                _value_type = self.attribute.value_type
+                pass
+            pass
+        else:
+            pass
+        return _value_type
+        pass
+
+    def is_valid_device(self, instance, action=E_DATAGRAM_ACTION_PUBLISH):
+        dg = self.get_device_data(instance)
+        if dg is None:
+            _ret = False
+        else:
+            _ret = self.is_valid_action(action)
+        return _ret
         pass
 
     def get_device_data_value(self, instance, action=E_DATAGRAM_ACTION_PUBLISH):

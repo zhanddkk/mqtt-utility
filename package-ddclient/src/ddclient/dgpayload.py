@@ -113,13 +113,27 @@ class DatagramPayload(datagram_payload_data_class):
         pass
 
     def __str__(self):
+        try:
+            _producer_name = payload_package_info[E_PRODUCER_MASK].choice_list[self.producer_mask]
+            _producer_text = '0x{value:0>8X}({name})'.format(value=self.producer_mask,
+                                                             name=_producer_name)
+        except KeyError:
+            _producer_text = '0x{value:0>8X}'.format(value=self.producer_mask)
+
+        try:
+            _action_name = payload_package_info[E_ACTION].choice_list[self.action]
+            _action_text = '0x{value:0>4X}({name})'.format(value=self.action,
+                                                           name=_action_name)
+        except KeyError:
+            _action_text = '0x{value:0>4X}'.format(value=self.action)
+
         if self.is_object_reference_package:
             return \
                 "E_PAYLOAD_TYPE                :" + str(self.payload_type) + '\n' + \
                 "E_PAYLOAD_VERSION             :" + str(self.payload_version) + '\n' + \
-                "E_HASH_ID                     :" + '0x{:0>8X}'.format(self.hash_id) + '\n' + \
-                "E_PRODUCER_MASK               :" + '0x{:0>8X}'.format(self.producer_mask) + '\n' + \
-                "E_ACTION                      :" + str(self.action) + '\n' + \
+                "E_HASH_ID                     :" + '0x{value:0>8X}'.format(value=self.hash_id) + '\n' + \
+                "E_PRODUCER_MASK               :" + _producer_text + '\n' + \
+                "E_ACTION                      :" + _action_text + '\n' + \
                 "E_TIMESTAMP_SECOND            :" + str(self.time_stamp_second) + '\n' + \
                 "E_TIMESTAMP_MS                :" + str(self.time_stamp_ms) + '\n' + \
                 "E_DEVICE_INSTANCE_INDEX       :" + str(self.device_instance_index) + '\n' + \
@@ -132,8 +146,8 @@ class DatagramPayload(datagram_payload_data_class):
                 "E_PAYLOAD_TYPE                :" + str(self.payload_type) + '\n' + \
                 "E_PAYLOAD_VERSION             :" + str(self.payload_version) + '\n' + \
                 "E_HASH_ID                     :" + '0x{:0>8X}'.format(self.hash_id) + '\n' + \
-                "E_PRODUCER_MASK               :" + '0x{:0>8X}'.format(self.producer_mask) + '\n' + \
-                "E_ACTION                      :" + str(self.action) + '\n' + \
+                "E_PRODUCER_MASK               :" + _producer_text + '\n' + \
+                "E_ACTION                      :" + _action_text + '\n' + \
                 "E_TIMESTAMP_SECOND            :" + str(self.time_stamp_second) + '\n' + \
                 "E_TIMESTAMP_MS                :" + str(self.time_stamp_ms) + '\n' + \
                 "E_DEVICE_INSTANCE_INDEX       :" + str(self.device_instance_index) + '\n' + \

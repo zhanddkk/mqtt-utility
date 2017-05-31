@@ -95,14 +95,3 @@ class DataDictionaryTreeViewModel(ValueTreeViewModel):
         except AttributeError:
             pass
         pass
-
-    @property
-    def datagram_item_map(self):
-        return self.__item_map
-
-    def get_datagram_item(self, hash_id, device_index):
-        try:
-            return self.__item_map[(hash_id, device_index)]
-        except IndexError:
-            return None
-        pass

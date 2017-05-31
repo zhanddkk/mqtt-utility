@@ -28,8 +28,8 @@ from ddclient.repeater import (Repeater,
                                default_user_input_str,
                                user_function_end_str,
                                get_user_function_source_code)
-from ddclient.bitmapparser import command_bit_map, command_response_bit_map, setting_response_bit_map, BitMapParser
-from ddclient.valuetype import ValueType, standard_value_attribute_dictionary
+from ddclient.bitmapparser import command_bit_map, BitMapParser
+from ddclient.valuetype import ValueType
 from ddclient.ddinterface import enum_item_attribute_type
 _about_application_message_format = """\
 <p>----------Application Info----------</p>
@@ -54,28 +54,28 @@ _about_application_message_format = """\
 <span style=font-weight:600;>Product Name</span> : {pro_name}</p>
 """
 
-command_value_attribute = ValueType(
-    system_tag='BitmapType',
-    basic_type='UInt32',
-    size=4,
-    special_data=command_bit_map
-)  # Bitmap
-
-command_response_value_attribute = ValueType(
-    system_tag='BitmapType',
-    basic_type='UInt32',
-    size=4,
-    special_data=command_response_bit_map
-)  # Bitmap
-
-setting_response_value_attribute = ValueType(
-    system_tag='BitmapType',
-    basic_type='UInt32',
-    size=4,
-    special_data=setting_response_bit_map
-)
-
-one_allow_value_attribute = standard_value_attribute_dictionary['Bool']
+# command_value_attribute = ValueType(
+#     system_tag='BitmapType',
+#     basic_type='UInt32',
+#     size=4,
+#     special_data=command_bit_map
+# )  # Bitmap
+#
+# command_response_value_attribute = ValueType(
+#     system_tag='BitmapType',
+#     basic_type='UInt32',
+#     size=4,
+#     special_data=command_response_bit_map
+# )  # Bitmap
+#
+# setting_response_value_attribute = ValueType(
+#     system_tag='BitmapType',
+#     basic_type='UInt32',
+#     size=4,
+#     special_data=setting_response_bit_map
+# )
+#
+# one_allow_value_attribute = standard_value_attribute_dictionary['Bool']
 
 
 class MainWin(QMainWindow):
@@ -390,43 +390,18 @@ class MainWin(QMainWindow):
     def __update_value_editor_tree_view_display(self, datagram, instance, action):
         _value = datagram.get_device_data_value(instance, action)
         if datagram.attribute.type == 'Command':
-            if action == E_DATAGRAM_ACTION_ALLOW:
-                _value_attribute = one_allow_value_attribute
-                pass
-            else:
-                if action == E_DATAGRAM_ACTION_PUBLISH:
-                    _value_attribute = command_value_attribute
-                    _sequence_num = self.__datagram_manager.sequence_number
-                    # No general
-                    if _value is None:
-                        _value = 0
-                    self.__command_bit_map_parser.decode(_value)
-                    _value = self.__command_bit_map_parser.encode(sequence=_sequence_num)
-                    # _value &= 0xff0000ff
-                    # _value |= 0x00ffff00 & (_sequence_num << 8)
-                    pass
-                else:
-                    _value_attribute = command_response_value_attribute
-                    pass
+            if action == E_DATAGRAM_ACTION_PUBLISH:
+                _sequence_num = self.__datagram_manager.sequence_number
+                # No general
+                if _value is None:
+                    _value = 0
+                self.__command_bit_map_parser.decode(_value)
+                _value = self.__command_bit_map_parser.encode(sequence=_sequence_num)
+                # _value &= 0xff0000ff
+                # _value |= 0x00ffff00 & (_sequence_num << 8)
                 pass
             pass
-        elif datagram.attribute.type == 'Setting':
-            if action == E_DATAGRAM_ACTION_RESPONSE:
-                _value_attribute = setting_response_value_attribute
-                pass
-            elif action == E_DATAGRAM_ACTION_ALLOW:
-                _value_attribute = one_allow_value_attribute
-                pass
-            else:
-                _value_attribute = datagram.attribute.value_type
-                pass
-            pass
-        elif datagram.attribute.type == 'Status':
-            _value_attribute = datagram.attribute.value_type
-            pass
-        else:
-            _value_attribute = datagram.attribute.value_type
-            pass
+        _value_attribute = datagram.get_value_type(action)
         self.__value_editor_tree_view_model.set_value(_value, _value_attribute)
         self.ui.value_editor_tree_view.expandAll()
         self.ui.value_editor_tree_view.resizeColumnToContents(0)
@@ -436,31 +411,7 @@ class MainWin(QMainWindow):
     def __update_history_data_tree_view_display(self, datagram, instance, action):
         _history_data = datagram.get_device_data_history(instance, action)
         _additional_data_value_attribute = None
-        if datagram.attribute.type == 'Command':
-            if action == E_DATAGRAM_ACTION_ALLOW:
-                _value_attribute = one_allow_value_attribute
-                pass
-            else:
-                if action == E_DATAGRAM_ACTION_PUBLISH:
-                    _value_attribute = command_value_attribute
-                else:
-                    _value_attribute = command_response_value_attribute
-                pass
-            pass
-        elif datagram.attribute.type == 'Setting':
-            if action == E_DATAGRAM_ACTION_RESPONSE:
-                _value_attribute = setting_response_value_attribute
-                pass
-            elif action == E_DATAGRAM_ACTION_ALLOW:
-                _value_attribute = one_allow_value_attribute
-                pass
-            else:
-                _value_attribute = datagram.attribute.value_type
-                pass
-            pass
-        else:
-            _value_attribute = datagram.attribute.value_type
-            pass
+        _value_attribute = datagram.get_value_type(action)
         self.__history_data_display_tree_view_model.set_value(
             history_data=_history_data,
             value_attribute=_value_attribute,
@@ -788,7 +739,7 @@ class MainWin(QMainWindow):
                         # _value |= 0x00ffff00 & (self.__datagram_manager.sequence_number << 8)
                         self.__command_bit_map_parser.decode(self.__payload.value)
                         _value = self.__command_bit_map_parser.encode(sequence=self.__datagram_manager.sequence_number)
-                        model.set_value(_value, command_value_attribute)
+                        model.set_value(_value, _dg.get_value_type(self.__payload.action))
                         self.ui.value_editor_tree_view.expandAll()
                         pass
                 topic_index = (self.__payload.hash_id,

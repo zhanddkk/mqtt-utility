@@ -14,7 +14,7 @@ class MessageFilterConfig:
 </filter>
 '''
     __item_text = '''\
-        <item hashId=\"0x{hash_id:>08X}\" deviceIndex=\"{device_index}\"><!--{topic}--></item>\n'''
+        <item hashId=\"0x{hash_id:>08X}\" deviceIndex=\"{device_index}\"/><!--{topic}-->\n'''
 
     def __init__(self, datagram_manager, config_data,
                  version='0.0.1',

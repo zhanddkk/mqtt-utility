@@ -11,7 +11,8 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MessageBrowserWindow(object):
     def setupUi(self, MessageBrowserWindow):
         MessageBrowserWindow.setObjectName("MessageBrowserWindow")
-        MessageBrowserWindow.resize(640, 480)
+        MessageBrowserWindow.resize(320, 480)
+        MessageBrowserWindow.setMinimumSize(QtCore.QSize(320, 0))
         self.centralwidget = QtWidgets.QWidget(MessageBrowserWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.gridLayout = QtWidgets.QGridLayout(self.centralwidget)
@@ -25,9 +26,11 @@ class Ui_MessageBrowserWindow(object):
         self.label.setObjectName("label")
         self.gridLayout.addWidget(self.label, 0, 0, 1, 1)
         self.message_browser_plain_text_edit = QtWidgets.QPlainTextEdit(self.centralwidget)
+        self.message_browser_plain_text_edit.setMinimumSize(QtCore.QSize(300, 0))
         font = QtGui.QFont()
         font.setFamily("Consolas")
         self.message_browser_plain_text_edit.setFont(font)
+        self.message_browser_plain_text_edit.setLineWrapMode(QtWidgets.QPlainTextEdit.NoWrap)
         self.message_browser_plain_text_edit.setReadOnly(True)
         self.message_browser_plain_text_edit.setObjectName("message_browser_plain_text_edit")
         self.gridLayout.addWidget(self.message_browser_plain_text_edit, 1, 0, 1, 2)
