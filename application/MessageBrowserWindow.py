@@ -5,7 +5,7 @@ from PyQt5.QtWidgets import QMainWindow, QFileDialog
 
 from MessageFilterConfig import MessageFilterConfig
 from UiMessageBrowserWindow import Ui_MessageBrowserWindow
-from valueprinter import ValuePrinter
+from ddclient.valueprinter import ValuePrinter
 
 
 class MessageBrowserWindow(QMainWindow):
