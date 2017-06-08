@@ -64,6 +64,12 @@ class TestFramework(DatagramMessageObserver):
                         break
         return _ret
 
+    def clear_message(self):
+        _q = self.__queue.queue
+        with self.__queue.mutex:
+            _q.clear()
+        pass
+
     def do_msg_received(self, msg):
         self.__queue.put(msg.payload.package)
         pass
