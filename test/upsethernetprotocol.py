@@ -499,6 +499,16 @@ class UpsEthernetProtocol:
             raise ValueError('{} is invalid frame filter'.format(frame_filter))
         pass
 
+    def clear_message_buffer(self):
+        """
+        Clear the queue buffer of frame
+        :return:
+        """
+        _q = self.__frame_queue.queue
+        with self.__frame_queue.mutex:
+            _q.clear()
+        pass
+
     def read_frame(self, timeout=None):
         """
         Read a frame from the queue buffer
