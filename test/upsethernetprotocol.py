@@ -543,7 +543,7 @@ class UpsEthernetProtocol:
         if not isinstance(frame, UpsEthernetProtocolFrame):
             raise ValueError('{} is invalid frame'.format(frame))
         self.__rolling_counter =\
-            rolling_counter & 0xff if isinstance(rolling_counter, int) else self.__rolling_counter + 1
+            (rolling_counter if isinstance(rolling_counter, int) else self.__rolling_counter + 1) & 0xff
         frame.rolling_counter = self.__rolling_counter
         if frame.message_type & 0b000100 != 0:
             frame.check_sum = self.__crc16_calculator.calculate_crc16_for_bytes(frame.bytes, frame.length - 2)
