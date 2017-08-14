@@ -537,10 +537,10 @@ class MainWin(QMainWindow):
             return
         self.__payload.action = action
         _producer_mask_names = dg.attribute.producer
-        if _producer_mask_names:
+        if _producer_mask_names and isinstance(_producer_mask_names[0], str):
             _producer_mask_name = _producer_mask_names[0]
             for _key, _data in payload_package_info[E_PRODUCER_MASK].choice_list.items():
-                if _producer_mask_name == _data:
+                if _producer_mask_name.upper() == _data.upper():
                     self.__payload.producer_mask = _key
                     break
         self.__update_payload_display(topic, self.__payload)

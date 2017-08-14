@@ -137,6 +137,8 @@ class DataDictionaryInterfaceV0:
             ret_dict = OrderedDict()
 
             for (key, data) in structure_format.items():
+                # strip all spaces at the both ends of the key
+                key = key.strip()
                 if type(data) is list:
                     try:
                         try:
@@ -210,6 +212,8 @@ class DataDictionaryInterfaceV0:
 
             ret_dict = OrderedDict()
             for (key, data) in structure_format.items():
+                # strip all spaces at the both ends of the key
+                key = key.strip()
                 item = enum_item_attribute_type(0, None)
                 if isinstance(data, list):
                     try:
