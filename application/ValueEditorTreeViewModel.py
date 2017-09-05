@@ -150,14 +150,14 @@ class ValueEditorTreeViewModel(QAbstractItemModel):
             _end = 0
             for _key, _data in attribute.special_data.items():
                 _end += _data.wide
-                bit_value = value & ((1 << _data.wide) - 1)
+                bit_value = _value & ((1 << _data.wide) - 1)
                 _sub_item = ValueEditorTreeViewBitTypeItem(name=_key,
                                                            value=bit_value,
                                                            bit_fields=(_start, _end - 1),
                                                            attribute=_data,
                                                            parent=_parent_item)
                 _parent_item.append_child(_sub_item)
-                value >>= _data.wide
+                _value >>= _data.wide
                 _start = _end
 
     @staticmethod

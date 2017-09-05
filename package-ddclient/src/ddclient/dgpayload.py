@@ -207,7 +207,7 @@ class DatagramPayload(datagram_payload_data_class):
             return True
             pass
         except Exception as exception:
-            print('ERROR', 'the input package format is error, exception :', exception)
+            print('ERROR:', 'the input package format is error, exception :', exception)
             return False
             pass
         pass

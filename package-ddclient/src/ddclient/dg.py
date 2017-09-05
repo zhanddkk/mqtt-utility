@@ -196,6 +196,15 @@ class Datagram:
         else:
             # Invalid action value
             pass
+
+        if (self.__attribute.type == 'Command') or (
+                    (action == E_DATAGRAM_ACTION_RESPONSE) and (self.__attribute.type == 'Setting')):
+            if not isinstance(payload.value, int):
+                print('ERROR:', 'Action value ', action,
+                      ', datagram type', self.__attribute.type,
+                      'and value', payload.value, 'do not match.')
+                return False
+            pass
         instance = payload.device_instance_index - 1
         dev_data = self.get_device_data(instance)
         if dev_data is None:

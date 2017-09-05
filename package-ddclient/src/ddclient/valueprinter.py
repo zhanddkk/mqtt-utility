@@ -66,7 +66,12 @@ class ValuePrinter:
 
     @staticmethod
     def __print_bitmap_type_value(value, name, value_type, deep):
-        _value_text = '{name:<10s}: 0x{value:>08X}'.format(name=name, value=value)
+        if isinstance(value, int):
+            _value_text = '{name:<10s}: 0x{value:>08X}'.format(name=name, value=value)
+        else:
+            _value_text = '{name:<10s}: {value}({type})[Invalid Type]'.format(name=name,
+                                                                              value=value,
+                                                                              type=type(value).__name__)
         _item = DisplayItemLine(deep=deep, value=_value_text)
         if isinstance(value, int):
             _items = [_item]
