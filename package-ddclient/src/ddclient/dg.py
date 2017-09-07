@@ -107,7 +107,7 @@ class Datagram:
                     pass
                 elif action == E_DATAGRAM_ACTION_ALLOW:
                     # Maybe
-                    _value_type = self.__one_allow_value_attribute
+                    _value_type = self.__create_setting_allow_value_type()
                 else:
                     pass
                 pass
@@ -286,5 +286,21 @@ class Datagram:
                 self.__device_data_list.append(DatagramDeviceData(0,
                                                                   system + path + name,
                                                                   default))
+        pass
+
+    def __create_setting_allow_value_type(self):
+        _value_type = self.__one_allow_value_attribute
+        # Only support Enum type for this version
+        if self.__attribute.value_type.system_tag == 'EnumType':
+            _choice_list = self.__attribute.value_type.special_data
+            _len = len(_choice_list)
+            if _len:
+                _value_type = ValueType(system_tag='ArrayType',
+                                        basic_type='Bool',
+                                        size=_len,
+                                        array_count=_len,
+                                        special_data=_value_type)
+            pass
+        return _value_type
         pass
     pass
