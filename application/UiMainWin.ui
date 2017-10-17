@@ -508,9 +508,9 @@ gridline-color: rgb(85, 170, 127);</string>
          <number>2</number>
         </property>
         <item row="10" column="0">
-         <widget class="QLabel" name="reference_type_label">
+         <widget class="QLabel" name="data_object_id_label">
           <property name="text">
-           <string>     |-&gt;Reference Type:</string>
+           <string>     |-&gt;ID:</string>
           </property>
          </widget>
         </item>
@@ -593,13 +593,6 @@ gridline-color: rgb(85, 170, 127);</string>
           </property>
          </widget>
         </item>
-        <item row="11" column="0">
-         <widget class="QLabel" name="reference_value_label">
-          <property name="text">
-           <string>     |-&gt;Reference Value:</string>
-          </property>
-         </widget>
-        </item>
         <item row="4" column="0">
          <widget class="QLabel" name="label_9">
           <property name="text">
@@ -641,14 +634,7 @@ gridline-color: rgb(85, 170, 127);</string>
          </widget>
         </item>
         <item row="10" column="1">
-         <widget class="QLineEdit" name="reference_type_line_edit">
-          <property name="enabled">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-        <item row="11" column="1">
-         <widget class="QLineEdit" name="reference_value_line_edit">
+         <widget class="QLineEdit" name="data_object_id_line_edit">
           <property name="enabled">
            <bool>true</bool>
           </property>

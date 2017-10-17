@@ -54,29 +54,6 @@ _about_application_message_format = """\
 <span style=font-weight:600;>Product Name</span> : {pro_name}</p>
 """
 
-# command_value_attribute = ValueType(
-#     system_tag='BitmapType',
-#     basic_type='UInt32',
-#     size=4,
-#     special_data=command_bit_map
-# )  # Bitmap
-#
-# command_response_value_attribute = ValueType(
-#     system_tag='BitmapType',
-#     basic_type='UInt32',
-#     size=4,
-#     special_data=command_response_bit_map
-# )  # Bitmap
-#
-# setting_response_value_attribute = ValueType(
-#     system_tag='BitmapType',
-#     basic_type='UInt32',
-#     size=4,
-#     special_data=setting_response_bit_map
-# )
-#
-# one_allow_value_attribute = standard_value_attribute_dictionary['Bool']
-
 
 class MainWin(QMainWindow):
     update_datagram_info_display_signal = pyqtSignal(tuple, name='UpdateDatagramInfoDisplaySignal')
@@ -238,10 +215,8 @@ class MainWin(QMainWindow):
         pass
 
     def __set_reference_data_hidden_in_payload(self, state):
-        self.ui.reference_type_label.setHidden(state)
-        self.ui.reference_type_line_edit.setHidden(state)
-        self.ui.reference_value_label.setHidden(state)
-        self.ui.reference_value_line_edit.setHidden(state)
+        self.ui.data_object_id_label.setHidden(state)
+        self.ui.data_object_id_line_edit.setHidden(state)
         pass
 
     def __expand_datagram_index_to_topic_index(self):
@@ -367,8 +342,8 @@ class MainWin(QMainWindow):
         self.ui.time_stamp_s_line_edit.setText(str(getattr(payload, 'time_stamp_second')))
         self.ui.time_stamp_ms_line_edit.setText(str(getattr(payload, 'time_stamp_ms')))
         self.ui.device_index_line_edit.setText(str(getattr(payload, 'device_instance_index')))
-        self.ui.reference_type_line_edit.setText(str(getattr(payload, 'data_object_reference_type')))
-        self.ui.reference_value_line_edit.setText(str(getattr(payload, 'data_object_reference_value')))
+        # self.ui.reference_id_line_edit.setText(str(getattr(payload, 'data_object_reference_type')))
+        self.ui.data_object_id_line_edit.setText('0x{:0>16X}'.format(getattr(payload, 'data_object_id')))
         pass
 
     def __update_repeater_info_display(self, repeater_resource):
@@ -726,9 +701,7 @@ class MainWin(QMainWindow):
             self.__payload.device_instance_index = \
                 self.__get_package_value_from_text(self.ui.device_index_line_edit.text())
             self.__payload.data_object_reference_type = \
-                self.__get_package_value_from_text(self.ui.reference_type_line_edit.text())
-            self.__payload.data_object_reference_value = \
-                self.__get_package_value_from_text(self.ui.reference_value_line_edit.text())
+                self.__get_package_value_from_text(self.ui.data_object_id_line_edit.text())
             if self.__datagram_manager.send_package_by_payload(payload=self.__payload,
                                                                topic=self.ui.topic_line_edit.text()):
                 _dg = self.__datagram_manager.get_datagram(self.__payload.hash_id)

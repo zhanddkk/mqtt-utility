@@ -243,15 +243,16 @@ class DatagramManager:
                             print('WARNING:', 'Input topic and defined topic in datagram do not match. Input =',
                                   topic + ',', 'Defined = ', topic_tmp)
         if retain is None:
-            retain = True
-            if dg.attribute.type == 'Command':
-                if payload.action == _E_DATAGRAM_ACTION_PUBLISH or payload.action == _E_DATAGRAM_ACTION_RESPONSE:
-                    retain = False
-            elif dg.attribute.type == 'Setting':
-                if payload.action == _E_DATAGRAM_ACTION_REQUEST or payload.action == _E_DATAGRAM_ACTION_RESPONSE:
-                    retain = False
+            # if dg.attribute.type == 'Command':
+            #     if payload.action == _E_DATAGRAM_ACTION_PUBLISH or payload.action == _E_DATAGRAM_ACTION_RESPONSE:
+            #         retain = False
+            # elif dg.attribute.type == 'Setting':
+            #     if payload.action == _E_DATAGRAM_ACTION_REQUEST or payload.action == _E_DATAGRAM_ACTION_RESPONSE:
+            #         retain = False
+            if payload.action == _E_DATAGRAM_ACTION_REQUEST or payload.action == _E_DATAGRAM_ACTION_RESPONSE:
+                retain = False
             else:
-                pass
+                retain = dg.attribute.is_retain
         if self.__datagram_access_client.publish(payload.get_package(), topic, qos, retain) is True:
             if dg is not None:
                 if dg.set_device_data_value_by_payload(payload) is False:

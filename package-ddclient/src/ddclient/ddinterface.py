@@ -544,6 +544,44 @@ class DataDictionaryInterfaceV0:
         pass
 
     @staticmethod
+    def parse_is_none_volatile(data_dictionary_item, data_dictionary_item_source):
+        tmp_str = data_dictionary_item_source.IsNoneVolatile[0].upper()
+        if tmp_str == "NO":
+            data_dictionary_item.is_none_volatile = False
+            return True
+        elif tmp_str == "YES":
+            data_dictionary_item.is_none_volatile = True
+            return True
+        else:
+            if data_dictionary_item.type == 'Setting':
+                data_dictionary_item.is_none_volatile = True
+            else:
+                data_dictionary_item.is_none_volatile = False
+            print('WAINING:', 'IsNoneVolatile value info [' + tmp_str + '] is error, so automatically set it as',
+                  data_dictionary_item.is_none_volatile)
+            return True
+        pass
+
+    @staticmethod
+    def parse_is_retain(data_dictionary_item, data_dictionary_item_source):
+        tmp_str = data_dictionary_item_source.IsRetain[0].upper()
+        if tmp_str == "NO":
+            data_dictionary_item.is_retain = False
+            return True
+        elif tmp_str == "YES":
+            data_dictionary_item.is_retain = True
+            return True
+        else:
+            if data_dictionary_item.type == 'Command':
+                data_dictionary_item.is_retain = False
+            else:
+                data_dictionary_item.is_retain = True
+            print('WAINING:', 'IsRetain value info [' + tmp_str + '] is error, so automatically set it as',
+                  data_dictionary_item.is_retain)
+            return True
+        pass
+
+    @staticmethod
     def parse_producer(data_dictionary_item, data_dictionary_item_source):
         data_dictionary_item.producer = []
         for item in getattr(data_dictionary_item_source.Producer, '_fields'):
@@ -585,6 +623,10 @@ class DataDictionaryInterfaceV0:
         if self.parse_is_alarm(data_dictionary_item, data_dictionary_item_source) is False:
             return None
         if self.parse_is_evt_log(data_dictionary_item, data_dictionary_item_source) is False:
+            return None
+        if self.parse_is_none_volatile(data_dictionary_item, data_dictionary_item_source) is False:
+            return None
+        if self.parse_is_retain(data_dictionary_item, data_dictionary_item_source) is False:
             return None
         data_dictionary_item.cmd_time_out = self.convert(data_dictionary_item_source.CmdTimeOut[0], 'UInt32')
         if self.parse_producer(data_dictionary_item, data_dictionary_item_source) is False:

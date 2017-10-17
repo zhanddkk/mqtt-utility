@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'UiMainWin.ui'
 #
-# Created by: PyQt5 UI code generator 5.8.1
+# Created by: PyQt5 UI code generator 5.9
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -222,9 +222,9 @@ class Ui_MainWindow(object):
         self.gridLayout_5.setContentsMargins(-1, 4, 4, -1)
         self.gridLayout_5.setSpacing(2)
         self.gridLayout_5.setObjectName("gridLayout_5")
-        self.reference_type_label = QtWidgets.QLabel(self.groupBox)
-        self.reference_type_label.setObjectName("reference_type_label")
-        self.gridLayout_5.addWidget(self.reference_type_label, 10, 0, 1, 1)
+        self.data_object_id_label = QtWidgets.QLabel(self.groupBox)
+        self.data_object_id_label.setObjectName("data_object_id_label")
+        self.gridLayout_5.addWidget(self.data_object_id_label, 10, 0, 1, 1)
         self.label_5 = QtWidgets.QLabel(self.groupBox)
         self.label_5.setObjectName("label_5")
         self.gridLayout_5.addWidget(self.label_5, 0, 0, 1, 1)
@@ -263,9 +263,6 @@ class Ui_MainWindow(object):
         self.payload_type_combo_box.setInsertPolicy(QtWidgets.QComboBox.NoInsert)
         self.payload_type_combo_box.setObjectName("payload_type_combo_box")
         self.gridLayout_5.addWidget(self.payload_type_combo_box, 0, 1, 1, 1)
-        self.reference_value_label = QtWidgets.QLabel(self.groupBox)
-        self.reference_value_label.setObjectName("reference_value_label")
-        self.gridLayout_5.addWidget(self.reference_value_label, 11, 0, 1, 1)
         self.label_9 = QtWidgets.QLabel(self.groupBox)
         self.label_9.setObjectName("label_9")
         self.gridLayout_5.addWidget(self.label_9, 4, 0, 1, 1)
@@ -288,14 +285,10 @@ class Ui_MainWindow(object):
         self.device_index_line_edit.setEnabled(False)
         self.device_index_line_edit.setObjectName("device_index_line_edit")
         self.gridLayout_5.addWidget(self.device_index_line_edit, 7, 1, 1, 1)
-        self.reference_type_line_edit = QtWidgets.QLineEdit(self.groupBox)
-        self.reference_type_line_edit.setEnabled(True)
-        self.reference_type_line_edit.setObjectName("reference_type_line_edit")
-        self.gridLayout_5.addWidget(self.reference_type_line_edit, 10, 1, 1, 1)
-        self.reference_value_line_edit = QtWidgets.QLineEdit(self.groupBox)
-        self.reference_value_line_edit.setEnabled(True)
-        self.reference_value_line_edit.setObjectName("reference_value_line_edit")
-        self.gridLayout_5.addWidget(self.reference_value_line_edit, 11, 1, 1, 1)
+        self.data_object_id_line_edit = QtWidgets.QLineEdit(self.groupBox)
+        self.data_object_id_line_edit.setEnabled(True)
+        self.data_object_id_line_edit.setObjectName("data_object_id_line_edit")
+        self.gridLayout_5.addWidget(self.data_object_id_line_edit, 10, 1, 1, 1)
         self.gridLayout_6.addWidget(self.groupBox, 3, 0, 1, 2)
         self.publish_push_button = QtWidgets.QPushButton(self.dockWidgetContents_8)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
@@ -409,7 +402,7 @@ class Ui_MainWindow(object):
         self.data_history_dock_widget.setWindowTitle(_translate("MainWindow", "Data History"))
         self.payload_dock_widget.setWindowTitle(_translate("MainWindow", "Payload"))
         self.groupBox.setTitle(_translate("MainWindow", "Payload Package"))
-        self.reference_type_label.setText(_translate("MainWindow", "     |->Reference Type:"))
+        self.data_object_id_label.setText(_translate("MainWindow", "     |->ID:"))
         self.label_5.setText(_translate("MainWindow", "Payload Type:"))
         self.label_6.setText(_translate("MainWindow", "Payload Version:"))
         self.label_8.setText(_translate("MainWindow", "Producer Mask:"))
@@ -417,7 +410,6 @@ class Ui_MainWindow(object):
         self.label_12.setText(_translate("MainWindow", "Device Index:"))
         self.label_10.setText(_translate("MainWindow", "Time Stamp(s):"))
         self.label_7.setText(_translate("MainWindow", "Hash ID:"))
-        self.reference_value_label.setText(_translate("MainWindow", "     |->Reference Value:"))
         self.label_9.setText(_translate("MainWindow", "Action:"))
         self.enable_data_object_check_box.setText(_translate("MainWindow", "Enable Data Object"))
         self.publish_push_button.setText(_translate("MainWindow", "Publish"))

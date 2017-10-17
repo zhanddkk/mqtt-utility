@@ -44,8 +44,7 @@ E_ACTION = 4
 E_TIMESTAMP_SECOND = 5
 E_TIMESTAMP_MS = 6
 E_DEVICE_INSTANCE_INDEX = 7
-E_DATA_OBJECT_REFERENCE_TYPE = 8
-E_DATA_OBJECT_REFERENCE_VALUE = 9
+E_DATA_OBJECT_ID = 8
 E_VALUE = 10
 # ----Package Item Info----
 
@@ -75,10 +74,8 @@ payload_package_info = {
                                                     choice_list=None),
     E_DEVICE_INSTANCE_INDEX: payload_package_info_item_class(type='UInt16',
                                                              choice_list=None),
-    E_DATA_OBJECT_REFERENCE_TYPE: payload_package_info_item_class(type='UInt16',
-                                                                  choice_list=None),
-    E_DATA_OBJECT_REFERENCE_VALUE: payload_package_info_item_class(type='UInt16',
-                                                                   choice_list=None)
+    E_DATA_OBJECT_ID: payload_package_info_item_class(type='UInt64',
+                                                      choice_list=None),
 }
 
 datagram_payload_data_class = named_list('DatagramPayloadData',
@@ -90,8 +87,7 @@ datagram_payload_data_class = named_list('DatagramPayloadData',
                                          'time_stamp_second,'
                                          'time_stamp_ms,'
                                          'device_instance_index,'   # Start from 1, not 0
-                                         'data_object_reference_type,'
-                                         'data_object_reference_value,'
+                                         'data_object_id,'
                                          'value')
 
 
@@ -107,8 +103,7 @@ class DatagramPayload(datagram_payload_data_class):
                                               time_stamp_second=0xffffffff,
                                               time_stamp_ms=0xffff,
                                               device_instance_index=device_instance_index,
-                                              data_object_reference_type=0,
-                                              data_object_reference_value=0,
+                                              data_object_id=0,
                                               value=value)
         pass
 
@@ -131,21 +126,20 @@ class DatagramPayload(datagram_payload_data_class):
             return \
                 "E_PAYLOAD_TYPE                :" + str(self.payload_type) + '\n' + \
                 "E_PAYLOAD_VERSION             :" + str(self.payload_version) + '\n' + \
-                "E_HASH_ID                     :" + '0x{value:0>8X}'.format(value=self.hash_id) + '\n' + \
+                "E_HASH_ID                     :0x{value:0>8X}".format(value=self.hash_id) + '\n' + \
                 "E_PRODUCER_MASK               :" + _producer_text + '\n' + \
                 "E_ACTION                      :" + _action_text + '\n' + \
                 "E_TIMESTAMP_SECOND            :" + str(self.time_stamp_second) + '\n' + \
                 "E_TIMESTAMP_MS                :" + str(self.time_stamp_ms) + '\n' + \
                 "E_DEVICE_INSTANCE_INDEX       :" + str(self.device_instance_index) + '\n' + \
-                "E_DATA_OBJECT_REFERENCE_TYPE  :" + str(self.data_object_reference_type) + '\n' + \
-                "E_DATA_OBJECT_REFERENCE_VALUE :" + str(self.data_object_reference_value) + '\n' + \
+                "E_DATA_OBJECT_ID              :0x{:0>16X}".format(self.data_object_id) + '\n' + \
                 "E_VALUE                       :" + str(self.value)
             pass
         else:
             return \
                 "E_PAYLOAD_TYPE                :" + str(self.payload_type) + '\n' + \
                 "E_PAYLOAD_VERSION             :" + str(self.payload_version) + '\n' + \
-                "E_HASH_ID                     :" + '0x{:0>8X}'.format(self.hash_id) + '\n' + \
+                "E_HASH_ID                     :0x{:0>8X}".format(self.hash_id) + '\n' + \
                 "E_PRODUCER_MASK               :" + _producer_text + '\n' + \
                 "E_ACTION                      :" + _action_text + '\n' + \
                 "E_TIMESTAMP_SECOND            :" + str(self.time_stamp_second) + '\n' + \
@@ -169,8 +163,7 @@ class DatagramPayload(datagram_payload_data_class):
                 E_TIMESTAMP_SECOND: self.time_stamp_second,
                 E_TIMESTAMP_MS: self.time_stamp_ms,
                 E_DEVICE_INSTANCE_INDEX: self.device_instance_index,
-                E_DATA_OBJECT_REFERENCE_TYPE: self.data_object_reference_type,
-                E_DATA_OBJECT_REFERENCE_VALUE: self.data_object_reference_value,
+                E_DATA_OBJECT_ID: self.data_object_reference_type,
                 E_VALUE: self.value
             }
         else:
@@ -197,9 +190,8 @@ class DatagramPayload(datagram_payload_data_class):
             setattr(self, 'time_stamp_second', package[E_TIMESTAMP_SECOND])
             setattr(self, 'time_stamp_ms', package[E_TIMESTAMP_MS])
             setattr(self, 'device_instance_index', package[E_DEVICE_INSTANCE_INDEX])
-            if (E_DATA_OBJECT_REFERENCE_TYPE in package) or (E_DATA_OBJECT_REFERENCE_VALUE in package):
-                setattr(self, 'data_object_reference_type', package[E_DATA_OBJECT_REFERENCE_TYPE])
-                setattr(self, 'data_object_reference_value', package[E_DATA_OBJECT_REFERENCE_VALUE])
+            if (E_DATA_OBJECT_ID in package) or (E_DATA_OBJECT_ID in package):
+                setattr(self, 'data_object_id', package[E_DATA_OBJECT_ID])
                 self.is_object_reference_package = True
             else:
                 self.is_object_reference_package = False

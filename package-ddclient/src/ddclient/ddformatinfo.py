@@ -19,6 +19,8 @@ class DataDictionaryFormatInfoV0:
         'Precision',
         'IsAlarm',
         'IsEvtLog',
+        'IsNoneVolatile',
+        'IsRetain',
         'CmdTimeOut',
         'Producer',
         'Consumer',
@@ -38,7 +40,7 @@ class DataDictionaryFormatInfoV0:
         consumer = self.__consumer_class(['No'], ['No'], ['No'], ['No'], ['No'])
         attribute_text = self.__attribute_class(
             [''], [''], [''], [''], ['NO_DEFINE'], ['GENERAL'], ['32BUS'], ['1'], [''], [''], [''], [''],
-            ['Sec'], [''], ['No'], ['Yes'], [''], producer, consumer,
+            ['Sec'], [''], ['No'], ['Yes'], ['No'], ['No'], [''], producer, consumer,
             ['0xFFFFFFFF']
         )
         return attribute_text

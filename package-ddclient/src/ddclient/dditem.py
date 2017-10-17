@@ -16,6 +16,8 @@ data_dictionary_item_attribute_names = (
     'precision',
     'is_alarm',                 # Bool Type
     'is_event_log',             # Bool Type
+    'is_none_volatile',         # Bool Type
+    'is_retain',                # Bool Type
     'cmd_time_out',
     'producer',                 # List Type, list all the name of producers
     'consumer',                 # List Type, list all the name of consumers
