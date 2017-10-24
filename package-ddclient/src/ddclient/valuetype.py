@@ -17,7 +17,7 @@ class ValueType(object):
         'BitmapType': 'Bitmap'
     }
     _system_tags = tuple(_type_names_dict.keys())
-    _basic_types = ('Bool', 'Int8', 'UInt8', 'Int16', 'UInt16', 'Int32', 'UInt32', 'Float')
+    _basic_types = ('Bool', 'Int8', 'UInt8', 'Int16', 'UInt16', 'Int32', 'UInt32', 'Float', 'UInt64')
 
     @property
     def fields(self):
@@ -192,6 +192,7 @@ class ValueType(object):
 
     pass
 
+
 bool_attribute = ValueType(system_tag='BasicType',
                            basic_type='Bool',
                            size=1,
@@ -237,6 +238,11 @@ string_attribute = ValueType(system_tag='StringType',
                              size=None,
                              special_data=None)
 
+u_int64_attribute = ValueType(system_tag='BasicType',
+                              basic_type='UInt64',
+                              size=8,
+                              special_data=c_uint64)
+
 standard_value_attribute_dictionary = {
     'Bool': bool_attribute,
     'Int8': int8_attribute,
@@ -246,7 +252,8 @@ standard_value_attribute_dictionary = {
     'UInt16': u_int16_attribute,
     'UInt32': u_int32_attribute,
     'Float': float_attribute,
-    'String': string_attribute
+    'String': string_attribute,
+    'UInt64': u_int64_attribute
 }
 
 

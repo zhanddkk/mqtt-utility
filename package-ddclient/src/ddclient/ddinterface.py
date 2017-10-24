@@ -21,6 +21,7 @@ basic_type_name_map = {
     'uint8_t': 'UInt8',
     'uint16_t': 'UInt16',
     'uint32_t': 'UInt32',
+    'uint64_t': 'UInt64',
 
     'BOOL': 'Bool',
     '8BS': 'Int8',
@@ -30,6 +31,7 @@ basic_type_name_map = {
     '32BS': 'Int32',
     '32BUS': 'UInt32',
     '32BFL': 'Float',
+    '64BUS': 'UInt64',
 }
 
 special_basic_type_name_map = {
@@ -557,8 +559,9 @@ class DataDictionaryInterfaceV0:
                 data_dictionary_item.is_none_volatile = True
             else:
                 data_dictionary_item.is_none_volatile = False
-            print('WAINING:', 'IsNoneVolatile value info [' + tmp_str + '] is error, so automatically set it as',
-                  data_dictionary_item.is_none_volatile)
+            if tmp_str.strip() != "":
+                print('WAINING:', 'IsNoneVolatile value info [' + tmp_str + '] is error, so automatically set it as',
+                      data_dictionary_item.is_none_volatile)
             return True
         pass
 
@@ -576,8 +579,9 @@ class DataDictionaryInterfaceV0:
                 data_dictionary_item.is_retain = False
             else:
                 data_dictionary_item.is_retain = True
-            print('WAINING:', 'IsRetain value info [' + tmp_str + '] is error, so automatically set it as',
-                  data_dictionary_item.is_retain)
+            if tmp_str.strip() != "":
+                print('WAINING:', 'IsRetain value info [' + tmp_str + '] is error, so automatically set it as',
+                      data_dictionary_item.is_retain)
             return True
         pass
 
