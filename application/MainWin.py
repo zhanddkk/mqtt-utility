@@ -700,7 +700,7 @@ class MainWin(QMainWindow):
             self.__payload.time_stamp_ms = self.__get_package_value_from_text(self.ui.time_stamp_ms_line_edit.text())
             self.__payload.device_instance_index = \
                 self.__get_package_value_from_text(self.ui.device_index_line_edit.text())
-            self.__payload.data_object_reference_type = \
+            self.__payload.data_object_id = \
                 self.__get_package_value_from_text(self.ui.data_object_id_line_edit.text())
             if self.__datagram_manager.send_package_by_payload(payload=self.__payload,
                                                                topic=self.ui.topic_line_edit.text()):

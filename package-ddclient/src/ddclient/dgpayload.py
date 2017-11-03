@@ -163,7 +163,8 @@ class DatagramPayload(datagram_payload_data_class):
                 E_TIMESTAMP_SECOND: self.time_stamp_second,
                 E_TIMESTAMP_MS: self.time_stamp_ms,
                 E_DEVICE_INSTANCE_INDEX: self.device_instance_index,
-                E_DATA_OBJECT_ID: self.data_object_reference_type,
+                E_DATA_OBJECT_ID: self.data_object_id >> 32,
+                E_DATA_OBJECT_ID + 1: self.data_object_id & 0xffffffff,
                 E_VALUE: self.value
             }
         else:
@@ -181,6 +182,7 @@ class DatagramPayload(datagram_payload_data_class):
         pass
 
     def set_package(self, package):
+        # print(package)
         try:
             setattr(self, 'payload_type', package[E_PAYLOAD_TYPE])
             setattr(self, 'payload_version', package[E_PAYLOAD_VERSION])
@@ -190,8 +192,9 @@ class DatagramPayload(datagram_payload_data_class):
             setattr(self, 'time_stamp_second', package[E_TIMESTAMP_SECOND])
             setattr(self, 'time_stamp_ms', package[E_TIMESTAMP_MS])
             setattr(self, 'device_instance_index', package[E_DEVICE_INSTANCE_INDEX])
-            if (E_DATA_OBJECT_ID in package) or (E_DATA_OBJECT_ID in package):
-                setattr(self, 'data_object_id', package[E_DATA_OBJECT_ID])
+            if ((E_DATA_OBJECT_ID + 1)in package) and (E_DATA_OBJECT_ID in package):
+                _tmp = (package[E_DATA_OBJECT_ID] << 32) + package[E_DATA_OBJECT_ID + 1]
+                setattr(self, 'data_object_id', _tmp)
                 self.is_object_reference_package = True
             else:
                 self.is_object_reference_package = False

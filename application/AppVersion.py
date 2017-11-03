@@ -1,4 +1,4 @@
-"""0.11.0"""
+"""0.11.1"""
 # 0.9.1:
 # Fix a bug for selection box of enum datagram and producer mask
 
@@ -8,3 +8,6 @@
 
 # 0.11.0
 # Update UI of payload editor(Support data object id field for data gram payload)
+
+# 0.11.1
+# Update ddclient to 0.8.2
