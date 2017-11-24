@@ -11,3 +11,6 @@
 
 # 0.11.1
 # Update ddclient to 0.8.2
+
+# 0.11.2
+# Update ddclient to 0.8.3
