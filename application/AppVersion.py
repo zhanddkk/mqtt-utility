@@ -1,4 +1,4 @@
-"""0.11.1"""
+"""0.11.2"""
 # 0.9.1:
 # Fix a bug for selection box of enum datagram and producer mask
 
@@ -11,3 +11,6 @@
 
 # 0.11.1
 # Update ddclient to 0.8.2
+
+# 0.11.2
+# Update ddclient to 0.8.3

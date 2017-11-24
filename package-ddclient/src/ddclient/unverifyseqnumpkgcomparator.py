@@ -24,6 +24,9 @@ class UnVerifySeqNumPackageComparator(PackageComparator):
             _payload0.value = self.__cmd_bit_map_parser.encode(cmd_code=command_value.cmd_code.value,
                                                                sequence=0,
                                                                producer=command_value.producer.value)
+        _payload0.time_stamp_second = 0
+        _payload0.time_stamp_ms = 0
+
         _payload1 = DatagramPayload()
         _payload1.set_package(pkg1)
         if isinstance(_payload1.value, int):
@@ -31,6 +34,9 @@ class UnVerifySeqNumPackageComparator(PackageComparator):
             _payload1.value = self.__cmd_bit_map_parser.encode(cmd_code=command_value.cmd_code.value,
                                                                sequence=0,
                                                                producer=command_value.producer.value)
+        _payload1.time_stamp_second = 0
+        _payload1.time_stamp_ms = 0
+
         return _payload0.package == _payload1.package
         pass
 

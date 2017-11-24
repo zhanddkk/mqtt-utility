@@ -1,4 +1,4 @@
-__version__ = "0.8.2"
+__version__ = "0.8.3"
 # 0.7.0
 # Support allow bit feature for setting datagram
 
@@ -13,3 +13,6 @@ __version__ = "0.8.2"
 
 # 0.8.2
 # Send E_DATA_OBJECT_ID in payload as two uint32 data
+
+# 0.8.3
+# skip time stamp compare when compare payload
