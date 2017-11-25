@@ -1,4 +1,4 @@
-__version__ = "0.8.3"
+__version__ = "0.8.4"
 # 0.7.0
 # Support allow bit feature for setting datagram
 
@@ -16,3 +16,6 @@ __version__ = "0.8.3"
 
 # 0.8.3
 # skip time stamp compare when compare payload
+
+# 0.8.4
+# add clear time stamp in payload compare
