@@ -17,3 +17,6 @@
 
 # 0.11.3
 # Update ddclient to 0.8.4
+
+# 0.11.4
+# Update PyQt5 lib
