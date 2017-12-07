@@ -11,7 +11,7 @@ if platform.system() == 'Windows':
     _build_exe_args = (
         '--clean',
         '--i', "application/ico/MainWindowIcon.ico",
-        '--paths', "{}/Lib/site-packages/PyQt5/Qt/bin".format(_py_executable_path),
+        # '--paths', "{}/Lib/site-packages/PyQt5/Qt/bin".format(_py_executable_path),
         '--paths', "package-ddclient/src",
         '-n', 'application',
         '-y',

@@ -1,4 +1,4 @@
-"""0.11.3"""
+"""0.11.4"""
 # 0.9.1:
 # Fix a bug for selection box of enum datagram and producer mask
 
@@ -17,3 +17,6 @@
 
 # 0.11.3
 # Update ddclient to 0.8.4
+
+# 0.11.4
+# Update PyQt5 lib
