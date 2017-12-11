@@ -17,9 +17,11 @@ class LogWin(QMainWindow):
         self.ui.setupUi(self)
         self.ui.actionClear.triggered.connect(self.clear_action)
         self.__configuration = config_data
+        self.__log_length = 0
 
     def clear_action(self):
         self.ui.log_plain_text_edit.clear()
+        self.__log_length = 0
         pass
 
     def update_log_display(self, message, date_time):
@@ -33,6 +35,9 @@ class LogWin(QMainWindow):
             topic=message.topic,
             payload='☟\n  |->' + str(message.payload).replace('\n', '\n  |->')
             if message.is_valid else message.payload)
+        if self.__log_length > 0xffff:
+            self.clear_action()
+        self.__log_length += 1
         self.ui.log_plain_text_edit.appendPlainText(log_text)
         pass
 
