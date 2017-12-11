@@ -1,4 +1,4 @@
-"""0.11.4"""
+"""0.11.5"""
 # 0.9.1:
 # Fix a bug for selection box of enum datagram and producer mask
 
@@ -20,3 +20,6 @@
 
 # 0.11.4
 # Update PyQt5 lib
+
+# 0.11.5
+# Auto clean logs if the length of log more then 65535
