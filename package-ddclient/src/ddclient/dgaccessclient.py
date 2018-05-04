@@ -10,7 +10,14 @@ class DatagramAccessClient:
         self.__name = client_name
         self.__client_id = 'Simulator_{name}_{_uuid}'.format(name=self.__name, _uuid=self.__id)
 
+        self.__user_password = {
+            "Simulator1": "3279",
+            "Simulator2": "be95",
+            "Simulator3": "98d7",
+            "Simulator4": "9f02",
+        }
         self.__instance = datagram_client.Client(self.__client_id, userdata=datagram_manager)
+        self.__instance.username_pw_set(username='Simulator2', password='be95')
         self.__instance.on_message = self.__on_message
         self.__instance.on_connect = self.__on_connect
         self.__instance.on_publish = self.__on_publish
