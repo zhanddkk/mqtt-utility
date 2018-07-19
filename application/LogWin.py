@@ -28,17 +28,23 @@ class LogWin(QMainWindow):
         if self.ui.actionFilter.isChecked():
             if message.is_valid and message.payload.hash_id in self.__configuration.log_filter_hash_id_list:
                 return
-        log_text = _log_text_format.format(
-            time=date_time.strftime("%Y-%m-%d %H:%M:%S"),
-            qos=message.qos,
-            retain=message.retain,
-            topic=message.topic,
-            payload='☟\n  |->' + str(message.payload).replace('\n', '\n  |->')
-            if message.is_valid else message.payload)
-        if self.__log_length > 0xffff:
-            self.clear_action()
-        self.__log_length += 1
-        self.ui.log_plain_text_edit.appendPlainText(log_text)
+
+        if self.isVisible():
+            log_text = _log_text_format.format(
+                time=date_time.strftime("%Y-%m-%d %H:%M:%S"),
+                qos=message.qos,
+                retain=message.retain,
+                topic=message.topic,
+                payload='☟\n  |->' + str(message.payload).replace('\n', '\n  |->')
+                if message.is_valid else message.payload)
+            if self.__log_length > 0xffff:
+                self.clear_action()
+            self.__log_length += 1
+            self.ui.log_plain_text_edit.appendPlainText(log_text)
+            pass
+        else:
+            # Drop this message
+            pass
         pass
 
     pass

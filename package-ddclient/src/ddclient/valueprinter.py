@@ -39,7 +39,11 @@ class ValuePrinter:
 
     @staticmethod
     def __print_basic_type_value(value, name, deep):
-        _value_text = '{name:<10s}: {value}'.format(name=name, value=value)
+        if isinstance(value, int):
+            _value_text = '{name:<10s}: 0x{value:X}({value})'.format(name=name, value=value)
+            pass
+        else:
+            _value_text = '{name:<10s}: {value}'.format(name=name, value=value)
         _item = DisplayItemLine(deep=deep, value=_value_text)
         return _item
         pass
@@ -48,7 +52,9 @@ class ValuePrinter:
     def __print_enum_type_value(value, name, value_type, deep):
         for _key, _data in value_type.special_data.items():
             if _data.value == value:
-                _value_text = '{name:<10s}: {value}({key_name})'.format(name=name, value=_data.value, key_name=_key)
+                _value_text = '{name:<10s}: 0x{value:X}[{key_name}({value})]'.format(name=name,
+                                                                                     value=_data.value,
+                                                                                     key_name=_key)
                 _item = DisplayItemLine(deep=deep, value=_value_text)
                 return _item
         # No enum name

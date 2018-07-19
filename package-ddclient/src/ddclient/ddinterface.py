@@ -439,6 +439,16 @@ class DataDictionaryInterfaceV0:
                         pass
                     default_value.append(val)
                     pass
+                elif data.system_tag == 'StringType':
+                    if key in default_value_dict:
+                        default_value.append('{}'.format(default_value_dict[key]))
+                        pass
+                    else:
+                        print('WARNING:', 'Item', key, data,
+                              'not defines the default value, so automatically set it as', '\'\'')
+                        default_value.append('')
+                        pass
+                    pass
                 else:
                     print('ERROR:', 'Structure can only support basic type but not', data.system_tag)
                     return False

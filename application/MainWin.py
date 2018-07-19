@@ -198,6 +198,7 @@ class MainWin(QMainWindow):
         self.ui.menuView.addSeparator()
         self.ui.menuView.addAction(self.ui.data_history_dock_widget.toggleViewAction())
         self.ui.menuView.addSeparator()
+        self.ui.log_dock_widget.setVisible(False)
         self.ui.menuView.addAction(self.ui.log_dock_widget.toggleViewAction())
         self.ui.menuView.addSeparator()
         self.ui.menuView.addAction(self.ui.mesg_browser_dock_widget.toggleViewAction())
