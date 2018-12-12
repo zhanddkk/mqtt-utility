@@ -63,63 +63,70 @@ class DataDictionaryInterfaceV0:
 
     @staticmethod
     def convert(str_num, to_type=None):
-        num = None
-        if to_type is not None:
-            if to_type in getattr(ValueType, '_basic_types'):
-                c_type = standard_value_attribute_dictionary[to_type].special_data
-                if to_type != 'Float':
-                    if str_num.isdigit():
-                        try:
-                            num = int(str_num, base=10)
-                            num = c_type(num).value
-                        except ValueError:
-                            pass
+        # _log = 'ERROR: input value({}) and the value type({}) are not match'.format(str_num, to_type)
+        if isinstance(str_num, str):
+            str_num = str_num.upper()
+            _type = None
+            _value = None
+            if to_type is None:
+                str_num = str_num.upper()
+                try:
+                    if str_num.find('.') >= 0:
+                        _value = float(str_num)
+                        pass
+                    elif str_num.startswith('0') and (str_num.find('X') == 1):
+                        _value = int(str_num, base=16)
+                        pass
                     else:
-                        str_num = str_num.upper()
-                        if str_num.find('X') == 1:
-                            try:
-                                num = int(str_num, base=16)
-                                num = c_type(num).value
-                            except ValueError:
-                                pass
-                        else:
-                            try:
-                                num = int(float(str_num))
-                                num = c_type(num).value
-                                print('WARNING:', 'Input value({}) and value type({}) are not match'.format(
-                                    str_num,
-                                    to_type))
-                            except ValueError:
-                                pass
-                            pass
+                        _value = int(str_num, base=10)
                         pass
-                else:
-                    try:
-                        num = float(str_num)
-                        num = c_type(num).value
-                    except ValueError:
-                        pass
+                    pass
+                except ValueError:
+                    # invalid value
+                    # print(_log)
                     pass
                 pass
             else:
+                if to_type in getattr(ValueType, '_basic_types'):
+                    _c_type = standard_value_attribute_dictionary[to_type].special_data
+                    if to_type == 'Float':
+                        try:
+                            _value = float(str_num)
+                            _value = _c_type(_value).value
+                            pass
+                        except ValueError:
+                            # invalid value
+                            # print(_log)
+                            pass
+                        pass
+                    else:
+                        try:
+                            if str_num.startswith('0') and (str_num.find('X') == 1):
+                                _value = int(str_num, base=16)
+                                pass
+                            elif str_num.find('.') >= 0:
+                                _value = int(float(str_num))
+                                print('WARNING:', 'Input value({}) and value type({}) are not match'.format(
+                                    str_num,
+                                    to_type))
+                            else:
+                                _value = int(str_num, base=10)
+                                pass
+                            pass
+                        except ValueError:
+                            # invalid value
+                            # print(_log)
+                            pass
+                        pass
+                    if _value is not None:
+                        _value = _c_type(_value).value
+                        pass
+                    pass
                 pass
-        else:
-            if str_num.isdigit():
-                num = int(str_num, base=10)
-            else:
-                str_num = str_num.upper()
-                if str_num.find('.') >= 0:
-                    try:
-                        num = float(str_num)
-                    except ValueError:
-                        pass
-                if str_num.find('X') == 1:
-                    try:
-                        num = int(str_num, base=16)
-                    except ValueError:
-                        pass
+            return _value
             pass
-        return num
+        else:
+            return None
         pass
 
     @staticmethod
@@ -312,11 +319,10 @@ class DataDictionaryInterfaceV0:
                 print('ERROR:', 'Measure type must be Float, but not', data_dictionary_item.value_type.basic_type)
                 return False
             else:
-                if _max_size > 3:
-                    print('ERROR:', 'Enum type datagram\'s max size must be less then 3 but it is',
-                          _max_size)
-                    return False
-                elif _max_size > 1:
+                if _max_size > 1:
+                    if _max_size > 3:
+                        print('WAINING:', 'Measure type datagram\'s max size shall be less then 3 but it is',
+                              _max_size)
                     _sub_type = data_dictionary_item.value_type
                     data_dictionary_item.value_type = ValueType(system_tag='ArrayType',
                                                                 basic_type=_sub_type.basic_type,

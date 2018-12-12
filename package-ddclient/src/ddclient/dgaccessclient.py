@@ -17,7 +17,7 @@ class DatagramAccessClient:
             "Simulator4": "9f02",
         }
         self.__instance = datagram_client.Client(self.__client_id, userdata=datagram_manager)
-        self.__instance.username_pw_set(username='Simulator2', password='be95')
+        self.__instance.username_pw_set(username='Simulator4', password='9f02')
         self.__instance.on_message = self.__on_message
         self.__instance.on_connect = self.__on_connect
         self.__instance.on_publish = self.__on_publish
@@ -57,8 +57,11 @@ class DatagramAccessClient:
 
     def start(self):
         try:
-            self.__instance.connect(self.__broker_ip, self.__broker_ip_port, 60)
-            self.__instance.reconnect()
+            if self.__is_running:
+                self.__instance.reconnect()
+                pass
+            else:
+                self.__instance.connect(self.__broker_ip, self.__broker_ip_port, 60)
             self.__instance.loop_start()
             return True
         except ConnectionRefusedError as exception:
